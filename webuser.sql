@@ -1,0 +1,10 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE `alignment_das_sources` (`from_system` varchar(200) DEFAULT ('') NOT NULL, `from_type` varchar(200) DEFAULT ('') NOT NULL, `to_system` varchar(200) DEFAULT ('') NOT NULL, `to_type` varchar(200) DEFAULT ('') NOT NULL, `server_id` varchar(40) DEFAULT ('') NOT NULL, `name` varchar(100) DEFAULT ('') NOT NULL, `url` varchar(200) DEFAULT ('') NOT NULL, `helper_url` varchar(200), PRIMARY KEY (`from_system`, `from_type`, `to_system`, `to_type`, `server_id`));
+CREATE TABLE `article_mapping` (`accession` varchar(7) NOT NULL, `title` text NOT NULL, PRIMARY KEY (`accession`, `title`));
+CREATE TABLE `feature_das_sources` (`server_id` varchar(40) DEFAULT ('') NOT NULL, `system` varchar(200) DEFAULT ('') NOT NULL, `sequence_type` varchar(200) DEFAULT ('') NOT NULL, `name` varchar(100) DEFAULT ('') NOT NULL, `url` varchar(200) DEFAULT ('') NOT NULL, `helper_url` varchar(200), `default_server` boolean DEFAULT (0) NOT NULL, PRIMARY KEY (`server_id`, `system`, `sequence_type`));
+CREATE TABLE `job_history` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `job_id` varchar(40) NOT NULL, `ebi_id` varchar(60), `status` varchar(5) DEFAULT ('') NOT NULL, `options` varchar(255) DEFAULT (''), `estimated_time` integer, `opened` timestamp DEFAULT ('1970-01-01 00:00:00.000000') NOT NULL, `closed` timestamp DEFAULT ('1970-01-01 00:00:00.000000') NOT NULL, `started` timestamp DEFAULT ('1970-01-01 00:00:00.000000') NOT NULL, `job_type` varchar(50) DEFAULT ('') NOT NULL, `email` varchar(255));
+CREATE TABLE `job_stream` (`id` bigint DEFAULT (0) NOT NULL, `stdin` text NOT NULL, `stdout` blob, `stderr` text, CHECK (`id` >= 0), PRIMARY KEY (`id`));
+CREATE TABLE `species_collection` (`job_id` varchar(40) NOT NULL, `id_list` text NOT NULL, PRIMARY KEY (`job_id`));
+CREATE TABLE `wikitext` (`title` text NOT NULL, `text` text, `approved_revision` bigint DEFAULT (0), CHECK (`approved_revision` >= 0), PRIMARY KEY (`title`));
+COMMIT;
