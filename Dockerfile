@@ -43,9 +43,12 @@ RUN mkdir /src
 WORKDIR /src
 
 # setup a local WebUser database
-RUN apt-get update && apt-get install -y sqlite3
 COPY webuser.sql .
-RUN sqlite3 webuser.db < /src/webuser.sql
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
+RUN /bin/bash -c "/usr/bin/mysqld_safe &" && \
+  sleep 5 && \
+  mysql -u root -e "CREATE DATABASE webuser" && \
+  mysql -u root webuser < /src/webuser.sql
 
 # get Rfam code from SVN
 RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/RfamWeb
