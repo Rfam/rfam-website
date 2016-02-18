@@ -42,14 +42,6 @@ RUN cpanm XML::Feed
 RUN mkdir /src
 WORKDIR /src
 
-# setup a local WebUser database
-COPY webuser.sql .
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
-RUN /bin/bash -c "/usr/bin/mysqld_safe &" && \
-  sleep 5 && \
-  mysql -u root -e "CREATE DATABASE webuser" && \
-  mysql -u root webuser < /src/webuser.sql
-
 # get Rfam code from SVN
 RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/RfamWeb
 RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamBase

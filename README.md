@@ -16,7 +16,7 @@ This might take a while when executed for the first time.
 ## Development
 
 ```
-docker run --name=rfamweb --rm -it -p 3000:3000 -v /local/path/to/config:/src/RfamWeb/config rfamweb
+docker-compose up
 ```
 
 The config files from the host will be accessible in the container and can be edited from the host. The Rfam site should be available at *http://your_container_ip:3000*.

@@ -1,3 +1,7 @@
+CREATE DATABASE webuser;
+
+USE webuser;
+
 CREATE TABLE `alignment_das_sources` (
   `from_system` varchar(200) NOT NULL DEFAULT '',
   `from_type` varchar(200) NOT NULL DEFAULT '',
