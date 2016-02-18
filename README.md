@@ -5,14 +5,6 @@ Get a local installation of Rfam website using [Docker](https://www.docker.com/)
 * data is loaded from the public Rfam MySQL database
 * code is installed from the public Rfam SVN repository
 
-## Building Docker container
-
-```
-docker build -t rfamweb .
-```
-
-This might take a while when executed for the first time.
-
 ## Development
 
 ```
@@ -29,6 +21,9 @@ docker-machine create --driver virtualbox default
 
 # connect terminal to the docker machine
 eval "$(docker-machine env default)"
+
+# build container
+docker build -t rfamweb .
 
 # get container IP address
 docker-machine ls
