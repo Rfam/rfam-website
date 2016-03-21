@@ -37,6 +37,9 @@ RUN cpanm Search::QueryParser
 RUN cpanm --verbose Template::Plugin::Number::Format
 RUN cpanm Term::Size::Any
 RUN cpanm XML::Feed
+RUN cpanm DBIx::Class::Result::ColumnData
+RUN cpanm SQL::Translator
+RUN cpanm MooseX::ClassAttribute
 
 # create a symbolic link for shared static files
 RUN ln -s /src/PfamBase/root/static /src/RfamWeb/root/shared
