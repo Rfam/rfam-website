@@ -8,6 +8,18 @@ Get a local installation of Rfam website using [Docker](https://www.docker.com/)
 ## Development
 
 ```
+# checkout source code
+svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/RfamWeb
+svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamBase
+svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamLib
+svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamSchemata
+svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamScripts
+svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/Rfam
+
+# specify source code location
+export $RFAM_CODE=/path/to/source/code
+
+# start docker
 docker-compose up
 ```
 

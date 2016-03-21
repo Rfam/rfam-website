@@ -38,17 +38,6 @@ RUN cpanm --verbose Template::Plugin::Number::Format
 RUN cpanm Term::Size::Any
 RUN cpanm XML::Feed
 
-# setup working directory
-RUN mkdir /src
-WORKDIR /src
-
-# get Rfam code from SVN
-RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/RfamWeb
-RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamBase
-RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamLib
-RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamSchemata
-RUN cachebuster=checkout1 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/Rfam
-
 # create a symbolic link for shared static files
 RUN ln -s /src/PfamBase/root/static /src/RfamWeb/root/shared
 
