@@ -50,6 +50,15 @@ docker stop rfamweb
 docker exec -it rfamweb bash
 ```
 
+## Testing wiki updates
+
+```
+# login to running container
+perl PfamScripts/wiki/sync_articles_cron.pl -c RfamWeb/config/wiki.conf
+perl PfamScripts/wiki/update_cron.pl        -c RfamWeb/config/wiki.conf
+perl PfamScripts/wiki/scrape_cron.pl        -c RfamWeb/config/wiki.conf
+```
+
 ## To do
 
 * get Rfam code from GitHub instead of SVN
