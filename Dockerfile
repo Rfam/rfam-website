@@ -52,6 +52,7 @@ ENV PERL5LIB=/src/RfamWeb\
 :/src/PfamSchemata
 
 ENV RFAMWEB_CONFIG=/src/RfamWeb/config/rfamweb.conf
+ENV DBIC_TRACE=1
 
 EXPOSE 3000
 
