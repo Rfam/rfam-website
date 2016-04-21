@@ -41,9 +41,6 @@ RUN cpanm DBIx::Class::Result::ColumnData
 RUN cpanm SQL::Translator
 RUN cpanm MooseX::ClassAttribute
 
-# create a symbolic link for shared static files
-RUN ln -s /src/PfamBase/root/static /src/RfamWeb/root/shared
-
 # setup environment variables
 ENV PERL5LIB=/src/RfamWeb\
 :/src/Rfam/Schemata\

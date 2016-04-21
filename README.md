@@ -19,6 +19,9 @@ svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/Rfam
 # specify source code location
 export $RFAM_CODE=/path/to/source/code
 
+# create a symbolic link for shared static files
+ln -s /$RFAM_CODE/PfamBase/root/static /$RFAM_CODE/RfamWeb/root/shared
+
 # start docker
 docker-compose up
 ```
