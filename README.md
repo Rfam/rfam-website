@@ -17,7 +17,7 @@ svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamScripts
 svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/Rfam
 
 # specify source code location
-export $RFAM_CODE=/path/to/source/code
+export RFAM_CODE=/path/to/source/code
 
 # create a symbolic link for shared static files
 ln -s /$RFAM_CODE/PfamBase/root/static /$RFAM_CODE/RfamWeb/root/shared
@@ -26,28 +26,13 @@ ln -s /$RFAM_CODE/PfamBase/root/static /$RFAM_CODE/RfamWeb/root/shared
 docker-compose up
 ```
 
-The config files from the host will be accessible in the container and can be edited from the host. The Rfam site should be available at *http://your_container_ip:3000*.
+The config files from the host will be accessible in the container and can be edited from the host. The Rfam site should be available at *http://0.0.0.0:3000*.
 
 ## Docker cheat sheet
 
 ```
-# create default virtualbox
-docker-machine create --driver virtualbox default
-
-# connect terminal to the docker machine
-eval "$(docker-machine env default)"
-
-# build container
-docker build -t rfamweb .
-
-# get container IP address
-docker-machine ls
-
 # list running docker containers
 docker ps
-
-# stop running docker container
-docker stop rfamweb
 
 # login to running container from another terminal
 docker exec -it rfamweb bash
