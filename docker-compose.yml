@@ -13,7 +13,7 @@ services:
       - db
   # local WebUser database
   db:
-    image: mysql
+    image: mysql:latest
     volumes:
       # create database and tables on startup
       - ./sql:/docker-entrypoint-initdb.d
