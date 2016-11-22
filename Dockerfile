@@ -37,7 +37,7 @@ RUN cpanm Search::QueryParser
 RUN cpanm --verbose Template::Plugin::Number::Format
 RUN cpanm Term::Size::Any
 RUN cpanm XML::Feed
-RUN cpanm DBIx::Class::Result::ColumnData
+RUN cpanm --force DBIx::Class::Result::ColumnData
 RUN cpanm SQL::Translator
 RUN cpanm MooseX::ClassAttribute
 
