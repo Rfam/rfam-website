@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  # Rfam website
+  web:
+    build: .
+    volumes:
+      - ${RFAM_CODE}:/src
+      - ./config:/src/RfamWeb/config
+    ports:
+      - "3000:3000"
+    links:
+      - db
+  # local WebUser database
+  db:
+    image: mysql:latest
+    volumes:
+      # create database and tables on startup
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "3306:3306"
