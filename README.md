@@ -1,32 +1,17 @@
 # Rfam website
 
-Get a local installation of Rfam website using [Docker](https://www.docker.com/).
-
-* data is loaded from the public Rfam MySQL database
-* code is installed from the public Rfam SVN repository
+Get a local installation of Rfam website using [Docker](https://www.docker.com/)
+and the public Rfam MySQL database.
 
 ## Development
 
+Clone this repository, then start docker:
+
 ```
-# checkout source code
-svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/RfamWeb
-svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamBase
-svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamLib
-svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamSchemata
-svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/PfamScripts
-svn checkout https://xfamsvn.ebi.ac.uk/svn/code/trunk/Rfam
-
-# specify source code location
-export RFAM_CODE=/path/to/source/code
-
-# create a symbolic link for shared static files
-ln -s /$RFAM_CODE/PfamBase/root/static /$RFAM_CODE/RfamWeb/root/shared
-
-# start docker
 docker-compose up
 ```
 
-The config files from the host will be accessible in the container and can be edited from the host. The Rfam site should be available at *http://0.0.0.0:3000*.
+The Rfam site should be available at *http://0.0.0.0:3000*.
 
 ## Docker cheat sheet
 
@@ -46,8 +31,3 @@ perl PfamScripts/wiki/sync_articles_cron.pl -c RfamWeb/config/wiki.conf
 perl PfamScripts/wiki/update_cron.pl        -c RfamWeb/config/wiki.conf
 perl PfamScripts/wiki/scrape_cron.pl        -c RfamWeb/config/wiki.conf
 ```
-
-## To do
-
-* get Rfam code from GitHub instead of SVN
-* better handling of configs
