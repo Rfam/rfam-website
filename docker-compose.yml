@@ -5,7 +5,7 @@ services:
   web:
     build: .
     volumes:
-      - ${RFAM_CODE}:/src
+      - .:/src
       - ./config:/src/RfamWeb/config
     ports:
       - "3000:3000"
