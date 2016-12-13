@@ -191,6 +191,8 @@ labels = [
       [% END -%]
       <li><a href="#rchieImage"
              title="R-chie">rchie</a></li>
+      <li><a href="#rscapeImage"
+             title="R-Scape">R-Scape</a></li>
     </ul>
 
     [% FOREACH hash IN labels -%]
@@ -224,6 +226,17 @@ labels = [
           <li><span class="ambiguous">&nbsp;</span>Ambiguous</li>
         </ul>
       </div>
+    </div>
+
+    <div id="rscapeImage" style="display: none"
+         class="controlTab ssImage">
+      <p>
+        Move your mouse over the image to show details and click to show full image.
+      </p>
+
+      <img alt=""
+           id="ss_rscape"
+           src="[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]" />
     </div>
 
     <script type="text/javascript">
