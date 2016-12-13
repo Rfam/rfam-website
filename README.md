@@ -13,6 +13,9 @@ docker-compose up
 
 The Rfam site should be available at *http://0.0.0.0:3000*.
 
+By default the website connects to the public Rfam database but an alternative
+database can be specified in `config/rfamweb_local.conf` (ignored by git).
+
 ## Docker cheat sheet
 
 ```
