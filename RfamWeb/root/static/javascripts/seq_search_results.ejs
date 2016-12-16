@@ -19,10 +19,8 @@
 		</tr>
 	</thead>
 	<tbody>
-    <% for ( var h in hits ) { 
-      var hs = hits[h];
-      for ( var i = 0; i < hs.length; i++ ) {
-        var hit = hs[i]; %>
+		<% for ( var i=0; i < hits.length; i++) {
+        var hit = hits[i]; %>
         <tr class="<%= i % 2 ? 'odd' : 'even' %>">
           <td class="rowNum"><%= i %></td>
           <td><%= link_to( hit.id, '/family/' + hit.id ) %></td>
@@ -52,8 +50,6 @@
 <%= hit.alignment.pp       %></pre>
           </td>
         </tr>
-      <% }
-    } %>
+      <% } %>
 	</tbody>
 </table>
-
