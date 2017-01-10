@@ -64,6 +64,12 @@ IF refreshUri != "";
 <script type='text/javascript' src='[% sharedUri %]/javascripts/prototip.js'></script>
 <link rel='stylesheet' href='[% sharedUri %]/css/prototip.css' type='text/css' />
 
+<!-- d3 -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/d3.min.js'></script>
+
+<!-- svg-pan-zoom -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/svg-pan-zoom.min.js'></script>
+
 <!-- ====================================================================== -->
 <!-- local javascript files -->
 
