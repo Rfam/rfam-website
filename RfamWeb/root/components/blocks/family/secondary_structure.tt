@@ -185,18 +185,40 @@ labels = [
     </p>
 
     <ul id="ssImageTabs" class="controlTabList">
+      <li><a href="#rscapeImage" title="R-scape">R-scape</a></li>
       [% FOREACH hash IN labels -%]
         <li><a href="#[% hash.type %]Image"
                title="[% hash.long %]">[% hash.short %]</a></li>
       [% END -%]
       <li><a href="#rchieImage"
              title="R-chie">rchie</a></li>
-      <li><a href="#rscapeImage"
-             title="R-Scape">R-Scape</a></li>
     </ul>
 
+    <div id="rscapeImage" style="display: none; display: inline-block;"
+         class="controlTab ssImage">
+         <p id="rscape-msg">
+           R-scape visualisation.
+         </p>
+        <div id="rscape-svg" class="rscape-svg-container"></div>
+
+        <div id="rchieKey" class="rscape-key">
+          <ul>
+            <li class="label">Colours</li>
+            <li><span class="significant-basepair">&nbsp;</span>Statistically significant basepair with covariation</li>
+            <li><span class="conserved-97">&nbsp;</span>97% conserved nucleotide</li>
+            <li><span class="conserved-90">&nbsp;</span>90% conserved nucleotide</li>
+            <li><span class="conserved-75">&nbsp;</span>75% conserved nucleotide</li>
+            <li><span class="conserved-50">&nbsp;</span>50% conserved nucleotide</li>
+            <li class="label">Nucleotides</li>
+            <li><strong>R</strong>: A or G</li>
+            <li><strong>Y</strong>: C or U</li>
+          </ul>
+        </div>
+
+    </div>
+
     [% FOREACH hash IN labels -%]
-      <div id="[% hash.type %]Image" [% IF NOT loop.first %] style="display: none"[% END %]
+      <div id="[% hash.type %]Image" style="display: none"
            class="controlTab ssImage"></div>
     [% END -%]
 
@@ -228,16 +250,107 @@ labels = [
       </div>
     </div>
 
-    <div id="rscapeImage" style="display: none"
-         class="controlTab ssImage">
-      <p>
-        Move your mouse over the image to show details and click to show full image.
-      </p>
+    <script>
+      jQuery(document).ready(function(){
+        d3.xml("[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]").mimeType("image/svg+xml").get(function(error, xml) {
+          if (error) {
+              console.log(error);
+              // no alignment placeholder image?
+              console.log(xml);
+              return;
+          }
+          var svgData = xml.getElementsByTagName("svg")[0];
+          var svgContainer = d3.select("#rscape-svg").node().appendChild(svgData);
 
-      <img alt=""
-           id="ss_rscape"
-           src="[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]" />
-    </div>
+          var tooltip = d3.select("body").append("div")
+              .attr("class", "rscape-tooltip")
+              .style("opacity", 0);
+
+          var svg = d3.select("#rscape-svg svg")
+              .attr('width', '900px')
+              .attr('height', '600px');
+
+          svg.selectAll("#text1000").remove(); // remove R-Scape title
+
+          var basepairs = 0,
+              significant_basepairs = 0;
+
+          svg.selectAll("tspan").each(function(d) {
+              var tspan = d3.select(this);
+              var title = '';
+              if (tspan.attr('fill') == '#d90000') {
+                  title = ">97% " + tspan.text();
+                  console.log(tspan);
+              } else if (tspan.attr('fill') == '#000000') {
+                  title = "90-97% " + tspan.text();
+              } else if (tspan.attr('fill') == '#807b88') {
+                  title = "75-90% " + tspan.text();
+              } else if (tspan.attr('fill') == '#ffffff') {
+                  title = "50-75% " + tspan.text();
+              }
+
+              if (title) {
+                  tspan.on("mouseover", function(d) {
+                    tooltip.transition()
+                           .duration(200)
+                           .style("opacity", .9);
+                    tooltip.html(title)
+                           .style("left", (d3.event.pageX) + "px")
+                           .style("top", (d3.event.pageY - 28) + "px");
+                  }).on("mouseout", function(d) {
+                      tooltip.transition()
+                             .duration(500)
+                             .style("opacity", 0);
+                  });
+              }
+          });
+
+          svg.selectAll("path").each(function(d) {
+              var path = d3.select(this);
+
+              var title = '';
+              if (path.attr('fill') == '#d7efc5') {
+                  title = "Significant basepair";
+                  significant_basepairs += 1;
+              } else if (path.attr('fill') == '#d90000') {
+                  title = "Nucleotide present 97%";
+              } else if (path.attr('fill') == '#000000') {
+                  title = "Nucleotide present 90%";
+              } else if (path.attr('fill') == '#807b88') {
+                  title = "Nucleotide present 75%";
+              } else if (path.attr('fill') == '#ffffff') {
+                  title = "Nucleotide present 50%";
+              }
+
+              if (path.attr('stroke-width') == 1.44) {
+                  basepairs += 1;
+              }
+
+              if (title) {
+                  path.on("mouseover", function(d) {
+                    tooltip.transition()
+                           .duration(200)
+                           .style("opacity", .9);
+                    tooltip.html(title)
+                           .style("left", (d3.event.pageX) + "px")
+                           .style("top", (d3.event.pageY - 28) + "px");
+                  }).on("mouseout", function(d) {
+                      tooltip.transition()
+                             .duration(500)
+                             .style("opacity", 0);
+                  });
+              }
+
+              var msg = significant_basepairs + ' significant basepairs out of ' + basepairs + ' basepairs';
+              d3.select('#rscape-msg').html(msg);
+
+          });
+          var panZoom = svgPanZoom('#rscape-svg svg', {
+            controlIconsEnabled: true
+          });
+        });
+      });
+    </script>
 
     <script type="text/javascript">
       // <![CDATA[

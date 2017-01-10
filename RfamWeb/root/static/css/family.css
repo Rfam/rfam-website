@@ -283,6 +283,7 @@ div.loupe > img {
 
 #rchieKey li {
   list-style-type: none;
+  line-height: 20px;
 }
 
 #rchieKey li.label {
@@ -308,3 +309,66 @@ div.loupe > img {
 #rchieKey span.twoSidedCovar { background-color: #0072bc }
 #rchieKey span.ambiguous { background-color: #675cfd }
 
+.rscape-tooltip {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+  font-size:: 12px;
+  color: #621700;
+  background: #f1e8e6;
+  border: 0;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.rscape-svg-container {
+  display: inline-block;
+}
+
+.rscape-key {
+  display: inline-block;
+}
+
+#rchieKey.rscape-key {
+  float: none;
+}
+
+.rscape-key span.significant-basepair {
+  background-color: #d7efc5;
+  border: 1px solid black;
+}
+
+.rscape-key span.conserved-97 {
+  background-color: #d90000;
+  border: 1px solid black;
+}
+
+.rscape-key span.conserved-90 {
+  background-color: #000000;
+  border: 1px solid black;
+}
+
+.rscape-key span.conserved-75 {
+  background-color: #807b88;
+  border: 1px solid black;
+}
+
+.rscape-key span.conserved-50 {
+  background-color: #ffffff;
+  border: 1px solid black;
+}
+
+/*.rscape-svg-container {
+  display: inline-block;
+  position: relative;
+  width: 600px;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.rscape-svg-content-responsive {
+  display: inline-block;
+  top: 10px;
+  left: 0;
