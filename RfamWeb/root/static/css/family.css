@@ -6,11 +6,11 @@
    the Pfam family pages.
 
    $Id: family.css,v 1.2 2008-10-23 12:28:44 jt6 Exp $
-   
+
    Copyright (c) 2007: Genome Research Ltd.
-   
+
    Authors: Rob Finn (rdf@sanger.ac.uk), John Tate (jt6@sanger.ac.uk)
-   
+
    This is free software; you can redistribute it and/or modify it under
    the terms of the GNU General Public License as published by the Free Software
    Foundation; either version 2 of the License, or (at your option) any later
@@ -23,8 +23,8 @@
 
    You should have received a copy of the GNU General Public License along with
    this program. If not, see <http://www.gnu.org/licenses/>.
-    
-*/   
+
+*/
 
 /* ======================================== */
 /* rules for specific blocks */
@@ -161,7 +161,7 @@ div.blockContent ol {
 }
 
 /* the slider that controls the horizontal scrolling of the alignment.
- * Note that the outer div is slightly wider than the inner one, which 
+ * Note that the outer div is slightly wider than the inner one, which
  * actually forms the visible track for the slider, so that the handle can
  * be aligned with the edges of the alignment */
 #slider {
@@ -372,3 +372,4 @@ div.loupe > img {
   display: inline-block;
   top: 10px;
   left: 0;
+}*/
