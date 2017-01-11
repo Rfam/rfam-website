@@ -13,6 +13,7 @@ PROCESS "components/require.tt";
 
 sharedRequirements.js.push( "sharedFunctions.js" );
 requirements.js.push( "jquery.loupe.min.js" );
+requirements.js.push( "rscape.js" );
 
 #-------------------------------------------------------------------------------
 
@@ -196,10 +197,14 @@ labels = [
 
     <div id="rscapeImage" style="display: none; display: inline-block;"
          class="controlTab ssImage">
-         <p id="rscape-msg">
-           R-scape visualisation.
-         </p>
-        <div id="rscape-svg" class="rscape-svg-container"></div>
+        <div id="rscape-svg" class="rscape-svg-container">
+          <h3>Current Rfam structure</h3>
+          <p id="rscape-msg"></p>
+        </div>
+        <div id="rscape-svg-cyk" class="rscape-svg-container">
+          <h3>R-scape optimised structure</h3>
+          <p id="rscape-msg-cyk"></p>
+        </div>
 
         <div id="rchieKey" class="rscape-key">
           <ul>
@@ -252,103 +257,10 @@ labels = [
 
     <script>
       jQuery(document).ready(function(){
-        d3.xml("[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]").mimeType("image/svg+xml").get(function(error, xml) {
-          if (error) {
-              console.log(error);
-              // no alignment placeholder image?
-              console.log(xml);
-              return;
-          }
-          var svgData = xml.getElementsByTagName("svg")[0];
-          var svgContainer = d3.select("#rscape-svg").node().appendChild(svgData);
-
-          var tooltip = d3.select("body").append("div")
-              .attr("class", "rscape-tooltip")
-              .style("opacity", 0);
-
-          var svg = d3.select("#rscape-svg svg")
-              .attr('width', '900px')
-              .attr('height', '600px');
-
-          svg.selectAll("#text1000").remove(); // remove R-Scape title
-
-          var basepairs = 0,
-              significant_basepairs = 0;
-
-          svg.selectAll("tspan").each(function(d) {
-              var tspan = d3.select(this);
-              var title = '';
-              if (tspan.attr('fill') == '#d90000') {
-                  title = ">97% " + tspan.text();
-                  console.log(tspan);
-              } else if (tspan.attr('fill') == '#000000') {
-                  title = "90-97% " + tspan.text();
-              } else if (tspan.attr('fill') == '#807b88') {
-                  title = "75-90% " + tspan.text();
-              } else if (tspan.attr('fill') == '#ffffff') {
-                  title = "50-75% " + tspan.text();
-              }
-
-              if (title) {
-                  tspan.on("mouseover", function(d) {
-                    tooltip.transition()
-                           .duration(200)
-                           .style("opacity", .9);
-                    tooltip.html(title)
-                           .style("left", (d3.event.pageX) + "px")
-                           .style("top", (d3.event.pageY - 28) + "px");
-                  }).on("mouseout", function(d) {
-                      tooltip.transition()
-                             .duration(500)
-                             .style("opacity", 0);
-                  });
-              }
-          });
-
-          svg.selectAll("path").each(function(d) {
-              var path = d3.select(this);
-
-              var title = '';
-              if (path.attr('fill') == '#d7efc5') {
-                  title = "Significant basepair";
-                  significant_basepairs += 1;
-              } else if (path.attr('fill') == '#d90000') {
-                  title = "Nucleotide present 97%";
-              } else if (path.attr('fill') == '#000000') {
-                  title = "Nucleotide present 90%";
-              } else if (path.attr('fill') == '#807b88') {
-                  title = "Nucleotide present 75%";
-              } else if (path.attr('fill') == '#ffffff') {
-                  title = "Nucleotide present 50%";
-              }
-
-              if (path.attr('stroke-width') == 1.44) {
-                  basepairs += 1;
-              }
-
-              if (title) {
-                  path.on("mouseover", function(d) {
-                    tooltip.transition()
-                           .duration(200)
-                           .style("opacity", .9);
-                    tooltip.html(title)
-                           .style("left", (d3.event.pageX) + "px")
-                           .style("top", (d3.event.pageY - 28) + "px");
-                  }).on("mouseout", function(d) {
-                      tooltip.transition()
-                             .duration(500)
-                             .style("opacity", 0);
-                  });
-              }
-
-              var msg = significant_basepairs + ' significant basepairs out of ' + basepairs + ' basepairs';
-              d3.select('#rscape-msg').html(msg);
-
-          });
-          var panZoom = svgPanZoom('#rscape-svg svg', {
-            controlIconsEnabled: true
-          });
-        });
+          var rscape_url = "[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]",
+              rscape_url_cyk = "[% c.uri_for( '/family', acc, 'image', 'rscape-cyk' ) | html -%]";
+          load_rscape(rscape_url, '#rscape-svg', '#rscape-msg');
+          load_rscape(rscape_url_cyk, '#rscape-svg-cyk', '#rscape-msg-cyk');
       });
     </script>
 
