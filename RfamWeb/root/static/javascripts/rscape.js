@@ -118,13 +118,13 @@ var load_rscape = function(rscape_url, rscape_svg_div_id, rscape_msg_id) {
                     title = "Significant basepair";
                     significant_basepairs += 1;
                 } else if (path.attr('fill') == '#d90000') {
-                    title = "A nucleotide present 97%";
+                    title = "Nucleotide present 97%";
                 } else if (path.attr('fill') == '#000000') {
-                    title = "A nucleotide present 90%";
+                    title = "Nucleotide present 90%";
                 } else if (path.attr('fill') == '#807b88') {
-                    title = "A nucleotide present 75%";
+                    title = "Nucleotide present 75%";
                 } else if (path.attr('fill') == '#ffffff') {
-                    title = "A nucleotide present 50%";
+                    title = "Nucleotide present 50%";
                 }
 
                 if (path.attr('stroke-width') == 1.44) {
