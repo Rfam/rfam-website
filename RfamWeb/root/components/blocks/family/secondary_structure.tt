@@ -220,6 +220,20 @@ labels = [
           </ul>
         </div>
 
+        <div style="max-width: 800px;">
+          <p>
+            <a class="ext" href="http://eddylab.org/R-scape">R-scape</a> is a method for testing
+            whether <strong>covariation analysis</strong> supports the presence of a conserved RNA secondary structure.
+            This page shows R-scape analysis of the secondary structure from the Rfam seed alignment
+            and a new structure with covariation support that is <strong>compatible</strong> with the same alignment.
+          </p>
+          <p>
+            To find out more about the method, see the R-scape paper by
+            <em><a class="ext" href="http://www.nature.com/nmeth/journal/v14/n1/full/nmeth.4066.html">Rivas et al., 2016</a></em>.
+            The structures are visualised using <a class="ext" href="http://breaker.research.yale.edu/R2R/">R2R</a>.
+          </p>
+        </div>
+
     </div>
 
     [% FOREACH hash IN labels -%]
