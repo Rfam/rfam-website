@@ -325,6 +325,7 @@ div.loupe > img {
 
 .rscape-svg-container {
   display: inline-block;
+  margin-right: 20px;
 }
 
 .rscape-key {

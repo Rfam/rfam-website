@@ -195,7 +195,7 @@ labels = [
              title="R-chie">rchie</a></li>
     </ul>
 
-    <div id="rscapeImage" style="display: none; display: inline-block;"
+    <div id="rscapeImage" style="display: none; display: inline-block; padding: 10px 10px;"
          class="controlTab ssImage">
         <div id="rscape-svg" class="rscape-svg-container">
           <h3>Current Rfam structure</h3>
