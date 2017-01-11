@@ -25,12 +25,20 @@ var load_rscape = function(rscape_url, rscape_svg_div_id, rscape_msg_id) {
             basepairs = 0,
             significant_basepairs = 0;
 
+        hide_loading_indicator();
         remove_rscape_title();
         add_nucleotide_tooltips();
         add_circle_tooltips();
         add_message();
         launch_pan_zoom();
         resize_svg();
+
+        /**
+         * Hide spinning wheel when SVG is loaded.
+         */
+        function hide_loading_indicator() {
+            d3.selectAll('.rscape-loading').style("display", "none");
+        }
 
         /**
          * Launch SvsPanZoom plugin.

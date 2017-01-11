@@ -199,10 +199,20 @@ labels = [
          class="controlTab ssImage">
         <div id="rscape-svg" class="rscape-svg-container">
           <h3>Current Rfam structure</h3>
+          <div class="rscape-loading">
+              <img alt="Loading..."
+                   src="[% c.uri_for( "/static/images/zoomloader.gif" ) %]"/>
+              Loading...
+          </div>
           <p id="rscape-msg"></p>
         </div>
         <div id="rscape-svg-cyk" class="rscape-svg-container">
           <h3>R-scape optimised structure</h3>
+          <div class="rscape-loading">
+              <img alt="Loading..."
+                   src="[% c.uri_for( "/static/images/zoomloader.gif" ) %]"/>
+              Loading...
+          </div>
           <p id="rscape-msg-cyk"></p>
         </div>
 
