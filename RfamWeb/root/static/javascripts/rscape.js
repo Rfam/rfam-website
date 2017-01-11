@@ -76,17 +76,23 @@ var load_rscape = function(rscape_url, rscape_svg_div_id, rscape_msg_id) {
         function add_nucleotide_tooltips() {
             svg.selectAll("tspan").each(function(d) {
                 var tspan = d3.select(this),
-                    title = '';
+                    title = '',
+                    nucleotide = tspan.text();
+                if (nucleotide === 'R') {
+                    nucleotide = 'G or A';
+                } else if (nucleotide === 'Y') {
+                    nucleotide = 'C or U';
+                }
                 if (tspan.attr('fill') == '#d90000') {
-                    title = tspan.text() + " present >97%";
+                    title = nucleotide + " present >97%";
                 } else if (tspan.attr('fill') == '#000000') {
-                    if (tspan.text() != "5'") {
-                        title = tspan.text() + " present 90-97%";
+                    if (nucleotide != "5'") {
+                        title = nucleotide + " present 90-97%";
                     }
                 } else if (tspan.attr('fill') == '#807b88') {
-                    title = tspan.text() + " present 75-90%";
+                    title = nucleotide + " present 75-90%";
                 } else if (tspan.attr('fill') == '#ffffff') {
-                    title = tspan.text() + " present 50-75%";
+                    title = nucleotide + " present 50-75%";
                 }
 
                 if (title) {
