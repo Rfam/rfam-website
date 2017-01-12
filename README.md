@@ -34,3 +34,9 @@ perl PfamScripts/wiki/sync_articles_cron.pl -c RfamWeb/config/wiki.conf
 perl PfamScripts/wiki/update_cron.pl        -c RfamWeb/config/wiki.conf
 perl PfamScripts/wiki/scrape_cron.pl        -c RfamWeb/config/wiki.conf
 ```
+
+## Testing sequence search results
+
+Go example URL: `http://127.0.0.1:3000/search/sequence/D8DFBEE8-B719-11E6-A6D1-7304307CE5B7`.
+
+The results are loaded in the WebUser database when the MySQL container is created.

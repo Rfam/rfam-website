@@ -114,6 +114,16 @@ var Results = Class.create( {
   onSuccess: function( response ) {
     // console.log( "Results.onSuccess: job %s, status 200; job done", this._jobId );
 
+    // reorder hits based on E-values
+    response.responseJSON.hits_list = [];
+    for (var rfam_id in response.responseJSON.hits) {
+        response.responseJSON.hits_list.push(response.responseJSON.hits[rfam_id][0]);
+    }
+    response.responseJSON.hits_list.sort(function(a, b) {
+        return parseFloat(a.E) - parseFloat(b.E);
+    });
+    response.responseJSON.hits = response.responseJSON.hits_list;
+
     this._updater.stop();      // stop the updater polling for results
     this._response = response; // store the response for later
     this._updateSequence();    // update the sequence in the key
