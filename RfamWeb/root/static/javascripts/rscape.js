@@ -9,9 +9,9 @@ var load_rscape = function(rscape_url, rscape_svg_div_id, rscape_msg_id) {
 
     d3.xml(rscape_url).mimeType("image/svg+xml").get(function(error, xml) {
         if (error) {
+            hide_loading_indicator();
+            show_rscape_not_available_msg();
             console.log(error);
-            // no alignment placeholder image?
-            console.log(xml);
             return;
         }
         var svgData = xml.getElementsByTagName("svg")[0];
@@ -32,6 +32,16 @@ var load_rscape = function(rscape_url, rscape_svg_div_id, rscape_msg_id) {
         add_message();
         launch_pan_zoom();
         resize_svg();
+
+        /**
+         * If R-scape message is not found or svg cannot be parsed, display
+         * a message to the user.
+         */
+        function show_rscape_not_available_msg() {
+            var msg = 'R-scape analysis not available';
+            d3.select(rscape_msg_id).html(msg);
+            d3.select('.rscape-key').style('display', 'none');
+        }
 
         /**
          * Hide spinning wheel when SVG is loaded.
