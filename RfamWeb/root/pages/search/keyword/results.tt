@@ -115,7 +115,7 @@ sharedRequirements.js.push( "tablekit.js" );
       <tr class="[% loop.parity %][% lookupHit.rfam_id == id ? " highlight" : "" %]">
         <td class="rowNum">[% loop.index %]</td>
         <td><a href="[% c.uri_for( '/family', acc ) %]">[% acc %]</a></td>
-        <td><a href="[% c.uri_for( '/family', id ) %]">[% id %]</a></td>
+        <td><a href="[% c.uri_for( '/family', acc ) %]">[% id %]</a></td>
         <td class="desc">[% row.dbObj.description %]</td>
         [% FOREACH pluginName IN pluginsArray;
           IF pluginHits.$pluginName;
