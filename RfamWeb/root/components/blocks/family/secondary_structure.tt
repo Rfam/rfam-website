@@ -228,6 +228,13 @@ labels = [
             <li><strong>R</strong>: A or G</li>
             <li><strong>Y</strong>: C or U</li>
           </ul>
+          <p>
+            <strong><em>Tip:</em></strong> The diagrams are <strong>interactive</strong>:
+            <br>
+            you can <strong>pan</strong> and <strong>zoom</strong> to see more details
+            <br>
+            or <strong>hover</strong> over nucleotides and basepairs.
+          </p>
         </div>
 
         <div style="max-width: 800px;">
