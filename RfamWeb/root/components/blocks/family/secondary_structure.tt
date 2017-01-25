@@ -1,22 +1,23 @@
 [%
 # secondary_structure.tt
 # jt6 20080523 WTSI
-# 
+#
 # build the secondary structure block for families
 #
 # $Id: secondary_structure.tt,v 1.4 2008-12-09 13:17:13 jt6 Exp $
 
 #-------------------------------------------------------------------------------
-# specify required stylesheets and javascript files 
+# specify required stylesheets and javascript files
 
 PROCESS "components/require.tt";
 
 sharedRequirements.js.push( "sharedFunctions.js" );
 requirements.js.push( "jquery.loupe.min.js" );
+requirements.js.push( "rscape.js" );
 
 #-------------------------------------------------------------------------------
 
-labels = [ 
+labels = [
            { type  => 'cons',
              short => 'seqcons',
              long  => 'Sequence conservation' },
@@ -47,8 +48,8 @@ labels = [
   <div class="blockContent">
 
     <p>
-      This section shows a variety of different secondary structure 
-      representations for this family. 
+      This section shows a variety of different secondary structure
+      representations for this family.
       <span onclick="reveal( this, 'ssNotes', false, true );"
             class="moreLink">
         More...</span>
@@ -60,24 +61,24 @@ labels = [
         of this family using a variety of colouring schemes:
       </p>
       <p>
-        <strong>Conservation (cons)</strong>: this plot colours each character 
-        by how well conserved it is. A site with 100% sequence conservation 
+        <strong>Conservation (cons)</strong>: this plot colours each character
+        by how well conserved it is. A site with 100% sequence conservation
         is coloured red, 0% is violet.
       </p>
       <p>
-        <strong>Covariation (cov)</strong>: this plot colours each base-pair 
-        according to how much the corresponding nucleotides are co-varying. 
-        A base-pair position at which every pair of nucleotides is co-variant 
-        with respect to every other pair in the alignment gets a score of 2 
-        and is coloured red. 
-        Conversely, a base-pair position at every pair is anti-co-variant with 
-        respect to every other pair (e.g. lots of mutations to 
+        <strong>Covariation (cov)</strong>: this plot colours each base-pair
+        according to how much the corresponding nucleotides are co-varying.
+        A base-pair position at which every pair of nucleotides is co-variant
+        with respect to every other pair in the alignment gets a score of 2
+        and is coloured red.
+        Conversely, a base-pair position at every pair is anti-co-variant with
+        respect to every other pair (e.g. lots of mutations to
         non-canonical pairs) gets a score of -2 and is coloured violet.
-        Further information on this metric can be found in this 
+        Further information on this metric can be found in this
         <a href="/static/documents/structure_statistics.pdf">document</a>.
       </p>
       <p>
-        <strong>Sequence entropy (ent)</strong>: this plot colours each 
+        <strong>Sequence entropy (ent)</strong>: this plot colours each
         character by how under-
         or over-represented the residues at the site are. Sites where one or
         more nucleotides are over-represented while the other nucleotides are
@@ -87,24 +88,24 @@ labels = [
         found in this <a href="/static/documents/structure_statistics.pdf">document</a>.
       </p>
       <p>
-        <strong>Fraction of canonical basepairs (fcbp</strong>): this plot 
-        colours each base-pair by the percentage of canonical basepairs 
-        (A:U, C:G, G:U) which are found in the corresponding position in the 
-        alignment. A pair of sites with 100% canonical pairs is coloured red, 
+        <strong>Fraction of canonical basepairs (fcbp</strong>): this plot
+        colours each base-pair by the percentage of canonical basepairs
+        (A:U, C:G, G:U) which are found in the corresponding position in the
+        alignment. A pair of sites with 100% canonical pairs is coloured red,
         a site with 0% is violet.
       </p>
       <p>
         <strong>Maximum parse of the covariance model (maxcm)</strong>: this
-        plot takes the covariance model for the family and generates the 
-        sequence with the maximum possible score for that model. Each 
-        character is coloured by how many bits it contributes to the total 
+        plot takes the covariance model for the family and generates the
+        sequence with the maximum possible score for that model. Each
+        character is coloured by how many bits it contributes to the total
         score.
       </p>
       <p>
-        <strong>Sequence</strong>: for most of the above cases, the 
-        representative sequence used for the backbone is the most 
-        informative sequence (MIS). Any residue that has a higher frequency 
-        than than the background frequency is projected into the 
+        <strong>Sequence</strong>: for most of the above cases, the
+        representative sequence used for the backbone is the most
+        informative sequence (MIS). Any residue that has a higher frequency
+        than than the background frequency is projected into the
         <a class="ext" href="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html">
           IUPAC redundancy codes</a>.
       </p>
@@ -112,8 +113,8 @@ labels = [
         <strong>Normal</strong>: this plot simply colours each stem loop
       </p>
       <p>
-        <strong>R-chie (rchie)</strong>: arc diagrams showing secondary 
-        structure, calculated using the 
+        <strong>R-chie (rchie)</strong>: arc diagrams showing secondary
+        structure, calculated using the
         <a class="ext" href="http://www.e-rna.org/r-chie/index.cgi">R-chie</a>
         package. The consensus secondary structure is visualized as arc
         diagrams on top of each diagram, where a basepair in an arc, connect
@@ -123,7 +124,7 @@ labels = [
         ordered so sequences that best fit the structure are on top, and those
         that do not fit as well are towards the bottom. For seed alignments
         for over 500 sequences, 500 random sequences were chosen. Rfam entries
-        without sturcture have a blank plot. Colour information can be found 
+        without sturcture have a blank plot. Colour information can be found
         on the R-chie
         <a class="ext" href="http://www.e-rna.org/r-chie/faq.cgi">FAQ</a>.
       </p>
@@ -138,15 +139,15 @@ labels = [
         Rfam.
       </p>
       <p>
-        The <a class="ext" href="http://varna.lri.fr/">VARNA</a> applet is developed by 
+        The <a class="ext" href="http://varna.lri.fr/">VARNA</a> applet is developed by
         <a class="ext" href="http://www.lix.polytechnique.fr/~ponty/">Yann Ponty</a>
         <em>et al</em>:
       </p>
       <div class="citation">
         <span class="title">
-          <a class="ext" 
+          <a class="ext"
              href="http://bioinformatics.oxfordjournals.org/cgi/content/full/25/15/1974">
-            VARNA: Interactive drawing and editing of the RNA secondary structure</a>: 
+            VARNA: Interactive drawing and editing of the RNA secondary structure</a>:
         </span>
         <span class="authors">
           K&eacute;vin Darty, Alain Denise and Yann Ponty
@@ -157,17 +158,17 @@ labels = [
         </span>
       </div>
       <p>
-        The R-chie arc diagrams were calculated using 
+        The R-chie arc diagrams were calculated using
         <a class="ext" href="http://www.e-rna.org/r-chie/index.cgi">R-chie</a>:
       </p>
       <div class="citation">
         <span class="title">
-          <a class="ext" 
+          <a class="ext"
              href="http://dx.doi.org/10.1093/nar/gks241">
-            R-chie: a web server and R package for visualizing RNA secondary structures</a>: 
+            R-chie: a web server and R package for visualizing RNA secondary structures</a>:
         </span>
         <span class="authors">
-          Daniel Lai, Jeff R. Proctor, Jing Yun A. Zhu, and Irmtraud M. Meyer 
+          Daniel Lai, Jeff R. Proctor, Jing Yun A. Zhu, and Irmtraud M. Meyer
         </span>
         <span class="ref">
           <span class="jrnl">Nucleic Acids Research</span>&nbsp;(2012)
@@ -178,13 +179,14 @@ labels = [
     </div>
 
     <p>
-      You can view the secondary structure of the family using the 
-      <strong><span class="link" id="varnaLink">VARNA</span></strong> applet. 
-      You can see more information about VARNA iself 
+      You can view the secondary structure of the family using the
+      <strong><span class="link" id="varnaLink">VARNA</span></strong> applet.
+      You can see more information about VARNA iself
       <a class="ext" href="http://varna.lri.fr/">here</a>.
     </p>
 
     <ul id="ssImageTabs" class="controlTabList">
+      <li><a href="#rscapeImage" title="R-scape">R-scape</a></li>
       [% FOREACH hash IN labels -%]
         <li><a href="#[% hash.type %]Image"
                title="[% hash.long %]">[% hash.short %]</a></li>
@@ -193,8 +195,66 @@ labels = [
              title="R-chie">rchie</a></li>
     </ul>
 
+    <div id="rscapeImage" style="display: none; display: inline-block; padding: 10px 10px;"
+         class="controlTab ssImage">
+        <div id="rscape-svg" class="rscape-svg-container">
+          <h3>Current Rfam structure</h3>
+          <div class="rscape-loading">
+              <img alt="Loading..."
+                   src="[% c.uri_for( "/static/images/zoomloader.gif" ) %]"/>
+              Loading...
+          </div>
+          <p id="rscape-msg"></p>
+        </div>
+        <div id="rscape-svg-cyk" class="rscape-svg-container">
+          <h3>R-scape optimised structure</h3>
+          <div class="rscape-loading">
+              <img alt="Loading..."
+                   src="[% c.uri_for( "/static/images/zoomloader.gif" ) %]"/>
+              Loading...
+          </div>
+          <p id="rscape-msg-cyk"></p>
+        </div>
+
+        <div id="rchieKey" class="rscape-key">
+          <ul>
+            <li class="label">Colours</li>
+            <li><span class="significant-basepair">&nbsp;</span>Statistically significant basepair with covariation</li>
+            <li><span class="conserved-97">&nbsp;</span>97% conserved nucleotide</li>
+            <li><span class="conserved-90">&nbsp;</span>90% conserved nucleotide</li>
+            <li><span class="conserved-75">&nbsp;</span>75% conserved nucleotide</li>
+            <li><span class="conserved-50">&nbsp;</span>50% conserved nucleotide</li>
+            <li class="label">Nucleotides</li>
+            <li><strong>R</strong>: A or G</li>
+            <li><strong>Y</strong>: C or U</li>
+          </ul>
+          <p>
+            <strong><em>Tip:</em></strong> The diagrams are <strong>interactive</strong>:
+            <br>
+            you can <strong>pan</strong> and <strong>zoom</strong> to see more details
+            <br>
+            or <strong>hover</strong> over nucleotides and basepairs.
+          </p>
+        </div>
+
+        <div style="max-width: 800px;">
+          <p>
+            <a class="ext" href="http://eddylab.org/R-scape">R-scape</a> is a method for testing
+            whether <strong>covariation analysis</strong> supports the presence of a conserved RNA secondary structure.
+            This page shows R-scape analysis of the secondary structure from the Rfam seed alignment
+            and a new structure with covariation support that is <strong>compatible</strong> with the same alignment.
+          </p>
+          <p>
+            To find out more about the method, see the R-scape paper by
+            <em><a class="ext" href="http://www.nature.com/nmeth/journal/v14/n1/full/nmeth.4066.html">Rivas et al., 2016</a></em>.
+            The structures are visualised using <a class="ext" href="http://breaker.research.yale.edu/R2R/">R2R</a>.
+          </p>
+        </div>
+
+    </div>
+
     [% FOREACH hash IN labels -%]
-      <div id="[% hash.type %]Image" [% IF NOT loop.first %] style="display: none"[% END %]
+      <div id="[% hash.type %]Image" style="display: none"
            class="controlTab ssImage"></div>
     [% END -%]
 
@@ -204,7 +264,7 @@ labels = [
         Move your mouse over the image to show details and click to show full image.
       </p>
 
-      <img alt="" 
+      <img alt=""
            id="ss_rchie"
            src="[% c.uri_for( '/family', acc, 'image', 'rchie' ) | html -%]" />
 
@@ -226,6 +286,15 @@ labels = [
       </div>
     </div>
 
+    <script>
+      jQuery(document).ready(function(){
+          var rscape_url = "[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]",
+              rscape_url_cyk = "[% c.uri_for( '/family', acc, 'image', 'rscape-cyk' ) | html -%]";
+          load_rscape(rscape_url, '#rscape-svg', '#rscape-msg');
+          load_rscape(rscape_url_cyk, '#rscape-svg-cyk', '#rscape-msg-cyk');
+      });
+    </script>
+
     <script type="text/javascript">
       // <![CDATA[
 
@@ -239,7 +308,7 @@ labels = [
       function click() {
            var seq = document.getElementById("seq");
            var lines = document.getElementById("outline");
-           var pairs = document.getElementById("pairs");         
+           var pairs = document.getElementById("pairs");
            if (shown==1) {
              seq.setAttribute("style", "font-family: Arial,Helvetica; visibility: hidden");
              lines.setAttribute("style", "fill: none; stroke: black; stroke-width: 0.75; visibility: visible");
@@ -251,10 +320,10 @@ labels = [
              lines.setAttribute("style", "fill: none; stroke: black; stroke-width: 0.75; visibility: hidden");
 
              shown = 3;
-           } else if (shown==3) { 
+           } else if (shown==3) {
              seq.setAttribute("style", "font-family: Arial,Helvetica; visibility: visible");
              lines.setAttribute("style", "fill: none; stroke: black; stroke-width: 0.75; visibility: visible");
-             pairs.setAttribute("style", "fill: none; stroke: black; stroke-width: 0.75; visibility: visible"); 
+             pairs.setAttribute("style", "fill: none; stroke: black; stroke-width: 0.75; visibility: visible");
              shown = 1;
            }
       }
@@ -262,8 +331,8 @@ labels = [
       document.observe("dom:loaded",function() {
 
         $w("[% FOREACH hash IN labels; hash.type _ ' '; END %]").each( function( type ) {
-          new Ajax.Request( 
-            "[% c.uri_for( '/family', acc, 'image' ) | html %]/" + type, 
+          new Ajax.Request(
+            "[% c.uri_for( '/family', acc, 'image' ) | html %]/" + type,
             {
               method: 'get',
               onSuccess: function(response) {
@@ -276,7 +345,7 @@ labels = [
                 }
               },
               onFailure: function(response) {
-   
+
               }
             }
           );
@@ -291,7 +360,7 @@ labels = [
 
         [%-# image tabs %]
         ssImageTabsController = new Control.Tabs( "ssImageTabs", {
-          afterChange: function(newTab) { 
+          afterChange: function(newTab) {
             [%-# set up the image zoom plugin only when we first switch
                # to the R-chie tab, in order to avoid problems with the
                # mouseover lens size %]
@@ -326,7 +395,7 @@ labels = [
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under

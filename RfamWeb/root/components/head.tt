@@ -24,9 +24,9 @@ IF refreshUri != "";
 [% END -%]
 
 <!-- ====================================================================== -->
-<!-- make the site RSS feed discoverable --> 
+<!-- make the site RSS feed discoverable -->
 
-<link href="http://xfam.wordpress.com/tag/rfam/feed/" 
+<link href="http://xfam.wordpress.com/tag/rfam/feed/"
       rel="alternate"
       type="application/rss+xml"
       title="Rfam News" />
@@ -35,9 +35,9 @@ IF refreshUri != "";
 <!-- third-party javascript libraries
 
      we are now loading third-party libraries from remote sites. We get
-     prototype,scriptaculous and jQuery from googleapis and the YUI components 
+     prototype,scriptaculous and jQuery from googleapis and the YUI components
      for tree viewing directly from yahoo
---> 
+-->
 
 <!-- prototype / scriptaculous / jQuery -->
 <script type='text/javascript' src='[% staticUri %]/javascripts/prototype-1.7.js'></script>
@@ -64,6 +64,12 @@ IF refreshUri != "";
 <script type='text/javascript' src='[% sharedUri %]/javascripts/prototip.js'></script>
 <link rel='stylesheet' href='[% sharedUri %]/css/prototip.css' type='text/css' />
 
+<!-- d3 -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/d3.min.js'></script>
+
+<!-- svg-pan-zoom -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/svg-pan-zoom.min.js'></script>
+
 <!-- ====================================================================== -->
 <!-- local javascript files -->
 
@@ -83,7 +89,7 @@ IF refreshUri != "";
 <!-- ====================================================================== -->
 <!-- load dynamically required stylesheets and javascript files-->
 
-[% 
+[%
 allRequirements = { local  => { uri  => staticUri,
                                 reqs => requirements },
                     shared => { uri  => sharedUri,
@@ -94,10 +100,10 @@ PROCESS "components/load_requirements.tt" %]
 <!-- ====================================================================== -->
 <!-- set the favicon -->
 
-<link rel="shortcut icon" 
-      type="image/png" 
+<link rel="shortcut icon"
+      type="image/png"
       href="[% staticUri %]/images/favicon.png" />
-      
+
 <!-- ====================================================================== -->
 
 <!-- GA -->
@@ -117,7 +123,7 @@ PROCESS "components/load_requirements.tt" %]
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
