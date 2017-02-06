@@ -301,12 +301,11 @@ sub _update {
     my $latest_edit = $this->_get_last_edit( $article->title );
     my $latest_revid = $latest_edit->{'revid'};
 
-    eval {
-      if ( my $redirects = $article->get_redirects ) {
-        push @{ $this->redirected_articles }, @$redirects;
-        $num_redirected++;
-      }
-    };
+    if ( my $redirects = $article->get_redirects ) {
+      push @{ $this->redirected_articles }, @$redirects;
+      $num_redirected++;
+    }
+
     if ($@) {
       $this->logger->error("Failed during redirection of: ".$title);
     }
