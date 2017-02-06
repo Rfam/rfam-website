@@ -31,7 +31,6 @@ use Data::Dump qw(dump);
 use Log::Log4perl qw(get_logger :levels);
 
 use WikiApprove;
-use PfamLive;
 use RfamDB;  # there is no "RfamLive" DBIC wrapper
 
 #-------------------------------------------------------------------------------
@@ -69,7 +68,6 @@ $log->logdie( "ERROR: couldn't read config from '$config_file': $!" )
 my $cg        = Config::General->new($config_file);
 my %config    = $cg->getall;
 my $wa_conf   = $config{WikiApprove};
-my $pfam_conf = $config{PfamLive};
 my $rfam_conf = $config{RfamLive};
 
 #-------------------------------------------------------------------------------
@@ -84,15 +82,6 @@ my $wa_schema =
 
 $log->debug( 'connected to wiki_approve' ) if $wa_schema;
 
-my $pfam_schema =
-  PfamLive->connect(
-    "dbi:mysql:$pfam_conf->{db_name}:$pfam_conf->{db_host}:$pfam_conf->{db_port}",
-    $pfam_conf->{username},
-    $pfam_conf->{password}
-  );
-
-$log->debug( 'connected to pfam_live' ) if $pfam_schema;
-
 my $rfam_schema =
   RfamDB->connect(
     "dbi:mysql:$rfam_conf->{db_name}:$rfam_conf->{db_host}:$rfam_conf->{db_port}",
@@ -104,94 +93,12 @@ $log->debug( 'connected to rfam_live' ) if $rfam_schema;
 
 # if we can't connect to all of these, we're done here
 $log->logdie( "ERROR: couldn't connect to one or more databases" )
-  unless ( $wa_schema and $pfam_schema and $rfam_schema );
-
-#-------------------------------------------------------------------------------
-# get the Pfam article titles from the live database
-my @live_articles =
-  $pfam_schema->resultset('PfamAWiki')
-				->search( 	{ 'title' => {'!=' => undef}},
-							{ 	prefetch => 'auto_wiki',
-								select   => [ qw(pfama_acc auto_wiki.title ) ],
-								as       => [ qw( acc 				title ) ] });
-
-$log->info( 'got ' . scalar @live_articles . ' articles for live Pfam-As' );
-
-# when a family is killed we store the title that it maps to at that point in
-# time. We'll retrieve those titles from "dead_families" and use the in the
-# mapping unless there's a "forward_to" for the family instead
-my @dead_titles =
-  $pfam_schema->resultset('DeadFamily')
-              ->search( { title => { '!=' => undef } },
-                        { select => [ qw( pfama_acc title ) ],
-                          as     => [ qw( acc title ) ] } );
-
-$log->info( 'got ' . scalar @dead_titles . ' articles with titles in dead_families' );
-
-# when we make a release and then kill a family, the dead family is still
-# available via the website. In that case we still want to show the wp article,
-# but we need to get it from the family that the dead one forwards to. This
-# gnarly query joins "pfamA" to "dead_families" to get the row from "pfamA"
-# corresponding to the forwarded-to family, and then joins that to "pfamA_wiki"
-# and then onto "wikipedia" to get the article title
-my @dead_articles =
-  $pfam_schema->resultset('DeadFamily')
-              ->search( { 'auto_wiki.title' => { '!=' => undef } },
-                        { join     =>  {'pfam_a_wikis', 'auto_wiki'},
-                          select   => [ qw( pfam_a_wikis.pfama_acc auto_wiki.title ) ],
-                          as       => [ qw( acc                 title ) ] } );
-
-$log->info( 'got ' . scalar @dead_articles . ' articles by mapping from dead_families via pfam' );
-
-# hash the new Pfam mapping. Remove each acc in the new mapping from the old one
-my %pfam_map;
-foreach ( @live_articles, @dead_titles, @dead_articles ) {
-  my $acc   = $_->get_column('acc');
-  my $title = $_->get_column('title');
-  push @{ $pfam_map{$acc} }, $title;
-}
-
-# $DB::single = 1;
-
-#---------------------------------------
-
-# update the wikipedia and article_mapping tables with the new Pfam data
-
-# clear the table and repopulate it. This ensures that families which have been
-# have had wikipedia mapping removed are correctly updated
-$log->info("Deleting all existing article mappings");
-$wa_schema->resultset('ArticleMapping')->delete_all();
-
-foreach my $acc ( keys %pfam_map ) {
-  my $titles = $pfam_map{$acc};
-
-  $log->debug( "deleting mapping(s) for Pfam entry '$acc'" );
-  my $rv = $wa_schema->resultset('ArticleMapping')
-                     ->search( { accession => $acc } );
-  if($rv->count) {
-	my $deleted = $rv->delete;
-  	$log->logwarn( "warning: failed to delete old mapping for '$acc'" )
-    	unless $deleted;
-  }
-
-  $log->debug( "checking Pfam entry '$acc'" );
-  foreach my $title ( @$titles ) {
-    $log->debug( "checking title '$title'" );
-    eval {
-      add_row( $acc, $title, 'pfam' );
-    };
-    if ( $@ ) {
-      $log->logwarn( $@ );
-    }
-  }
-}
-
-$log->info( 'done with Pfam entries/articles' );
+  unless ( $wa_schema and $rfam_schema );
 
 #-------------------------------------------------------------------------------
 
 # get the Rfam article titles from the live database
-@live_articles =
+my @live_articles =
   $rfam_schema->resultset('Family')
               ->search( undef,
                         { prefetch => 'auto_wiki',
@@ -207,7 +114,7 @@ $log->info( 'got ' . scalar @live_articles . ' articles for live Rfams' );
 
 # see if there are any dead families which have a title directly in the
 # dead_families table
-@dead_titles =
+my @dead_titles =
   $rfam_schema->resultset('DeadFamily')
               ->search( { title => { '!=' => undef } },
                         { select => [ qw( rfam_acc title ) ],
@@ -217,7 +124,7 @@ $log->info( 'got ' . scalar @dead_titles . ' articles with titles in dead_famili
 
 # get the articles that map to the family that a dead family forwards to... if
 # that makes any sense...
-@dead_articles =
+my @dead_articles =
   $rfam_schema->resultset('Family')
               ->search( undef,
                         { prefetch => [ qw( from_dead article ) ],
