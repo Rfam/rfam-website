@@ -281,7 +281,7 @@ sub get_redirects {
     #      . $this->_mw_api->{error}->{details}
     #      . ' (error code ' . $this->_mw_api->{error}->{code} . ')';
     if ($this->_mw_api->{error}->{code}) {
-      croak $this->_mw_api->{error}->{code} ;
+      croak $this->_mw_api->{error}->{details} ;
     } else {
       croak "Unkown error";
     }
