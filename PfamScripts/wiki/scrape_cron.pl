@@ -80,8 +80,7 @@ my $wu_schema =
   WebUser->connect(
     "dbi:mysql:$wu_conf->{db_name}:$wu_conf->{db_host}:$wu_conf->{db_port}",
     $wu_conf->{username},
-    $wu_conf->{password},
-    { mysql_enable_utf8 => 1 }
+    $wu_conf->{password}
   );
 
 $log->debug( 'connected to web_user' ) if $wu_conf;
