@@ -51,7 +51,7 @@ hub rfam
 shortLabel rfam_ncRNA
 longLabel Rfam non-coding RNA annotation
 genomesFile genomes.txt
-email rfam-help\@sanger.ac.uk
+email rfam-help\@ebi.ac.uk
 EOF_hub
 }
   
@@ -142,7 +142,7 @@ sub bigbed : Chained( 'genome' )
   }
 
   my $filename = $rs->code . '.bigBed';
-  
+
   $c->res->content_type( 'application/octet-stream' );
   # $c->res->header( 'Content-disposition' => "attachment; filename=$filename" );
   $c->res->body( $rs->bigbed );
@@ -177,5 +177,3 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 =cut
 
 1;
-
-
