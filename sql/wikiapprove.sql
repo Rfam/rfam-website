@@ -6,7 +6,7 @@ CREATE TABLE `article_mapping` (
   `accession` varchar(7) NOT NULL,
   `title` tinytext NOT NULL,
   `db` enum('pfam','rfam') NOT NULL,
-  PRIMARY KEY  (`accession`,`title`(256))
+  PRIMARY KEY  (`accession`,`title`(64))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `wikipedia` (
@@ -17,7 +17,7 @@ CREATE TABLE `wikipedia` (
   `approved_by` varchar(100) NOT NULL,
   `pfam_status` enum('active','inactive','pending') NOT NULL default 'pending',
   `rfam_status` enum('active','inactive','pending') NOT NULL default 'pending',
-  PRIMARY KEY  (`title`(256))
+  PRIMARY KEY  (`title`(64))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `wikiuser` (

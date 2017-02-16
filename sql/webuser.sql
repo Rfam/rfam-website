@@ -65,7 +65,7 @@ CREATE TABLE `wikitext` (
   `title` TINYTEXT COLLATE utf8_bin NOT NULL,
   `text` LONGTEXT CHARACTER SET utf8,
   `approved_revision` INT(10) UNSIGNED DEFAULT '0',
-  PRIMARY KEY (`title`(128))
+  PRIMARY KEY (`title`(64))
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `job_stream` (`id`, `stdin`, `stdout`, `stderr`)
