@@ -207,7 +207,7 @@
                     </ul>
                   </div>
                   <ul class="list-inline">
-                    <li  ng-if="rna.fields.entry_type[0] == 'Clan'">
+                    <li  ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
                       <strong>{{rna.fields.num_families[0] | number}}</strong> families
                     </li>
                     <li  ng-if="rna.fields.entry_type[0] == 'Family'">
