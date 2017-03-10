@@ -44,6 +44,18 @@
                 </i>
 
             </span>
+
+            <p style="margin-bottom: 0;">
+              Browse
+              <i>
+                <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Family&quot;')">Families</a>,
+                <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Clan&quot;')">Clans</a>,
+                <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Motif&quot;')">Motifs</a>,
+                or
+                <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;')">Families with 3D structures</a>
+              </i>
+            </p>
+
             <label class="control-label ng-cloak has-error"
                    for="query-text" ng-show="query.submitted && (queryForm.text.$error.required || queryForm.text.$error.minlength)"
                    ng-cloak>
