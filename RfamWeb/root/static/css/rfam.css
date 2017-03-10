@@ -2843,3 +2843,7 @@ a.btn {
 }
 @media print{.hidden-print{display:none !important}
 }
+
+.text-search-results {
+  border-left: 1px solid #eeeeee;
+}

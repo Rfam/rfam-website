@@ -205,7 +205,7 @@
 
           </div>
 
-          <div class="col-md-9 col-sm-8 col-xs-12 metasearch-results">
+          <div class="col-md-9 col-sm-8 col-xs-12 text-search-results">
             <ul class="list-unstyled">
               <li class="result" ng-repeat="rna in result.entries">
                 <div class="metasearch-result" style="margin-bottom: 20px;">
