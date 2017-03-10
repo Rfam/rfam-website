@@ -211,7 +211,9 @@
                 <div class="metasearch-result panel panel-default" style="margin-bottom: 20px;">
                   <div class="panel-body">
                   <h4>
-                    <a href="/family/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+                    <a ng-if="rna.fields.entry_type[0] == 'Family'" href="/family/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+                    <a ng-if="rna.fields.entry_type[0] == 'Motif'" href="/motif/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+                    <a ng-if="rna.fields.entry_type[0] == 'Clan'" href="/clan/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <small>{{rna.id}}</small>
                   </h4>
                   <div ng-show="rna.fields.description[0].indexOf('metasearch-highlights') === -1" style="margin-bottom: 3px;">
