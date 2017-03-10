@@ -1,0 +1,251 @@
+<div class="container" style="margin: 10px 20px">
+
+  <div class="container-main">
+
+    <div ng-app="rfamApp"  id="ng-app">
+
+      <div ng-controller="QueryCtrl">
+
+        <form novalidate name="queryForm" class="global-search" ng-submit="submit_query()">
+          <fieldset style="padding: 15px; border: 1px #734639 solid;">
+          <div class="bootstrap-wrapper form-group" ng-class="(query.submitted && queryForm.$invalid) ? 'has-error' : ''">
+            <div class="input-group input-group-lg">
+              <input type="text"
+                     class="form-control"
+                     id="query-text"
+                     name="text"
+                     tabindex="1"
+                     ng-model="query.text"
+                     ng-minlength="2"
+                     ng-maxlength="1000"
+                     autocomplete="off"
+                     placeholder="Search RNAcentral"
+                     autofocus
+                     required
+                     style="border-color: #734639;">
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-primary" style="background-color:#734639;">
+                  <i class="fa fa-search"></i>
+                  <span class="hidden-xs-inline">Search</span>
+                </button>
+              </div><!-- /input-group-btn -->
+            </div><!--input-group -->
+            <span class="help-block example-searches">
+
+                <i>
+                  Examples:
+                  <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('SAM')">SAM</a>,
+                  <a class="help" data-placement="bottom" title="Search by species" href="" rel="nofollow" ng-click="meta_search('TAXONOMY:&quot;9606&quot;')">Homo sapiens</a>,
+                  <a class="help" data-placement="bottom" title="Search by RNA type" href="" rel="nofollow" ng-click="meta_search('rna_type:&quot;snoRNA&quot;')">snoRNA</a>,
+                  <a class="help" data-placement="bottom" title="Search by PubMed ID" href="" rel="nofollow" ng-click="meta_search('PUBMED:&quot;20230605&quot;')">PMID:20230605</a>,
+                  <a class="help" data-placement="bottom" title="Search by SO terms" href="" rel="nofollow" ng-click="meta_search('&quot;SO:0000370&quot;')">SO:0000370 (small regulatory ncRNA)</a>,
+                  <a class="help" data-placement="bottom" title="Search by GO terms" href="" rel="nofollow" ng-click="meta_search('&quot;GO:0005685&quot;')">GO:0005685 (U1 snRNP)</a>,
+                  <a class="help" data-placement="bottom" title="Search by author name" href="" rel="nofollow" ng-click="meta_search('author:&quot;Weinberg&quot;')">author:Weinberg</a>
+                </i>
+
+            </span>
+            <label class="control-label ng-cloak has-error"
+                   for="query-text" ng-show="query.submitted && (queryForm.text.$error.required || queryForm.text.$error.minlength)"
+                   ng-cloak>
+              Your query is too short
+            </label>
+            <label class="control-label ng-cloak"
+                   for="query-text" ng-show="query.submitted && (queryForm.text.$error.maxlength)"
+                   ng-cloak>
+              Your query is too long
+            </label>
+          </div><!-- /form-group -->
+          </fieldset>
+        </form><!-- /form -->
+
+      </div><!--ng-controller QueryCtrl-->
+
+
+      <div ng-show="display_search_interface" class="bootstrap-wrapper ng-cloak" ng-cloak ng-controller="ResultsListCtrl">
+
+        <h2>
+          <i class="fa fa-search"></i> Results
+          <small ng-show="search_in_progress">
+            <i class="fa fa-spinner fa-spin"></i>
+          </small>
+          <small id="metadata-search-status" ng-show="search_in_progress">
+            Searching...
+          </small>
+          <small ng-show="result.hitCount > 0">
+            <span ng-if="result.hitCount == 1">1</span>
+            <span ng-if="result.hitCount > 1" id="metasearch-results-count">{{result.entries.length}} out of {{result.hitCount | number}}</span>
+          </small>
+
+
+          <form class="pull-right form-inline small">
+            <div class="form-group">
+              Sort by:
+              <select class="form-control" ng-change="update_ordering();" ng-model="params.selectedOrdering" ng-options="item.label for item in ordering track by item.label"></select>
+            </div>
+          </form>
+
+
+        </h2>
+
+        <div class="row visible-xs">
+          <div class="col-xs-12">
+            <button class="btn btn-default" ng-click="toggle_facets()" id="toggle-facets">Show facets</button>
+          </div>
+        </div> <!-- .visible-xs -->
+
+        <div class="row" ng-if="show_error">
+          <div class="col-md-12">
+            <div class="alert alert-danger col-md-12">
+              There was an error while processing your query
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h2>Suggestions</h2>
+            <ul>
+              <li>
+                <p>
+                  Try reloading the page
+                </p>
+              </li>
+              <li>
+                <p>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div> <!-- ng-if="show_error" -->
+
+        <div class="row" ng-if="show_export_error">
+
+          <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <i class="fa fa-warning fa-3x pull-left"></i>
+              There was an error while exporting search results.
+              <br>
+              Please try again if the problem persists.
+            </div>
+          </div>
+
+        </div> <!-- ng-if="show_export_error" -->
+
+        <div class="row" ng-if="result.hitCount == 0">
+
+          <div class="col-md-12">
+            <div class="alert alert-warning col-md-12 metasearch-no-results">
+              <strong>No results</strong>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <h2><i class="fa fa-lightbulb-o"></i> Suggestions</h2>
+            <ul>
+              <li>
+                <p>
+                  Make sure your spelling is correct
+                </p>
+                <p>
+                  <em>Example</em>: misspelled terms like <code>Esherichia</code> (missing "c") won't find any results
+                </p>
+              </li>
+              <li>
+                <p>
+                  Use full species names
+                </p>
+                <p>
+                  <em>Example</em>: use <code>Escherichia coli</code> and not <code>E. coli</code> as your search terms
+                </p>
+              </li>
+              <li>
+                <p>
+                  Make sure to include double quotes in field-specific search using the <code>field:"field value"</code> format
+                </p>
+              </li>
+              <li>
+                <p>
+                  Read more about <a href="/help/metadata-search">query syntax</a>
+                </p>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="row" ng-show="result.hitCount > 0">
+
+          <div class="col-md-3 col-sm-4 hidden-xs metasearch-facets">
+            <ul class="list-unstyled">
+              <li class="facet" ng-repeat="facet in result.facets">
+                  <h3>{{facet.label}}</h3>
+                  <ul class="list-unstyled metasearch-facet-values metasearch-facet-overflow force-scrollbars" style="overflow: auto; max-height: 350px;">
+                      <li ng-repeat="facet_value in facet.facetValues" style="white-space: nowrap;">
+                        <input type="checkbox" name="facet.label" ng-checked="is_facet_applied(facet.id, facet_value.value)" ng-click="facet_search(facet.id, facet_value.value)">
+                        <a href="" ng-click="facet_search(facet.id, facet_value.value)" class="metasearch-facet-link">{{facet_value.label}} <small>({{facet_value.count | number}})</small></a>
+                      </li>
+                      <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small>
+                  </ul>
+              </li>
+            </ul>
+            <hr>
+            <small class="text-muted">
+              Powered by <a href="http://www.ebi.ac.uk/ebisearch/" target="_blank">EBI Search</a>
+            </small>
+
+          </div>
+
+          <div class="col-md-9 col-sm-8 col-xs-12 metasearch-results">
+            <ul class="list-unstyled">
+              <li class="result" ng-repeat="rna in result.entries">
+                <div class="metasearch-result" style="margin-bottom: 20px;">
+                  <h4>
+                    <a href="/family/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize"></a>
+                    <small>{{rna.id}}</small>
+                  </h4>
+                  <div ng-show="rna.fields.description[0].indexOf('metasearch-highlights') === -1" style="margin-bottom: 3px;">
+                    <ul ng-repeat="pub_title in rna.fields.pub_title | filter:'metasearch-highlights' | limitTo:1" class="small list-unstyled">
+                      <li ng-bind-html="pub_title | sanitize"></li>
+                    </ul>
+                  </div>
+                  <ul class="list-inline">
+                    <li  ng-if="rna.fields.entry_type[0] == 'Clan'">
+                      <strong>{{rna.fields.num_families[0] | number}}</strong> families
+                    </li>
+                    <li  ng-if="rna.fields.entry_type[0] == 'Family'">
+                      <strong>{{rna.fields.num_seed[0] | number}}</strong> seed
+                    </li>
+                    <li  ng-if="rna.fields.entry_type[0] == 'Family'">
+                      <strong>{{rna.fields.num_full[0] | number}}</strong> full
+                    </li>
+                    <li ng-if="rna.fields.entry_type[0] == 'Family'">
+                      <strong>{{ rna.fields.num_species[0] | number }}</strong> species
+                    </li>
+                    <li ng-if="rna.fields.num_3d_structures[0] > 0">
+                      <span ng-if="rna.fields.num_3d_structures[0] == 1"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structure</span>
+                      <span ng-if="rna.fields.num_3d_structures[0] > 1"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structures</span>
+                    </li>
+                    <br>
+                    <li>
+                      <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
+                      {{ rna.fields.name[0] }}
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+
+            <br>
+            <small ng-if="result.hitCount > result.entries.length" class="text-muted">Displaying {{result.entries.length}} out of {{result.hitCount | number}} results</small>
+            <br>
+
+            <button class="btn btn-default load-more col-md-3" ng-click="load_more_results()" ng-show="result.hitCount > result.entries.length"><i ng-class="search_in_progress ? 'fa fa-spinner fa-spin' : 'hidden'"></i> Load more</button>
+          </div>
+
+        </div><!--/row-->
+
+      </div><!--ng-controller ResultsListCtrl-->
+
+    </div><!--ng-app-->
+
+  </div><!--container-main-->
+
+</div><!--container-->

@@ -83,6 +83,7 @@ IF refreshUri != "";
 <link rel='stylesheet' href='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.css' type='text/css' />
 <script type='text/javascript' src='[% staticUri %]/javascripts/angular/json3/json3.min.js'></script>
 <script type='text/javascript' src='[% staticUri %]/javascripts/underscore-min.js'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js'></script>
 <link rel="stylesheet" href="[% staticUri %]/css/font-awesome/css/font-awesome.min.css" type="text/css" />
 
 <!-- ====================================================================== -->
