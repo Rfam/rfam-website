@@ -85,7 +85,7 @@
           </small>
           <small ng-show="result.hitCount > 0">
             <span ng-if="result.hitCount == 1">1</span>
-            <span ng-if="result.hitCount > 1" id="metasearch-results-count">{{result.entries.length}} out of {{result.hitCount | number}}</span>
+            <span ng-if="result.hitCount > 1" id="text-search-results-count">{{result.entries.length}} out of {{result.hitCount | number}}</span>
           </small>
 
 
@@ -208,9 +208,10 @@
           <div class="col-md-9 col-sm-8 col-xs-12 text-search-results">
             <ul class="list-unstyled">
               <li class="result" ng-repeat="rna in result.entries">
-                <div class="metasearch-result" style="margin-bottom: 20px;">
+                <div class="metasearch-result panel panel-default" style="margin-bottom: 20px;">
+                  <div class="panel-body">
                   <h4>
-                    <a href="/family/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize"></a>
+                    <a href="/family/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <small>{{rna.id}}</small>
                   </h4>
                   <div ng-show="rna.fields.description[0].indexOf('metasearch-highlights') === -1" style="margin-bottom: 3px;">
@@ -218,29 +219,48 @@
                       <li ng-bind-html="pub_title | sanitize"></li>
                     </ul>
                   </div>
-                  <ul class="list-inline">
-                    <li  ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
-                      <strong>{{rna.fields.num_families[0] | number}}</strong> families
-                    </li>
-                    <li  ng-if="rna.fields.entry_type[0] == 'Family'">
-                      <strong>{{rna.fields.num_seed[0] | number}}</strong> seed
-                    </li>
-                    <li  ng-if="rna.fields.entry_type[0] == 'Family'">
-                      <strong>{{rna.fields.num_full[0] | number}}</strong> full
-                    </li>
-                    <li ng-if="rna.fields.entry_type[0] == 'Family'">
-                      <strong>{{ rna.fields.num_species[0] | number }}</strong> species
-                    </li>
-                    <li ng-if="rna.fields.num_3d_structures[0] > 0">
-                      <span ng-if="rna.fields.num_3d_structures[0] == 1"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structure</span>
-                      <span ng-if="rna.fields.num_3d_structures[0] > 1"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structures</span>
-                    </li>
-                    <br>
-                    <li>
-                      <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
-                      {{ rna.fields.name[0] }}
-                    </li>
-                  </ul>
+
+                  <div class="media">
+                    <div class="media-left media-top">
+                      <a href="/family/{{rna.id}}#tabview=tab3" target="_self" ng-if="rna.fields.entry_type[0] == 'Family'">
+                        <img src="/family/{{rna.id}}/image/rscape-cyk" class="bootstrap-wrapper img-responsive img-thumbnail" alt="" style="max-width: 100px; max-height: 100px;">
+                      </a>
+                    </div>
+
+                    <div class="media-body">
+                      <p>
+                        <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
+                        {{ rna.fields.name[0] }}
+                      </p>
+                      <ul class="list-inline">
+                        <li ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
+                          <strong>{{rna.fields.num_families[0] | number}}</strong> families
+                        </li>
+                        <li ng-if="rna.fields.entry_type[0] == 'Family'">
+                          <img src="/static/images/logos/alignment.png">
+                          <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_seed[0] | number}}</strong> seed alignment sequences</a>
+                          <br>
+                          <img src="/static/images/logos/alignment.png">
+                          <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_full[0] | number}}</strong> full alignment sequences</a>
+                        </li>
+                        <li ng-if="rna.fields.entry_type[0] == 'Family'">
+                          <img src="/static/images/logos/tree.png">
+                          <a href="/family/{{rna.id}}#tabview=tab4" target="_self"><strong>{{ rna.fields.num_species[0] | number }}</strong> species</a>
+                        </li>
+                        <li ng-if="rna.fields.num_3d_structures[0] > 0">
+                          <img src="/static/images/logos/structure.png">
+                          <span ng-if="rna.fields.num_3d_structures[0] == 1">
+                            <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structure</a>
+                          </span>
+                          <span ng-if="rna.fields.num_3d_structures[0] > 1">
+                            <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structures</a>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                    </div>
+                  </div>
+
                 </div>
               </li>
             </ul>
