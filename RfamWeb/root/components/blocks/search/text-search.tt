@@ -223,16 +223,16 @@
                   </div>
 
                   <div class="media">
-                    <div class="media-left media-top">
-                      <a href="/family/{{rna.id}}#tabview=tab3" target="_self" ng-if="rna.fields.entry_type[0] == 'Family'">
-                        <img src="/family/{{rna.id}}/image/rscape-cyk" class="bootstrap-wrapper img-responsive img-thumbnail" alt="{{ rna.id }} secondary structure" style="max-width: 100px; max-height: 100px;">
+                    <div class="media-left media-top col-md-2" ng-if="rna.fields.entry_type[0] == 'Family'" style="padding-left: 0;">
+                      <a href="/family/{{rna.id}}#tabview=tab3" target="_self">
+                        <img src="/family/{{rna.id}}/image/rscape-cyk" class="bootstrap-wrapper img-thumbnail" alt="{{ rna.id }} secondary structure" style="max-width: 120px; max-height: 100px;">
                       </a>
                     </div>
                     <div class="media-body">
                       <p>
                         <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
-                        {{ rna.fields.name[0] }} |
-                        <i>{{ rna.fields.rna_type.join('; ') }}</i>
+                        {{ rna.fields.name[0] }}
+                        <span ng-if="rna.fields.entry_type[0] == 'Family'" | <i>{{ rna.fields.rna_type.join('; ') }}</i></span>
                       </p>
                       <ul class="list-inline">
                         <li ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
