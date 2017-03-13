@@ -83,7 +83,8 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
             'num_full',
             'num_species',
             'num_3d_structures',
-            'num_families'
+            'num_families',
+            'rna_type'
         ],
         facetfields: [
             'entry_type',

@@ -225,32 +225,35 @@
                   <div class="media">
                     <div class="media-left media-top">
                       <a href="/family/{{rna.id}}#tabview=tab3" target="_self" ng-if="rna.fields.entry_type[0] == 'Family'">
-                        <img src="/family/{{rna.id}}/image/rscape-cyk" class="bootstrap-wrapper img-responsive img-thumbnail" alt="" style="max-width: 100px; max-height: 100px;">
+                        <img src="/family/{{rna.id}}/image/rscape-cyk" class="bootstrap-wrapper img-responsive img-thumbnail" alt="{{ rna.id }} secondary structure" style="max-width: 100px; max-height: 100px;">
                       </a>
                     </div>
-
                     <div class="media-body">
                       <p>
                         <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
-                        {{ rna.fields.name[0] }}
+                        {{ rna.fields.name[0] }} |
+                        <i>{{ rna.fields.rna_type.join('; ') }}</i>
                       </p>
                       <ul class="list-inline">
                         <li ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
                           <strong>{{rna.fields.num_families[0] | number}}</strong> families
                         </li>
                         <li ng-if="rna.fields.entry_type[0] == 'Family'">
-                          <img src="/static/images/logos/alignment.png">
+                          <p>
+                          <i class="fa fa-bars"></i>
                           <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_seed[0] | number}}</strong> seed alignment sequences</a>
-                          <br>
-                          <img src="/static/images/logos/alignment.png">
+                          </p>
+                          <p>
+                          <i class="fa fa-align-justify"></i>
                           <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_full[0] | number}}</strong> full alignment sequences</a>
+                          </p>
                         </li>
                         <li ng-if="rna.fields.entry_type[0] == 'Family'">
-                          <img src="/static/images/logos/tree.png">
+                          <i class="fa fa-sitemap"></i>
                           <a href="/family/{{rna.id}}#tabview=tab4" target="_self"><strong>{{ rna.fields.num_species[0] | number }}</strong> species</a>
                         </li>
                         <li ng-if="rna.fields.num_3d_structures[0] > 0">
-                          <img src="/static/images/logos/structure.png">
+                          <label class="label label-primary">3D</label>
                           <span ng-if="rna.fields.num_3d_structures[0] == 1">
                             <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structure</a>
                           </span>
