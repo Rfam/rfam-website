@@ -186,12 +186,12 @@ labels = [
     </p>
 
     <ul id="ssImageTabs" class="controlTabList">
-      <li><a href="#rscapeImage" title="R-scape">R-scape</a></li>
+      <li><a href="[% c.uri_for( '/family', acc ) | html -%]#rscapeImage" title="R-scape">R-scape</a></li>
       [% FOREACH hash IN labels -%]
-        <li><a href="#[% hash.type %]Image"
+        <li><a href="[% c.uri_for( '/family', acc ) | html -%]#[% hash.type %]Image"
                title="[% hash.long %]">[% hash.short %]</a></li>
       [% END -%]
-      <li><a href="#rchieImage"
+      <li><a href="[% c.uri_for( '/family', acc ) | html -%]#rchieImage"
              title="R-chie">rchie</a></li>
     </ul>
 
