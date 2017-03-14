@@ -556,7 +556,7 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
             new_query = new_query.replace(' AND ' + facet + ' AND ', ' AND ', 'i');
             new_query = new_query.replace(facet + ' AND ', '', 'i');
             new_query = new_query.replace(' AND ' + facet, '', 'i');
-            new_query = new_query.replace(facet, '', 'i') || 'RNA';
+            new_query = new_query.replace(facet, '', 'i') || 'RF0*';
         } else {
             new_query = query + ' AND ' + facet; // add new facet
         }
