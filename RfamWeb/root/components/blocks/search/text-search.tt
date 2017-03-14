@@ -232,7 +232,7 @@
                       <p>
                         <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
                         {{ rna.fields.name[0] }}
-                        <span ng-if="rna.fields.entry_type[0] == 'Family'" | <i>{{ rna.fields.rna_type.join('; ') }}</i></span>
+                        <span ng-if="rna.fields.entry_type[0] == 'Family'"> | <i>{{ rna.fields.rna_type.join('; ') }}</i></span>
                       </p>
                       <ul class="list-inline">
                         <li ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
