@@ -463,10 +463,10 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     $scope.show_error = results.get_show_error();
 
     $scope.ordering = [
-        { sort_field: 'num_full:descending', label: 'Full alignment size \u2193' },
-        { sort_field: 'num_full', label: 'Full alignment size \u2191' },
-        { sort_field: 'num_seed:descending', label: 'Seed alignment size \u2193'},
-        { sort_field: 'num_seed', label: 'Seed alignment size \u2191'},
+        { sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
+        { sort_field: 'num_full', label: 'Number of full alignment sequences \u2191' },
+        { sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences \u2193'},
+        { sort_field: 'num_seed', label: 'Number of seed alignment sequences \u2191'},
         { sort_field: 'num_species:descending', label: 'Number of species \u2193'},
         { sort_field: 'num_species', label: 'Number of species \u2191'},
         { sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
