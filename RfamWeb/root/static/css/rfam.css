@@ -2014,9 +2014,9 @@ a.btn {
 .bootstrap-wrapper output{display:block;padding-top:7px;font-size:14px;line-height:1.42857143;color:#555}
 .bootstrap-wrapper .form-control{display:block;width:100%;height:34px;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0, .bootstrap-wrapper 0, .bootstrap-wrapper 0, .bootstrap-wrapper 0.075);box-shadow:inset 0 1px 1px rgba(0, .bootstrap-wrapper 0, .bootstrap-wrapper 0, .bootstrap-wrapper 0.075);-webkit-transition:border-color ease-in-out .15s, .bootstrap-wrapper  -webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s, .bootstrap-wrapper  box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s, .bootstrap-wrapper  box-shadow ease-in-out .15s}
 .bootstrap-wrapper .form-control:focus{border-color:#66afe9;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0, .bootstrap-wrapper 0, .bootstrap-wrapper 0, .bootstrap-wrapper .075), .bootstrap-wrapper  0 0 8px rgba(102, .bootstrap-wrapper  175, .bootstrap-wrapper  233, .bootstrap-wrapper  0.6);box-shadow:inset 0 1px 1px rgba(0, .bootstrap-wrapper 0, .bootstrap-wrapper 0, .bootstrap-wrapper .075), .bootstrap-wrapper  0 0 8px rgba(102, .bootstrap-wrapper  175, .bootstrap-wrapper  233, .bootstrap-wrapper  0.6)}
-.bootstrap-wrapper .form-control::-moz-placeholder{color:#999;opacity:1}
+/*.bootstrap-wrapper .form-control::-moz-placeholder{color:#999;opacity:1}
 .bootstrap-wrapper .form-control:-ms-input-placeholder{color:#999}
-.bootstrap-wrapper .form-control::-webkit-input-placeholder{color:#999}
+.bootstrap-wrapper .form-control::-webkit-input-placeholder{color:#999}*/
 .bootstrap-wrapper .form-control::-ms-expand{border:0;background-color:transparent}
 .bootstrap-wrapper .form-control[disabled], .bootstrap-wrapper .form-control[readonly], .bootstrap-wrapper fieldset[disabled] .form-control{background-color:#eee;opacity:1}
 .bootstrap-wrapper .form-control[disabled], .bootstrap-wrapper fieldset[disabled] .form-control{cursor:not-allowed}
@@ -2846,4 +2846,19 @@ a.btn {
 
 .text-search-results {
   border-left: 1px solid #eeeeee;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #621700;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #621700;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #621700;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #621700;
 }
