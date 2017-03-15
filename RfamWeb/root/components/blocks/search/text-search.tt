@@ -28,7 +28,7 @@
                      placeholder="Search Rfam"
                      autofocus
                      required
-                     style="border-color: #734639;">
+                     style="border-color: #734639; border-color: #734639; background: #fff6f4; color: #734639;">
               <div class="input-group-btn">
                 <button type="submit" class="btn btn-primary" style="background-color:#734639;">
                   <i class="fa fa-search"></i>
