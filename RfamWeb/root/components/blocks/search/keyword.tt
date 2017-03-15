@@ -26,6 +26,18 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
   </div>
   <div class="blockContent">
 
+    <div class="bootstrap-wrapper">
+      <div class="well">
+        <p class="lead" style="margin-bottom: 0;">
+          <i class="fa fa-lightbulb-o fa-2x fa-pull-left fa-border" aria-hidden="true"></i>
+          <span class="text-danger"> Did you know that Rfam has a <strong>new keyword search?</strong></span>
+          <a href="/search?q=tRNA">Try it now &rarr;</a>
+          <br>
+          If you have any feedback, please <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#097;&#109;&#045;&#104;&#101;&#108;&#112;&#064;&#101;&#098;&#105;&#046;&#097;&#099;&#046;&#117;&#107;">get in touch</a>.
+        </p>
+      </div>
+    </div>
+
     <p>
       Search for keywords within the textual data in the Rfam database.
       <span class="moreLink" onclick="reveal(this,'kwNotes',false, true)">More...</span>
