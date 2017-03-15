@@ -103,6 +103,65 @@ requirements.cssIeAll.push( "index_all_ie.css" );
    jumpUri    = "${searchBase}/jump";
    %]
 
+  <div class="bootstrap-wrapper">
+
+    <form novalidate id="queryForm" class="global-search">
+      <fieldset style="padding: 15px; border: 1px #734639 solid;">
+
+      <p class="lead" style="color: #621700;">
+        Try new Rfam text search and <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#097;&#109;&#045;&#104;&#101;&#108;&#112;&#064;&#101;&#098;&#105;&#046;&#097;&#099;&#046;&#117;&#107;">let us know</a> if you have any feedback
+      </p>
+
+      <div class="bootstrap-wrapper form-group" style="margin-bottom: 0;">
+        <div class="input-group input-group">
+          <input type="text"
+                 class="form-control"
+                 id="query-text"
+                 name="text"
+                 tabindex="1"
+                 autocomplete="off"
+                 placeholder="Search Rfam"
+                 autofocus
+                 required
+                 style="border-color: #734639; background: #f0d9d3 url(/shared/images/search_gradient.png) repeat-x top left;">
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary" style="background-color:#734639;">
+              <i class="fa fa-search"></i>
+              <span class="hidden-xs-inline">Search</span>
+            </button>
+          </div><!-- /input-group-btn -->
+        </div><!--input-group -->
+        <span class="help-block example-searches">
+
+            <i>
+              Examples:
+              <a class="help" data-placement="bottom" title="Search by a keyword" rel="nofollow" href="/search?q=SAM" >SAM</a>,
+              <a class="help" data-placement="bottom" title="Search by species" rel="nofollow" href="/search?q=TAXONOMY:&quot;9606&quot;">Homo sapiens</a>,
+              <a class="help" data-placement="bottom" title="Search by RNA type" rel="nofollow" href="/search?q=rna_type:&quot;snoRNA&quot;">snoRNA</a>,
+              <a class="help" data-placement="bottom" title="Search by PubMed ID" rel="nofollow" href="/search?q=PUBMED:&quot;20230605&quot;">PMID:20230605</a>,
+              <a class="help" data-placement="bottom" title="Search by author name" rel="nofollow" href="/search?q=author:&quot;Weinberg&quot;">author:Weinberg</a>
+            </i>
+
+        </span>
+
+        <p style="margin-bottom: 0;">
+          Browse
+          <i>
+            <a class="help" data-placement="bottom" title="Browse Rfam families" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot;">Families</a>,
+            <a class="help" data-placement="bottom" title="Browse Rfam clans" rel="nofollow" href="/search?q=entry_type:&quot;Clan&quot;">Clans</a>,
+            <a class="help" data-placement="bottom" title="Browse Rfam motifs" rel="nofollow" href="/search?q=entry_type:&quot;Motif&quot;">Motifs</a>,
+            or
+            <a class="help" data-placement="bottom" title="Browse Rfam families with 3D structures" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;">Families with 3D structures</a>
+          </i>
+        </p>
+      </div><!-- /form-group -->
+      </fieldset>
+    </form><!-- /form -->
+
+  </div>
+
+  <hr>
+
   <div id="controlPanel">
     <ul>
       <li class="link currentLink" onclick="switchPanel(this,'help')">QUICK LINKS</li>
@@ -452,6 +511,19 @@ requirements.cssIeAll.push( "index_all_ie.css" );
 
 <script type="text/javascript">
   // <![CDATA[
+
+  // submit text search queries
+  jQuery(function() {
+    jQuery('#queryForm').submit(function(){
+      var searchField = jQuery('#query-text');
+      if (!searchField.val()) {
+        searchField.focus();
+        return false;
+      }
+      window.location = '/search?q=' + searchField.val();
+      return false;
+    });
+  });
 
   // set up the "jump to" field
 
