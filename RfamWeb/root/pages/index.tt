@@ -192,6 +192,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
                    type="text"
                    name="entry"
                    id="jumpField"
+                   style="background: none; border-style: solid;"
                    size="30" />
             <a id="jumpButton" class="btn go"><span class="btn-inner">Go</span></a>
             <a class="btn" onclick="fillJumpField();"><span class="btn-inner">Example</span></a>
@@ -531,7 +532,6 @@ requirements.cssIeAll.push( "index_all_ie.css" );
   $("jumpField").value = "enter any accession or ID";
   $("jumpField").selectionStart = 0;
   $("jumpField").selectionEnd   = 0;
-  $("jumpField").focus();
 
   // add observers to clear out the field when the user first enters something
   // in it. We need several to catch all eventualities...
