@@ -72,17 +72,16 @@ sharedUri = c.uri_for( "/shared" );
       <img alt="rfam"
            id="rfamLogo"
            src="[% sharedUri %]/images/blank.gif" /></a>
-    <form action="[% c.uri_for( "/search/keyword" ) %]"
-          method="get"
-          id="siteSearchForm">
+    <form id="siteSearchForm">
       <div id="searchBox">
         <input class="entryField entryField"
                type="text"
-               onfocus="if(!ssCleared){this.value='';ssCleared=true;}"
+               placeholder="Search Rfam"
                name="query"
+               tabindex="1"
                id="siteSearchField" />
         <a class="btn go"
-            onclick="if($F('siteSearchField')){if(ssCleared){$('siteSearchForm').submit();}}">
+            onclick="jQuery('#siteSearchForm').submit();">
           <span class="btn-inner">Go</span></a>
       </div>
     </form>
@@ -93,10 +92,17 @@ sharedUri = c.uri_for( "/shared" );
 <div class="cleaner"><!-- empty --></div>
 
 <script type="text/javascript">
-  // <![CDATA[
-  $("siteSearchField").value = "keyword search";
-  var ssCleared = false;
-  // ]]>
+  jQuery(function() {
+    jQuery('#siteSearchForm').submit(function(){
+      var searchField = jQuery('#siteSearchField');
+      if (!searchField.val()) {
+        searchField.focus();
+        return false;
+      }
+      window.location = '/search?q=' + searchField.val();
+      return false;
+    });
+  });
 </script>
 
 [%- # dump out the name of the host that served the file -%]
