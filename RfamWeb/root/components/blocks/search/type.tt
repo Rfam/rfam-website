@@ -1,13 +1,13 @@
 [%
 # type.tt
 # jt6 20081121 WTSI
-# 
+#
 # build the entry type search block
 #
 # $Id: type.tt,v 1.3 2009-10-08 16:01:49 jt6 Exp $
 
 #-------------------------------------------------------------------------------
-# specify required stylesheets and javascript files 
+# specify required stylesheets and javascript files
 
 PROCESS "components/require.tt";
 
@@ -35,7 +35,7 @@ sharedRequirements.css.push( "tree.css" );
       <span class="moreLink" onclick="reveal(this,'typeNotes',false, true)">More...</span>
     </p>
     <div id="typeNotes" style="display: none">
-      <p> 
+      <p>
         Each family in Rfam is assigned into a type category. This is based on
         its function. These categories are hierarchical such that something
         classified as a ncRNA 'gene' can be further sub-classified into a
@@ -133,12 +133,12 @@ sharedRequirements.css.push( "tree.css" );
         [% typeSearchError %]
       </div>
       [% END %]
-  
-      <form method="post" 
+
+      <form method="post"
             id="proteinTypeSearchForm"
             onsubmit="return submitForm();"
             action="[% c.uri_for( "/search/type" ) %]">
-    
+
         <div class="row">
           <label for="q">Entry types</label>
           <div id="treeDiv" class="ygtv-checkbox"></div>
@@ -153,10 +153,10 @@ sharedRequirements.css.push( "tree.css" );
           <input class="reset"
                  type="reset"
                  name="reset"
-                 value="Reset" 
+                 value="Reset"
                  onclick="tree.getRoot().children.invoke('uncheck');" />
-          <input class="example" 
-                 type="button" 
+          <input class="example"
+                 type="button"
                  value="Example"
                  onclick="fillTypeExample();" />
 
@@ -166,9 +166,9 @@ sharedRequirements.css.push( "tree.css" );
         </div>
 
       </form>
-  
+
     </div>
-  
+
   </div>
 
   <script type="text/javascript">
@@ -199,7 +199,7 @@ sharedRequirements.css.push( "tree.css" );
                     { label: "riboswitch", path: "Cis-reg; riboswitch;" },
                     { label: "thermoregulator", path: "Cis-reg; thermoregulator;" } ] }
     ];
-    
+
     var exampleData = [ "Gene; sRNA;", "Cis-reg; riboswitch;" ];
 
     var tree;

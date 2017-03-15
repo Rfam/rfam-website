@@ -1,7 +1,7 @@
 [%
 # browseFamilies.tt
 # jt6 20060717 WTSI
-# 
+#
 # build a "browse" page for Rfam families
 #
 # $Id: families.tt,v 1.5 2008-12-10 13:52:17 jt6 Exp $
@@ -12,7 +12,7 @@ META fullPage = 1;
 USE Number.Format( THOUSANDS_SEP = "," );
 
 #-------------------------------------------------------------------------------
-# specify required stylesheets and javascript files 
+# specify required stylesheets and javascript files
 
 PROCESS "components/require.tt";
 
@@ -28,7 +28,7 @@ CALL pages.import( [ "A" .. "Z" ] );
 familyURI = c.uri_for( "/family" );
 
 # generate the page list
-pageList = PROCESS "components/pageList.tt" 
+pageList = PROCESS "components/pageList.tt"
                    pageList=pages
                    activeLetters=active_letters.families
                    pageURI = "#";
@@ -39,15 +39,15 @@ pageList = PROCESS "components/pageList.tt"
 <h1 class="pageHeader">Browse all [% families.size %] Rfam families</h1>
 
 <p class="browseSummary">
-  The table may be sorted by clicking on the column titles, or restored to the 
-  original order <span class="link" id="sortLink">here</span>. 
-  <strong>Please note</strong> that sorting large tables can be slow. 
-  Go <a href="[% c.uri_for( '/browse' ) %]">back</a> to the browse index. 
+  The table may be sorted by clicking on the column titles, or restored to the
+  original order <span class="link" id="sortLink">here</span>.
+  <strong>Please note</strong> that sorting large tables can be slow.
+  Go <a href="[% c.uri_for( '/browse' ) %]">back</a> to the browse index.
 </p>
 
 [% pageList %]
-          
-<table class="details browse" 
+
+<table class="details browse"
        id="browseTable"
        summary="Details of Rfam families">
   <thead class="sortIndicator dark">
@@ -118,7 +118,7 @@ pageList = PROCESS "components/pageList.tt"
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under

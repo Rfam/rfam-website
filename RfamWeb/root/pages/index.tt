@@ -484,7 +484,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
   } );
 
   // rotate through example IDs
-  var jumpExamples = $w("SAM 209261 telomerase");  
+  var jumpExamples = $w("SAM 209261 telomerase");
   var lastJumpExample = 0;
   var fillJumpField = function() {
     $("jumpField").value = jumpExamples[lastJumpExample++];
