@@ -1,4 +1,9 @@
-<div class="container" style="margin: 10px 20px">
+<div class="block" id="searchTextBlock">
+
+<div class="handle">
+  <h1>Text search</h1>
+</div>
+
 
   <div class="container-main">
 
@@ -286,3 +291,5 @@
   </div><!--container-main-->
 
 </div><!--container-->
+
+</div><!--block-->
