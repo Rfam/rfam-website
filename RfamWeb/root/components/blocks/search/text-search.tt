@@ -43,7 +43,7 @@
                   <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('SAM')">SAM</a>,
                   <a class="help" data-placement="bottom" title="Search by species" href="" rel="nofollow" ng-click="meta_search('TAXONOMY:&quot;9606&quot;')">Homo sapiens</a>,
                   <a class="help" data-placement="bottom" title="Search by RNA type" href="" rel="nofollow" ng-click="meta_search('rna_type:&quot;snoRNA&quot;')">snoRNA</a>,
-                  <a class="help" data-placement="bottom" title="Search by PubMed ID" href="" rel="nofollow" ng-click="meta_search('PUBMED:&quot;20230605&quot;')">PMID:20230605</a>,
+                  <a class="help" data-placement="bottom" title="Search by PubMed ID" href="" rel="nofollow" ng-click="meta_search('PUBMED:&quot;20230605&quot;')">PUBMED:20230605</a>,
                   <a class="help" data-placement="bottom" title="Search by SO terms" href="" rel="nofollow" ng-click="meta_search('&quot;SO:0000370&quot;')">SO:0000370 (small regulatory ncRNA)</a>,
                   <a class="help" data-placement="bottom" title="Search by GO terms" href="" rel="nofollow" ng-click="meta_search('&quot;GO:0005685&quot;')">GO:0005685 (U1 snRNP)</a>,
                   <a class="help" data-placement="bottom" title="Search by author name" href="" rel="nofollow" ng-click="meta_search('author:&quot;Weinberg&quot;')">author:Weinberg</a>
