@@ -30,7 +30,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
       <div class="well">
         <p class="lead" style="margin-bottom: 0;">
           <i class="fa fa-lightbulb-o fa-2x fa-pull-left fa-border" aria-hidden="true"></i>
-          <span class="text-danger"> Did you know that Rfam has a <strong>new search</strong> where you can search by taxonomy</span>
+          <span class="text-danger"> Did you know that Rfam has a <strong>new search</strong> that supports queries by NCBI taxonomy IDs?</span>
           <a href="/search?q=TAXONOMY:&quot;9606&quot;">Try it now &rarr;</a>
           <br>
           If you have any feedback, please <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#097;&#109;&#045;&#104;&#101;&#108;&#112;&#064;&#101;&#098;&#105;&#046;&#097;&#099;&#046;&#117;&#107;">get in touch</a>.
