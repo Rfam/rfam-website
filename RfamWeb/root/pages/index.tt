@@ -109,7 +109,8 @@ requirements.cssIeAll.push( "index_all_ie.css" );
       <fieldset style="padding: 15px; border: 1px #734639 solid;">
 
       <p class="lead" style="color: #621700;">
-        Try new Rfam text search and <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#097;&#109;&#045;&#104;&#101;&#108;&#112;&#064;&#101;&#098;&#105;&#046;&#097;&#099;&#046;&#117;&#107;">let us know</a> if you have any feedback
+        Try the new <strong>unified Rfam search</strong> and
+        <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#097;&#109;&#045;&#104;&#101;&#108;&#112;&#064;&#101;&#098;&#105;&#046;&#097;&#099;&#046;&#117;&#107;">let us know</a> if you have any feedback
       </p>
 
       <div class="bootstrap-wrapper form-group" style="margin-bottom: 0;">
