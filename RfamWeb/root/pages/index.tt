@@ -275,6 +275,9 @@ requirements.cssIeAll.push( "index_all_ie.css" );
           You can also <a href="[% c.uri_for( "/browse" ) %]">browse</a>
           through the list of all Rfam families.
         </p>
+        <div class="bootstrap-wrapper">
+          <span class="label label-danger">This option will be removed soon - try new search instead</span>
+        </div>
       </div>
     </form>
   </div>
@@ -307,6 +310,9 @@ requirements.cssIeAll.push( "index_all_ie.css" );
           You can also <a href="[% c.uri_for( "/browse" ) %]">browse</a>
           through the list of all Rfam clans.
         </p>
+        <div class="bootstrap-wrapper">
+          <span class="label label-danger">This option will be removed soon - try new search instead</span>
+        </div>
       </div>
     </form>
   </div>
@@ -410,6 +416,9 @@ requirements.cssIeAll.push( "index_all_ie.css" );
       <a onclick="$('siteSearchField').focus();return false;" href="#">
         keyword search box</a> at the top of every page.
     </p>
+    <div class="bootstrap-wrapper">
+      <span class="label label-danger">This option will be removed soon - try new search instead</span>
+    </div>
   </div>
 
   <div id="taxonomy" class="panel" style="display: none">
@@ -428,6 +437,9 @@ requirements.cssIeAll.push( "index_all_ie.css" );
            onclick="if( $('taxonomyField').present() ){;$('taxonomyForm').submit()};">Go</a>
         <a class="btn"
            onclick="$('taxonomyField').value=exTx">Example</a>
+      </div>
+      <div class="bootstrap-wrapper">
+        <span class="label label-danger">This option will be removed soon - try new search instead</span>
       </div>
     </form>
   </div>
