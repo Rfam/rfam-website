@@ -171,7 +171,6 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
         function get_query_url() {
             var ebeye_url = query_urls.ebeye_search.replace('{QUERY}', query).replace('{START}', start).replace('{ORDERING}', ordering);
             var url = query_urls.proxy.replace('{EBEYE_URL}', encodeURIComponent(ebeye_url));
-            console.log(ebeye_url);
             return url;
         }
 
