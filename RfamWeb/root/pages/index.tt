@@ -241,10 +241,8 @@ requirements.cssIeAll.push( "index_all_ie.css" );
     <a class="btn"
        onclick="$('seq').value=exSeq">Example</a>
     <p class="small nlh">
-      This search will use blast to scan Rfam for any related sequences,
-      any hits are then aligned to the corresponding covariance model.
-      You can set your own search parameters using
-      <a href="[% searchBase %]?tab=searchSequenceBlock">this</a> form.
+      Annotate a sequence with Rfam families using
+      <a href="http://eddylab.org/infernal">Infernal <i>cmscan</i><a>.
     </p>
   </div>
 
