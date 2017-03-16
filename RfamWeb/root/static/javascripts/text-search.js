@@ -90,7 +90,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
             'rna_type',
             'TAXONOMY',
             'popular_species',
-            'entry_type',            
+            'entry_type',
             'has_3d_structure',
             'author'
         ], // will be displayed in this order
@@ -103,7 +103,8 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
         'ebeye_search': search_config.ebeye_base_url +
                         '?query={QUERY}' +
                         '&format=json' +
-                        '&fields=' + search_config.fields.join() +
+                        '&hlfields=' + search_config.fields.join() +
+                        '&hlpretag=<span class="text-search-highlights">&hlposttag=</span>' +
                         '&facetcount=' + search_config.facetcount +
                         '&facetfields=' + search_config.facetfields.join() +
                         '&size=' + search_config.pagesize +
@@ -294,7 +295,18 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
 
                 merge_species_facets();
                 order_facets();
+                rename_hlfields();
                 return data;
+
+                /**
+                 * Use `hlfields` with highlighted matches instead of `fields`.
+                 */
+                function rename_hlfields() {
+                    for (var i=0; i < data.entries.length; i++) {
+                        data.entries[i].fields = data.entries[i].highlights;
+                        data.entries[i].fields.entry_type[0] = data.entries[i].fields.entry_type[0].replace(/<[^>]+>/gm, '');
+                    }
+                }
 
                 /**
                  * Order facets the same way as in the config.

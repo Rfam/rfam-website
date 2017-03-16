@@ -2862,3 +2862,7 @@ a.btn {
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
    color:    #621700;
 }
+
+.text-search-highlights {
+  font-weight: bolder;
+}

@@ -224,11 +224,6 @@
                     <a ng-if="rna.fields.entry_type[0] == 'Clan'" href="/clan/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <small>{{rna.id}}</small>
                   </h4>
-                  <div ng-show="rna.fields.description[0].indexOf('metasearch-highlights') === -1" style="margin-bottom: 3px;">
-                    <ul ng-repeat="pub_title in rna.fields.pub_title | filter:'metasearch-highlights' | limitTo:1" class="small list-unstyled">
-                      <li ng-bind-html="pub_title | sanitize"></li>
-                    </ul>
-                  </div>
 
                   <div class="media">
                     <div class="media-left media-top col-md-2" ng-if="rna.fields.entry_type[0] == 'Family'" style="padding-left: 0;">
@@ -239,8 +234,10 @@
                     <div class="media-body">
                       <p>
                         <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
-                        {{ rna.fields.name[0] }}
-                        <span ng-if="rna.fields.entry_type[0] == 'Family'"> | <i>{{ rna.fields.rna_type.join('; ') }}</i></span>
+                        <span ng-bind-html="rna.fields.name[0] | sanitize"></span>
+                        <span ng-if="rna.fields.entry_type[0] == 'Family'"> |
+                          <i ng-bind-html="rna.fields.rna_type.join('; ') | sanitize"></i>
+                        </span>
                       </p>
                       <ul class="list-inline">
                         <li ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
