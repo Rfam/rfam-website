@@ -1,20 +1,21 @@
-<div class="block" id="searchTextBlock">
+<div class="block bootstrap-wrapper" id="searchTextBlock">
 
 <div class="handle">
   <h1>Text search</h1>
 </div>
 
-<div class="container" style="margin: 10px; min-height: 500px;">
+<div class="container-fluid" style="margin: 10px; min-height: 500px;">
 
   <div class="container-main">
 
     <div ng-app="rfamApp"  id="ng-app">
 
-      <div ng-controller="QueryCtrl">
+      <div class="row">
+      <div ng-controller="QueryCtrl" class="col-md-12 col-sm-12 col-xs-12">
 
         <form novalidate name="queryForm" class="global-search" ng-submit="submit_query()">
           <fieldset style="padding: 15px; border: 1px #734639 solid;">
-          <div class="bootstrap-wrapper form-group" ng-class="(query.submitted && queryForm.$invalid) ? 'has-error' : ''">
+          <div class="form-group" ng-class="(query.submitted && queryForm.$invalid) ? 'has-error' : ''">
             <div class="input-group input-group-lg">
               <input type="text"
                      class="form-control"
@@ -77,6 +78,7 @@
         </form><!-- /form -->
 
       </div><!--ng-controller QueryCtrl-->
+      </div><!--row-->
 
 
       <div ng-show="display_search_interface" class="bootstrap-wrapper ng-cloak" ng-cloak ng-controller="ResultsListCtrl">
