@@ -222,6 +222,8 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
                     words[i] = escape_search_term(words[i]);
                 } else if ( words[i].match(/\)$/) ) {
                     // right closing grouping parenthesis, don't add a wildcard
+                } else if ( words[i].match(/(-|_)/) ) {
+                    // term contains a hyphen or an underscore, don't add a wildcard
                 } else if ( words[i].length < 3 ) {
                     // the word is too short for wildcards, do nothing
                 } else {
