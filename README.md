@@ -37,6 +37,7 @@ perl PfamScripts/wiki/scrape_cron.pl        -c RfamWeb/config/wiki.conf
 
 ## Testing sequence search results
 
-Go example URL: `http://127.0.0.1:3000/search/sequence/D8DFBEE8-B719-11E6-A6D1-7304307CE5B7`.
+Examples:
 
-The results are loaded in the WebUser database when the MySQL container is created.
+* http://127.0.0.1:3000/search/sequence/D8DFBEE8-B719-11E6-A6D1-7304307CE5B7
+* http://127.0.0.1:3000/search/sequence/187279F8-2B4E-11E7-BA5A-5513307CE5B7
