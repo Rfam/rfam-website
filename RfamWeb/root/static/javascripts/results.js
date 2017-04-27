@@ -116,8 +116,10 @@ var Results = Class.create( {
 
     // reorder hits based on E-values
     response.responseJSON.hits_list = [];
-    for (var rfam_id in response.responseJSON.hits) {
-        response.responseJSON.hits_list.push(response.responseJSON.hits[rfam_id][0]);
+    for (var rfam_family in response.responseJSON.hits) {
+      for (var i=0; i<response.responseJSON.hits[rfam_family].length; i++) {
+        response.responseJSON.hits_list.push(response.responseJSON.hits[rfam_family][i]);
+      }
     }
     response.responseJSON.hits_list.sort(function(a, b) {
         return parseFloat(a.E) - parseFloat(b.E);
