@@ -16,11 +16,11 @@
 // jt6 20120312 WTSI
 //
 // $Id$
-// 
+//
 // Copyright (c) 2012: Genome Research Ltd.
-// 
+//
 // Authors: John Tate (jt6@sanger.ac.uk)
-// 
+//
 // This is free software; you can redistribute it and/or modify it under
 // the terms of the GNU General Public License as published by the Free Software
 // Foundation; either version 2 of the License, or (at your option) any later
@@ -66,7 +66,7 @@ var Results = Class.create( {
     this._template = new EJS( { url: this._config.templateUrl } );
 
     // retrieve and check the handles to the various page elements
-    this._checkElements(); 
+    this._checkElements();
 
     // set up the updater
     this._updater = new Updater(
@@ -83,7 +83,7 @@ var Results = Class.create( {
     );
 
     // console.log( "Results.initialize: done setting up" );
-  },  
+  },
 
   //----------------------------------------------------------------------------
   //- public methods -----------------------------------------------------------
@@ -101,7 +101,7 @@ var Results = Class.create( {
    * status "2XX" and considers it to be "success"
    */
   on202: function( response ) {
-    // console.log( "Results.on202: job %s, status 202; no results; polling further", 
+    // console.log( "Results.on202: job %s, status 202; no results; polling further",
     //   this._jobId );
   },
 
@@ -151,7 +151,7 @@ var Results = Class.create( {
 
     this._failed();
   },
-  
+
   //----------------------------------------------------------------------------
   //- private methods ----------------------------------------------------------
   //----------------------------------------------------------------------------
@@ -163,7 +163,7 @@ var Results = Class.create( {
     // console.log( "Results._noResults: no results to show" );
 
     // update the summary with the hit count
-    this._hitCountEl.update( "There were <strong>no</strong> hits to your search sequence." ); 
+    this._hitCountEl.update( "There were <strong>no</strong> hits to your search sequence." );
 
     // show and hide stuff, as dictated by their classes in the HTML
     $$(".hideOC").invoke("hide"); // "hide on completion of AJAX call"
@@ -239,11 +239,11 @@ var Results = Class.create( {
     //   var errorHeader = '<h1>Job failures</h1>' +
     //                     '<p>One or more of the searches that you submitted had errors during execution:</p>' +
     //                     '<ul></ul>';
-    //   
+    //
     //   this._errorsEl.insert( { top: errorHeader } );
-    //   
+    //
     //   this._errorsList = this._errorsEl.down("ul");
-    // } 
+    // }
     // this._summaryEl.show();
   },
 
@@ -260,7 +260,7 @@ var Results = Class.create( {
     // split the sequence into multiple lines
     var ll = this._config.sequence_line_length || 40;
     var formattedSeq  = "";
-    
+
     for ( var i = 0; i < Math.ceil( plainSequence.length / ll ); i++ ) {
       // console.log( '%d: %s', i, plainSequence.substr( i * ll, ll ) );
       formattedSeq += plainSequence.substr( i * ll, ll ) + "<br />";
@@ -320,7 +320,7 @@ var Results = Class.create( {
     nextRow.toggle();
     btn.innerHTML = nextRow.visible() ? "Hide" : "Show";
   },
-  
+
   //----------------------------------------------------------------------------
   /**
    * Shows or hides all of the alignments in one fell swoop...
