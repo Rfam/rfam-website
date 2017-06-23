@@ -16,23 +16,23 @@ USE Number.Format( THOUSANDS_SEP = "," );
   [% IF rfam.num_full < limits.showAll;
     tabLabel = rfam.num_full %]
     You can <a href="[% c.uri_for( '/family', acc, 'regions' ) %]">download</a>
-    the details of all regions as a tab-delimited file. The table of results 
-    below may be sorted by clicking on the column titles, or restored to the 
-    original order <span class="link" id="sortLink">here</span>. 
+    the details of all regions as a tab-delimited file. The table of results
+    below may be sorted by clicking on the column titles, or restored to the
+    original order <span class="link" id="sortLink">here</span>.
   [% ELSIF rfam.num_full < limits.showText;
     tabLabel = limits.showAll _ "+" %]
     We are showing the first <strong>[% limits.showAll %]</strong>, sorted
-    by bit score, but you can still 
-    <a href="[% c.uri_for('/family', acc, 'regions' ) %]">download</a> 
+    by bit score, but you can
+    <a href="[% c.uri_for('/family', acc, 'regions' ) %]">download</a>
     the details of all of them as a tab-delimited file.
-    The table of results below may be sorted by clicking on the column titles, or 
-    restored to the original order <span class="link" id="sortLink">here</span>. 
+    The table of results below may be sorted by clicking on the column titles, or
+    restored to the original order <span class="link" id="sortLink">here</span>.
   [% ELSE;
     tabLabel = limits.showText _ "+" %]
     We are showing the first <strong>[% limits.showAll %]</strong>, sorted by
     bit score, but there are too many regions to download. If you really need
     a list of all regions for this family, please contact us at the address
-    below and we will do our best to help. 
+    below and we will do our best to help.
   [% END %]
 </p>
 
@@ -60,7 +60,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
       [% seqUri = c.uri_for( '/sequence/' );
       FOREACH region IN region_rs.slice(0, limits.showAll);
         seqAcc  = region.get_column('rfamseq_acc');
-        
+
         # build the URL for the ENA image, expanding the region by
         # 500 bases in each direction
         from = region.seq_start - 500;
@@ -72,12 +72,12 @@ USE Number.Format( THOUSANDS_SEP = "," );
           to = region.get_column('length');
         END;
 
-        enaURI = "http://www.ebi.ac.uk/ena/data/view/graphics/" 
+        enaURI = "http://www.ebi.ac.uk/ena/data/view/graphics/"
           _ seqAcc
           _ "%26showSequence=false%26featureRange="
           _ from _ "-" _ to
           _ "%26sequenceRange=1-1000.jpg";
-          
+
         enaTitle = "Sequence context for <strong>${rfam.rfam_id}</strong> in "
           _ "<a href='http://www.ebi.ac.uk/ena/data/view/$seqAcc' class='ext'>$seqAcc</a>/"
           _ region.seq_start _ " - " _ region.seq_end
@@ -85,11 +85,11 @@ USE Number.Format( THOUSANDS_SEP = "," );
         <tr class="[% loop.parity %]">
           <td class="rowNum">[% loop.index %]</td>
           <td>
-            <a title="[% rfam.rfam_acc %]" 
+            <a title="[% rfam.rfam_acc %]"
                href="[% seqUri; seqAcc %]">
               [% seqAcc %]</a>
-            <a href="[% enaURI %]" 
-               rel="lightbox[seqs]" 
+            <a href="[% enaURI %]"
+               rel="lightbox[seqs]"
                title="[% enaTitle %]">
               <img src="/static/images/seq_icon.png"
                    class="seqIcon"
@@ -107,9 +107,9 @@ USE Number.Format( THOUSANDS_SEP = "," );
         <tr class="truncationWarning">
           <td colspan="8">
             <strong>Note</strong>: this table contains only the first
-            <strong>[% limits.showAll %]</strong> sequences. 
+            <strong>[% limits.showAll %]</strong> sequences.
             [% IF rfam.num_full < limits.showText %]
-              <a href="[% c.uri_for('/family', acc, 'regions' ) %]">Download</a> 
+              <a href="[% c.uri_for('/family', acc, 'regions' ) %]">Download</a>
               the full result set.
             [% END %]
           </td>
@@ -129,7 +129,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
                                  rowOddClass: "odd",
                                  stripe: true,
                                  observers: {
-                                   onSortStart: function( table, event ) { 
+                                   onSortStart: function( table, event ) {
                                      table.down("thead").removeClassName("sortIndicator");
                                    }
                                  }
