@@ -36,6 +36,10 @@ USE Number.Format( THOUSANDS_SEP = "," );
   [% END %]
 </p>
 
+<div class="bootstrap-wrapper">
+  <button style="margin-bottom:5px;" class="btn btn-default" href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz">Download unaligned sequences (FASTA)</button>
+</div>
+
 [% IF rfam.num_full > 0 %]
   <table summary="Rfam regions"
          id="regionsTable"
