@@ -207,7 +207,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
           </div>
         </form>
       </li>
-      <li>Or view the <a href="[% helpBase %]">help</a> pages for
+      <li>Or view the <a href="http://rfam.readthedocs.org">help</a> pages for
         more information</li>
     </ul>
   </div>
@@ -486,7 +486,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
     <h2>Citing Rfam</h2>
     <p>
       If you find Rfam useful, please consider
-      <a href="[% helpBase %]?tab=helpReferencesBlock">citing</a> the references
+      <a href="http://rfam.readthedocs.io/en/latest/citing-rfam.html">citing</a> the references
       that describe this work:
     </p>
     <div class="citation">

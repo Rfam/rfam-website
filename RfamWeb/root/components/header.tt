@@ -23,8 +23,7 @@ navLinks = {
   browse  = c.uri_for( "/browse" ),
   ftp     = "ftp://ftp.ebi.ac.uk/pub/databases/Rfam",
   blog    = "http://xfam.wordpress.com/tag/rfam/",
-  # biomart = "http://xfam-biomart.sanger.ac.uk/martwizard/#!/default?mart=Rfam+11.0&amp;step=2",
-  help    = c.uri_for( "/help" )
+  help    = "http://rfam.readthedocs.org"
 };
 
 # the order of the items in the navbar - these are the keys for the two
