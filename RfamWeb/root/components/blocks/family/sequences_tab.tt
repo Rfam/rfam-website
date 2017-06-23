@@ -37,7 +37,9 @@ USE Number.Format( THOUSANDS_SEP = "," );
 </p>
 
 <div class="bootstrap-wrapper">
-  <button style="margin-bottom:5px;" class="btn btn-default" href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz">Download unaligned sequences (FASTA)</button>
+  <form method="get" action="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz">
+    <button style="margin-bottom:5px;" class="btn btn-default btn-sm">Download unaligned sequences (FASTA)</button>
+  </form>
 </div>
 
 [% IF rfam.num_full > 0 %]
