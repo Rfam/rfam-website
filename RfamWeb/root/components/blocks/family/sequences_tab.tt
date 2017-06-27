@@ -37,9 +37,18 @@ USE Number.Format( THOUSANDS_SEP = "," );
 </p>
 
 <div class="bootstrap-wrapper">
-  <form method="get" action="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz">
+  <form method="get" action="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz" style="display: inline;">
     <button style="margin-bottom:5px;" class="btn btn-default btn-sm">Download unaligned sequences (FASTA)</button>
   </form>
+
+  [% IF (rfam.type.search('riboswitch') || rfam.type.search('leader') || rfam.type.search('Gene') && !rfam.type.search('lncRNA') ) %]
+    <a style="margin: 5px;" href="http://rnacentral.org/search?q=[% rfam.rfam_acc %]%20expert_db:%22Rfam%22" target="_blank" style="margin-left: 5px;">
+      View distinct sequences in RNAcentral
+    </a>
+    <img src="/static/images/rnacentral_logo.png"
+         style="width: 20px;"
+         alt="RNAcentral logo"/>    
+  [% END %]
 </div>
 
 [% IF rfam.num_full > 0 %]
