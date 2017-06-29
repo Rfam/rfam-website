@@ -31,7 +31,7 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
           More...</span>
       </p>
       <div id="alignmentsNotes" style="display: none">
-        
+
         <h3>Viewing</h3>
         <p>
           You can choose from two different sequence viewers:
@@ -82,7 +82,7 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
             method="get">
         <div>
           <input type="hidden" name="acc" value="[% acc %]" />
-    
+
           [%- oe = 0 %]
           <table class="details alignOpts" summary="Alignment display options">
             <tbody>
@@ -91,17 +91,17 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
                 <td>
                   <span class="button">
                     <select name="viewer" id="viewer">
-                      <option value="jalview" selected="selected">jalview</option>
-                      <option value="html">HTML</option>
+                      <option value="jalview">jalview</option>
+                      <option value="html" selected="selected">HTML</option>
                     </select>
                   </span>
                 </td>
               </tr>
             </tbody>
           </table>
-    
+
           <input type="button" value="View" id="viewerFormSubmit" />
-    
+
         </div>
       </form>
 
@@ -111,15 +111,15 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
         You can view or download Rfam seed alignments in several formats. Check
         either the &quot;download&quot; button, to save the formatted
         alignment, or &quot;view&quot;, to see it in your browser window, and
-        click &quot;Generate&quot;. 
+        click &quot;Generate&quot;.
       </p>
-          
+
       <form id="optionsForm"
-            action="[% alignmentUri %]" 
+            action="[% alignmentUri %]"
             method="get">
         <div>
           <input type="hidden" name="acc" value="[% acc %]" />
-          
+
           [% oe = 0 %]
           <table class="details alignOpts" summary="Alignment formatting options">
             <tbody>
@@ -150,19 +150,19 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
                 </td>
               </tr>
             </tbody>
-          </table>    
-      
+          </table>
+
           <input type="submit" value="Generate" />
-      
+
         </div>
       </form>
 
       <h2>Download</h2>
 
       <p id="dlOptionsNotes">
-        <a href="[% alignmentUri %]/stockholm?gzip=1&amp;download=1">Download</a> a 
-        <a class="ext" href="http://www.gzip.org/">gzip</a>-compressed, 
-        Stockholm-format file containing the 
+        <a href="[% alignmentUri %]/stockholm?gzip=1&amp;download=1">Download</a> a
+        <a class="ext" href="http://www.gzip.org/">gzip</a>-compressed,
+        Stockholm-format file containing the
         <a href="[% alignmentUri %]/stockholm?gzip=1&amp;download=1">
           seed</a> alignment for this family. You may find
         <a class="ext" href="http://personalpages.manchester.ac.uk/staff/sam.griffiths-jones/software/ralee">
@@ -182,8 +182,8 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
     <script type="text/javascript">
       // <![CDATA[
 
-      // although the form action for the "view" form looks like it will 
-      // download the alignment, in fact we catch the submission here and 
+      // although the form action for the "view" form looks like it will
+      // download the alignment, in fact we catch the submission here and
       // decide, based on the form values, which URL to go to next.
       $("viewerFormSubmit").observe( "click", function() {
         if ( $F("viewer") == "jalview" ) {
@@ -198,7 +198,7 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
 
       // observers for the download form
       //$("downloadFormSubmit").observe( "click", function() {
-        //url = "[% alignmentUri %]/" + 
+        //url = "[% alignmentUri %]/" +
               //( $("dlTypeS").checked    ? "seed/"        : "full/" ) +
               //( $("dlStyleCSF").checked ? "colorstock?" : "stockholm?" ) +
               //Form.serialize("downloadForm");
@@ -216,7 +216,7 @@ alignmentUri = c.uri_for( '/family', acc, 'alignment' );
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
