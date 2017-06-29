@@ -159,8 +159,6 @@ PROCESS components/icons.tt;
         [% tabsContent %]
       </ul>
 
-      [% PROCESS components/jumpBox.tt %]
-
     </div> <!-- end of "sidebar" -->
 
     <div id="content" class="yui-content">

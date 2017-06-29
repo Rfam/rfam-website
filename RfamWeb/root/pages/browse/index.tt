@@ -1,7 +1,7 @@
 [%
 # index.tt
 # jt6 20070426 WTSI
-# 
+#
 # build a "browse" index page
 #
 # $Id: index.tt,v 1.6 2008-12-08 13:01:06 jt6 Exp $
@@ -12,7 +12,7 @@ META fullPage = 1;
 USE dumper;
 
 #-------------------------------------------------------------------------------
-# specify required stylesheets and javascript files 
+# specify required stylesheets and javascript files
 
 PROCESS "components/require.tt";
 
@@ -25,11 +25,28 @@ alphabet = [ "A" .. "Z" ];
 
 <!-- start of browse index page -->
 <div id="browseIndex">
-  
+
   <h2>Browse Rfam</h2>
-  
+
+  <div class="bootstrap-wrapper">
+    <div class="well">
+      <p class="lead">
+        <i class="fa fa-lightbulb-o fa-2x fa-pull-left fa-border" aria-hidden="true"></i>
+        Did you know that you can browse Rfam
+        <br>
+        using the new text search? Try it now:
+      </p>
+      <ul class="lead" style="margin-bottom: 0;">
+        <li><a href="/search?q=entry_type:&quot;family&quot;">Browse families</a></li>
+        <li><a href="/search?q=entry_type:&quot;clan&quot;">Browse clans</a></li>
+        <li><a href="/search?q=entry_type:&quot;motif&quot;">Browse motifs</a></li>
+        <li><a href="/search?q=entry_type:&quot;family&quot; AND has_3d_structure:&quot;Yes&quot;">Browse families with structures</a></li>
+      </ul>
+    </div>
+  </div>
+
   <p>
-    You can use the links below to find lists of families, clans or motifs. 
+    You can use the links below to find lists of families, clans or motifs.
   </p>
   <table summary="Browse the Rfam database">
     <tbody>
@@ -51,7 +68,7 @@ alphabet = [ "A" .. "Z" ];
           END -%]
         </td>
       </tr>
-      
+
       <tr>
         <td class="type">CLANS</td>
         <td class="links">
@@ -70,7 +87,7 @@ alphabet = [ "A" .. "Z" ];
           END -%]
         </td>
       </tr>
-      
+
       <tr>
         <td class="type">MOTIFS</td>
         <td class="links">
@@ -108,13 +125,13 @@ alphabet = [ "A" .. "Z" ];
           END -%]
         </td>
       </tr>
-     
-    
+
+
     </tbody>
-  </table>  
-  
+  </table>
+
   <hr />
-  
+
 </div>
 
 <!-- end of browse index page -->
@@ -122,7 +139,7 @@ alphabet = [ "A" .. "Z" ];
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
