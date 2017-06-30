@@ -125,7 +125,7 @@ Jennifer Daub, C<jd7@sanger.ac.uk>
 
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
@@ -144,5 +144,3 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 =cut
 
 1;
-
-

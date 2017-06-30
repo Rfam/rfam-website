@@ -71,7 +71,7 @@ Extracts values from the parameters. Accepts "acc", "id" and "entry", in lieu
 of having them as path components.
 
 We're using C<auto> to do all of this, rather than C<begin>, because of problems
-with adding method modifiers when the C<begin> method has the C<Deserialize> 
+with adding method modifiers when the C<begin> method has the C<Deserialize>
 action class added, e.g. C<sub begin : ActionClass('Deserialize') { }>. Ideally
 we'd just do this stuff in an C<after> method, but it seems that method modifiers
 just don't work when the C<Deserialize> C<ActionClass> is applied..
@@ -80,13 +80,13 @@ just don't work when the C<Deserialize> C<ActionClass> is applied..
 
 sub auto : Private {
   my ( $this, $c ) = @_;
-  
+
   # get a handle on the entry, if supplied as params, and detaint it
   my $tainted_entry = $c->req->param('acc')   ||
                       $c->req->param('id')    ||
                       $c->req->param('entry') ||
                       '';
-  
+
   if ( $tainted_entry ) {
     $c->log->debug( 'Family::begin: got a tainted entry' )
       if $c->debug;
@@ -116,12 +116,12 @@ sub auto : Private {
 
 The L<Section> base class sets the C<end> action to use the L<RenderView>
 C<ActionClass>, but that screws up the RESTful serialisation. Reset C<end> here
-to use a serialiser to render the output, and rely on the mapping between 
+to use a serialiser to render the output, and rely on the mapping between
 MIME type and serialiser to do the right thing.
 
 =cut
 
-sub end : ActionClass( 'Serialize' ) { } 
+sub end : ActionClass( 'Serialize' ) { }
 
 #-------------------------------------------------------------------------------
 
@@ -141,14 +141,14 @@ sub family : Chained( '/' )
   my $tainted_entry = $c->stash->{param_entry} ||
                       $entry_arg               ||
                       '';
-  
+
   $c->log->debug( "Family::family: tainted_entry: |$tainted_entry|" )
     if $c->debug;
 
   my $entry;
   if ( $tainted_entry ) {
     ( $entry ) = $tainted_entry =~ m/^([\w-]+)$/;
-    $c->stash->{rest}->{error} = 'Invalid Rfam family accession or ID' 
+    $c->stash->{rest}->{error} = 'Invalid Rfam family accession or ID'
       unless defined $entry;
   }
   else {
@@ -163,7 +163,7 @@ sub family : Chained( '/' )
 
 =head2 family_page : Chained('family') PathPart('') Args(0) ActionClass('REST')
 
-End-point of a chain handling family data. Generates a family page (HTML) 
+End-point of a chain handling family data. Generates a family page (HTML)
 or an XML output. Implemented using C::C::REST; accepts GET requests only.
 
 =cut
@@ -210,7 +210,7 @@ sub family_page_GET_html : Private {
                     ->search( { clan_acc => $clan->clan_acc },
                               { join => [ 'rfam_acc' ],
                                 order_by => [ 'rfam_id' ] } );
-    
+
     if ( $clan and defined $clan->clan_acc ) {
       $c->log->debug( 'Family::family_page: adding clan info' ) if $c->debug;
       $c->stash->{clan} = $clan;
@@ -220,11 +220,11 @@ sub family_page_GET_html : Private {
 
   #---------------------------------------
 
-  $c->log->debug( 'Family::family_page: adding summary info' ) 
+  $c->log->debug( 'Family::family_page: adding summary info' )
     if $c->debug;
   $c->forward( 'get_summary_data' );
 
-  $c->log->debug( 'Family::family_page: adding wikipedia info' ) 
+  $c->log->debug( 'Family::family_page: adding wikipedia info' )
     if $c->debug;
   $c->forward( 'get_wikipedia' );
 
@@ -242,7 +242,7 @@ sub family_page_GET_html : Private {
     if $c->debug;
 
   $c->cache_page( 43200 ) unless $ENV{NO_CACHE}; # cache for 12 hours
-  
+
   $c->stash->{pageType} = 'family';
   $c->stash->{template} = 'pages/layout.tt';
 }
@@ -255,7 +255,7 @@ sub family_page_GET : Private {
 
   # there was a problem retrieving family data
   unless ( $c->stash->{rfam} ) {
-    $c->log->debug( 'Family::family_page_GET: problem retrieving family data' ) 
+    $c->log->debug( 'Family::family_page_GET: problem retrieving family data' )
       if $c->debug;
 
     $c->stash->{rest}->{error} ||= 'Could not retrieve family data.';
@@ -267,7 +267,7 @@ sub family_page_GET : Private {
   # for XML output...
   if ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml' ) {
 
-    $c->log->debug( 'Family::family_page_GET: emitting XML' ) 
+    $c->log->debug( 'Family::family_page_GET: emitting XML' )
       if $c->debug;
 
     $c->stash->{template} = $c->stash->{rfam}
@@ -276,7 +276,7 @@ sub family_page_GET : Private {
   }
   else {
 
-    $c->log->debug( 'Family::family_page_GET: emitting something other than XML or HTML' ) 
+    $c->log->debug( 'Family::family_page_GET: emitting something other than XML or HTML' )
       if $c->debug;
 
     # populate a data structure with family data that should go into, say, a JSON
@@ -292,7 +292,7 @@ sub family_page_GET : Private {
         acc => $r->rfam_acc,
         description => $r->description,
         comment => $r->comment,
-        clan => { 
+        clan => {
           id => undef,
           acc => undef,
         },
@@ -353,7 +353,7 @@ sub old_family : Chained( '/' )
     $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, $c->req->params ) );
   }
   else {
-    $c->log->debug( 'Family::old_family: no entry specified' ) 
+    $c->log->debug( 'Family::old_family: no entry specified' )
       if $c->debug;
 
     $c->stash->{rest}->{error} = 'No valid family accession/ID';
@@ -409,17 +409,17 @@ the relevant row into the stash.
 
 sub get_data : Private {
   my ( $this, $c, $entry ) = @_;
-  
+
   # check for a family
   my $rfam = $c->stash->{db}->resultset('Family')
                ->search( [ { rfam_acc => $entry },
                            { rfam_id  => $entry } ] )
                ->single;
-                         
+
   unless ( defined $rfam ) {
     $c->log->debug( 'Family::get_data: no row for that accession/ID' )
       if $c->debug;
-  
+
     $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml' )
                           ? 'rest/family/error_xml.tt'
                           : 'components/blocks/family/error.tt';
@@ -427,7 +427,7 @@ sub get_data : Private {
     $this->status_not_found( $c, message => 'No valid Rfam family accession or ID' );
 
     return;
-  }  
+  }
 
   $c->log->debug( 'Family::get_data: got a family' )
     if $c->debug;
@@ -472,10 +472,10 @@ sub get_summary_data : Private {
   my $seed_tree_data = $c->stash->{db}->resultset( 'AlignmentAndTree' )
                          ->find( { rfam_acc => $c->stash->{acc},
                                    type     => 'seed' },
-                                 { columns => [ qw{ type 
-                                                    treemethod 
-                                                    average_length 
-                                                    percent_id 
+                                 { columns => [ qw{ type
+                                                    treemethod
+                                                    average_length
+                                                    percent_id
                                                     number_of_sequences } ] } );
 
   $c->stash->{alignment_info}->{seed} = $seed_tree_data;
@@ -491,11 +491,11 @@ Retrieves sequence data for the family.
 
 sub get_regions_data : Private {
   my ( $this, $c ) = @_;
-  
+
   $c->log->debug( 'Family::get_regions_data: family has |'
                   . $c->stash->{rfam}->num_full . '| regions' ) if $c->debug;
 
-  $c->stash->{region_rs} = 
+  $c->stash->{region_rs} =
     $c->stash->{db}->resultset('FullRegion')
       ->search( { rfam_acc => $c->stash->{acc} },
                 { join      => { 'rfamseq_acc' => 'ncbi' },
@@ -510,7 +510,7 @@ sub get_regions_data : Private {
                                      ncbi_taxid
                                      length ) ],
                   order_by  => [ 'bit_score DESC' ] } );
-                                            
+
   $c->stash->{limits}  = $this->{refseqRegionsLimits};
 
 $c->log->debug('Family::get_regions_data: added regions to stash')
@@ -536,7 +536,7 @@ sub get_wikipedia : Private {
                                 prefetch => [ 'wikitext' ] } );
     $article = $rs->next;
   };
-  
+
   return unless ( $article and $article->wikitext );
 
   $c->stash->{article} = $article;
@@ -609,10 +609,10 @@ sub build_fasta : Private {
                ->search( { rfamseq_acc => $_,
                            rfam_acc    => $c->stash->{acc} },
                          { columns => [ qw( rfamseq_acc
-                                            seq_start 
+                                            seq_start
                                             seq_end ) ] } );
     while ( my $row = $rs->next ) {
-      $fasta .= '>' . 
+      $fasta .= '>' .
                 $row->get_column('rfamseq_acc') . '/' .
                 $row->seq_start . '-' . $row->seq_end . "\n";
     }
@@ -621,7 +621,7 @@ sub build_fasta : Private {
   return $fasta;
 }
 
-#-------------------------------------------------------------------------------  
+#-------------------------------------------------------------------------------
 
 =head1 AUTHOR
 
@@ -635,7 +635,7 @@ Jennifer Daub, C<jd7@sanger.ac.uk>
 
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
@@ -656,4 +656,3 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 __PACKAGE__->meta->make_immutable;
 
 1;
-
