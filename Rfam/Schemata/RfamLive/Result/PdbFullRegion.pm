@@ -39,7 +39,6 @@ __PACKAGE__->table("pdb_full_region");
 =head2 chain
 
   data_type: 'varchar'
-  default_value: 'NULL'
   is_nullable: 1
   size: 4
 
@@ -84,6 +83,12 @@ __PACKAGE__->table("pdb_full_region");
   is_nullable: 1
   size: 6
 
+=head2 is_significant
+
+  data_type: 'tinyint'
+  default_value: 1
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -92,12 +97,7 @@ __PACKAGE__->add_columns(
   "pdb_id",
   { data_type => "varchar", is_nullable => 0, size => 4 },
   "chain",
-  {
-    data_type => "varchar",
-    default_value => "NULL",
-    is_nullable => 1,
-    size => 4,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 4 },
   "pdb_start",
   { data_type => "mediumint", is_nullable => 0 },
   "pdb_end",
@@ -122,6 +122,8 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
     size => 6,
   },
+  "is_significant",
+  { data_type => "tinyint", default_value => 1, is_nullable => 0 },
 );
 
 =head1 RELATIONS
@@ -142,10 +144,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07033 @ 2014-06-06 14:27:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xDRCWgEPyZ8hMvlEsjbk5A
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-06-30 09:48:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OmeUed5w4aA2ZHI9jJ+7Bg
 
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->set_primary_key('rfam_acc');
 1;
