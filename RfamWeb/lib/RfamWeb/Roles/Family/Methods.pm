@@ -15,7 +15,7 @@ package RfamWeb::Roles::Family::Methods;
 
 =head1 DESCRIPTION
 
-This is a role to add various family page-related methods to the Family 
+This is a role to add various family page-related methods to the Family
 controller.
 
 $Id$
@@ -42,13 +42,13 @@ sub id : Chained( 'family' )
   my ( $this, $c ) = @_;
 
   # cache page for 1 week
-  $c->cache_page( 604800 ); 
-  
-  if ( defined $c->stash->{rfam} ) {    
+  $c->cache_page( 604800 );
+
+  if ( defined $c->stash->{rfam} ) {
     $c->res->content_type( 'text/plain' );
     $c->res->body( $c->stash->{rfam}->rfam_id );
   }
-  else { 
+  else {
     $c->res->status( 404 );
     $c->res->body( 'No such family' );
   }
@@ -58,7 +58,7 @@ sub id : Chained( 'family' )
 
 =head2 acc : Chained
 
-Returns the accession for this family as a single, plain text string. Returns 
+Returns the accession for this family as a single, plain text string. Returns
 404 if there's no family to work on.
 
 =cut
@@ -81,17 +81,17 @@ sub acc : Chained( 'family' )
   }
 }
 
-#-------------------------------------------------------------------------------  
+#-------------------------------------------------------------------------------
 
 =head2 varna : Local
 
 This is the way into the VARNA secondary structure viewer applet.
 
 To fix a possible problem with the reference structure annotation in VARNA,
-we apply a pattern match to the structure description string, converting 
+we apply a pattern match to the structure description string, converting
 "A" and "a" to "[" and "]", and "Bb" to "{}".
 
-Hands straight off to a template that generates a "tool" page containing the 
+Hands straight off to a template that generates a "tool" page containing the
 VARNA applet.
 
 =cut
@@ -107,8 +107,8 @@ sub varna : Chained( 'family' )
                        type      => 'ss' } );
 
   unless ( $rs and $rs->image ) {
-    $c->stash->{rest}->{error} ||= 
-      'We could not retrieve the secondary structure data for Rfam family ' 
+    $c->stash->{rest}->{error} ||=
+      'We could not retrieve the secondary structure data for Rfam family '
       . $c->stash->{acc} . '.';
   }
 
@@ -116,7 +116,7 @@ sub varna : Chained( 'family' )
   my $json_string = Compress::Zlib::memGunzip( $rs->image );
   unless ( $json_string ) {
     $c->stash->{rest}->{error} ||=
-      'We could not encode the secondary structure data for Rfam family ' 
+      'We could not encode the secondary structure data for Rfam family '
       . $c->stash->{acc} . '.';
   }
 
@@ -167,7 +167,7 @@ sub old_varna : Path( '/family/varna' ) {
 =head2 image : Local
 
 Retrieves and returns a secondary structure image from the database. Caches the
-image, unless C<$ENV{NO_CACHE}> is true. 
+image, unless C<$ENV{NO_CACHE}> is true.
 
 =cut
 
@@ -175,7 +175,7 @@ sub image : Chained( 'family' )
             PathPart( 'image' )
             Args( 1 ) {
   my ( $this, $c, $type ) = @_;
-  
+
   my ( $image_type ) = $type || '' =~ m/^(\w+)$/;
   $c->log->debug( "Family::Methods::image: image_type: |$image_type|" )
     if $c->debug;
@@ -188,7 +188,7 @@ sub image : Chained( 'family' )
 
   my $cache_key = 'family_image' . $c->stash->{acc} . $image_type;
   my $image     = $c->cache->get( $cache_key );
-  
+
   if ( defined $image ) {
     $c->log->debug( 'Family::Methods::image: retrieved image from cache' )
       if $c->debug;
@@ -216,7 +216,7 @@ sub image : Chained( 'family' )
 
     $c->cache->set( $cache_key, $image ) unless $ENV{NO_CACHE}
   }
-  
+
   # cache the template output for one week
   $c->cache_page( 604800 );
 
@@ -400,12 +400,12 @@ sub regions : Chained( 'family' )
 
 sub regions_GET : Private {
   my ( $this, $c ) = @_;
-  
+
   $c->log->debug( 'Family::Methods::regions: building tab-delimited list of regions' )
     if $c->debug;
 
   # default to the error template
-  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml' ) 
+  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml' )
                         ? 'rest/family/error_xml.tt'
                         : 'rest/family/error_text.tt';
 
@@ -434,11 +434,11 @@ sub regions_GET : Private {
 
     return;
   }
-  
+
   # build a sensible filename
   my $filename = $c->stash->{acc} . '_regions';
 
-  $filename .= ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml'  ) 
+  $filename .= ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml'  )
              ? '.xml'
              : '.txt';
 
@@ -448,7 +448,7 @@ sub regions_GET : Private {
   $c->cache_page( 604800 );
 
   # set the template for serialisers that use TT. Default to plain text
-  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml'  ) 
+  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml'  )
                         ? 'rest/family/regions_xml.tt'
                         : 'rest/family/regions_text.tt';
 }
@@ -491,12 +491,12 @@ sub refseq : Chained( 'family' )
 
 sub refseq_GET : Private {
   my ( $this, $c ) = @_;
-  
+
   $c->log->debug( 'Family::Methods::refseq: building tab-delimited list of refseqs' )
     if $c->debug;
 
   # default to the error template
-  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml' ) 
+  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml' )
                         ? 'rest/family/error_xml.tt'
                         : 'rest/family/error_text.tt';
 
@@ -506,7 +506,7 @@ sub refseq_GET : Private {
   my $regions = $c->stash->{db}->resultset('RfamRefseq')
                   ->search( { rfam_acc => $c->stash->{acc} },
                             { } );
- 
+
   # make sure we got a ResultSet back at least
   unless ( defined $regions ) {
     $c->log->debug( 'Family::Methods::refseq: failed to retrieve refseqs' )
@@ -517,7 +517,7 @@ sub refseq_GET : Private {
 
     return;
   }
-  
+
   my $num_refseqs = $regions->count;
   $c->stash->{regions} = [ $regions->all ];
 
@@ -567,7 +567,7 @@ sub refseq_GET : Private {
   $c->cache_page( 604800 );
 
   # set the template for serialisers that use TT. Default to plain text
-  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml'  ) 
+  $c->stash->{template} = ( ( $c->req->accepted_content_types->[0] || '' ) eq 'text/xml'  )
                         ? 'rest/family/refseqs_xml.tt'
                         : 'rest/family/refseqs_text.tt';
 }
@@ -586,7 +586,7 @@ Jennifer Daub, C<jd7@sanger.ac.uk>
 
 Copyright (c) 2012: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Sarah Burge (sb30@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Sarah Burge (sb30@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
@@ -605,4 +605,3 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 =cut
 
 1;
-
