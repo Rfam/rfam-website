@@ -224,6 +224,77 @@ sub image : Chained( 'family' )
   $c->res->body( $image );
 }
 
+=head2 thumbnail : Local
+
+Retrieves and returns a secondary structure image for  text search previews
+from the database. Caches the image, unless C<$ENV{NO_CACHE}> is true.
+
+=cut
+
+sub thumbnail : Chained( 'family' )
+            PathPart( 'thumbnail' )
+            Args( 0 ) {
+  my ( $this, $c ) = @_;
+
+  my $image_type = 'rscape-cyk';
+  my $cache_key = 'family_image' . $c->stash->{acc} . $image_type;
+  my $image     = $c->cache->get( $cache_key );
+
+  if ( defined $image ) {
+    $c->log->debug( 'Family::Methods::image: retrieved image from cache' )
+      if $c->debug;
+  }
+  else {
+    $c->log->debug( 'Family::Methods::image: failed to retrieve image from cache; going to DB' )
+      if $c->debug;
+
+    my $rs = $c->stash->{db}->resultset('SecondaryStructureImage')
+               ->find( { rfam_acc => $c->stash->{acc},
+                         type      => $image_type } );
+
+     # try rscape (without CYK)
+     unless ( defined $rs and
+              defined $rs->image ) {
+        $image_type = 'rscape';
+        $rs = $c->stash->{db}->resultset('SecondaryStructureImage')
+                ->find( { rfam_acc => $c->stash->{acc},
+                          type      => $image_type } );
+     }
+
+     # try cons image
+    unless ( defined $rs and
+             defined $rs->image ) {
+       $image_type = 'cons';
+       $rs = $c->stash->{db}->resultset('SecondaryStructureImage')
+               ->find( { rfam_acc => $c->stash->{acc},
+                         type      => $image_type } );
+    }
+
+    # fallback to a default image
+    unless ( defined $rs and
+             defined $rs->image ) {
+      $c->detach( 'no_alignment' );
+      return;
+    }
+
+    $image = Compress::Zlib::memGunzip( $rs->image );
+    unless ( $image ) {
+      $c->log->debug( "Family::Methods::image: couldn't uncompress image: $Compress::Zlib::gzerrno" );
+      $c->detach( 'no_alignment' );
+      return;
+    }
+  }
+
+  # cache the template output for one week
+  $c->cache_page( 604800 );
+
+  # try replacing first <text> node which contains family description in R-scape images
+  $image =~ s/<text(.*?)text>//s;
+
+  $c->res->content_type( 'image/svg+xml' );
+  $c->res->body( $image );
+}
+
 #---------------------------------------
 
 =head2 old_image : Path

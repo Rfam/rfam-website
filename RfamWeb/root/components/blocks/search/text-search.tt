@@ -228,7 +228,7 @@
                   <div class="media">
                     <div class="media-left media-top col-md-2" ng-if="rna.fields.entry_type[0] == 'Family'" style="padding-left: 0;">
                       <a href="/family/{{rna.id}}#tabview=tab3" target="_self">
-                        <img src="/family/{{rna.id}}/image/rscape-cyk" class="bootstrap-wrapper img-thumbnail" alt="{{ rna.id }} secondary structure" style="max-width: 120px; max-height: 100px;">
+                        <img src="/family/{{rna.id}}/thumbnail" class="bootstrap-wrapper img-thumbnail" alt="{{ rna.id }} secondary structure" style="max-width: 120px; max-height: 100px;">
                       </a>
                     </div>
                     <div class="media-body">
