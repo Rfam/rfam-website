@@ -47,7 +47,7 @@ sub structures_GET : Private {
     if $c->debug;
 
 
-  my $rs = $c->model('RfamDB::PdbFullRegion')->search( { rfam_acc => $c->stash->{acc} },{});
+  my $rs = $c->model('RfamDB::PdbFullRegion')->search( { rfam_acc => $c->stash->{acc}, is_significant => 1 },{});
 
   $c->stash->{family_structures} = $rs;
 

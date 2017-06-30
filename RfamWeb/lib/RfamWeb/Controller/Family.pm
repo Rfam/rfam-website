@@ -456,7 +456,7 @@ sub get_summary_data : Private {
   $summaryData->{numSequences} = $c->stash->{rfam}->num_full;
 
   # number of structures known for the domain
-  my $rs = $c->model('RfamDB::PdbFullRegion')->search( { rfam_acc => $c->stash->{acc} },{});
+  my $rs = $c->model('RfamDB::PdbFullRegion')->search( { rfam_acc => $c->stash->{acc}, is_significant => 1 },{});
   $summaryData->{numStructures} = $rs->count;
 
   # Number of species
