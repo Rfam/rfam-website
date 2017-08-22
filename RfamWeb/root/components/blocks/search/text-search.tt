@@ -222,7 +222,9 @@
                     <a ng-if="rna.fields.entry_type[0] == 'Family'" href="/family/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <a ng-if="rna.fields.entry_type[0] == 'Motif'" href="/motif/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <a ng-if="rna.fields.entry_type[0] == 'Clan'" href="/clan/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
-                    <small>{{rna.id}}</small>
+                    <a ng-if="rna.fields.entry_type[0] == 'Genome'" href="/genome/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+                    <small ng-if="rna.fields.entry_type[0] == 'Genome'"><a href="http://www.uniprot.org/proteomes/{{rna.id}}" target="_blank" style="color: #777;">{{rna.id}}</a></small>
+                    <small ng-if="rna.fields.entry_type[0] != 'Genome'">{{rna.id}}</small>
                   </h4>
 
                   <div class="media">
@@ -233,10 +235,13 @@
                     </div>
                     <div class="media-body">
                       <p>
-                        <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
+                        <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-warning': rna.fields.entry_type[0] === 'Genome', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-info': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
                         <span ng-bind-html="rna.fields.name[0] | sanitize"></span>
                         <span ng-if="rna.fields.entry_type[0] == 'Family'"> |
                           <i ng-bind-html="rna.fields.rna_type.join('; ') | sanitize"></i>
+                        </span>
+                        <span ng-if="rna.fields.entry_type[0] == 'Genome'"> |
+                          <i>{{rna.fields.length[0] | number}} bp</i>
                         </span>
                       </p>
                       <ul class="list-inline">
@@ -265,6 +270,12 @@
                           <span ng-if="rna.fields.num_3d_structures[0] > 1">
                             <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structures</a>
                           </span>
+                        </li>
+                        <li ng-if="rna.fields.entry_type[0] == 'Genome'">
+                          <p>
+                          <a href="/search?q={{rna.id}}%20AND%20entry_type:'Match'"><strong>{{rna.fields.num_rfam_hits[0] | number}}</strong> sequences</a> from
+                          <a href="/search?q={{rna.id}}%20AND%20entry_type:'Family'"><strong>{{rna.fields.num_families[0] | number}}</strong> families</a>
+                          </p>
                         </li>
                       </ul>
                     </div>
