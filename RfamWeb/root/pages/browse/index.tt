@@ -40,6 +40,7 @@ alphabet = [ "A" .. "Z" ];
         <li><a href="/search?q=entry_type:&quot;family&quot;">Browse families</a></li>
         <li><a href="/search?q=entry_type:&quot;clan&quot;">Browse clans</a></li>
         <li><a href="/search?q=entry_type:&quot;motif&quot;">Browse motifs</a></li>
+        <li><label class="label label-warning">New</label><a href="/search?q=entry_type:&quot;genome&quot;">Browse genomes</a></li>
         <li><a href="/search?q=entry_type:&quot;family&quot; AND has_3d_structure:&quot;Yes&quot;">Browse families with structures</a></li>
       </ul>
     </div>

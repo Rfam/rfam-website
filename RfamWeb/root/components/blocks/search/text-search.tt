@@ -58,6 +58,7 @@
                 <a class="help" data-placement="bottom" title="Browse Rfam families" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Family&quot;')">Families</a>,
                 <a class="help" data-placement="bottom" title="Browse Rfam clans" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Clan&quot;')">Clans</a>,
                 <a class="help" data-placement="bottom" title="Browse Rfam motifs" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Motif&quot;')">Motifs</a>,
+                <a class="help" data-placement="bottom" title="Browse Rfam genomes" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Genome&quot;')">Genomes</a>,
                 or
                 <a class="help" data-placement="bottom" title="Browse Rfam families with 3D structures" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;')">Families with 3D structures</a>
               </i>
