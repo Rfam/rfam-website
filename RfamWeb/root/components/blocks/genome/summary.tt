@@ -11,6 +11,7 @@
 
 PROCESS "components/require.tt";
 
+requirements.js.push( "genome-summary.js" );
 
 #-------------------------------------------------------------------------------
 %]
@@ -19,9 +20,15 @@ PROCESS "components/require.tt";
 
 <div class="block" id="genomeSummaryBlock">
   <div class="handle">
-    <h1>Summary</h1>
+    <h1>Genome summary</h1>
   </div>
 
+  <div class="blockContent bootstrap-wrapper">
+    <div class="container-fluid" style="margin: 10px; min-height: 200px;">
+      <div class="container-main">
+        <rfam-genome name="[% entry %]"></rfam-genome>
+      </div>
+    </div>
   </div>
 </div>
 
