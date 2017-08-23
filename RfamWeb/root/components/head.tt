@@ -76,6 +76,9 @@ IF refreshUri != "";
 <!-- local javascript -->
 <script type="text/javascript" src="[% sharedUri %]/javascripts/sharedFunctions.js"></script>
 
+<!-- humanize -->
+<script type="text/javascript" src="[% staticUri %]/javascripts/humanize.js"></script>
+
 <!-- Angular text search -->
 <base href="/"/>
 <script type='text/javascript' src='[% staticUri %]/javascripts/angular/angular.min.js'></script>
