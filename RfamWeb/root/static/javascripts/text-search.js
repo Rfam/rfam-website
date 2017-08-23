@@ -102,7 +102,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
         ], // will be displayed in this order
         facetcount: 30,
         pagesize: 15,
-        ordering: 'num_full:descending',
+        ordering: 'num_full:descending,num_families:descending',
     };
 
     var query_urls = {
