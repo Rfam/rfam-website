@@ -74,19 +74,23 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
     };
 
     var search_config = {
-        ebeye_base_url: 'http://www.ebi.ac.uk/ebisearch/ws/rest/rfam',
+        ebeye_base_url: 'http://wwwdev.ebi.ac.uk/ebisearch/ws/rest/rfam',
         fields: [
+            'assembly_name',
+            'common_name',
             'description',
             'entry_type',
+            'length',
             'name',
-            'num_seed',
-            'num_full',
-            'num_species',
             'num_3d_structures',
             'num_families',
-            'rna_type',
+            'num_full',
             'num_rfam_hits',
-            'length',
+            'num_seed',
+            'num_species',
+            'rna_type',
+            'scientific_name',
+            'tax_string',
         ],
         facetfields: [
             'rna_type',
