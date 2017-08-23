@@ -680,3 +680,15 @@ angular.module('rfamApp').filter("sanitize", ['$sce', function($sce) {
     return $sce.trustAsHtml(htmlCode);
   }
 }]);
+
+/**
+ * Custom filter for formatting genome size using humanize.js.
+ */
+angular.module('rfamApp').filter('humanizeGenomesize', function () {
+    return function () {
+        var args = Array.prototype.slice.call(arguments);
+        args[0] = parseInt(args[0])
+        if ( isNaN(args[0]) ) { return args[0]; }
+        return humanize.genomesize.apply(null, args);
+     };
+});
