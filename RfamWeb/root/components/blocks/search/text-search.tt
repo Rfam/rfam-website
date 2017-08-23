@@ -9,7 +9,7 @@
 
   <div class="container-main">
 
-    <div ng-app="rfamApp"  id="ng-app">
+    <div>
 
       <div class="row">
       <div ng-controller="QueryCtrl" class="col-md-12 col-sm-12 col-xs-12">
