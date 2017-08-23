@@ -209,7 +209,7 @@
             </ul>
             <hr>
             <small class="text-muted">
-              Powered by <a href="http://www.ebi.ac.uk/ebisearch/" target="_blank">EBI Search</a>
+              Powered by <a href="http://www.ebi.ac.uk/ebisearch/metadata.ebi?db=rfam" target="_blank">EBI Search</a>
             </small>
 
           </div>
