@@ -1,9 +1,10 @@
-<div class="block bootstrap-wrapper" id="searchTextBlock">
+<div class="block" id="searchTextBlock">
 
 <div class="handle">
   <h1>Text search</h1>
 </div>
 
+<div class="blockContent bootstrap-wrapper">
 <div class="container-fluid" style="margin: 10px; min-height: 500px;">
 
   <div class="container-main">
@@ -304,4 +305,5 @@
 
 </div><!--container-->
 
+</div><!--blockContent-->
 </div><!--block-->
