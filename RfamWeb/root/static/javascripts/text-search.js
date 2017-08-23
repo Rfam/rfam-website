@@ -486,6 +486,12 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
         { sort_field: 'num_species', label: 'Number of species \u2191'},
         { sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
         { sort_field: 'id', label: 'Rfam accession  \u2191'},
+        { sort_field: 'length:descending', label: 'Genome length  \u2193'},
+        { sort_field: 'length', label: 'Genome length  \u2191'},
+        { sort_field: 'num_rfam_hits:descending', label: 'Number of RNAs in genome  \u2193'},
+        { sort_field: 'num_rfam_hits', label: 'Number of RNAs in genome  \u2191'},
+        { sort_field: 'num_families:descending', label: 'Number of families in genome  \u2193'},
+        { sort_field: 'num_families', label: 'Number of families in genome  \u2191'},
     ];
     $scope.params = {
         selectedOrdering: $scope.ordering[0],
