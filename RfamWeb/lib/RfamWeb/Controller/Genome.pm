@@ -63,25 +63,9 @@ sub genome : Chained( '/' )
 
     return;
   }
-  $c->log->debug( "Genome::genome: looking for genome entry '$entry'" )
-    if $c->debug;
 
   $c->stash->{entry} = $entry;
 
-  # get the basic genome and chromosome information
-  $c->forward( 'get_chromosomes' );
-  unless ( $c->stash->{chromosomes} ) {
-    $c->log->debug( 'Genome::genome: no chromosomes found' )
-      if $c->debug;
-
-    $c->stash->{errorMsg} = 'No chromosomes found for that genome identifier';
-
-    return;
-  }
-
-  $c->forward( 'get_genome_data' ); # need the chromosome data before we can
-                                    # be sure to get genome data, because we
-                                    # use the ncbi_id to retrieve it
 }
 
 #-------------------------------------------------------------------------------
@@ -99,30 +83,6 @@ sub genome_page : Chained( 'genome' )
   my ( $this, $c ) = @_;
 
   $c->cache_page( 604800 );
-
-  $c->log->debug( 'Genome::genome_page: building a "genome" page' )
-    if $c->debug;
-
-  # retrieve extra data for the genome that will be used by the template
-  $c->forward( 'get_regions' );
-
-  #----------------------------------------
-
-  unless ( $c->stash->{output_xml} ) {
-    $c->log->debug( 'Genome::get_data: NOT returning XML; adding extra info' )
-        if $c->debug;
-
-    # if this request originates at the top level of the object hierarchy,
-    # i.e. if it's a call on the "default" method of the Family object,
-    # then we'll need to do a few extra things
-    if ( ref $this eq 'RfamWeb::Controller::Genome' ) {
-      $c->log->debug( 'Genome::genome_page: adding genome summary info' ) if $c->debug;
-
-      $c->forward( 'get_summary_data' );
-    }
-
-  } # end of "unless XML..."
-
 }
 
 #-------------------------------------------------------------------------------
