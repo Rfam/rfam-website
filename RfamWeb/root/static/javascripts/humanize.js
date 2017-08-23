@@ -417,6 +417,20 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   };
 
   /**
+   * Formats the value like a 'human-readable' genome size (i.e. '13 Kb', '4.1 Mb', '102 bases', etc).
+   *
+   * For example:
+   * If value is 123456789, the output would be 117.7 Mb.
+   */
+  humanize.genomesize = function(genomesize, kilo, decimals, decPoint, thousandsSep, suffixSep) {
+    kilo = (kilo === undefined) ? 1000 : kilo;
+    if (genomesize <= 0) { return '0 bases'; }
+    if (genomesize < kilo && decimals === undefined) { decimals = 0; }
+    if (suffixSep === undefined) { suffixSep = ' '; }
+    return humanize.intword(genomesize, ['bases', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb'], kilo, decimals, decPoint, thousandsSep, suffixSep);
+  };
+
+  /**
    * Formats the value like a 'human-readable' number (i.e. '13 K', '4.1 M', '102', etc).
    *
    * For example:
