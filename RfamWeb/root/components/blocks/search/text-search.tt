@@ -225,7 +225,7 @@
                     <a ng-if="rna.fields.entry_type[0] == 'Motif'" href="/motif/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <a ng-if="rna.fields.entry_type[0] == 'Clan'" href="/clan/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <span ng-if="rna.fields.entry_type[0] == 'Genome'">
-                      <a href="/genome/{{rna.id}}?q={{rna.id}}" ng-bind-html="rna.fields.scientific_name[0] | sanitize" target="_self"></a>
+                      <a href="/genome/{{rna.id}}" ng-bind-html="rna.fields.scientific_name[0] | sanitize" target="_self"></a>
                       <small ng-if="rna.fields.common_name[0]">
                         <span class="text-capitalize-first-letter" style="display: inline-block;" ng-bind-html="rna.fields.common_name[0] | sanitize"></span>
                       </small>
