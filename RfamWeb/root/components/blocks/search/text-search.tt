@@ -103,7 +103,7 @@
           <form class="pull-right form-inline small">
             <div class="form-group">
               Sort by:
-              <select class="form-control" ng-change="update_ordering();" ng-model="params.selectedOrdering" ng-options="item.label for item in ordering track by item.label"></select>
+              <select class="form-control" ng-change="update_ordering();" ng-model="params.selectedOrdering" ng-options="item.label for item in ordering | filter:{ type : search_type } track by item.label"></select>
             </div>
           </form>
 

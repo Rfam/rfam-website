@@ -489,24 +489,58 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     $scope.show_error = results.get_show_error();
 
     $scope.ordering = [
-        { sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
-        { sort_field: 'num_full', label: 'Number of full alignment sequences \u2191' },
-        { sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences \u2193'},
-        { sort_field: 'num_seed', label: 'Number of seed alignment sequences \u2191'},
-        { sort_field: 'num_species:descending', label: 'Number of species \u2193'},
-        { sort_field: 'num_species', label: 'Number of species \u2191'},
-        { sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
-        { sort_field: 'id', label: 'Rfam accession  \u2191'},
-        { sort_field: 'length:descending', label: 'Genome length  \u2193'},
-        { sort_field: 'length', label: 'Genome length  \u2191'},
-        { sort_field: 'num_rfam_hits:descending', label: 'Number of RNAs in genome  \u2193'},
-        { sort_field: 'num_rfam_hits', label: 'Number of RNAs in genome  \u2191'},
-        { sort_field: 'num_families:descending', label: 'Number of families in genome  \u2193'},
-        { sort_field: 'num_families', label: 'Number of families in genome  \u2191'},
+        { type: 'family', sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
+        { type: 'family', sort_field: 'num_full', label: 'Number of full alignment sequences \u2191' },
+        { type: 'family', sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences \u2193'},
+        { type: 'family', sort_field: 'num_seed', label: 'Number of seed alignment sequences \u2191'},
+        { type: 'family', sort_field: 'num_species:descending', label: 'Number of species \u2193'},
+        { type: 'family', sort_field: 'num_species', label: 'Number of species \u2191'},
+        { type: 'family', sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
+        { type: 'family', sort_field: 'id', label: 'Rfam accession  \u2191'},
+        { type: 'genome', sort_field: 'length:descending', label: 'Genome length  \u2193'},
+        { type: 'genome', sort_field: 'length', label: 'Genome length  \u2191'},
+        { type: 'genome', sort_field: 'num_rfam_hits:descending', label: 'Number of RNAs in genome  \u2193'},
+        { type: 'genome', sort_field: 'num_rfam_hits', label: 'Number of RNAs in genome  \u2191'},
+        { type: 'genome', sort_field: 'num_families:descending', label: 'Number of families in genome  \u2193'},
+        { type: 'genome', sort_field: 'num_families', label: 'Number of families in genome  \u2191'},
+        { type: 'clan', sort_field: 'num_families:descending', label: 'Number of families in clan  \u2193'},
+        { type: 'clan', sort_field: 'num_families', label: 'Number of families in clan  \u2191'},
+        { type: 'motif', sort_field: 'num_families:descending', label: 'Number of families in motif  \u2193'},
+        { type: 'motif', sort_field: 'num_families', label: 'Number of families in motif  \u2191'},
+        { type: 'sequence', sort_field: 'bit_score:descending', label: 'Bit score  \u2193'},
+        { type: 'sequence', sort_field: 'bit_score', label: 'Bit score  \u2191'},
+        { type: 'sequence', sort_field: 'evalue_score:descending', label: 'E-value score  \u2193'},
+        { type: 'sequence', sort_field: 'evalue_score', label: 'E-value score  \u2191'},
+        { type: 'all', sort_field: 'id:descending', label: 'Accession  \u2193'},
+        { type: 'all', sort_field: 'id', label: 'Accession  \u2191'},
     ];
     $scope.params = {
         selectedOrdering: $scope.ordering[0],
     };
+    $scope.search_type = '';
+
+    /**
+     * Set search type based on what facet is unabled.
+     * The `search_type` is used to filter ordering options.
+     */
+    $scope.$watch(function () { return $location.search().q; }, function (newValue, oldValue) {
+        if (newValue.indexOf('entry_type:"Genome"') !== -1) {
+            $scope.search_type = 'genome';
+        } else if (newValue.indexOf('entry_type:"Family"') !== -1) {
+            $scope.search_type = 'family';
+        } else if (newValue.indexOf('entry_type:"Match"') !== -1) {
+            $scope.search_type = 'sequence';
+        } else if (newValue.indexOf('entry_type:"Clan"') !== -1) {
+            $scope.search_type = 'clan';
+        } else if (newValue.indexOf('entry_type:"Motif"') !== -1) {
+            $scope.search_type = 'motif';
+        } else {
+            $scope.search_type = 'all';
+        }
+        $scope.params.selectedOrdering = $scope.ordering.filter(function(element){
+            return element.type == $scope.search_type;
+        })[0];
+    });
 
     /**
      * Update the `ordering` url parameter
