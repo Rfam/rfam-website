@@ -245,12 +245,12 @@
                         <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-warning': rna.fields.entry_type[0] === 'Genome', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-info': rna.fields.entry_type[0] === 'Motif', 'label label-default': rna.fields.entry_type[0] === 'Match'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
                         <span ng-if="rna.fields.entry_type[0] != 'Genome' && rna.fields.entry_type != 'Match'" ng-bind-html="rna.fields.name[0] | sanitize"></span>
                         <span ng-if="rna.fields.entry_type[0] == 'Match'">
-                          <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.fields.rfamseq_acc[0]}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0]}}</a>
+                          <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
                           <i title="Start:stop">{{rna.fields.seq_start[0] | number}}:{{rna.fields.seq_end[0] | number}}</i>
                         </span>
                         <span ng-if="rna.fields.entry_type[0] == 'Genome'">
                           <a href="http://www.uniprot.org/proteomes/{{rna.id}}" target="_blank" style="color: #404040;" title="View proteome in UniProt">{{rna.id}}</a> |
-                          <span ng-bind-html="rna.fields.assembly_name[0] | sanitize" title="Assembly name"></span>
+                          <span title="Assembly name">{{rna.fields.assembly_name[0] | htmlToPlaintext}}</span>
                           <span title="Genome length {{rna.fields.length[0] | number}} bases">
                             <span ng-if="rna.fields.assembly_name[0]"> | </span>
                             <i>{{rna.fields.length[0] | humanizeGenomesize}}</i>

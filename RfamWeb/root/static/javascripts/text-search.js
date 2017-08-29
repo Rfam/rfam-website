@@ -737,3 +737,12 @@ angular.module('rfamApp').filter('humanizeGenomesize', function () {
         return humanize.genomesize.apply(null, args);
      };
 });
+
+/**
+ * Strip out HTML code.
+ */
+angular.module('rfamApp').filter('htmlToPlaintext', function() {
+    return function(text) {
+      return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+    };
+});
