@@ -27,7 +27,7 @@ angular.module('rfamApp')
 
       var query_urls = {
           'ebeye_search': search_config.ebeye_base_url +
-                          '?query=rfamseq_acc:"{ACCESSION}"%20AND%20seq_start:"{SEQ_START}"%20AND%20seq_end:"{SEQ_END}"%20AND%20entry_type:"match"' +
+                          '?query=rfamseq_acc:"{ACCESSION}"%20AND%20seq_start:"{SEQ_START}"%20AND%20seq_end:"{SEQ_END}"%20AND%20entry_type:"Sequence"' +
                           '&format=json' +
                           '&fields=' + search_config.fields.join(),
           'proxy': '/ebeye_proxy?url=',

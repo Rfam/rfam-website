@@ -528,7 +528,7 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
             $scope.search_type = 'genome';
         } else if (newValue.indexOf('entry_type:"Family"') !== -1) {
             $scope.search_type = 'family';
-        } else if (newValue.indexOf('entry_type:"Match"') !== -1) {
+        } else if (newValue.indexOf('entry_type:"Sequence"') !== -1) {
             $scope.search_type = 'sequence';
         } else if (newValue.indexOf('entry_type:"Clan"') !== -1) {
             $scope.search_type = 'clan';
