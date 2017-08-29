@@ -22,6 +22,7 @@ angular.module('rfamApp')
               'description',
               'alignment_type',
               'scientific_name',
+              'rfamseq_acc_description',
           ],
       };
 
