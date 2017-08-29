@@ -100,10 +100,10 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
             'rfamseq_acc',
         ],
         facetfields: [
+            'entry_type',
             'rna_type',
             'TAXONOMY',
             'popular_species',
-            'entry_type',
             'has_3d_structure',
             'author'
         ], // will be displayed in this order
