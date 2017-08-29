@@ -116,7 +116,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
                         '&size=' + search_config.pagesize +
                         '&start={START}' +
                         '&sort={ORDERING}',
-        'proxy': 'http://test.rnacentral.org/api/internal/ebeye?url={EBEYE_URL}',
+        'proxy': '/ebeye_proxy?url={EBEYE_URL}',
     };
 
     /**

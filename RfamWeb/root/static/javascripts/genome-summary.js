@@ -31,7 +31,7 @@ angular.module('rfamApp')
                           '?query={QUERY}%20AND%20entry_type:"genome"' +
                           '&format=json' +
                           '&fields=' + search_config.fields.join(),
-          'proxy': 'http://test.rnacentral.org/api/internal/ebeye?url=',
+          'proxy': '/ebeye_proxy?url=',
       };
 
       $http({
