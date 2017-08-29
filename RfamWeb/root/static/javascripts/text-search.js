@@ -91,6 +91,13 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
             'rna_type',
             'scientific_name',
             'tax_string',
+            'alignment_type',
+            'evalue_score',
+            'bit_score',
+            'truncated',
+            'seq_start',
+            'seq_end',
+            'rfamseq_acc',
         ],
         facetfields: [
             'rna_type',
