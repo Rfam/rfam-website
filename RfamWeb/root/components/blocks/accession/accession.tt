@@ -1,0 +1,26 @@
+[%
+
+PROCESS "components/require.tt";
+
+requirements.js.push( "rna-summary.js" );
+
+#-------------------------------------------------------------------------------
+%]
+
+<!-- start sequence summary block -->
+
+<div class="block" id="rnaSummaryBlock">
+  <div class="handle">
+    <h1>Sequence summary</h1>
+  </div>
+
+  <div class="blockContent bootstrap-wrapper">
+    <div class="container-fluid" style="margin: 10px; min-height: 200px;">
+      <div class="container-main">
+        <rna-summary name="[% entry %]"></rna-summary>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end sequence summary block -->

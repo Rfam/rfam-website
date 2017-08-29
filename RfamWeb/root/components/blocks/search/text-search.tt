@@ -230,7 +230,7 @@
                         <span class="text-capitalize-first-letter" style="display: inline-block;" ng-bind-html="rna.fields.common_name[0] | sanitize"></span>
                       </small>
                     </span>
-                    <a ng-if="rna.fields.entry_type[0] == 'Match'" href="/sequence/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+                    <a ng-if="rna.fields.entry_type[0] == 'Match'" href="/accession/{{rna.fields.rfamseq_acc[0]}}?seq_start={{rna.fields.seq_start[0]}}&seq_end={{rna.fields.seq_end[0]}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <small ng-if="rna.fields.entry_type[0] != 'Genome' && rna.fields.entry_type[0] != 'Match'">{{rna.id}}</small>
                   </h4>
 
