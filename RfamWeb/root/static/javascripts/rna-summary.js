@@ -49,6 +49,8 @@ angular.module('rfamApp')
                           '?query=rfamseq_acc:"{ACCESSION}"%20AND%20seq_start:"{SEQ_START}"%20AND%20seq_end:"{SEQ_END}"%20AND%20entry_type:"Sequence"' +
                           '&format=json' +
                           '&fields=' + search_config.fields.join(),
+          'xref_rfam_search': search_config.ebeye_base_url + '/entry/{ID}/xref/rfam?format=json',
+          'xref_taxid_search': search_config.ebeye_base_url + '/entry/{ID}/xref/taxonomy?format=json',
           'proxy': '/ebeye_proxy?url=',
       };
 
@@ -101,6 +103,25 @@ angular.module('rfamApp')
               }],
             });
           }
+
+          $http({
+              url: query_urls.proxy + encodeURIComponent(query_urls.xref_rfam_search.replace('{ID}', $scope.rna.id)),
+              method: 'GET',
+          }).success(function(data) {
+              $scope.rna.rfam_id = data.entries[0].references[0].id;
+          }).error(function(){
+              console.log('Error while retrieving xrefs');
+          });
+
+          $http({
+              url: query_urls.proxy + encodeURIComponent(query_urls.xref_taxid_search.replace('{ID}', $scope.rna.id)),
+              method: 'GET',
+          }).success(function(data) {
+              $scope.rna.ncbi_id = data.entries[0].references[0].id;
+          }).error(function(){
+              console.log('Error while retrieving xrefs');
+          });
+
       }).error(function(){
           console.log('RNA data could not be loaded');
       });
@@ -111,7 +132,7 @@ angular.module('rfamApp')
     <div style="font-size: 14px;">\
     <h3>{{rna.description}}</h3>\
     <ul>\
-      <li>Accession <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a>: {{rna.rfamseq_acc_description}}</li>\
+      <li>Accession <a class="ext" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a>: {{rna.rfamseq_acc_description}}</li>\
       <li>Nucleotides: <i>{{seqstart | number}}-{{seqend | number}}</i></li>\
       <li>RNA type: {{rna.rna_type}}</li>\
       <li>Part of <strong>{{ rna.alignment_type }}</strong> alignment</li>\
@@ -122,9 +143,9 @@ angular.module('rfamApp')
         <span ng-if="rna.truncated == \'3\'">Truncated on 3\' end</span>\
         <span ng-if="rna.truncated == \'53\'">Truncated on both 5\' and 3\' ends</span>\
       </li>\
-      <li>Species: {{rna.scientific_name}}</li>\
+      <li>Species: <a class="ext" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={{rna.ncbi_id}}">{{rna.scientific_name}}</a></li>\
       <li>Length: <strong>{{seqend - seqstart | number}}</strong> nts</li>\
-      <li>Rfam accession:</li>\
+      <li>Rfam accession: <a href="/family/{{rna.rfam_id}}">{{rna.rfam_id}}</a></li>\
       <li>Genome accession:</li>\
       <li>{{rna.chromosome_name}} {{rna.chromosome_type}}</li>\
     </ul>\
