@@ -30,13 +30,29 @@ sub accession : Chained( '/' )
   unless ( defined $entry ) {
     $c->log->debug( 'Sequence summary: no valid accession found' )
       if $c->debug;
-
     $c->stash->{errorMsg} = 'No valid accession';
+    return;
+  }
 
+  my $seq_start = $c->request->query_parameters->{seq_start};
+  unless ( defined $seq_start ) {
+    $c->log->debug( 'Sequence summary: no seq_start found' )
+      if $c->debug;
+    $c->stash->{errorMsg} = 'No sequence start specified';
+    return;
+  }
+
+  my $seq_end = $c->request->query_parameters->{seq_end};
+  unless ( defined $seq_end ) {
+    $c->log->debug( 'Sequence summary: no seq_end found' )
+      if $c->debug;
+    $c->stash->{errorMsg} = 'No sequence end specified';
     return;
   }
 
   $c->stash->{entry} = $entry;
+  $c->stash->{seq_start} = $seq_start;
+  $c->stash->{seq_end} = $seq_end;
   $c->stash->{pageType} = 'accession';
   $c->stash->{template} = 'pages/layout.tt';
 }

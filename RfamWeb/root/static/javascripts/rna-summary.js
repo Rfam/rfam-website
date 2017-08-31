@@ -3,7 +3,9 @@ angular.module('rfamApp')
   return {
     restrict: 'E',
     scope: {
-      name: '@'
+      name: '@',
+      seqstart: '@',
+      seqend: '@',
     },
 
     controller: function($scope) {
@@ -34,11 +36,8 @@ angular.module('rfamApp')
           'proxy': '/ebeye_proxy?url=',
       };
 
-      var seq_start = $location.search().seq_start || '',
-          seq_end = $location.search().seq_end || '';
-
       $http({
-          url: query_urls.proxy + encodeURIComponent(query_urls.ebeye_search.replace('{ACCESSION}', $scope.name).replace('{SEQ_START}', seq_start).replace('{SEQ_END}', seq_end)),
+          url: query_urls.proxy + encodeURIComponent(query_urls.ebeye_search.replace('{ACCESSION}', $scope.name).replace('{SEQ_START}', $scope.seqstart).replace('{SEQ_END}', $scope.seqend)),
           method: 'GET'
       }).success(function(data) {
           $scope.rna = {};
@@ -46,8 +45,6 @@ angular.module('rfamApp')
           Object.keys(data.entries[0].fields).forEach(function(key){
               $scope.rna[key] = data.entries[0].fields[key][0];
           });
-          $scope.rna['seq_start'] = seq_start;
-          $scope.rna['seq_end'] = seq_end;
       }).error(function(){
           console.log('RNA data could not be loaded');
       });
@@ -59,7 +56,7 @@ angular.module('rfamApp')
     <h3>{{rna.description}}</h3>\
     <p>{{rna.rfamseq_acc_description}}</p>\
     <ul>\
-      <li><a href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a> | Nucleotides <i>{{rna.seq_start | number}}-{{rna.seq_end | number}}</i></li>\
+      <li><a href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a> | Nucleotides <i>{{seqstart | number}}-{{seqend | number}}</i></li>\
       <li>RNA type: {{rna.rna_type}}</li>\
       <li><strong>{{ rna.alignment_type }}</strong> alignment</li>\
       <li title="A bit score of {{ rna.bit_score }} bits indicates the sequence is 2 * {{ rna.bit_score }} times more likely to have been generated from the covariance model than from the random background model">bit score: <strong>{{ rna.bit_score | number }}</strong> bits</li>\
