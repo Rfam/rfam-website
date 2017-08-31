@@ -10,19 +10,15 @@ angular.module('rfamApp')
 
     controller: function($scope) {
 
-      var ensembl_genomes = ['ailuropoda_melanoleuca', 'anas_platyrhynchos', 'anolis_carolinensis', 'arabidopsis_thaliana', 'astyanax_mexicanus',
-        'bombyx_mori', 'bos_taurus', 'caenorhabditis_elegans', 'callithrix_jacchus', 'canis_lupus_familiaris', 'cavia_porcellus',
-        'chlorocebus_sabaeus', 'choloepus_hoffmanni', 'ciona_intestinalis', 'ciona_savignyi', 'danio_rerio', 'dasypus_novemcinctus',
-        'dictyostelium_discoideum', 'dipodomys_ordii', 'drosophila_melanogaster', 'echinops_telfairi', 'equus_caballus',
-        'erinaceus_europaeus', 'felis_catus', 'ficedula_albicollis', 'gadus_morhua', 'gallus_gallus', 'gasterosteus_aculeatus',
-        'gorilla_gorilla_gorilla', 'homo_sapiens', 'ictidomys_tridecemlineatus', 'latimeria_chalumnae', 'lepisosteus_oculatus',
-        'loxodonta_africana', 'macaca_mulatta', 'macropus_eugenii', 'meleagris_gallopavo', 'microcebus_murinus', 'monodelphis_domestica',
-        'mus_musculus', 'mustela_putorius_furo', 'myotis_lucifugus', 'nomascus_leucogenys', 'ochotona_princeps', 'oreochromis_niloticus',
-        'ornithorhynchus_anatinus', 'oryctolagus_cuniculus', 'oryzias_latipes', 'otolemur_garnettii', 'ovis_aries', 'pan_troglodytes',
-        'papio_anubis', 'pelodiscus_sinensis', 'petromyzon_marinus', 'poecilia_formosa', 'pongo_abelii', 'procavia_capensis',
-        'pteropus_vampyrus', 'rattus_norvegicus', 'sarcophilus_harrisii', 'schizosaccharomyces_pombe', 'sorex_araneus', 'sus_scrofa',
-        'taeniopygia_guttata', 'takifugu_rubripes', 'tarsius_syrichta', 'tetraodon_nigroviridis', 'tupaia_belangeri', 'tursiops_truncatus',
-        'vicugna_pacos', 'xenopus_tropicalis', 'xiphophorus_maculatus'];
+      var ensembl_genomes = ['anolis_carolinensis', 'arabidopsis_thaliana', 'bombyx_mori', 'bos_taurus',
+      'caenorhabditis_elegans', 'callithrix_jacchus', 'canis_lupus_familiaris',
+      'chlorocebus_sabaeus', 'ciona_intestinalis', 'danio_rerio', 'dictyostelium_discoideum',
+      'drosophila_melanogaster', 'equus_caballus', 'felis_catus', 'gallus_gallus',
+      'gorilla_gorilla_gorilla', 'grch37', 'grch38', 'homo_sapiens', 'lepisosteus_oculatus',
+      'macaca_mulatta', 'meleagris_gallopavo', 'monodelphis_domestica', 'mus_musculus',
+      'ornithorhynchus_anatinus', 'oryctolagus_cuniculus', 'oryzias_latipes', 'ovis_aries',
+      'pan_troglodytes', 'papio_anubis', 'pongo_abelii', 'rattus_norvegicus', 'schizosaccharomyces_pombe',
+      'sus_scrofa', 'taeniopygia_guttata', 'tetraodon_nigroviridis'];
 
       var search_config = {
           ebeye_base_url: 'http://wwwdev.ebi.ac.uk/ebisearch/ws/rest/rfam',
