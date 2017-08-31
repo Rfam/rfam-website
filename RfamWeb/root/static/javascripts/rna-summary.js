@@ -110,22 +110,23 @@ angular.module('rfamApp')
     template: '\
     <div style="font-size: 14px;">\
     <h3>{{rna.description}}</h3>\
-    <p>{{rna.rfamseq_acc_description}}</p>\
     <ul>\
-      <li><a href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a> | Nucleotides <i>{{seqstart | number}}-{{seqend | number}}</i></li>\
+      <li>Accession <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a>: {{rna.rfamseq_acc_description}}</li>\
+      <li>Nucleotides: <i>{{seqstart | number}}-{{seqend | number}}</i></li>\
       <li>RNA type: {{rna.rna_type}}</li>\
-      <li><strong>{{ rna.alignment_type }}</strong> alignment</li>\
+      <li>Part of <strong>{{ rna.alignment_type }}</strong> alignment</li>\
       <li title="A bit score of {{ rna.bit_score }} bits indicates the sequence is 2 * {{ rna.bit_score }} times more likely to have been generated from the covariance model than from the random background model">bit score: <strong>{{ rna.bit_score | number }}</strong> bits</li>\
-      <li title="The number of hits expected to score this highly in a database of this size">E-value score: {{ rna.evalue_score | number }}</li>\
+      <li title="The number of hits expected to score this highly in a database of this size">E-value: {{ rna.evalue_score | number }}</li>\
       <li ng-if="rna.truncated != \'0\'">\
         <span ng-if="rna.truncated == \'5\'">Truncated on 5\' end</span>\
         <span ng-if="rna.truncated == \'3\'">Truncated on 3\' end</span>\
         <span ng-if="rna.truncated == \'53\'">Truncated on both 5\' and 3\' ends</span>\
       </li>\
       <li>Species: {{rna.scientific_name}}</li>\
-      <li>Length: </li>\
-      <li>Rfam accession</li>\
-      <li>Genome accession</li>\
+      <li>Length: <strong>{{seqend - seqstart | number}}</strong> nts</li>\
+      <li>Rfam accession:</li>\
+      <li>Genome accession:</li>\
+      <li>{{rna.chromosome_name}} {{rna.chromosome_type}}</li>\
     </ul>\
     <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}">Download FASTA sequence</a>\
     <a ng-if="!genoverse" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}"><img src="http://www.ebi.ac.uk/ena/data/view/graphics/{{rna.rfamseq_acc}}%26showSequence=false%26featureRange={{rna.seq_start}}-{{rna.seq_end}}%26sequenceRange=1-1000.jpg"></a>\
