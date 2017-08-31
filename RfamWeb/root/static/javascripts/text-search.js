@@ -78,6 +78,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
         fields: [
             'assembly_name',
             'common_name',
+            'chromosome_name',
             'description',
             'entry_type',
             'length',

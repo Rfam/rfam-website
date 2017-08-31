@@ -305,6 +305,7 @@
                           <span ng-if="rna.fields.truncated[0] == '3'">Truncated on 3' end</span>
                           <span ng-if="rna.fields.truncated[0] == '53'">Truncated on both 5' and 3' ends</span>
                         </li>
+                        <li ng-if="rna.fields.chromosome_name[0]">chromosome {{rna.fields.chromosome_name[0]}}</li>
                       </ul>
                     </div>
                     </div>
