@@ -292,8 +292,8 @@
                             <i class="fa fa-sitemap" style="margin-right: 5px;"></i> <span ng-if="rna.fields.entry_type[0] == 'Genome'" ng-bind-html="rna.fields.tax_string[0] | sanitize"></span>
                           </p>
                           <p>
-                            <a href="/search?q={{rna.id}}%20AND%20entry_type:'Sequence'"><strong>{{rna.fields.num_rfam_hits[0] | number}}</strong> sequences</a> from
-                            <a href="/search?q={{rna.id}}%20AND%20entry_type:'Family'"><strong>{{rna.fields.num_families[0] | number}}</strong> families</a>
+                            <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Sequence%22"><strong>{{rna.fields.num_rfam_hits[0] | number}}</strong> sequences</a> from
+                            <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Family%22"><strong>{{rna.fields.num_families[0] | number}}</strong> families</a>
                           </p>
                         </li>
                       </ul>
