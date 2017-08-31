@@ -2,7 +2,10 @@
 
 PROCESS "components/require.tt";
 
+staticUri = c.uri_for( "/static" );
 requirements.js.push( "rna-summary.js" );
+
+requirements.css.push( "Genoverse/css/genoverse.css" );
 
 #-------------------------------------------------------------------------------
 %]
@@ -18,9 +21,15 @@ requirements.js.push( "rna-summary.js" );
     <div class="container-fluid" style="margin: 10px; min-height: 200px;">
       <div class="container-main">
         <rna-summary name="[% entry %]" seqstart="[% seq_start %]" seqend="[% seq_end %]"></rna-summary>
+        <div id="genoverse"></div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- end sequence summary block -->
+
+<script src='[% staticUri %]/javascripts/Genoverse/js/genoverse.min.js'></script>
+<script>
+  jQuery.noConflict();
+</script>
