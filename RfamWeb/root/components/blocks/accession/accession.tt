@@ -13,12 +13,8 @@ requirements.css.push( "Genoverse/css/genoverse.css" );
 <!-- start sequence summary block -->
 
 <div class="block" id="rnaSummaryBlock">
-  <div class="handle">
-    <h1>Sequence summary</h1>
-  </div>
-
   <div class="blockContent bootstrap-wrapper">
-    <div class="container-fluid" style="margin: 10px; min-height: 200px;">
+    <div class="container-fluid">
       <div class="container-main">
         <rna-summary name="[% entry %]" seqstart="[% seq_start %]" seqend="[% seq_end %]"></rna-summary>
         <div style="margin-top: 20px;" id="genoverse"></div>

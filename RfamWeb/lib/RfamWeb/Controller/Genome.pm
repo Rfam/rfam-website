@@ -66,7 +66,7 @@ sub genome : Chained( '/' )
 
   $c->stash->{entry} = $entry;
   $c->stash->{pageType} = 'genome';
-  $c->stash->{template} = 'pages/layout.tt';
+  $c->stash->{template} = 'pages/tabless-layout.tt';
 
 }
 

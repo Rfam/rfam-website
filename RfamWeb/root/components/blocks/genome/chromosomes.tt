@@ -16,13 +16,6 @@ sharedRequirements.js.push( "tablekit.js" );
 #-------------------------------------------------------------------------------
 %]
 
-<div class="block" id="genomeChromosomesBlock">
-  <div class="handle">
-    <h1>Chromosomes</h1>
-  </div>
-  <div class="blockContent">
-  </div>
-</div>
 
 
 <!-- end chromosomes block -->

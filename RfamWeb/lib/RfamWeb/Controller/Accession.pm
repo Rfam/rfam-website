@@ -7,8 +7,6 @@ BEGIN {
   extends 'Catalyst::Controller';
 }
 
-with 'PfamBase::Roles::Section';
-
 # set the name of the section
 __PACKAGE__->config( SECTION => 'accession' );
 
@@ -54,7 +52,7 @@ sub accession : Chained( '/' )
   $c->stash->{seq_start} = $seq_start;
   $c->stash->{seq_end} = $seq_end;
   $c->stash->{pageType} = 'accession';
-  $c->stash->{template} = 'pages/layout.tt';
+  $c->stash->{template} = 'pages/tabless-layout.tt';
 }
 
 #-------------------------------------------------------------------------------
