@@ -275,13 +275,13 @@
                             <span class="label label-warning" style="background-color: #734639;">{{ rna.fields.entry_type[0] }}</span>
                           </li>
                           <li>
-                            <a href="http://www.uniprot.org/proteomes/{{rna.id}}" target="_blank" style="color: #404040; text-decoration: none;" title="View proteome in UniProt">{{rna.id}}</a>
+                            <a href="http://www.uniprot.org/proteomes/{{rna.id}}" target="_blank" style="color: #404040; text-decoration: none;" class="help" title="View proteome in UniProt">{{rna.id}}</a>
                           </li>
                           <li>
-                            <span class="cursor-help" title="Assembly name">{{rna.fields.assembly_name[0] | htmlToPlaintext}}</span>
+                            <span class="help" title="Assembly name">{{rna.fields.assembly_name[0] | htmlToPlaintext}}</span>
                           </li>
                           <li>
-                            <i class="cursor-help" title="Genome length: {{rna.fields.length[0] | number}} bases">{{rna.fields.length[0] | humanizeGenomesize}}</i>
+                            <i class="help" title="Genome length: {{rna.fields.length[0] | number}} bases">{{rna.fields.length[0] | humanizeGenomesize}}</i>
                           </li>
                         </ul>
                       </div>

@@ -1,3 +1,7 @@
+[%
+staticUri = c.uri_for( "/static" );
+-%]
+
 <!-- footer start -->
 
 <div id="siteFooter">
@@ -11,5 +15,17 @@
          id="bbsrc_logo"
          src="[% staticUri %]/images/bbsrc.png" /></a>
 </div>
+
+<script type='text/javascript' src='[% staticUri %]/javascripts/tipsy/src/javascripts/jquery.tipsy.js'></script>
+<script type='text/javascript'>
+ jQuery(function() {
+   jQuery('.help').tipsy({
+     fade: true,
+     gravity: 's',
+     live: true,
+     html: true
+   });
+ });
+</script>
 
 <!-- footer end -->

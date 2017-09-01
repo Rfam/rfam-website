@@ -99,6 +99,8 @@ IF refreshUri != "";
 <!-- site-specific stylesheet -->
 <link rel="stylesheet" href="[% staticUri %]/css/[% c.config.site %].css" type="text/css" />
 
+<link rel="stylesheet" href="[% staticUri %]/javascripts/tipsy/src/stylesheets/tipsy.css" type="text/css" />
+
 <!-- ====================================================================== -->
 <!-- load dynamically required stylesheets and javascript files-->
 
@@ -128,7 +130,6 @@ PROCESS "components/load_requirements.tt" %]
 
   ga('create', 'UA-50480748-3', 'xfam.org');
   ga('send', 'pageview');
-
 </script>
 
 <!-- ====================================================================== -->

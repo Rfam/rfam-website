@@ -2869,6 +2869,3 @@ a.btn {
 .text-capitalize-first-letter:first-letter {
   text-transform: uppercase;
 }
-.cursor-help {
-  cursor: help;
-}
