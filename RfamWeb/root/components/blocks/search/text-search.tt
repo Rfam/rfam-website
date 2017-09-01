@@ -287,16 +287,21 @@
                             <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structures</a>
                           </span>
                         </li>
-                        <li ng-if="rna.fields.entry_type[0] == 'Genome'">
-                          <p>
-                            <i class="fa fa-sitemap" style="margin-right: 5px;"></i> <span ng-if="rna.fields.entry_type[0] == 'Genome'" ng-bind-html="rna.fields.tax_string[0] | sanitize"></span>
-                          </p>
-                          <p>
-                            <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Sequence%22"><strong>{{rna.fields.num_rfam_hits[0] | number}}</strong> sequences</a> from
-                            <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Family%22"><strong>{{rna.fields.num_families[0] | number}}</strong> families</a>
-                          </p>
-                        </li>
                       </ul>
+
+                      <div ng-if="rna.fields.entry_type[0] == 'Genome'">
+                        <p>
+                          <i class="fa fa-sitemap"></i>
+                          <span ng-repeat="taxon in rna.fields.tax_string_array">
+                            <a style="color: #404040; text-decoration: none;" href='/search?q=tax_string:"{{taxon | htmlToPlaintext}}"%20AND%20entry_type:"Genome"' ng-bind-html="taxon | sanitize"></a><span ng-if="!$last">,</span>
+                          </span>
+                        </p>
+                        <p>
+                          <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Sequence%22"><strong>{{rna.fields.num_rfam_hits[0] | number}}</strong> sequences</a> from
+                          <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Family%22"><strong>{{rna.fields.num_families[0] | number}}</strong> families</a>
+                        </p>
+                      </div>
+
                       <ul class="list-inline" ng-if="rna.fields.entry_type[0] == 'Sequence'">
                         <li><strong>{{ rna.fields.alignment_type[0] | sanitize }}</strong> alignment</li>
                         <li title="A bit score of {{ rna.fields.bit_score[0] }} bits indicates the sequence is 2 * {{ rna.fields.bit_score[0] }} times more likely to have been generated from the covariance model than from the random background model">bit score: <strong>{{ rna.fields.bit_score[0] | number }}</strong> bits</li>
