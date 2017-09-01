@@ -55,16 +55,20 @@ angular.module('rfamApp')
     <small class="text-capitalize-first-letter" style="display: inline-block;">{{genome.common_name}}</small>\
     </h3>\
     <p>{{genome.description}}</p>\
-    <ul>\
-      <li>UniProt ID: <a class="ext" title="View in UniProt" href="http://www.uniprot.org/proteomes/{{genome.id}}">{{genome.id}}</a></li>\
-      <li>NCBI Taxonomy ID: <a class="ext" title="View NCBI Taxonomy" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={{genome.ncbi_taxid}}">{{genome.ncbi_taxid}}</a></li>\
-      <li ng-if="genome.gca_accession">Assembly accession: <a class="ext" title="View in ENA" href="http://www.ebi.ac.uk/ena/data/view/{{genome.gca_accession}}">{{genome.gca_accession}}</a></li>\
-      <li><strong>{{genome.num_rfam_hits | number}}</strong> hits from <strong>{{genome.num_families | number}}</strong> RNA families</li>\
-      <li>Genome length: {{genome.length | humanizeGenomesize}}</li>\
-      <li>Taxonomic lineage: {{genome.tax_string}}</li>\
-    </ul>\
-    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;Family&quot;" class="btn btn-primary" style="background-color: #734639;">Browse families</a>\
-    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;Sequence&quot;" class="btn btn-primary" style="background-color: #734639;">Browse sequences</a>\
+    <dl class="dl-horizontal">\
+      <dt>UniProt ID</dt>\
+      <dd><a class="ext" title="View in UniProt" href="http://www.uniprot.org/proteomes/{{genome.id}}">{{genome.id}}</a></dd>\
+      <dt>NCBI Taxonomy ID</dt>\
+      <dd><a class="ext" title="View NCBI Taxonomy" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={{genome.ncbi_taxid}}">{{genome.ncbi_taxid}}</a></dt>\
+      <dt ng-if="genome.gca_accession">Assembly accession</dt>\
+      <dd ng-if="genome.gca_accession"><a class="ext" title="View in ENA" href="http://www.ebi.ac.uk/ena/data/view/{{genome.gca_accession}}">{{genome.gca_accession}}</a></dd>\
+      <dt>Genome length</dt>\
+      <dd>{{genome.length | humanizeGenomesize}}</dd>\
+      <dt>Taxonomic lineage</dt>\
+      <dd>{{genome.tax_string}}</dd>\
+    </dl>\
+    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;Sequence&quot;" class="btn btn-primary" style="background-color: #734639;">Browse <strong>{{genome.num_rfam_hits | number}}</strong> sequences</a>\
+    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;Family&quot;" class="btn btn-primary" style="background-color: #734639;">Browse <strong>{{genome.num_families | number}}</strong> families</a>\
     </div>\
     '
   };
