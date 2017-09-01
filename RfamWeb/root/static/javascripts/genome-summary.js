@@ -63,8 +63,8 @@ angular.module('rfamApp')
       <li>Genome length: {{genome.length | humanizeGenomesize}}</li>\
       <li>Taxonomic lineage: {{genome.tax_string}}</li>\
     </ul>\
-    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;family&quot;" class="btn btn-primary" style="background-color: #734639;">Browse families</a>\
-    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;match&quot;" class="btn btn-primary" style="background-color: #734639;">Browse sequences</a>\
+    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;Family&quot;" class="btn btn-primary" style="background-color: #734639;">Browse families</a>\
+    <a href="/search?q={{genome.id}}%20AND%20entry_type:&quot;Sequence&quot;" class="btn btn-primary" style="background-color: #734639;">Browse sequences</a>\
     </div>\
     '
   };
