@@ -21,7 +21,7 @@ requirements.css.push( "Genoverse/css/genoverse.css" );
     <div class="container-fluid" style="margin: 10px; min-height: 200px;">
       <div class="container-main">
         <rna-summary name="[% entry %]" seqstart="[% seq_start %]" seqend="[% seq_end %]"></rna-summary>
-        <div id="genoverse"></div>
+        <div style="margin-top: 20px;" id="genoverse"></div>
       </div>
     </div>
   </div>

@@ -127,26 +127,39 @@ angular.module('rfamApp')
     template: '\
     <div style="font-size: 14px;">\
     <h3>{{rna.description}}</h3>\
-    <ul>\
-      <li>Accession <a class="ext" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a>: {{rna.rfamseq_acc_description}}</li>\
-      <li>Nucleotides: <i>{{seqstart | number}}-{{seqend | number}}</i></li>\
-      <li>RNA type: {{rna.rna_type}}</li>\
-      <li>Part of <strong>{{ rna.alignment_type }}</strong> alignment</li>\
-      <li title="A bit score of {{ rna.bit_score }} bits indicates the sequence is 2 * {{ rna.bit_score }} times more likely to have been generated from the covariance model than from the random background model">bit score: <strong>{{ rna.bit_score | number }}</strong> bits</li>\
-      <li title="The number of hits expected to score this highly in a database of this size">E-value: {{ rna.evalue_score | number }}</li>\
-      <li ng-if="rna.truncated != \'0\'">\
+    <dl class="dl-horizontal">\
+      <dt>Description</dt>\
+      <dd>{{rna.rfamseq_acc_description}}</dd>\
+      <dt>Species</dd>\
+      <dd><a class="ext" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={{rna.ncbi_id}}">{{rna.scientific_name}}</a></dt>\
+      <dt>Accession</dt>\
+      <dd><a class="ext" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">{{rna.rfamseq_acc}}</a></dd>\
+      <dt>Nucleotides</dt>\
+      <dd>{{seqstart | number}}-{{seqend | number}}</dd>\
+      <dt>Length</dd>\
+      <dd><strong>{{seqend - seqstart | number}}</strong> nucleotides</dt>\
+      <dt>Rfam accession</dt>\
+      <dd><a href="/family/{{rna.rfam_id}}">{{rna.rfam_id}}</a> (<strong>{{ rna.alignment_type }}</strong> alignment)</dd>\
+      <dt>RNA type</dt>\
+      <dd>{{rna.rna_type}}</dd>\
+      <dt>Bit score</dt>\
+      <dd><strong>{{ rna.bit_score | number }}</strong> bits</dd>\
+      <dt title="The number of hits expected to score this highly in a database of this size">E-value</dt>\
+      <dd>{{ rna.evalue_score }}</dd>\
+      <dt ng-if="rna.chromosome_type">Chromosome</dt>\
+      <dd ng-if="rna.chromosome_type">{{rna.chromosome_name}} {{rna.chromosome_type}}</dd>\
+      <dt ng-if="rna.truncated != \'0\'">Truncated</dt>\
+      <dd ng-if="rna.truncated != \'0\'">\
         <span ng-if="rna.truncated == \'5\'">Truncated on 5\' end</span>\
         <span ng-if="rna.truncated == \'3\'">Truncated on 3\' end</span>\
         <span ng-if="rna.truncated == \'53\'">Truncated on both 5\' and 3\' ends</span>\
-      </li>\
-      <li>Species: <a class="ext" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={{rna.ncbi_id}}">{{rna.scientific_name}}</a></li>\
-      <li>Length: <strong>{{seqend - seqstart | number}}</strong> nts</li>\
-      <li>Rfam accession: <a href="/family/{{rna.rfam_id}}">{{rna.rfam_id}}</a></li>\
-      <li>Genome accession:</li>\
-      <li>{{rna.chromosome_name}} {{rna.chromosome_type}}</li>\
-    </ul>\
-    <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}">Download FASTA sequence</a>\
-    <a ng-if="!genoverse" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}"><img src="http://www.ebi.ac.uk/ena/data/view/graphics/{{rna.rfamseq_acc}}%26showSequence=false%26featureRange={{rna.seq_start}}-{{rna.seq_end}}%26sequenceRange=1-1000.jpg"></a>\
+      </dd>\
+    </dl>\
+    <a class="btn btn-primary" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}"><i class="fa fa-download" aria-hidden="true"></i> FASTA sequence</a>\
+    <br>\
+    <a target="_blank" ng-if="!genoverse" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">\
+      <img style="margin-top: 20px;" src="http://www.ebi.ac.uk/ena/data/view/graphics/{{rna.rfamseq_acc}}%26showSequence=false%26featureRange={{rna.seq_start}}-{{rna.seq_end}}%26sequenceRange=1-1000.jpg">\
+    </a>\
     </div>\
     '
   };
