@@ -1,5 +1,5 @@
 angular.module('rfamApp')
-.directive('rnaSummary', ['$http', '$location', function($http, $location) {
+.directive('rnaSummary', ['$http', function($http) {
   return {
     restrict: 'E',
     scope: {
