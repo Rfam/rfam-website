@@ -43,6 +43,7 @@ angular.module('rfamApp')
           Object.keys(data.entries[0].fields).forEach(function(key){
               $scope.genome[key] = data.entries[0].fields[key][0];
           });
+          window.document.title = $scope.genome.scientific_name + ' genome';
       }).error(function(){
           console.log('Genome data could not be loaded');
       });

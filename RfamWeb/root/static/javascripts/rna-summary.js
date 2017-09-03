@@ -67,7 +67,7 @@ angular.module('rfamApp')
           Object.keys(data.entries[0].fields).forEach(function(key){
               $scope.rna[key] = data.entries[0].fields[key][0];
           });
-
+          window.document.title = $scope.rna['description'];
           var species_label = $scope.rna.scientific_name.replace(' ', '_').toLowerCase();
           if (jQuery.inArray(species_label, ensembl_genomes) !== -1 && $scope.rna.chromosome_name) {
             $scope.genoverse = true;
