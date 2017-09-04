@@ -548,6 +548,30 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     });
 
     /**
+     * Detect When query looks like `UP000029965 AND entry_type:"Family"`.
+     */
+    $scope.show_family_genome_context = function() {
+        if ($scope.get_genome_id_from_query()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    /**
+     * Extract genome id from query.
+     */
+     $scope.get_genome_id_from_query = function() {
+         var query = $location.search().q,
+             match = query.match(/(UP\d{9})\s+AND\s+entry_type:["']Family["']/i);
+         if (match) {
+             return match[1];
+         } else {
+             return false;
+         }
+     }
+
+    /**
      * Update the `ordering` url parameter
      * based on the current user selection.
      */

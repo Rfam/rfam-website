@@ -287,7 +287,7 @@
                       </div>
 
                       <div>
-                        <div ng-if="rna.fields.entry_type[0] == 'Family'">
+                        <div ng-if="rna.fields.entry_type[0] == 'Family' && !show_family_genome_context()">
                           <p>
                             <i class="fa fa-bars"></i>
                             <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_seed[0] | number}}</strong> seed alignment sequences</a>
@@ -311,6 +311,12 @@
                               </span>
                             </li>
                           </ul>
+                        </div>
+
+                        <div ng-if="rna.fields.entry_type[0] == 'Family' && show_family_genome_context()">
+                          <p>
+                            <a href='/search?q={{get_genome_id_from_query()}} AND {{rna.id}} AND entry_type:"Sequence"'>View {{ rna.id }} sequences from this genome</a>
+                          </p>
                         </div>
 
                         <div ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
