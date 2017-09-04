@@ -340,7 +340,7 @@
 
                         <div ng-if="rna.fields.entry_type[0] == 'Sequence'">
                           <ul class="list-inline">
-                            <li><strong ng-bind-html="rna.fields.alignment_type[0] | sanitize"></strong> alignment</li>
+                            <li><strong ng-class="{'text-success': (rna.fields.alignment_type[0]|htmlToPlaintext) == 'seed'}" ng-bind-html="rna.fields.alignment_type[0] | sanitize"></strong> alignment</li>
                             <li title="A bit score of {{ rna.fields.bit_score[0] }} bits indicates the sequence is 2 * {{ rna.fields.bit_score[0] }} times more likely to have been generated from the covariance model than from the random background model" class="cursor-help"><strong>{{ rna.fields.bit_score[0] | number }}</strong> bits</li>
                             <li ng-if="(rna.fields.truncated[0]|htmlToPlaintext) != '0'" class="label label-danger">
                               <span ng-if="(rna.fields.truncated[0]|htmlToPlaintext) == '5'">Truncated on 5' end</span>
