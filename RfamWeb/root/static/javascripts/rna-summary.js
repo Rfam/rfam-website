@@ -155,7 +155,7 @@ angular.module('rfamApp')
         <span ng-if="rna.truncated == \'53\'">Truncated on both 5\' and 3\' ends</span>\
       </dd>\
     </dl>\
-    <a class="btn btn-primary" style="background-color: #734639;" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}"><i class="fa fa-download" aria-hidden="true"></i> FASTA sequence</a>\
+    <a class="btn btn-primary" style="background-color: #734639; border-color: #734639;" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}"><i class="fa fa-download" aria-hidden="true"></i> FASTA sequence</a>\
     <br>\
     <a target="_blank" ng-if="!genoverse" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">\
       <img style="margin-top: 20px;" src="http://www.ebi.ac.uk/ena/data/view/graphics/{{rna.rfamseq_acc}}%26showSequence=false%26featureRange={{rna.seq_start}}-{{rna.seq_end}}%26sequenceRange=1-1000.jpg">\
