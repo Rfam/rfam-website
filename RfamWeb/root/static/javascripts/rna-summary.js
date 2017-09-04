@@ -137,7 +137,7 @@ angular.module('rfamApp')
       <dt>Nucleotides</dt>\
       <dd>{{seqstart | number}}-{{seqend | number}}</dd>\
       <dt>Length</dd>\
-      <dd><strong>{{seqend - seqstart | number}}</strong> nucleotides</dt>\
+      <dd><strong>{{seqend - seqstart | abs | number}}</strong> nucleotides</dt>\
       <dt>Rfam accession</dt>\
       <dd><a href="/family/{{rna.rfam_id}}">{{rna.rfam_id}}</a> (<strong>{{ rna.alignment_type }}</strong> alignment)</dd>\
       <dt>RNA type</dt>\

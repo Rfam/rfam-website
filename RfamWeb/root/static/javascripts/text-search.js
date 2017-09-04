@@ -775,3 +775,12 @@ angular.module('rfamApp').filter('htmlToPlaintext', function() {
       return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
     };
 });
+
+/**
+ * Absolute value as a filter.
+ */
+angular.module('rfamApp').filter('abs', function () {
+  return function(val) {
+    return Math.abs(val);
+  }
+});
