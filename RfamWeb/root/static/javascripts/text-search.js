@@ -321,7 +321,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
                     for (var i=0; i < data.entries.length; i++) {
                         data.entries[i].fields = data.entries[i].highlights;
                         data.entries[i].fields.entry_type[0] = data.entries[i].fields.entry_type[0].replace(/<[^>]+>/gm, '');
-                        if (jQuery.inArray('tax_string', data.entries[i].fields) && data.entries[i].fields.tax_string[0]) {
+                        if (data.entries[i].fields.tax_string[0]) {
                           data.entries[i].fields.tax_string_array = data.entries[i].fields.tax_string[0].slice(0, -1).split('; ');
                         }
                     }
