@@ -275,9 +275,6 @@
                             <span class="label label-warning" style="background-color: #734639;">{{ rna.fields.entry_type[0] }}</span>
                           </li>
                           <li>
-                            <a href="http://www.uniprot.org/proteomes/{{rna.id}}" target="_blank" style="color: #404040; text-decoration: none;" class="help" title="View proteome in UniProt">{{rna.id}}</a>
-                          </li>
-                          <li>
                             <span class="help" title="Assembly name">{{rna.fields.assembly_name[0] | htmlToPlaintext}}</span>
                           </li>
                           <li>
@@ -342,7 +339,7 @@
                           <ul class="list-inline">
                             <li><strong ng-class="{'text-success': (rna.fields.alignment_type[0]|htmlToPlaintext) == 'seed'}" ng-bind-html="rna.fields.alignment_type[0] | sanitize"></strong> alignment</li>
                             <li title="A bit score of {{ rna.fields.bit_score[0] }} bits indicates the sequence is 2 * {{ rna.fields.bit_score[0] }} times more likely to have been generated from the covariance model than from the random background model" class="cursor-help"><strong>{{ rna.fields.bit_score[0] | number }}</strong> bits</li>
-                            <li><strong>{{rna.fields.seq_end[0] - rna.fields.seq_start[0] | abs | number}}</strong> nucleotides</li>                            
+                            <li><strong>{{rna.fields.seq_end[0] - rna.fields.seq_start[0] | abs | number}}</strong> nucleotides</li>
                             <li ng-if="(rna.fields.truncated[0]|htmlToPlaintext) != '0'" class="label label-danger">
                               <span ng-if="(rna.fields.truncated[0]|htmlToPlaintext) == '5'">Truncated on 5' end</span>
                               <span ng-if="(rna.fields.truncated[0]|htmlToPlaintext) == '3'">Truncated on 3' end</span>
