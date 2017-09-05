@@ -525,20 +525,13 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     $scope.search_type = '';
 
     /**
-     * Set search type based on what facet is unabled.
+     * Set search type based on what facet is enabled.
      * The `search_type` is used to filter ordering options.
      */
     $scope.$watch(function () { return $location.search().q; }, function (newValue, oldValue) {
-        if (newValue.indexOf('entry_type:"Genome"') !== -1) {
-            $scope.search_type = 'genome';
-        } else if (newValue.indexOf('entry_type:"Family"') !== -1) {
-            $scope.search_type = 'family';
-        } else if (newValue.indexOf('entry_type:"Sequence"') !== -1) {
-            $scope.search_type = 'sequence';
-        } else if (newValue.indexOf('entry_type:"Clan"') !== -1) {
-            $scope.search_type = 'clan';
-        } else if (newValue.indexOf('entry_type:"Motif"') !== -1) {
-            $scope.search_type = 'motif';
+        var match = newValue.match(/entry_type\:["'](\w+)["']/);
+        if (match) {
+            $scope.search_type = match[1].toLowerCase();
         } else {
             $scope.search_type = 'all';
         }
