@@ -111,7 +111,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
         ], // will be displayed in this order
         facetcount: 30,
         pagesize: 15,
-        ordering: 'num_full:descending,num_families:descending,bit_score:descending',
+        ordering: 'num_seed:descending,num_families:descending,bit_score:descending',
     };
 
     var query_urls = {
@@ -494,10 +494,10 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     $scope.show_error = results.get_show_error();
 
     $scope.ordering = [
-        { type: 'family', sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
-        { type: 'family', sort_field: 'num_full', label: 'Number of full alignment sequences \u2191' },
         { type: 'family', sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences \u2193'},
         { type: 'family', sort_field: 'num_seed', label: 'Number of seed alignment sequences \u2191'},
+        { type: 'family', sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
+        { type: 'family', sort_field: 'num_full', label: 'Number of full alignment sequences \u2191' },
         { type: 'family', sort_field: 'num_species:descending', label: 'Number of species \u2193'},
         { type: 'family', sort_field: 'num_species', label: 'Number of species \u2191'},
         { type: 'family', sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
