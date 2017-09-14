@@ -39,7 +39,7 @@ oe = 0;
         <td>[% row.get_column('rfam_desc') %]</td>
         <td>[% row.seq_start %]</td>
         <td>[% row.seq_end %]</td>
-        <td>[% row.bits_score %]</td>
+        <td>[% row.bit_score %]</td>
       </tr>
     [% END %]
   </tbody>
