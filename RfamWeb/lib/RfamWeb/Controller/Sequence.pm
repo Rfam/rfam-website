@@ -44,31 +44,31 @@ Start and end of a chain.
 
 =cut
 
-sub sequence_search : Chained( '/' ) 
-                      PathPart( 'sequence' ) 
+sub sequence_search : Chained( '/' )
+                      PathPart( 'sequence' )
                       Args( 0 ) {
   my ( $this, $c ) = @_;
-  
+
   $c->log->debug( 'Sequence::sequence_search: searching for Rfam hits to a sequence' )
     if $c->debug;
 
-  unless ( defined $c->req->param('entry') ) { 
+  unless ( defined $c->req->param('entry') ) {
     $c->log->debug( 'Sequence::sequence_search: no sequence accession found' )
-      if $c->debug;  
+      if $c->debug;
 
     $c->stash->{errorMsg} = 'You must give a sequence accession';
-    
+
     return;
   }
 
   my ( $entry ) = $c->req->param('entry') =~ m/^(\w+(\.\d+)?)$/;
-  
-  unless ( defined $entry ) { 
+
+  unless ( defined $entry ) {
     $c->log->debug( 'Sequence::sequence_search: no valid sequence accession found' )
-      if $c->debug;  
+      if $c->debug;
 
     $c->stash->{errorMsg} = 'You must give a valid sequence accession';
-    
+
     return;
   }
 
@@ -86,31 +86,31 @@ Start and end of a chain.
 
 =cut
 
-sub sequence_page : Chained( '/' ) 
-                    PathPart( 'sequence' ) 
+sub sequence_page : Chained( '/' )
+                    PathPart( 'sequence' )
                     Args( 1 ) {
   my ( $this, $c, $tainted_entry ) = @_;
-  
+
   $c->log->debug( 'Sequence::sequence_page: building page of hits for a sequence' )
     if $c->debug;
-    
+
   my ( $entry ) = $tainted_entry =~ m/^(\w+(\.\d+)?)$/;
 
   unless ( defined $entry ) {
     $c->log->debug( 'Sequence::sequence_page: no valid sequence accession found' )
-      if $c->debug;  
+      if $c->debug;
 
     $c->stash->{errorMsg} = 'You must supply a valid sequence accession';
-    
+
     return;
   }
 
   $c->log->debug( "Sequence::sequence_page: looking up hits for |$entry|" )
     if $c->debug;
-    
+
   $c->stash->{entry} = $entry;
   $c->forward( 'get_data' );
-  
+
   $c->stash->{template} = 'pages/search/sequence/lookup.tt';
 }
 
@@ -124,28 +124,28 @@ Part of a chain.
 
 =cut
 
-sub sequence_link : Chained( '/' ) 
-                    PathPart( 'sequence' ) 
+sub sequence_link : Chained( '/' )
+                    PathPart( 'sequence' )
                     CaptureArgs( 1 ) {
   my ( $this, $c, $tainted_entry ) = @_;
-  
+
   $c->log->debug( 'Sequence::sequence_link: checking sequence ID/acc' )
     if $c->debug;
-    
+
   my ( $entry ) = $tainted_entry =~ m/^(\w+)(\.\d+)?$/;
 
   unless ( defined $entry ) {
     $c->log->debug( 'Sequence::sequence_link: no valid sequence accession found' )
-      if $c->debug;  
+      if $c->debug;
 
     $c->stash->{errorMsg} = 'You must provide a valid sequence accession';
-    
+
     return;
   }
 
   $c->log->debug( "Sequence::sequence_link: looking up hits for |$entry|" )
     if $c->debug;
-    
+
   $c->stash->{entry} = $entry;
 }
 
@@ -154,21 +154,21 @@ sub sequence_link : Chained( '/' )
 =head2 sequence_table : Chained PathPart Args
 
 Forwards to a private action which retrieves the Rfam hits for the (stashed)
-sequence entry. Builds just the 
+sequence entry. Builds just the
 
-End of a chain. 
+End of a chain.
 
 =cut
 
-sub sequence_table : Chained( 'sequence_link' ) 
-                     PathPart( 'hits' ) 
+sub sequence_table : Chained( 'sequence_link' )
+                     PathPart( 'hits' )
                      Args( 0 ) {
   my ( $this, $c ) = @_;
-  
+
   $c->log->debug( 'Sequence::sequence_table: looking up Rfam hits to a sequence' )
     if $c->debug;
-    
-  $c->forward( 'get_data' );                  
+
+  $c->forward( 'get_data' );
 
   $c->stash->{template} = 'pages/search/sequence/lookup_table.tt';
 }
@@ -185,16 +185,16 @@ Retrieves Rfam hits for the (stashed) sequence entry.
 
 sub get_data : Private {
   my ( $this, $c ) = @_;
-  
+
   $c->log->debug( 'Sequence::get_data: retrieving Rfam hits for ' . $c->stash->{entry} )
     if $c->debug;
-    
+
   unless ( defined $c->stash->{entry} ) {
     $c->log->debug( 'Sequence::get_data: no valid sequence accession found in stash' )
-      if $c->debug;  
+      if $c->debug;
 
     $c->stash->{errorMsg} = 'You must use a valid sequence accession';
-    
+
     return;
   }
 
@@ -222,7 +222,7 @@ sub get_data : Private {
 
   $c->log->debug( 'Sequence::get_data: found |' . scalar @hits. '| hits for |'
                   . $c->stash->{entry} . '|' ) if $c->debug;
-                  
+
   $c->stash->{results}  = \@hits;
 }
 
@@ -240,7 +240,7 @@ Jennifer Daub, C<jd7@sanger.ac.uk>
 
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
