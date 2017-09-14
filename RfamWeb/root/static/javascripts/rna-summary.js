@@ -144,8 +144,6 @@ angular.module('rfamApp')
       <dd>{{rna.rna_type}}</dd>\
       <dt>Bit score</dt>\
       <dd><strong>{{ rna.bit_score | number }}</strong> bits</dd>\
-      <dt title="The number of hits expected to score this highly in a database of this size">E-value</dt>\
-      <dd>{{ rna.evalue_score }}</dd>\
       <dt ng-if="rna.chromosome_type">Location</dt>\
       <dd ng-if="rna.chromosome_type">{{rna.chromosome_type}} {{rna.chromosome_name}}</dd>\
       <dt ng-if="rna.truncated != \'0\'">Truncated</dt>\
