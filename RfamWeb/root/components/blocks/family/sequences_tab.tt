@@ -12,7 +12,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
 %]
 
 <p>
-  There are <strong>[% rfam.num_full %]</strong> sequence regions for this family.
+  There are <strong>[% rfam.num_full + rfam.num_seed %]</strong> sequence regions for this family.
   [% IF rfam.num_full < limits.showAll;
     tabLabel = rfam.num_full %]
     You can <a href="[% c.uri_for( '/family', acc, 'regions' ) %]">download</a>

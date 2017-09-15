@@ -453,7 +453,7 @@ sub get_summary_data : Private {
   my $summaryData = {};
 
   # number of sequences in full alignment
-  $summaryData->{numSequences} = $c->stash->{rfam}->num_full;
+  $summaryData->{numSequences} = $c->stash->{rfam}->num_full + $c->stash->{rfam}->num_seed;
 
   # number of structures known for the domain
   my $rs = $c->model('RfamDB::PdbFullRegion')->search( { rfam_acc => $c->stash->{acc}, is_significant => 1 },{});
