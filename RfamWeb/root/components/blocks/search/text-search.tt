@@ -42,7 +42,7 @@
 
                 <i>
                   Examples:
-                  <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('SAM')">SAM</a>,
+                  <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('SAM riboswitch')">SAM</a>,
                   <a class="help" data-placement="bottom" title="Search by species" href="" rel="nofollow" ng-click="meta_search('TAXONOMY:&quot;9606&quot;')">Homo sapiens</a>,
                   <a class="help" data-placement="bottom" title="Search by RNA type" href="" rel="nofollow" ng-click="meta_search('rna_type:&quot;snoRNA&quot;')">snoRNA</a>,
                   <a class="help" data-placement="bottom" title="Search by PubMed ID" href="" rel="nofollow" ng-click="meta_search('PUBMED:&quot;20230605&quot;')">PUBMED:20230605</a>,
