@@ -96,7 +96,9 @@ END; # of "FOREACH block"
 #--------------------------------------
 # add the icons
 
-PROCESS components/icons.tt;
+IF pageType != 'search' AND pageType != 'genome' AND pageType != 'accession';
+  PROCESS components/icons.tt;
+END;
 
 #--------------------------------------
 # and construct the page from the components that we've assembled

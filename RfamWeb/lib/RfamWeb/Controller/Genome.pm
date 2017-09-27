@@ -41,7 +41,7 @@ __PACKAGE__->config( SECTION => 'genome' );
 
 =head2 genome
 
-The start of a chain for genomes. Tries to process its argument as an NCBI 
+The start of a chain for genomes. Tries to process its argument as an NCBI
 taxonomy id.
 
 =cut
@@ -50,7 +50,7 @@ sub genome : Chained( '/' )
              PathPart( 'genome' )
              CaptureArgs( 1 ) {
   my ( $this, $c, $tainted_entry ) = @_;
-  
+
   $c->log->debug( 'Genome::genome: start of "genome" chain' )
     if $c->debug;
 
@@ -63,25 +63,11 @@ sub genome : Chained( '/' )
 
     return;
   }
-  $c->log->debug( "Genome::genome: looking for genome entry '$entry'" )
-    if $c->debug;
 
   $c->stash->{entry} = $entry;
+  $c->stash->{pageType} = 'genome';
+  $c->stash->{template} = 'pages/tabless-layout.tt';
 
-  # get the basic genome and chromosome information
-  $c->forward( 'get_chromosomes' );
-  unless ( $c->stash->{chromosomes} ) {
-    $c->log->debug( 'Genome::genome: no chromosomes found' )
-      if $c->debug;
-
-    $c->stash->{errorMsg} = 'No chromosomes found for that genome identifier';
-
-    return;
-  }
-
-  $c->forward( 'get_genome_data' ); # need the chromosome data before we can
-                                    # be sure to get genome data, because we
-                                    # use the ncbi_id to retrieve it
 }
 
 #-------------------------------------------------------------------------------
@@ -99,38 +85,14 @@ sub genome_page : Chained( 'genome' )
   my ( $this, $c ) = @_;
 
   $c->cache_page( 604800 );
-  
-  $c->log->debug( 'Genome::genome_page: building a "genome" page' )
-    if $c->debug;
-
-  # retrieve extra data for the genome that will be used by the template
-  $c->forward( 'get_regions' );
-
-  #----------------------------------------
-  
-  unless ( $c->stash->{output_xml} ) {
-    $c->log->debug( 'Genome::get_data: NOT returning XML; adding extra info' ) 
-        if $c->debug;
-    
-    # if this request originates at the top level of the object hierarchy,
-    # i.e. if it's a call on the "default" method of the Family object,
-    # then we'll need to do a few extra things
-    if ( ref $this eq 'RfamWeb::Controller::Genome' ) {
-      $c->log->debug( 'Genome::genome_page: adding genome summary info' ) if $c->debug;
-      
-      $c->forward( 'get_summary_data' );
-    }
-
-  } # end of "unless XML..."
-
 }
-    
+
 #-------------------------------------------------------------------------------
 
 =head2 gff
 
-Treats its argument as an auto_genome number and uses it to retrieve the GFF for 
-the specified genome segment. Chained to "genome". 
+Treats its argument as an auto_genome number and uses it to retrieve the GFF for
+the specified genome segment. Chained to "genome".
 
 =cut
 
@@ -138,10 +100,10 @@ sub gff : Chained( 'genome' )
           PathPart( 'gff' )
           Args( 1 ) {
   my ( $this, $c, $tainted_ag ) = @_;
-  
+
   $c->log->debug( 'Genome::gff: retrieving a GFF file' )
     if $c->debug;
-  
+
   my ( $ag ) = $tainted_ag =~ m/^(\w+)$/;
   unless ( defined $ag ) {
     $c->log->debug( 'Genome::gff: no valid auto_genome found' )
@@ -155,7 +117,7 @@ sub gff : Chained( 'genome' )
   my $rs = $c->model('RfamDB::GenomeGff')
              ->search( { 'me.auto_genome' => $ag },
                        { join => [ 'auto_genome' ] } );
-          
+
   unless ( defined $rs ) {
     $c->log->debug( 'Genome::gff: no GFF found auto_genome for that segment' )
       if $c->debug;
@@ -166,7 +128,7 @@ sub gff : Chained( 'genome' )
   }
 
   my $gff = Compress::Zlib::memGunzip( $rs->first->gff3 );
-  
+
   my $filename;
   my $ge = $rs->first->auto_genome;
   if ( defined $ge->genome_acc ) {
@@ -174,12 +136,12 @@ sub gff : Chained( 'genome' )
     $c->log->debug( "Genome::gff: using 'genome_acc' for filename: |$filename|" )
       if $c->debug;
   }
-  else {  
+  else {
     $filename = $ge->ensembl_id . '.gff';
     $c->log->debug( "Genome::gff: using 'ensembl_id' for filename: |$filename|" )
       if $c->debug;
   }
-  
+
   $c->res->content_type( 'text/plain' );
   $c->res->header( 'Content-disposition' => "attachment; filename=$filename" );
   $c->res->body( $gff );
@@ -189,8 +151,8 @@ sub gff : Chained( 'genome' )
 
 =head2 all_gffs
 
-Returns the concatenated contents of all of the available GFF files for this 
-genome. Chained to "genome". 
+Returns the concatenated contents of all of the available GFF files for this
+genome. Chained to "genome".
 
 =cut
 
@@ -198,7 +160,7 @@ genome. Chained to "genome".
 #               PathPart( 'gff' )
 #               Args( 0 ) {
 #  my ( $this, $c ) = @_;
-#  
+#
 #  $c->log->debug( 'Genome::genome_page: retrieving all GFF files for this genome' )
 #    if $c->debug;
 #
@@ -211,7 +173,7 @@ genome. Chained to "genome".
 #    push @ags, $ag;
 #  }
 #
-#  $c->log->debug( 'Genome::all_gffs: auto_genomes which have hits: |' 
+#  $c->log->debug( 'Genome::all_gffs: auto_genomes which have hits: |'
 #                  . join( ', ', @ags ) . '|' )
 #    if $c->debug;
 #
@@ -219,14 +181,14 @@ genome. Chained to "genome".
 #               ->search( { auto_genome => { 'IN', \@ags } },
 #                         { order_by => [ 'auto_genome' ] } );
 #
-#  $c->log->debug( 'Genome::all_gffs: found |' . scalar @gffs . '| GFF files' ) 
+#  $c->log->debug( 'Genome::all_gffs: found |' . scalar @gffs . '| GFF files' )
 #    if $c->debug;
-#             
+#
 #  foreach my $gff ( @gffs ) {
-#    $c->log->debug( 'Genome::all_gffs: gff auto_genome:|' . $gff->auto_genome . '|' ) 
+#    $c->log->debug( 'Genome::all_gffs: gff auto_genome:|' . $gff->auto_genome . '|' )
 #      if $c->debug;
-#  }    
-#             
+#  }
+#
 #}
 
 #-------------------------------------------------------------------------------
@@ -247,12 +209,12 @@ sub get_chromosomes : Private {
                                         { genome_acc => $c->stash->{entry} } ] },
                             { join     => [ qw( genome_gffs ) ],
                               order_by => [ qw( auto_genome ) ] } );
-  
+
   unless ( @genomes ) {
     $c->log->debug( 'Genome::get_chromosomes: failed to find any chromosomes for "'
                     . $c->stash->{entry} . '"' )
       if $c->debug;
-    
+
     $c->stash->{errorMsg} = "No genome for taxonomy ID $c->stash->{entry}";
 
     return;
@@ -261,7 +223,7 @@ sub get_chromosomes : Private {
   $c->stash->{chromosomes} = \@genomes;
   $c->stash->{ncbi_id}     = $genomes[0]->ncbi_id;
   $c->stash->{genome_acc}  = $genomes[0]->genome_acc;
-  
+
   $c->log->debug( 'Genome::get_chromosomes: found ' . scalar @{ $c->stash->{chromosomes} } . ' chromosome rows' )
     if $c->debug;
 }
@@ -283,7 +245,7 @@ sub get_genome_data : Private {
   unless ( defined $summary ) {
     $c->log->debug( "Genome::get_genome_data: failed to find a genome summary for ncbi_id $c->stash->{ncbi_id}" )
       if $c->debug;
-    
+
     $c->stash->{errorMsg} = "No genome summary for genome identifier $c->stash->{entry}";
 
     return;
@@ -316,9 +278,9 @@ sub get_regions : Private {
       $c->model('RfamDB::RfamRegFull')
         ->search( { auto_genome => $ag },
                   { join     => [ qw( auto_rfam ) ],
-                    select   => [ qw( auto_rfam.rfam_id 
-                                      auto_rfam.rfam_acc 
-                                      genome_start 
+                    select   => [ qw( auto_rfam.rfam_id
+                                      auto_rfam.rfam_acc
+                                      genome_start
                                       genome_end
                                       bits_score ) ],
                     as       => [ qw( rfam_id
@@ -328,7 +290,7 @@ sub get_regions : Private {
                                       bits_score ) ],
                     order_by => [ qw( auto_genome genome_start ) ] } );
 
-    $regions->{$ag}->{has_regions}++ 
+    $regions->{$ag}->{has_regions}++
       if defined $regions->{$ag}->get_column('rfam_id');
   }
 
@@ -377,7 +339,7 @@ Jennifer Daub, C<jd7@sanger.ac.uk>
 
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under

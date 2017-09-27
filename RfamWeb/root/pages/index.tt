@@ -136,7 +136,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
 
             <i>
               Examples:
-              <a class="help" data-placement="bottom" title="Search by a keyword" rel="nofollow" href="/search?q=SAM" >SAM</a>,
+              <a class="help" data-placement="bottom" title="Search by a keyword" rel="nofollow" href="/search?q=SAM riboswitch">SAM</a>,
               <a class="help" data-placement="bottom" title="Search by species" rel="nofollow" href="/search?q=TAXONOMY:&quot;9606&quot;">Homo sapiens</a>,
               <a class="help" data-placement="bottom" title="Search by RNA type" rel="nofollow" href="/search?q=rna_type:&quot;snoRNA&quot;">snoRNA</a>,
               <a class="help" data-placement="bottom" title="Search by author name" rel="nofollow" href="/search?q=author:&quot;Weinberg&quot;">author:"Weinberg"</a>
@@ -150,6 +150,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
             <a class="help" data-placement="bottom" title="Browse Rfam families" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot;">Families</a>,
             <a class="help" data-placement="bottom" title="Browse Rfam clans" rel="nofollow" href="/search?q=entry_type:&quot;Clan&quot;">Clans</a>,
             <a class="help" data-placement="bottom" title="Browse Rfam motifs" rel="nofollow" href="/search?q=entry_type:&quot;Motif&quot;">Motifs</a>,
+            <label class="label label-warning">New</label> <a class="help" data-placement="bottom" title="Browse Rfam genomes" rel="nofollow" href="/search?q=entry_type:&quot;Genome&quot;">Genomes</a>,
             or
             <a class="help" data-placement="bottom" title="Browse Rfam families with 3D structures" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;">Families with 3D structures</a>
           </i>
@@ -626,7 +627,7 @@ GAAGGGCGUCGUCAGUACUAUAGUGGGUGACCAUAUGGGAAUACGACGUGCUGUAGCUU";
   } );
 
   jQuery(function() {
-    jQuery.get('https://crossorigin.me/https://xfam.wordpress.com/tag/rfam/feed/', function(data){
+    jQuery.get('/ebeye_proxy?url=https://xfam.wordpress.com/tag/rfam/feed/', function(data){
       var html = jQuery('<div>');
       jQuery(data).find('item').slice(0,3).each(function(){
         title = jQuery(this).find('title').html();

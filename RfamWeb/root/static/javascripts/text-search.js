@@ -74,29 +74,44 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
     };
 
     var search_config = {
-        ebeye_base_url: 'http://www.ebi.ac.uk/ebisearch/ws/rest/rfam',
+        ebeye_base_url: 'http://wwwdev.ebi.ac.uk/ebisearch/ws/rest/rfam',
         fields: [
+            'assembly_name',
+            'common_name',
+            'chromosome_name',
             'description',
             'entry_type',
+            'length',
             'name',
-            'num_seed',
-            'num_full',
-            'num_species',
             'num_3d_structures',
             'num_families',
-            'rna_type'
+            'num_full',
+            'num_rfam_hits',
+            'num_seed',
+            'num_species',
+            'rna_type',
+            'scientific_name',
+            'tax_string',
+            'alignment_type',
+            'evalue_score',
+            'bit_score',
+            'truncated',
+            'seq_start',
+            'seq_end',
+            'rfamseq_acc',
         ],
         facetfields: [
+            'entry_type',
             'rna_type',
             'TAXONOMY',
             'popular_species',
-            'entry_type',
             'has_3d_structure',
-            'author'
+            'author',
+            'alignment_type',
         ], // will be displayed in this order
         facetcount: 30,
         pagesize: 15,
-        ordering: 'num_full:descending',
+        ordering: 'num_seed:descending,num_families:descending,bit_score:descending',
     };
 
     var query_urls = {
@@ -110,7 +125,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
                         '&size=' + search_config.pagesize +
                         '&start={START}' +
                         '&sort={ORDERING}',
-        'proxy': 'http://test.rnacentral.org/api/internal/ebeye?url={EBEYE_URL}',
+        'proxy': '/ebeye_proxy?url={EBEYE_URL}',
     };
 
     /**
@@ -306,6 +321,9 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
                     for (var i=0; i < data.entries.length; i++) {
                         data.entries[i].fields = data.entries[i].highlights;
                         data.entries[i].fields.entry_type[0] = data.entries[i].fields.entry_type[0].replace(/<[^>]+>/gm, '');
+                        if (data.entries[i].fields.tax_string[0]) {
+                          data.entries[i].fields.tax_string_array = data.entries[i].fields.tax_string[0].slice(0, -1).split('; ');
+                        }
                     }
                 }
 
@@ -476,18 +494,75 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     $scope.show_error = results.get_show_error();
 
     $scope.ordering = [
-        { sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
-        { sort_field: 'num_full', label: 'Number of full alignment sequences \u2191' },
-        { sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences \u2193'},
-        { sort_field: 'num_seed', label: 'Number of seed alignment sequences \u2191'},
-        { sort_field: 'num_species:descending', label: 'Number of species \u2193'},
-        { sort_field: 'num_species', label: 'Number of species \u2191'},
-        { sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
-        { sort_field: 'id', label: 'Rfam accession  \u2191'},
+        { type: 'family', sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences \u2193'},
+        { type: 'family', sort_field: 'num_seed', label: 'Number of seed alignment sequences \u2191'},
+        { type: 'family', sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
+        { type: 'family', sort_field: 'num_full', label: 'Number of full alignment sequences \u2191' },
+        { type: 'family', sort_field: 'num_species:descending', label: 'Number of species \u2193'},
+        { type: 'family', sort_field: 'num_species', label: 'Number of species \u2191'},
+        { type: 'family', sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
+        { type: 'family', sort_field: 'id', label: 'Rfam accession  \u2191'},
+        { type: 'genome', sort_field: 'num_families:descending', label: 'Number of families in genome  \u2193'},
+        { type: 'genome', sort_field: 'num_families', label: 'Number of families in genome  \u2191'},
+        { type: 'genome', sort_field: 'num_rfam_hits:descending', label: 'Number of RNAs in genome  \u2193'},
+        { type: 'genome', sort_field: 'num_rfam_hits', label: 'Number of RNAs in genome  \u2191'},
+        { type: 'genome', sort_field: 'length:descending', label: 'Genome length  \u2193'},
+        { type: 'genome', sort_field: 'length', label: 'Genome length  \u2191'},
+        { type: 'clan', sort_field: 'num_families:descending', label: 'Number of families in clan  \u2193'},
+        { type: 'clan', sort_field: 'num_families', label: 'Number of families in clan  \u2191'},
+        { type: 'motif', sort_field: 'num_families:descending', label: 'Number of families in motif  \u2193'},
+        { type: 'motif', sort_field: 'num_families', label: 'Number of families in motif  \u2191'},
+        { type: 'sequence', sort_field: 'bit_score:descending', label: 'Bit score  \u2193'},
+        { type: 'sequence', sort_field: 'bit_score', label: 'Bit score  \u2191'},
+        { type: 'sequence', sort_field: 'evalue_score:descending', label: 'E-value score  \u2193'},
+        { type: 'sequence', sort_field: 'evalue_score', label: 'E-value score  \u2191'},
+        { type: 'all', sort_field: 'id:descending', label: 'Accession  \u2193'},
+        { type: 'all', sort_field: 'id', label: 'Accession  \u2191'},
     ];
     $scope.params = {
         selectedOrdering: $scope.ordering[0],
     };
+    $scope.search_type = '';
+
+    /**
+     * Set search type based on what facet is enabled.
+     * The `search_type` is used to filter ordering options.
+     */
+    $scope.$watch(function () { return $location.search().q; }, function (newValue, oldValue) {
+        var match = newValue.match(/entry_type\:["'](\w+)["']/);
+        if (match) {
+            $scope.search_type = match[1].toLowerCase();
+        } else {
+            $scope.search_type = 'all';
+        }
+        $scope.params.selectedOrdering = $scope.ordering.filter(function(element){
+            return element.type == $scope.search_type;
+        })[0];
+    });
+
+    /**
+     * Detect When query looks like `UP000029965 AND entry_type:"Family"`.
+     */
+    $scope.show_family_genome_context = function() {
+        if ($scope.get_genome_id_from_query()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    /**
+     * Extract genome id from query.
+     */
+     $scope.get_genome_id_from_query = function() {
+         var query = $location.search().q,
+             match = query.match(/(UP\d{9})\s+AND\s+entry_type:["']Family["']/i);
+         if (match) {
+             return match[1];
+         } else {
+             return false;
+         }
+     }
 
     /**
      * Update the `ordering` url parameter
@@ -672,3 +747,33 @@ angular.module('rfamApp').filter("sanitize", ['$sce', function($sce) {
     return $sce.trustAsHtml(htmlCode);
   }
 }]);
+
+/**
+ * Custom filter for formatting genome size using humanize.js.
+ */
+angular.module('rfamApp').filter('humanizeGenomesize', function () {
+    return function () {
+        var args = Array.prototype.slice.call(arguments);
+        args[0] = parseInt(args[0])
+        if ( isNaN(args[0]) ) { return args[0]; }
+        return humanize.genomesize.apply(null, args);
+     };
+});
+
+/**
+ * Strip out HTML code.
+ */
+angular.module('rfamApp').filter('htmlToPlaintext', function() {
+    return function(text) {
+      return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+    };
+});
+
+/**
+ * Absolute value as a filter.
+ */
+angular.module('rfamApp').filter('abs', function () {
+  return function(val) {
+    return Math.abs(val);
+  }
+});

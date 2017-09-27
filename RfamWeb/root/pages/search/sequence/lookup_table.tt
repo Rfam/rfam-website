@@ -23,7 +23,7 @@ oe = 0;
       <th>Description</th>
       <th>Start</th>
       <th>End</th>
-      <th>Bits score</th>
+      <th>Bit score</th>
     </tr>
   </thead>
   <tbody>
@@ -32,14 +32,14 @@ oe = 0;
       <tr class="[% loop.index % 2 ? 'odd' : 'even' %]">
         <td class="rowNum">[% loop.index %]</td>
         <td>
-          <a title="[% row.get_column('rfam_acc') %]" 
+          <a title="[% row.get_column('rfam_acc') %]"
              href="[% familyUri; row.get_column('rfam_id') %]">
             [% row.get_column('rfam_id') %]</a>
         </td>
         <td>[% row.get_column('rfam_desc') %]</td>
         <td>[% row.seq_start %]</td>
         <td>[% row.seq_end %]</td>
-        <td>[% row.bits_score %]</td>
+        <td>[% row.bit_score %]</td>
       </tr>
     [% END %]
   </tbody>
@@ -50,7 +50,7 @@ oe = 0;
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under

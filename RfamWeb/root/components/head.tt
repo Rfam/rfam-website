@@ -74,27 +74,32 @@ IF refreshUri != "";
 <!-- local javascript files -->
 
 <!-- local javascript -->
-<script type="text/javascript" src="[% sharedUri %]/javascripts/sharedFunctions.js"></script>
+<script type="text/javascript" src="[% sharedUri %]/javascripts/sharedFunctions.js?20170919112900"></script>
+
+<!-- humanize -->
+<script type="text/javascript" src="[% staticUri %]/javascripts/humanize.js"></script>
 
 <!-- Angular text search -->
 <base href="/"/>
-<script type='text/javascript' src='[% staticUri %]/javascripts/angular/angular.min.js'></script>
-<script type='text/javascript' src='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.js'></script>
-<link rel='stylesheet' href='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.css' type='text/css' />
+<script type='text/javascript' src='[% staticUri %]/javascripts/angular/angular.min.js?20170919112900'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.js?20170919112900'></script>
+<link rel='stylesheet' href='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.css?20170919112900' type='text/css' />
 <script type='text/javascript' src='[% staticUri %]/javascripts/angular/json3/json3.min.js'></script>
 <script type='text/javascript' src='[% staticUri %]/javascripts/underscore-min.js'></script>
-<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20170919112900'></script>
 <link rel="stylesheet" href="[% staticUri %]/css/font-awesome/css/font-awesome.min.css" type="text/css" />
 
 <!-- ====================================================================== -->
 <!-- local stylesheets -->
 
 <!-- global stylesheet -->
-<link rel="stylesheet" href="[% staticUri %]/css/rfam.css" type="text/css" />
+<link rel="stylesheet" href="[% staticUri %]/css/rfam.css?20170919112900" type="text/css" />
 <link rel="stylesheet" href="[% sharedUri %]/css/buttons.css" type="text/css" />
 
 <!-- site-specific stylesheet -->
-<link rel="stylesheet" href="[% staticUri %]/css/[% c.config.site %].css" type="text/css" />
+<link rel="stylesheet" href="[% staticUri %]/css/[% c.config.site %].css?20170919112900" type="text/css" />
+
+<link rel="stylesheet" href="[% staticUri %]/javascripts/tipsy/src/stylesheets/tipsy.css" type="text/css" />
 
 <!-- ====================================================================== -->
 <!-- load dynamically required stylesheets and javascript files-->
@@ -125,7 +130,6 @@ PROCESS "components/load_requirements.tt" %]
 
   ga('create', 'UA-50480748-3', 'xfam.org');
   ga('send', 'pageview');
-
 </script>
 
 <!-- ====================================================================== -->

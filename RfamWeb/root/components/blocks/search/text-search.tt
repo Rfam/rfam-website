@@ -1,14 +1,15 @@
-<div class="block bootstrap-wrapper" id="searchTextBlock">
+<div class="block" id="searchTextBlock">
 
 <div class="handle">
   <h1>Text search</h1>
 </div>
 
+<div class="blockContent bootstrap-wrapper">
 <div class="container-fluid" style="margin: 10px; min-height: 500px;">
 
   <div class="container-main">
 
-    <div ng-app="rfamApp"  id="ng-app">
+    <div>
 
       <div class="row">
       <div ng-controller="QueryCtrl" class="col-md-12 col-sm-12 col-xs-12">
@@ -41,7 +42,7 @@
 
                 <i>
                   Examples:
-                  <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('SAM')">SAM</a>,
+                  <a class="help" data-placement="bottom" title="Search by a keyword" href="" rel="nofollow" ng-click="meta_search('SAM riboswitch')">SAM</a>,
                   <a class="help" data-placement="bottom" title="Search by species" href="" rel="nofollow" ng-click="meta_search('TAXONOMY:&quot;9606&quot;')">Homo sapiens</a>,
                   <a class="help" data-placement="bottom" title="Search by RNA type" href="" rel="nofollow" ng-click="meta_search('rna_type:&quot;snoRNA&quot;')">snoRNA</a>,
                   <a class="help" data-placement="bottom" title="Search by PubMed ID" href="" rel="nofollow" ng-click="meta_search('PUBMED:&quot;20230605&quot;')">PUBMED:20230605</a>,
@@ -58,6 +59,8 @@
                 <a class="help" data-placement="bottom" title="Browse Rfam families" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Family&quot;')">Families</a>,
                 <a class="help" data-placement="bottom" title="Browse Rfam clans" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Clan&quot;')">Clans</a>,
                 <a class="help" data-placement="bottom" title="Browse Rfam motifs" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Motif&quot;')">Motifs</a>,
+                <a class="help" data-placement="bottom" title="Browse Rfam genomes" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Genome&quot;')">Genomes</a>,
+                <a class="help" data-placement="bottom" title="Browse Rfam sequences" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Sequence&quot;')">Sequences</a>,
                 or
                 <a class="help" data-placement="bottom" title="Browse Rfam families with 3D structures" href="" rel="nofollow" ng-click="meta_search('entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;')">Families with 3D structures</a>
               </i>
@@ -100,10 +103,9 @@
           <form class="pull-right form-inline small">
             <div class="form-group">
               Sort by:
-              <select class="form-control" ng-change="update_ordering();" ng-model="params.selectedOrdering" ng-options="item.label for item in ordering track by item.label"></select>
+              <select class="form-control" ng-change="update_ordering();" ng-model="params.selectedOrdering" ng-options="item.label for item in ordering | filter:{ type : search_type } track by item.label"></select>
             </div>
           </form>
-
 
         </h2>
 
@@ -197,10 +199,10 @@
             <ul class="list-unstyled">
               <li class="facet" ng-repeat="facet in result.facets">
                   <h3>{{facet.label}}</h3>
-                  <ul class="list-unstyled metasearch-facet-values metasearch-facet-overflow force-scrollbars" style="overflow: auto; max-height: 350px;">
+                  <ul class="list-unstyled metasearch-facet-values metasearch-facet-overflow force-scrollbars" style="overflow: auto; max-height: 300px;">
                       <li ng-repeat="facet_value in facet.facetValues" style="white-space: nowrap;">
                         <input type="checkbox" name="facet.label" ng-checked="is_facet_applied(facet.id, facet_value.value)" ng-click="facet_search(facet.id, facet_value.value)">
-                        <a href="" ng-click="facet_search(facet.id, facet_value.value)" class="metasearch-facet-link">{{facet_value.label}} <small>({{facet_value.count | number}})</small></a>
+                        <a href="" ng-click="facet_search(facet.id, facet_value.value)" style="color: #404040; text-decoration: none;" class="metasearch-facet-link">{{facet_value.label}} <small>({{facet_value.count | number}})</small></a>
                       </li>
                       <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small>
                   </ul>
@@ -208,7 +210,7 @@
             </ul>
             <hr>
             <small class="text-muted">
-              Powered by <a href="http://www.ebi.ac.uk/ebisearch/" target="_blank">EBI Search</a>
+              Powered by <a href="http://www.ebi.ac.uk/ebisearch/metadata.ebi?db=rfam" target="_blank">EBI Search</a>
             </small>
 
           </div>
@@ -222,7 +224,14 @@
                     <a ng-if="rna.fields.entry_type[0] == 'Family'" href="/family/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <a ng-if="rna.fields.entry_type[0] == 'Motif'" href="/motif/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
                     <a ng-if="rna.fields.entry_type[0] == 'Clan'" href="/clan/{{rna.id}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
-                    <small>{{rna.id}}</small>
+                    <span ng-if="rna.fields.entry_type[0] == 'Genome'">
+                      <a href="/genome/{{rna.id}}" ng-bind-html="rna.fields.scientific_name[0] | sanitize" target="_self"></a>
+                      <small ng-if="rna.fields.common_name[0]">
+                        <span class="text-capitalize-first-letter" style="display: inline-block;" ng-bind-html="rna.fields.common_name[0] | sanitize"></span>
+                      </small>
+                    </span>
+                    <a ng-if="rna.fields.entry_type[0] == 'Sequence'" href="/accession/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}?seq_start={{rna.fields.seq_start[0]| htmlToPlaintext}}&seq_end={{rna.fields.seq_end[0] | htmlToPlaintext}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+                    <small ng-if="rna.fields.entry_type[0] != 'Genome' && rna.fields.entry_type[0] != 'Sequence'">{{rna.id}}</small>
                   </h4>
 
                   <div class="media">
@@ -232,41 +241,115 @@
                       </a>
                     </div>
                     <div class="media-body">
-                      <p>
-                        <span style="margin-right: 2px;" ng-class="{'label label-default': rna.fields.entry_type[0] === 'Family', 'label label-danger': rna.fields.entry_type[0] === 'Clan', 'label label-warning': rna.fields.entry_type[0] === 'Motif'}" style="color: white;">{{ rna.fields.entry_type[0] }}</span>
-                        <span ng-bind-html="rna.fields.name[0] | sanitize"></span>
-                        <span ng-if="rna.fields.entry_type[0] == 'Family'"> |
-                          <i ng-bind-html="rna.fields.rna_type.join('; ') | sanitize"></i>
-                        </span>
-                      </p>
-                      <ul class="list-inline">
-                        <li ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
-                          <strong>{{rna.fields.num_families[0] | number}}</strong> families
-                        </li>
-                        <li ng-if="rna.fields.entry_type[0] == 'Family'">
+
+                      <div style="margin-bottom: 10px;">
+                        <ul class="list-inline" ng-if="rna.fields.entry_type[0] == 'Family'">
+                          <li><span class="label label-default">{{ rna.fields.entry_type[0] }}</span></li>
+                          <li><span ng-bind-html="rna.fields.name[0] | sanitize"></span></li>
+                          <li><i ng-bind-html="rna.fields.rna_type.join('; ') | sanitize"></i></li>
+                        </ul>
+
+                        <ul class="list-inline" ng-if="rna.fields.entry_type[0] == 'Sequence'">
+                          <li><span class="label label-default">{{ rna.fields.entry_type[0] }}</span></li>
+                          <li>
+                            <span>
+                              <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
+                            </span>
+                          </li>
+                          <li><i title="Sequence start and end coordinates" class="cursor-help">{{rna.fields.seq_start[0] | number}}:{{rna.fields.seq_end[0] | number}}</i></li>
+                          <li><i ng-bind-html="rna.fields.rna_type.join('; ') | sanitize"></i></li>
+                        </ul>
+
+                        <ul class="list-inline" ng-if="rna.fields.entry_type[0] == 'Motif'">
+                          <li><span class="label label-info">{{ rna.fields.entry_type[0] }}</span></li>
+                          <li><span ng-bind-html="rna.fields.name[0] | sanitize"></span></li>
+                        </ul>
+
+                        <ul class="list-inline" ng-if="rna.fields.entry_type[0] == 'Clan'">
+                          <li><span class="label label-danger">{{ rna.fields.entry_type[0] }}</span></li>
+                          <li><span ng-bind-html="rna.fields.name[0] | sanitize"></span></li>
+                        </ul>
+
+                        <ul class="list-inline" ng-if="rna.fields.entry_type[0] == 'Genome'">
+                          <li>
+                            <span class="label label-warning" style="background-color: #734639;">{{ rna.fields.entry_type[0] }}</span>
+                          </li>
+                          <li>
+                            <span class="help" title="Assembly name">{{rna.fields.assembly_name[0] | htmlToPlaintext}}</span>
+                          </li>
+                          <li>
+                            <i class="help" title="Genome length: {{rna.fields.length[0] | number}} bases">{{rna.fields.length[0] | humanizeGenomesize}}</i>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <div ng-if="rna.fields.entry_type[0] == 'Family' && !show_family_genome_context()">
                           <p>
-                          <i class="fa fa-bars"></i>
-                          <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_seed[0] | number}}</strong> seed alignment sequences</a>
+                            <i class="fa fa-bars"></i>
+                            <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_seed[0] | number}}</strong> seed alignment sequences</a>
+                          </p>
+                          <ul class="list-inline">
+                            <li>
+                                <i class="fa fa-align-justify"></i>
+                                <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_full[0] | number}}</strong> full alignment sequences</a>
+                            </li>
+                            <li>
+                              <i class="fa fa-sitemap"></i>
+                              <a href="/family/{{rna.id}}#tabview=tab4" target="_self"><strong>{{ rna.fields.num_species[0] | number }}</strong> species</a>
+                            </li>
+                            <li ng-if="rna.fields.num_3d_structures[0] > 0">
+                              <label class="label label-primary">3D</label>
+                              <span ng-if="rna.fields.num_3d_structures[0] == 1">
+                                <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structure</a>
+                              </span>
+                              <span ng-if="rna.fields.num_3d_structures[0] > 1">
+                                <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structures</a>
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div ng-if="rna.fields.entry_type[0] == 'Family' && show_family_genome_context()">
+                          <p>
+                            <a href='/search?q={{get_genome_id_from_query()}} AND {{rna.id}} AND entry_type:"Sequence"'>View {{ rna.id }} sequences from this genome</a>
+                          </p>
+                        </div>
+
+                        <div ng-if="rna.fields.entry_type[0] == 'Clan' || rna.fields.entry_type[0] == 'Motif'">
+                          <p>
+                            <strong>{{rna.fields.num_families[0] | number}}</strong> families
+                          </p>
+                        </div>
+
+                        <div ng-if="rna.fields.entry_type[0] == 'Genome'">
+                          <p>
+                            <i class="fa fa-sitemap" style="margin-right: 5px;"></i>
+                            <span ng-repeat="taxon in rna.fields.tax_string_array track by $index">
+                              <a style="color: #404040; text-decoration: none;" href='/search?q=tax_string:"{{taxon | htmlToPlaintext}}"%20AND%20entry_type:"Genome"' ng-bind-html="taxon | sanitize" title="Search for genomes from this taxon"></a><span ng-if="!$last">,</span>
+                            </span>
                           </p>
                           <p>
-                          <i class="fa fa-align-justify"></i>
-                          <a href="/family/{{rna.id}}#tabview=tab1" target="_self"><strong>{{rna.fields.num_full[0] | number}}</strong> full alignment sequences</a>
+                            <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Sequence%22"><strong>{{rna.fields.num_rfam_hits[0] | number}}</strong> sequences</a> from
+                            <a href="/search?q={{rna.id}}%20AND%20entry_type:%22Family%22"><strong>{{rna.fields.num_families[0] | number}}</strong> families</a>
                           </p>
-                        </li>
-                        <li ng-if="rna.fields.entry_type[0] == 'Family'">
-                          <i class="fa fa-sitemap"></i>
-                          <a href="/family/{{rna.id}}#tabview=tab4" target="_self"><strong>{{ rna.fields.num_species[0] | number }}</strong> species</a>
-                        </li>
-                        <li ng-if="rna.fields.num_3d_structures[0] > 0">
-                          <label class="label label-primary">3D</label>
-                          <span ng-if="rna.fields.num_3d_structures[0] == 1">
-                            <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structure</a>
-                          </span>
-                          <span ng-if="rna.fields.num_3d_structures[0] > 1">
-                            <a href="/family/{{rna.id}}#tabview=tab6" target="_self"><strong>{{ rna.fields.num_3d_structures[0] | number }}</strong> structures</a>
-                          </span>
-                        </li>
-                      </ul>
+                        </div>
+
+                        <div ng-if="rna.fields.entry_type[0] == 'Sequence'">
+                          <ul class="list-inline">
+                            <li><strong ng-class="{'text-success': (rna.fields.alignment_type[0]|htmlToPlaintext) == 'seed'}" ng-bind-html="rna.fields.alignment_type[0] | sanitize"></strong> alignment</li>
+                            <li title="A bit score of {{ rna.fields.bit_score[0] }} bits indicates the sequence is 2 * {{ rna.fields.bit_score[0] }} times more likely to have been generated from the covariance model than from the random background model" class="cursor-help"><strong>{{ rna.fields.bit_score[0] | number }}</strong> bits</li>
+                            <li><strong>{{rna.fields.seq_end[0] - rna.fields.seq_start[0] | abs | number}}</strong> nucleotides</li>
+                            <li ng-if="(rna.fields.truncated[0]|htmlToPlaintext) != '0'" class="label label-danger">
+                              <span ng-if="(rna.fields.truncated[0]|htmlToPlaintext) == '5'">Truncated on 5' end</span>
+                              <span ng-if="(rna.fields.truncated[0]|htmlToPlaintext) == '3'">Truncated on 3' end</span>
+                              <span ng-if="(rna.fields.truncated[0]|htmlToPlaintext) == '53'">Truncated on both 5' and 3' ends</span>
+                            </li>
+                            <li ng-if="rna.fields.chromosome_name[0]">chromosome {{rna.fields.chromosome_name[0]}}</li>
+                          </ul>
+                        </div>
+                      </div>
+
                     </div>
                     </div>
                   </div>
@@ -292,4 +375,5 @@
 
 </div><!--container-->
 
+</div><!--blockContent-->
 </div><!--block-->

@@ -34,7 +34,7 @@ ELSE;
     PROCESS components/head.tt -%]
   </head>
 
-  <body>
+  <body ng-app="rfamApp"  id="ng-app">
 
     [%# add an Iframe for use by the history manager. Only required for IE,
       # hence the conditional comments. The input is required for all browsers -%]
@@ -55,7 +55,9 @@ ELSE;
 
     [% # add the common footer %]
     <!-- start of footer -->
+		[% IF pageType != 'genome' && pageType != 'accession' -%]
     <div id="footer"></div>
+		[% END; %]
 
     <div class="cleaner"><!-- wrap --></div>
     <!-- end of footer -->
