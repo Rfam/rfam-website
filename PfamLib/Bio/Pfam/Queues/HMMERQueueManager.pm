@@ -33,7 +33,7 @@ use Bio::Pfam::EbiRestClient;
 ### The following two variables might need to be changed
 
 # dev
-#my $hmmer_host = "http://wwwdev.ebi.ac.uk/Tools/hmmer";
+#my $hmmer_host = "http://www.ebi.ac.uk/Tools/hmmer";
 # live
 my $hmmer_host = "http://www.ebi.ac.uk/Tools/hmmer";
 
@@ -476,7 +476,7 @@ sub _submit_hmmer_batch_job {
 	#Set a new JSON end encoder/decoder
 	my $json = JSON->new->allow_nonref;
 	my $host = $hmmer_host;
-	#my $host = "http://wwwdev.ebi.ac.uk/Tools/hmmer";
+	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
 	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
 	my $url = $host."/search/hmmscan";
  	print "url is $url\n"; 
@@ -770,7 +770,7 @@ sub _submit_interactive_hmmer_job {
 	#Set a new JSON end encoder/decoder
 	my $json = JSON->new->allow_nonref;
 	my $host = $hmmer_host;
-	#my $host = "http://wwwdev.ebi.ac.uk/Tools/hmmer";
+	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
 	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
 	my $url = $host."/search/hmmscan";
  	print "url is $url\n"; 
@@ -1149,7 +1149,7 @@ sub _handle_running_hmmer_chunks {
 
 	#die "looking at job $ebi_id\n";
 	my $host = $hmmer_host;
-	#my $host = "http://wwwdev.ebi.ac.uk/Tools/hmmer";
+	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
 	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
   	my $job_location = "$host/results/$ebi_id/score";
 	
@@ -1655,7 +1655,7 @@ sub _handle_interactive_hmmer_job {
 
 	#die "looking at job $ebi_id\n";
 	my $host = $hmmer_host;
-	#my $host = "http://wwwdev.ebi.ac.uk/Tools/hmmer";
+	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
 	#my $host = "http://www.ebi.ac.uk/Tools/hmmer";
 	my $job_location = "$host/results/$ebi_id/score";
 	#my $job_location = "$host/results/45445545/score";
