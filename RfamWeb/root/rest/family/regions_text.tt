@@ -1,4 +1,4 @@
-[% 
+[%
 # regions_text.tt
 # jt6 20120209 WTSI
 #
@@ -16,7 +16,7 @@ META naked = 1;
 # columns: sequence accession, bits score, region start, region end, sequence description, species, NCBI tax ID
 [% FOREACH region IN region_rs.all;
   region.get_column('rfamseq_acc') _ "\t" _
-  region.bits_score _ "\t" _
+  region.bit_score _ "\t" _
   region.seq_start _ "\t" _
   region.seq_end _ "\t" _
   region.get_column('description') _ "\t" _
