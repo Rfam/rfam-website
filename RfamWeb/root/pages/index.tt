@@ -490,6 +490,23 @@ requirements.cssIeAll.push( "index_all_ie.css" );
       <a href="http://rfam.readthedocs.io/en/latest/citing-rfam.html">citing</a> the references
       that describe this work:
     </p>
+
+    <div class="citation">
+      <span class="title">
+        <a class="ext"
+          href="https://academic.oup.com/nar/article/4588106">
+          Rfam 13.0: shifting to a genome-centric resource for non-coding RNA families.</a>
+      </span>
+      <br>
+      <span class="authors">
+        Ioanna Kalvari, Joanna Argasinska, Natalia Quinones-Olvera, Eric P. Nawrocki, Elena Rivas, Sean R. Eddy, Alex Bateman, Robert D. Finn, Anton I. Petrov
+      </span>
+      <span class="ref">
+        <span class="jrnl">Nucleic Acids Research</span>&nbsp;(2017)
+        &nbsp;10.1093/nar/gkx1038
+      </span>
+    </div>
+
     <div class="citation">
       <span class="title">
         <a class="ext"
