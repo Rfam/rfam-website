@@ -236,7 +236,7 @@ sub thumbnail : Chained( 'family' )
             Args( 0 ) {
   my ( $this, $c ) = @_;
 
-  my $image_type = 'rscape-cyk';
+  my $image_type = 'rscape';
   my $cache_key = 'family_image' . $c->stash->{acc} . $image_type;
   my $image     = $c->cache->get( $cache_key );
 
