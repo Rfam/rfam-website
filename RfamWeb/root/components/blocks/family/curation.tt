@@ -60,7 +60,20 @@ USE Number.Format( THOUSANDS_SEP = "," );
         </tr>
         <tr class="[% oe % 2 ? 'odd' : 'even'; oe=oe+1 %]">
           <td class="label">Author</td>
-          <td class="data">[% rfam.author %]</td>
+          <td class="data">
+            [% FOREACH author IN authors_rs %]
+                [% IF author.author.orcid %]
+                  <span title="View ORCID profile">
+                    <a href="https://orcid.org/[% author.author.orcid %]" target="_blank">
+                    [% author.author.name %]<img src="/static/images/orcid.svg"
+                           style="width: 16px; margin-left: 4px; text-decoration: none; vertical-align: middle;"
+                           alt="ORCID logo"/></a>[%- "," IF not loop.last %]
+                  </span>
+                [% ELSE %]
+                  [% author.author.name %][%- "," IF not loop.last %]
+                [% END %]
+            [% END %]
+          </td>
         </tr>
         <tr class="[% oe % 2 ? 'odd' : 'even'; oe=oe+1 %]">
           <td class="label">Alignment details</td>

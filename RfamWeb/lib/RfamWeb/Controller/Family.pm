@@ -236,6 +236,10 @@ sub family_page_GET_html : Private {
     if $c->debug;
   $c->forward( 'get_motif_matches' );
 
+  $c->log->debug( 'Family::family_page: adding author orcids' )
+    if $c->debug;
+  $c->forward( 'get_author_orcids' );
+
   #---------------------------------------
 
   $c->log->debug( 'Family::family_page: emitting HTML' )
@@ -435,6 +439,32 @@ sub get_data : Private {
   $c->stash->{rfam}      = $rfam;
   $c->stash->{acc}       = $rfam->rfam_acc;
   $c->stash->{entryType} = 'R';
+}
+
+#-------------------------------------------------------------------------------
+
+=head2 get_author_orcids : Private
+
+Retrieves author ORCID identifiers.
+
+=cut
+
+sub get_author_orcids : Private {
+  my ( $this, $c ) = @_;
+
+  my @rs = $c->stash->{db}->resultset('FamilyAuthor')
+             ->search( { rfam_acc => $c->stash->{acc} },
+                       { join => 'author',
+                         prefetch => 'author',
+                         'select' => [qw(me.author_id
+                                         desc_order
+                                         author.orcid
+                                         author.name) ],
+                         'as' => [qw(author_id
+                                      order
+                                      orcid
+                                      name )]});
+  $c->stash->{authors_rs} = \@rs;
 }
 
 #-------------------------------------------------------------------------------
