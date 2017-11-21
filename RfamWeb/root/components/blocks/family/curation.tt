@@ -7,7 +7,7 @@
 # $Id: curation.tt,v 1.7 2009-06-10 10:46:17 jt6 Exp $
 
 #-------------------------------------------------------------------------------
-# specify required stylesheets and javascript files 
+# specify required stylesheets and javascript files
 
 PROCESS "components/require.tt";
 
@@ -28,8 +28,8 @@ USE Number.Format( THOUSANDS_SEP = "," );
 
     <p>
       This section shows the detailed information about the Rfam family.
-      We're happy to receive updated or improved alignments for new or 
-      existing families. 
+      We're happy to receive updated or improved alignments for new or
+      existing families.
       <a href="[% c.uri_for('/submit_alignment', { accession = acc, prefill = 1 } ) | html %]">
       Submit</a> your new alignment and we'll take a look.
     </p>
@@ -139,7 +139,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
         <tr class="[% oe % 2 ? 'odd' : 'even'; oe=oe+1 %]">
           <td class="label">Covariance model</td>
           <td class="data">
-            <a href="[% c.uri_for( '/family', acc, 'cm' ) | html %]">Download</a> 
+            <a href="[% c.uri_for( '/family', acc, 'cm' ) | html %]">Download</a>
           </td>
         </tr>
       </tbody>
@@ -147,11 +147,11 @@ USE Number.Format( THOUSANDS_SEP = "," );
   </div>
 </div>
 
-<!-- end curation block --> 
+<!-- end curation block -->
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
