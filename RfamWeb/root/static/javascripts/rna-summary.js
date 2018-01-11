@@ -47,6 +47,7 @@ angular.module('rfamApp')
                           '&fields=' + search_config.fields.join(),
           'xref_rfam_search': search_config.ebeye_base_url + '/entry/{ID}/xref/rfam?format=json',
           'xref_taxid_search': search_config.ebeye_base_url + '/entry/{ID}/xref/taxonomy?format=json',
+          'xref_rnacentral_search': search_config.ebeye_base_url + '/entry/{ID}/xref/rnacentral?format=json',
           'proxy': '/ebeye_proxy?url=',
       };
 
@@ -118,6 +119,19 @@ angular.module('rfamApp')
               console.log('Error while retrieving xrefs');
           });
 
+          $scope.rna.rnacentral_id = '';
+          $http({
+              url: query_urls.proxy + encodeURIComponent(query_urls.xref_rnacentral_search.replace('{ID}', $scope.rna.id)),
+              method: 'GET',
+          }).success(function(data) {
+              if (data.entries[0].referenceCount > 0) {
+                $scope.rna.rnacentral_id = data.entries[0].references[0].id;
+              } else {
+                $scope.rna.rnacentral_id = '';
+              }
+          }).error(function(){
+              console.log('Error while retrieving RNAcentral xref');
+          });
       }).error(function(){
           console.log('RNA data could not be loaded');
       });
@@ -152,6 +166,8 @@ angular.module('rfamApp')
         <span ng-if="rna.truncated == \'3\'">Truncated on 3\' end</span>\
         <span ng-if="rna.truncated == \'53\'">Truncated on both 5\' and 3\' ends</span>\
       </dd>\
+      <dt ng-if="rna.rnacentral_id">RNAcentral</dt>\
+      <dd ng-if="rna.rnacentral_id"><a href="http://rnacentral.org/rna/{{rna.rnacentral_id}}">{{rna.rnacentral_id}}</a></dd>\
     </dl>\
     <a class="btn btn-primary" style="background-color: #734639; border-color: #734639;" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}"><i class="fa fa-download" aria-hidden="true"></i> FASTA sequence</a>\
     <br>\
