@@ -643,19 +643,19 @@ GAAGGGCGUCGUCAGUACUAUAGUGGGUGACCAUAUGGGAAUACGACGUGCUGUAGCUU";
     } );
   } );
 
-  jQuery(function() {
-    jQuery.get('/ebeye_proxy?url=https://xfam.wordpress.com/tag/rfam/feed/', function(data){
-      var html = jQuery('<div>');
-      jQuery(data).find('item').slice(0,3).each(function(){
-        title = jQuery(this).find('title').html();
-        content = jQuery(this).find('description').text();
-        link = jQuery(this).find('link').text();
-        html.append('<h3><a class="ext" href="' + link + '">'+ title + '</a></h3>')
-            .append('<p>' + content + '</p>');
-      });
-      jQuery('#posts').append(html).show();
-    });
-  });
+  // jQuery(function() {
+  //   jQuery.get('/ebeye_proxy?url=https://xfam.wordpress.com/tag/rfam/feed/', function(data){
+  //     var html = jQuery('<div>');
+  //     jQuery(data).find('item').slice(0,3).each(function(){
+  //       title = jQuery(this).find('title').html();
+  //       content = jQuery(this).find('description').text();
+  //       link = jQuery(this).find('link').text();
+  //       html.append('<h3><a class="ext" href="' + link + '">'+ title + '</a></h3>')
+  //           .append('<p>' + content + '</p>');
+  //     });
+  //     jQuery('#posts').append(html).show();
+  //   });
+  // });
 
   // ]]>
 </script>
