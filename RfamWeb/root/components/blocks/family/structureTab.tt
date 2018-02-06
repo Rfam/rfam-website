@@ -27,7 +27,7 @@ sharedRequirements.css.push( "lightbox2.css" );
     </tr>
   </thead>
   <tbody>
-  [% WHILE (pdb = family_structures.next) ; %]
+  [% FOREACH pdb IN family_structures.all(); %]
     <tr class="[% loop.parity %]">
       <td class="rowNum">[% loop.index %]</td>
       <td>[% pdb.pdb_id FILTER upper %]</td>
