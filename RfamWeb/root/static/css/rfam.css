@@ -2869,3 +2869,56 @@ a.btn {
 .text-capitalize-first-letter:first-letter {
   text-transform: uppercase;
 }
+
+.elixir-ribbon {
+  font-family: Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif;
+}
+
+.elixir-ribbon .row {
+  float: none;
+  margin: 0 auto;
+  padding-left: 60px;
+}
+
+.elixir-ribbon h5 {
+  font-size: 1rem;
+}
+
+.elixir-ribbon {
+  background-color: white;
+}
+
+.elixir-ribbon,
+.elixir-ribbon h5,
+.elixir-ribbon a,
+.elixir-ribbon a:active,
+.elixir-ribbon a:visited,
+.elixir-ribbon a:hover {
+  color: #621700;
+  text-decoration: none !important;
+}
+
+.elixir-ribbon a:hover {
+  opacity: .8;
+}
+
+.elixir-ribbon .readmore {
+  border-bottom: 1px dotted #621700;
+}
+
+.elixir-ribbon h5 {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.elixir-ribbon .elixir-logo-kite {
+  background: 80% 58% url("https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.2/images/logos/assorted/elixir_kitemark-60px.png") no-repeat;
+  position: relative;
+  top: -5px;
+  margin: 0 1rem -.5rem 0;
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  float: left;
+  background-size: 60px;
+}
