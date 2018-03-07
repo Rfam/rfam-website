@@ -71,7 +71,7 @@ has 'logger' => (
 =head2 wiki_root
 
 Sets/gets the root of the URL for wiki pages. Defaults to 
-C<http://en.wikipedia.org/w/index.php?action=render&amp;title=>.
+C<https://en.wikipedia.org/w/index.php?action=render&amp;title=>.
 
 =cut
 
