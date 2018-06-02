@@ -507,23 +507,13 @@ requirements.cssIeAll.push( "index_all_ie.css" );
       </span>
     </div>
 
-    <div class="citation">
-      <span class="title">
-        <a class="ext"
-          href="http://nar.oxfordjournals.org/content/43/D1/D130">
-          Rfam 12.0: updates to the RNA families database.</a>
-      </span>
-      <span class="authors">
-        Eric P. Nawrocki, Sarah W. Burge, Alex Bateman, Jennifer Daub, Ruth Y. Eberhardt, Sean R. Eddy, Evan W. Floden, Paul P. Gardner, Thomas A. Jones, John Tate and Robert D. Finn
-      </span>
-      <span class="ref">
-        <span class="jrnl">Nucleic Acids Research</span>&nbsp;(2014)
-        &nbsp;10.1093/nar/gku1063
-      </span>
-    </div>
   </div>
 
   <div class="cleaner"><!-- empty --></div>
+
+  <div>
+  <a class="twitter-timeline" data-width="500" data-height="300" data-chrome="nofooter" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by RfamDB</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
 
   <div id="restore" class="announcements" style="display: none">
     <hr />
