@@ -89,6 +89,9 @@ IF refreshUri != "";
 <script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20171010101000'></script>
 <link rel="stylesheet" href="[% staticUri %]/css/font-awesome/css/font-awesome.min.css" type="text/css" />
 
+<!-- GDPR -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/ebiFrameworkNotificationBanner.js'></script>
+
 <!-- ====================================================================== -->
 <!-- local stylesheets -->
 
