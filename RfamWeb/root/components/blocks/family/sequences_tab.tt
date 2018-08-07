@@ -41,13 +41,15 @@ USE Number.Format( THOUSANDS_SEP = "," );
     <button style="margin-bottom:5px;" class="btn btn-default btn-sm">Download unaligned sequences (FASTA)</button>
   </form>
 
+  <a href="/search?q=[% rfam.rfam_acc %]%20AND%20entry_type:%22Sequence%22" style="margin-left:10px; margin-right: 10px;">Browse sequences using text search</a>
+
   [% IF (rfam.type.search('riboswitch') || rfam.type.search('leader') || rfam.type.search('Gene') && !rfam.type.search('lncRNA') ) %]
-    <a style="margin: 5px;" href="http://rnacentral.org/search?q=[% rfam.rfam_acc %]%20expert_db:%22Rfam%22" target="_blank" style="margin-left: 5px;">
-      View distinct sequences in RNAcentral
+    <a href="http://rnacentral.org/search?q=[% rfam.rfam_acc %]%20expert_db:%22Rfam%22" target="_blank">
+      Browse distinct sequences in RNAcentral
     </a>
     <img src="/static/images/rnacentral_logo.png"
-         style="width: 20px;"
-         alt="RNAcentral logo"/>    
+         style="width: 20px; margin-left: 5px;"
+         alt="RNAcentral logo"/>
   [% END %]
 </div>
 
