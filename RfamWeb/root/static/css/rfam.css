@@ -2922,3 +2922,8 @@ a.btn {
   float: left;
   background-size: 60px;
 }
+
+.data-protection-banner a:hover, .data-protection-banner a, #data-protection-agree {
+  color: whitesmoke !important;
+  text-decoration-style: dotted;
+}
