@@ -507,6 +507,22 @@ requirements.cssIeAll.push( "index_all_ie.css" );
       </span>
     </div>
 
+    <div class="citation">
+      <span class="title">
+        <a class="ext"
+          href="https://doi.org/10.1002/cpbi.51">
+          Non-coding RNA analysis using the Rfam database.</a>
+      </span>
+      <br>
+      <span class="authors">
+        Ioanna Kalvari, Eric P. Nawrocki, Joanna Argasinska, Natalia Quinones-Olvera, Robert D. Finn, Alex Bateman and Anton I. Petrov
+      </span>
+      <span class="ref">
+        <span class="jrnl">Current Protocols in Bioinformatics</span>&nbsp;(2018)
+        &nbsp;10.1002/cpbi.51
+      </span>
+    </div>
+
   </div>
 
   <div class="cleaner"><!-- empty --></div>
