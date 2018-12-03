@@ -527,7 +527,9 @@ sub get_regions_data : Private {
 
   $c->stash->{region_rs} =
     $c->stash->{db}->resultset('FullRegion')
-      ->search( { rfam_acc => $c->stash->{acc} },
+      ->search( { rfam_acc => $c->stash->{acc},
+                  type     => 'full'
+                },
                 { join      => { 'rfamseq_acc' => 'ncbi' },
                   '+select' => [ qw( rfamseq_acc.rfamseq_acc
                                      rfamseq_acc.description
@@ -542,6 +544,23 @@ sub get_regions_data : Private {
                   order_by  => [ 'bit_score DESC' ] } );
 
   $c->stash->{limits}  = $this->{refseqRegionsLimits};
+
+  $c->stash->{seed_region_rs} = $c->stash->{db}->resultset('SeedRegion')
+           ->search(
+              { rfam_acc => $c->stash->{acc}},
+               { join      => { 'rfamseq_acc' => 'ncbi' },
+                 '+select' => [ qw( rfamseq_acc.rfamseq_acc
+                                    rfamseq_acc.description
+                                    ncbi.species
+                                    ncbi.ncbi_id
+                                    rfamseq_acc.length ) ],
+                 '+as'     => [ qw( rfamseq_acc
+                                    description
+                                    species
+                                    ncbi_taxid
+                                    length ) ],
+               }
+           );
 
 $c->log->debug('Family::get_regions_data: added regions to stash')
     if $c->debug;
