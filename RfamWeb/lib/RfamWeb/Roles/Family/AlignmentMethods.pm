@@ -29,7 +29,7 @@ use File::Temp qw( tempfile );
 
 # this is really ugly, but it makes sense to have this image easily to hand.
 # Ideally we'd use a __DATA__ stream, but that breaks in mod_perl and we
-# probably shouldn't try it in a FastCGI environment either. 
+# probably shouldn't try it in a FastCGI environment either.
 # See: http://modperlbook.org/html/6-6-1-_-_END_-_-and-_-_DATA_-_-Tokens.html
 our $no_alignment_image = 'iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A
 /wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oEDw4NNEwWhI0AAAAIdEVYdENv
@@ -125,7 +125,7 @@ B7PZjLGxMTgcjoozZrWG02rsS87ExARsNlvV92I12ocXL17g4OAAsVgM8Xgc6XRavBdLr9ejp6cH
 g4ODGBkZKRHidTLKpnk1IRdA82pCrkMNQggFQggFQggFQggFQggFQggFQgihQAihQAihQAihQAih
 QAihQAihQAihQAihQAghFAghFAghFAghFAghFAghFAghFAghFAghFAghFAghhAIhhAIhREW00WgU
 Ho+HI0GIjGg0iv8Dd9PZl7tvX5gAAAAASUVORK5CYII=';
- 
+
 # these are the supported output file formats. This is a map between a format
 # specified by the user and the format name used by esl-reformat
 my %supported_formats = (
@@ -133,7 +133,7 @@ my %supported_formats = (
   pfam       => 'pfam',
   fasta      => 'afa',   # regular, gapped fasta
   fastau     => 'fasta', # ungapped fasta
-);                        
+);
 
 #-------------------------------------------------------------------------------
 
@@ -143,15 +143,15 @@ Catches alignment requests with no alignment type (seed or full) and no format
 specified. Defaults to Stockholm-format seed alignment. Still respects some
 params, such as "format".
 
-=cut 
+=cut
 
-sub alignment_default : Chained( 'family' ) 
+sub alignment_default : Chained( 'family' )
                         PathPart( 'alignment' )
                         Args( 0 ) {
   my ( $this, $c ) = @_;
 
   # we only have seed alignments, labelled with taxonomy data...
-  $c->stash->{alnType} = 'seed'; 
+  $c->stash->{alnType} = 'seed';
 
   # format ?
   my $output_format = $this->{default_output_format};
@@ -208,9 +208,9 @@ sub alignment : Chained( 'family' )
 Catches requests with an alignment type (seed or full) but no format specified.
 Defaults to Stockholm-format alignment.
 
-=cut 
+=cut
 
-sub alignment_format_default : Chained( 'alignment' ) 
+sub alignment_format_default : Chained( 'alignment' )
                                PathPart( '' )
                                Args( 0 ) {
   my ( $this, $c ) = @_;
@@ -254,9 +254,9 @@ error.
 
 =cut
 
-sub alignment_format : Chained( 'alignment' ) 
+sub alignment_format : Chained( 'alignment' )
                        PathPart( '' )
-                       Args( 1 ) 
+                       Args( 1 )
                        ActionClass( 'REST' ) { }
 
 sub alignment_format_GET {
@@ -360,7 +360,7 @@ sub alignment_format_GET {
 
   unless ( defined $output ) {
     $c->log->debug( 'Family::alignment_format: failed to gzip/gunzip the alignment' )
-      if $c->debug;      
+      if $c->debug;
 
     $c->stash->{rest}->{error} ||= 'There was a problem building the requested alignment for '
                                    . $c->stash->{acc};
@@ -397,7 +397,7 @@ sub old_jalview : Path( '/family/alignment/jalview' ) {
   delete $c->req->params->{entry};
   delete $c->req->params->{viewer};
 
-  $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment', 
+  $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment',
                      'jalview', $c->req->params ) );
 }
 
@@ -420,7 +420,7 @@ sub old_html : Path( '/family/alignment/html' ) {
   delete $c->req->params->{entry};
   delete $c->req->params->{viewer};
 
-  $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment', 
+  $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment',
                      'html', $c->req->params ) );
 }
 
@@ -446,15 +446,15 @@ sub old_gzipped : Path( '/family/alignment/download/gzipped' ) {
   delete $c->req->params->{cs};
 
   if ( $colorstock ) {
-    $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment', 
+    $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment',
                        'colorstock', $c->req->params ) );
   }
   else {
-    # firkle with the params. Need to add "gzip=1" to make sure the output 
+    # firkle with the params. Need to add "gzip=1" to make sure the output
     # really is gzipped
     my $params = { %{ $c->req->params }, 'gzip' => 1 };
 
-    $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment', 
+    $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment',
                        'stockholm', $params ) );
   }
 }
@@ -484,7 +484,7 @@ sub old_format : Path( '/family/alignment/download/format' ) {
   delete $c->req->params->{entry};
   delete $c->req->params->{format};
 
-  $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment', 
+  $c->res->redirect( $c->uri_for( '/family', $c->stash->{param_entry}, 'alignment',
                      $output_format, $c->req->params ) );
 }
 
@@ -506,7 +506,7 @@ sub no_alignment : Private {
 
   my $cache_key = 'no_alignment_image';
   my $image     = $c->cache->get( $cache_key );
-  
+
   if ( defined $image ) {
     $c->log->debug( 'Family::no_alignment: retrieved "no alignment" image from cache' )
       if $c->debug;
@@ -530,7 +530,7 @@ sub no_alignment : Private {
 
     $c->cache->set( $cache_key, $image ) unless $ENV{NO_CACHE}
   }
-  
+
   $c->res->content_type( 'image/png' );
   $c->res->body( $image );
 }
@@ -606,12 +606,12 @@ sub format : Private {
     print $fh Compress::Zlib::memGunzip( $c->stash->{gzipped_alignment} );
     close $fh;
 
-    # build the command for running esl-reformat    
+    # build the command for running esl-reformat
     my $cmd = $this->{eslreformat_binary} . " -u -r --mingap --informat stockholm $output_format $fn";
     $c->log->debug( "Family::format: running system command: |$cmd|" )
       if $c->debug;
 
-    unless ( open OUTPUT, "$cmd|" ) {    
+    unless ( open OUTPUT, "$cmd|" ) {
       $c->log->debug( "Family::format: couldn't run esl-reformat: $!" )
         if $c->debug;
 
@@ -630,12 +630,12 @@ sub format : Private {
     close OUTPUT;
     unlink $fn;
 
-    # as far as I can see, this SHOULD work too, and, if it did, would have the 
+    # as far as I can see, this SHOULD work too, and, if it did, would have the
     # advantage of not requiring any temp files at all...
     #    my $cmd = $this->{eslreformat_binary} . " --informat stockholm $output_format -";
     #    $c->log->debug( "Family::format: running esl-reformat command: |$cmd|" )
     #      if $c->debug;
-    #     
+    #
     #    my ( $out, $in );
     #    my $pid = open2( $out, $in, $cmd );
     #    unless ( $pid ) {
@@ -673,7 +673,7 @@ or, if that fails, we retrieve it from the DB.
 sub get_html_alignment : Private {
   my ( $this, $c ) = @_;
 
-  # get all of the blocks  
+  # get all of the blocks
   my @rs = $c->stash->{rfam}->search_related( 'html_alignments',
                                               { type => 'seed' } );
 
@@ -707,7 +707,7 @@ sub get_html_alignment : Private {
                                  . $c->stash->{acc};
     return;
   }
- 
+
   # stash the stuff that's used for paging in the template
   $c->stash->{alignment_block}   = $block;
   $c->stash->{current_block_num} = $block_num;
@@ -718,8 +718,8 @@ sub get_html_alignment : Private {
 
 =head2 get_gzipped_alignment : Private
 
-Retrieves the gzipped alignment from the database and stashes it, still 
-compressed. Caches the gzipped alignment too, if caching is enabled. 
+Retrieves the gzipped alignment from the database and stashes it, still
+compressed. Caches the gzipped alignment too, if caching is enabled.
 
 =cut
 
@@ -765,7 +765,7 @@ sub get_gzipped_alignment : Private {
 
 =head2 get_colorstock_alignment : Private
 
-Retrieves the gzipped "colorstock" HTML alignment from the database and stashes 
+Retrieves the gzipped "colorstock" HTML alignment from the database and stashes
 it, still compressed. Caches the gzipped alignment too, if caching is enabled.
 
 =cut
@@ -778,7 +778,7 @@ sub get_colorstock_alignment : Private {
                   . $c->stash->{acc};
 
   my $gzipped_alignment = $c->cache->get( $cache_key );
-  
+
   if ( defined $gzipped_alignment ) {
     $c->log->debug( 'Family::get_colorstock_alignment: extracted gzipped alignment from cache' )
       if $c->debug;
@@ -839,7 +839,7 @@ Jennifer Daub, C<jd7@sanger.ac.uk>
 
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
@@ -858,6 +858,3 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 =cut
 
 1;
-
-
-
