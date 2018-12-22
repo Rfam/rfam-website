@@ -90,21 +90,6 @@ sharedUri = c.uri_for( "/shared" );
 
 <div class="cleaner"><!-- empty --></div>
 
-<div class="bootstrap-wrapper">
-  <div class="alert alert-success text-center" style="margin-top: 10px;">
-    <p class="lead">
-      <i class="fa fa-comments fa-2x" aria-hidden="true"></i> Please <strong>help Rfam</strong>
-      by <a href="https://www.surveymonkey.co.uk/r/6KQC2YL">filling out a 4-minute <strong>survey</strong></a>
-    </p>
-
-    <p>
-      Your responses will help us understand how Rfam is used and what needs to be improved
-      so that we can apply for <strong>new funding</strong>
-      and continue developing Rfam.
-    </p>
-  </div>
-</div>
-
 <script type="text/javascript">
   jQuery(function() {
     jQuery('#siteSearchForm').submit(function(){
