@@ -67,8 +67,8 @@ END;
 
     # get the URL-safe title (including underscores for spaces) from the article_mapping
     # table, and convert it to a human-readable version for dropping into the web page
-    normalizedTitle = article.title;
-    title           = article.title.replace( "_", " " ) -%]
+    normalizedTitle = rfam.auto_wiki.title;
+    title           = rfam.auto_wiki.title.replace( "_", " " ) -%]
 
     <h1>
       Wikipedia annotation
@@ -79,14 +79,8 @@ END;
     <p>
       The Rfam group coordinates the annotation of Rfam families in
       <a class="ext" href="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_RNA">
-        Wikipedia</a>. This family is described by a Wikipedia entry entitled
-      <strong>[% title %]</strong>.
-      You can see the Wikipedia page for this family
-      <a href="http://en.wikipedia.org/w/index.php?title=[% normalizedTitle %]"
-         class="ext">here</a>
-      [%- UNLESS article.wikitext AND article.wikitext.text %]
-      but we are unable to retrieve the article content at this time
-      [%- END %].
+        Wikipedia</a>. This family is described by a Wikipedia entry
+      <a href="http://en.wikipedia.org/w/index.php?title=[% normalizedTitle %]">[% title %]</a>.
 
       <span onclick="reveal( this, 'wikiNotes', false, true );"
             class="moreLink">
@@ -95,16 +89,12 @@ END;
 
     <div id="wikiNotes" style="display: none">
       <p>
-        The wikipedia text that you see displayed on our web site is a download
+        The Wikipedia text that you see displayed on our web site was retrieved
         from <a class="ext" href="http://en.wikipedia.org/wiki/Main_Page">
           Wikipedia</a>. This means that the information we display is a copy of
         the information from the Wikipedia database. The button above
         (&quot;Edit wikipedia entry&quot;) takes you to the edit page for the
-        article directly within wikipedia. You should be aware you are not
-        editing our local copy of this information. Any changes that you make
-        to the Wikipedia article will not be displayed by our site until we next
-        download the article from Wikipedia. We currently download new content
-        on a nightly basis.
+        article directly within Wikipedia.
       </p>
 
       <h2>Before you edit for the first time</h2>
@@ -196,8 +186,7 @@ END;
       <h2>Contact us</h2>
 
       <p>
-        The community annotation is a new facility of the Rfam web site. If you
-        have problems editing or experience problems with these pages please
+        If you have problems editing or experience problems with these pages please
         <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#097;&#109;&#045;&#104;&#101;&#108;&#112;&#064;&#101;&#098;&#105;&#046;&#097;&#099;&#046;&#117;&#107;">
           contact us</a>.
       </p>
@@ -223,7 +212,7 @@ END;
     <p id="wpLicense">
       This page is based on a
       <a class="ext" href="http://en.wikipedia.org/w/index.php?title=[% normalizedTitle %]">
-        wikipedia article</a>. The text is available under the
+        Wikipedia article</a>. The text is available under the
       <a class="ext" href="http://creativecommons.org/licenses/by-sa/3.0/">
         Creative Commons Attribution/Share-Alike License</a>.
     </p>
