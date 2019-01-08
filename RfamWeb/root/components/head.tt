@@ -92,6 +92,9 @@ IF refreshUri != "";
 <!-- GDPR -->
 <script type='text/javascript' src='[% staticUri %]/javascripts/ebiFrameworkNotificationBanner.js'></script>
 
+
+<script type='text/javascript' src='[% staticUri %]/javascripts/jquery.wikiblurb.js'></script>
+
 <!-- ====================================================================== -->
 <!-- local stylesheets -->
 

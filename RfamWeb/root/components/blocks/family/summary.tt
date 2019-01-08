@@ -209,9 +209,15 @@ END;
       <hr />
     </div>
 
-    [%- IF article.wikitext AND article.wikitext.text %]
     <div class="wpData controlTabContent">
-      [%- article.wikitext.text %]
+      <div id="wikiArticle"></div>
+      <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#wikiArticle').wikiblurb({
+                page: '[%- rfam.auto_wiki.title %]',
+            });
+        });
+      </script>
     </div>
 
     <p id="wpLicense">
@@ -221,7 +227,6 @@ END;
       <a class="ext" href="http://creativecommons.org/licenses/by-sa/3.0/">
         Creative Commons Attribution/Share-Alike License</a>.
     </p>
-    [%- END # of "IF article.wikitext..." %]
 
   </div>
 </div>
