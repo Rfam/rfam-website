@@ -53,7 +53,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
   [% END %]
 </div>
 
-[% IF rfam.num_full > 0 %]
+[% IF rfam.num_full > 0 || rfam.num_seed > 0 %]
   <table summary="Rfam regions"
          id="regionsTable"
          class="details">
