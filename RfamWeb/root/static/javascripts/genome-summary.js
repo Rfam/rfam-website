@@ -9,7 +9,7 @@ angular.module('rfamApp')
     controller: function($scope) {
 
       var search_config = {
-          ebeye_base_url: 'http://wwwdev.ebi.ac.uk/ebisearch/ws/rest/rfam',
+          ebeye_base_url: 'http://www.ebi.ac.uk/ebisearch/ws/rest/rfam',
           fields: [
               'id',
               'assembly_level',
