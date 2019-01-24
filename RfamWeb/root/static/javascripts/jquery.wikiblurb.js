@@ -138,6 +138,7 @@
 
                 blurb.find('.mw-editsection').remove();
                 blurb.find('.mw-empty-elt').remove();
+                blurb.find('.box-Multiple_issues').remove();
                 blurb.find('#toc').remove();
 
                 if(settings.removeLinks) {
