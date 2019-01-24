@@ -139,6 +139,7 @@
                 blurb.find('.mw-editsection').remove();
                 blurb.find('.mw-empty-elt').remove();
                 blurb.find('.box-Multiple_issues').remove(); // wikipedia box with a warning about issues
+                blurb.find('.box-Technical').remove(); //wikipedia box with a warning about article being too technical
                 blurb.find('.plainlinks.hlist.navbar.mini').remove(); // gallery controls
                 blurb.find('#toc').remove();
 
