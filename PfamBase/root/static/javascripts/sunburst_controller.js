@@ -13,7 +13,7 @@
 if ( ! window.console ) {
   window.console     = {};
   window.console.log = function() {};
-}  
+}
 
 //------------------------------------------------------------------------------
 //- class ----------------------------------------------------------------------
@@ -27,9 +27,9 @@ if ( ! window.console ) {
 // $Id$
 //
 // Copyright (c) 2012: Genome Research Ltd.
-// 
+//
 // Authors: John Tate (jt6@sanger.ac.uk)
-// 
+//
 // This is free software; you can redistribute it and/or modify it under
 // the terms of the GNU General Public License as published by the Free Software
 // Foundation; either version 2 of the License, or (at your option) any later
@@ -90,8 +90,8 @@ var SunburstController = Class.create( {
    * @param baseURL  the URL for the family to which this sunburst belongs
    * @param treeData the JSON string defining the species tree
    * @param db       used to determine which method of returning the
-   *                 alignment should be used, as well as as the name of 
-   *                 the tip style that will be used by Prototip when 
+   *                 alignment should be used, as well as as the name of
+   *                 the tip style that will be used by Prototip when
    *                 building tool tips
    */
   initialize: function( baseURL, treeData, db ) {
@@ -136,12 +136,12 @@ var SunburstController = Class.create( {
   _buildTree: function( treeData ) {
 
     // build the sunburst
-    this._sunburst = new Sunburst( { parent:        "sunburst", 
-                                     subTreeParent: "sunburstControlsContent", 
+    this._sunburst = new Sunburst( { parent:        "sunburst",
+                                     subTreeParent: "sunburstControlsContent",
                                      tree:          treeData,
                                      tipStyle:      this._db } );
     // build scale slider
-    this._slider = new Control.Slider( 
+    this._slider = new Control.Slider(
       $("sliderScale").down('.handle'),  // handle element
       $("sliderScale"),                  // track element
       {
@@ -158,7 +158,7 @@ var SunburstController = Class.create( {
         }.bind(this)
       }
     );
- 
+
   },
 
   //----------------------------------------------------------------------------
@@ -187,8 +187,8 @@ var SunburstController = Class.create( {
     $("sunburstControlsToggle").observe("click", function() {
       this._toggleTools( "sunburstControlsToggle", "sunburstControlsContent" );
     }.bind(this) );
-  
-    
+
+
     // a switch to store and then align sequences
     $("sunburstAlignSelectionSwitch").observe( "click", this._storeSequences.bind( this, this._ALIGN ) );
     $("sunburstDLSelectionSwitch").observe(    "click", this._storeSequences.bind( this, this._FASTA ) );
@@ -248,7 +248,7 @@ var SunburstController = Class.create( {
   //----------------------------------------------------------------------------
   //- methods for storing sequence accessions ----------------------------------
   //----------------------------------------------------------------------------
-  
+
   _storeSequences: function( endpoint ) {
     var accessions, accessionsString, r, fasta;
 
@@ -260,8 +260,8 @@ var SunburstController = Class.create( {
     $("sunburstSelectionTools").hide();
     $("sunburstSpinner").show();
 
-    // unregister the TabPage methods that keep track of active AJAX calls, 
-    // otherwise the "Loading 1 component" message keeps popping up during 
+    // unregister the TabPage methods that keep track of active AJAX calls,
+    // otherwise the "Loading 1 component" message keeps popping up during
     // polling, which makes the whole page contents bounce up and down
     Ajax.Responders.unregister( tabPage.responders );
 
@@ -277,12 +277,12 @@ var SunburstController = Class.create( {
     // get rid of any error messages that we might have
     $("sunburstErrors").hide();
 
-    // store the list of accessions. We pass a flag to the callback to tell it 
+    // store the list of accessions. We pass a flag to the callback to tell it
     // whether to generate the alignment as Stockholm or FASTA.
     fasta = ( endpoint == this._FASTA ) ? 1 : 0;
-    console.debug("Endpoint is " + endpoint + " and fasta is set to" + fasta);  
+    console.debug("Endpoint is " + endpoint + " and fasta is set to" + fasta);
 
-    r = new Ajax.Request( 
+    r = new Ajax.Request(
       this._baseURL + "/sunburst/accessions",
       {
         method: "post",
@@ -326,9 +326,9 @@ var SunburstController = Class.create( {
     var jobId = response.responseJSON.jobId,
         acc   = response.responseJSON.acc,
         r;
-    
+
     console.debug("GenerateFasta set to:" + generateFasta );
-        
+
     if ( this._db == "pfam" ) {
       // Pfam shows the alignment in a pfamviewer window
       if(generateFasta == 1){
@@ -340,10 +340,10 @@ var SunburstController = Class.create( {
       }
       //popUp( '/family/' + acc + '/alignment/build/?jobId=' + jobId, 'console', 800, 800, 'selectedSeqsWin' );
       //console.debug("FASTA set to:" + this._FASTA + "| ALIGN set to: " + this._ALIGN + "HERE!!!!");
-      
+
     } else {
       // Rfam just hands back the alignment
-      r = new Ajax.Request( 
+      r = new Ajax.Request(
         '/family/' + acc + '/sunburst/alignment/' + jobId + ( generateFasta ? '/fasta' : '' ),
         {
           method: "post",
@@ -376,7 +376,7 @@ var SunburstController = Class.create( {
         onFailure:      this._alignmentFailed.bind(this)
       }
     );
-  
+
     // console.debug( "SunburstController._pollForAlignment: started updater; polling" );
   },
 
@@ -388,7 +388,7 @@ var SunburstController = Class.create( {
   },
 
   //----------------------------------------------------------------------------
-  
+
   _alignmentRunning: function( response ) {
     // console.debug( 'SunburstController._align204: job %s, status 204; no results; polling further',
     //   this._jobId );
@@ -422,4 +422,3 @@ var SunburstController = Class.create( {
   //----------------------------------------------------------------------------
 
 } );
-
