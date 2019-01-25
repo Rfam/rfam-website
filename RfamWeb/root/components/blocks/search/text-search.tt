@@ -253,7 +253,8 @@
                           <li><span class="label label-default">{{ rna.fields.entry_type[0] }}</span></li>
                           <li>
                             <span>
-                              <a href="http://www.ebi.ac.uk/ena/data/view/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
+                              <a ng-if="is_rnacentral(rna.fields.rfamseq_acc[0])" href="https://rnacentral.org/rna/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
+                              <a ng-if="!is_rnacentral(rna.fields.rfamseq_acc[0])" href="http://www.ebi.ac.uk/ena/data/view/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
                             </span>
                           </li>
                           <li><i title="Sequence start and end coordinates" class="cursor-help">{{rna.fields.seq_start[0] | number}}:{{rna.fields.seq_end[0] | number}}</i></li>

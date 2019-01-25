@@ -616,6 +616,18 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     };
 
     /**
+     * Detect if the accession is an RNAcentral id.
+     */
+    $scope.is_rnacentral = function(accession) {
+        var urs_id = new RegExp(/URS[0-9A-F]{10}_\d+/, 'i');
+        if (accession.match(urs_id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Determine if the facet has already been applied.
      */
     $scope.is_facet_applied = function(facet_id, facet_value) {

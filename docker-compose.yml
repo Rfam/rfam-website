@@ -3,7 +3,8 @@ version: '2'
 services:
   # Rfam website
   web:
-    build: .
+    # build: .
+    image: antonipetrov/rfam-website:latest
     volumes:
       - .:/src
       - ./config:/src/RfamWeb/config
