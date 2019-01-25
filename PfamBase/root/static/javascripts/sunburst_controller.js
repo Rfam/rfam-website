@@ -96,6 +96,15 @@ var SunburstController = Class.create( {
    */
   initialize: function( baseURL, treeData, db ) {
 
+    // hide if treeData is empty
+    if (treeData['children'].length === 0) {
+        jQuery('#sunburstControls').hide();
+        jQuery('#sunburstTreeDesc').hide();
+        var message = '<p><strong>The species sunburst cannot be displayed.</strong> This can happen when all seed sequences come from the environmental samples)</p>';
+        jQuery('#sunburstTreeTab').append(message);
+        return;
+    }
+
     // "constants" for identifying which method to use in response to mouse
     // clicks
     this._ALIGN = 1;
