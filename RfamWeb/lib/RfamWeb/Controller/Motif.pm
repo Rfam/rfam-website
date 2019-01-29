@@ -51,7 +51,7 @@ of having them as path components.
 
 sub begin : Private {
   my ( $this, $c ) = @_;
-  
+
   # decide what format to emit. The default is HTML, in which case
   # we don't set a template here, but just let the "end" method on
   # the Section controller take care of us
@@ -60,7 +60,7 @@ sub begin : Private {
     $c->stash->{output_xml} = 1;
     $c->res->content_type('text/xml');
   }
-  
+
   # get a handle on the entry and detaint it
   my $tainted_entry = $c->req->param('acc')   ||
                       $c->req->param('id')    ||
@@ -92,14 +92,14 @@ sub motif : Chained( '/' )
             PathPart( 'motif' )
             CaptureArgs( 1 ) {
   my ( $this, $c, $entry_arg ) = @_;
-  
+
   my $tainted_entry = $c->stash->{param_entry} ||
                       $entry_arg               ||
                       '';
 
   $c->log->debug( "Motif::motif: tainted_entry: |$tainted_entry|" )
     if $c->debug;
-  
+
   my ( $entry ) = $tainted_entry =~ m/^([\w\._-]+)$/;
 
   unless ( defined $entry ) {
@@ -110,7 +110,7 @@ sub motif : Chained( '/' )
 
     return;
   }
-  
+
   # retrieve data for the motif
   $c->forward( 'get_data', [ $entry ] );
 }
@@ -145,7 +145,7 @@ sub motif_page : Chained( 'motif' )
     else {
       $c->stash->{template} = 'rest/motif/motif.tt'
     }
-  
+
   }
   else {
     $c->log->debug( 'Motif::begin: emitting HTML; retrieving summary data' )
@@ -169,10 +169,10 @@ sub motif_page : Chained( 'motif' )
   $c->forward( 'get_summary_data' );
 
 
-  $c->log->debug( 'Motif::motif_page: adding wikipedia info' ) 
+  $c->log->debug( 'Motif::motif_page: adding wikipedia info' )
     if $c->debug;
   $c->forward( 'get_wikipedia' );
-  
+
   $c->log->debug( 'Motif::motif_page: adding literature info' )
     if $c->debug;
   $c->forward( 'get_references' );
@@ -208,22 +208,22 @@ for the relevant row into the stash.
 
 sub get_data : Private {
   my ( $this, $c, $entry ) = @_;
-  
+
   # check for a motif
   my $rs = $c->model('RfamDB::Motif')
              ->search( [ { motif_acc => $entry },
                          { motif_id  => $entry } ] );
-  
+
   my $motif = $rs->first if defined $rs;
-  
+
   unless ( defined $motif ) {
     $c->log->debug( 'Motif::get_data: no row for that accession/ID' )
       if $c->debug;
-  
+
     $c->stash->{errorMsg} = 'No valid Rfam motif accession or ID';
 
     return;
-  }  
+  }
 
   $c->log->debug( 'Motif::get_data: got a motif' ) if $c->debug;
 
@@ -247,7 +247,7 @@ sub get_summary_data : Private {
   my ( $this, $c ) = @_;
 
   my $summaryData = {};
-  
+
   my $rs = $c->model('RfamDB::MotifPdb')->search( { motif_acc => $c->stash->{acc} },{});
   $summaryData->{numStructures} = $rs->count;
 
@@ -270,6 +270,7 @@ sub get_wikipedia : Private {
   my $rs = $c->model('RfamDB::Motif')->search( { motif_acc => $c->stash->{acc} },{})->first;
 
   $c->stash->{wiki_title} = $rs->wiki;
+}
 
 
 #-------------------------------------------------------------------------------
@@ -307,8 +308,8 @@ sub get_curation : Private {
   my ( $this, $c ) = @_;
 
   my $rs = $c->model('RfamDB::Motif')
-                  ->search( { 
-                    'motif_acc' => $c->stash->{acc} 
+                  ->search( {
+                    'motif_acc' => $c->stash->{acc}
                   },)->next;
 
   $c->stash->{motif_curation} = $rs;
@@ -370,7 +371,7 @@ Jennifer Daub, C<jd7@sanger.ac.uk>
 
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
