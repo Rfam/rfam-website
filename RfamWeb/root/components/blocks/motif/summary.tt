@@ -41,11 +41,8 @@ PROCESS components/links.tt;
       <a class="ext" href="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_RNA">
         Wikipedia</a>. This motif is described by a Wikipedia entry entitled  
       <a href="http://en.wikipedia.org/w/index.php?title=[% normalizedTitle %]"
-         class="ext">[% prettyTitle %]</a>
-      [%- UNLESS wikitext %]
-      but we are unable to retrieve the article content at this time
-      [%- END %].
-      
+         class="ext">[% prettyTitle %]</a>.
+
       <span onclick="reveal( this, 'wikiNotes', false, true );"
             class="moreLink">
         More...</span>
@@ -167,9 +164,15 @@ PROCESS components/links.tt;
       <hr />
     </div>
 
-    [%- IF wikitext %]
     <div class="wpData controlTabContent">
-      [%- wikitext %]
+      <div id="wikiArticle"></div>
+      <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#wikiArticle').wikiblurb({
+                page: '[%- wiki_title %]',
+            });
+        });
+      </script>
     </div>
 
     <p id="wpLicense">
@@ -179,7 +182,6 @@ PROCESS components/links.tt;
       <a class="ext" href="http://creativecommons.org/licenses/by-sa/3.0/">
         Creative Commons Attribution/Share-Alike License</a>.
     </p>
-    [%- END # of "IF wikitext..." %]
   </div>
 
 </div>

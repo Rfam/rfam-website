@@ -26,7 +26,6 @@ $Id$
 use Moose;
 use namespace::autoclean;
 use LWP::Simple;
-use Bio::Pfam::Wiki::Scraper;
 
 BEGIN {
   extends 'Catalyst::Controller';
@@ -268,18 +267,9 @@ Retrieves the wikipedia content, if any, for this motif
 sub get_wikipedia : Private {
   my ( $this, $c ) = @_;
 
-  my $scraper = new Bio::Pfam::Wiki::Scraper;
-  
   my $rs = $c->model('RfamDB::Motif')->search( { motif_acc => $c->stash->{acc} },{})->first;
 
   $c->stash->{wiki_title} = $rs->wiki;
-
-  my $wikitext = $scraper->scrape( $c->stash->{wiki_title} );
-
-  return unless ( $wikitext );
-
-  $c->stash->{wikitext} = $wikitext;
-} 
 
 
 #-------------------------------------------------------------------------------
