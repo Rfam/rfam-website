@@ -154,7 +154,7 @@
 
                     blurb.find('a').each(function() {
                         var link = jQuery(this);
-                        var relativePath = link.attr('href');
+                        var relativePath = link.attr('href') || '';
                         // links to wiki pages are relative so need to add wikipedia domain but it shouldn't be added to fully qualified URLs
                         if (relativePath.indexOf('http://') === -1 && relativePath.indexOf('www.') === -1 && relativePath.indexOf('.com') === -1 && relativePath.indexOf('.org') === -1) {
                             link.attr('href', baseWikiURL + relativePath);
