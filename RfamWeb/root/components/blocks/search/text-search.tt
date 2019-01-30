@@ -230,7 +230,12 @@
                         <span class="text-capitalize-first-letter" style="display: inline-block;" ng-bind-html="rna.fields.common_name[0] | sanitize"></span>
                       </small>
                     </span>
-                    <a ng-if="rna.fields.entry_type[0] == 'Sequence'" href="/accession/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}?seq_start={{rna.fields.seq_start[0]| htmlToPlaintext}}&seq_end={{rna.fields.seq_end[0] | htmlToPlaintext}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+
+                    <span>
+                      <a ng-if="rna.fields.entry_type[0] == 'Sequence' && is_rnacentral(rna.fields.rfamseq_acc[0])" href="https://rnacentral.org/rna/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_blank" title="View sequence in RNAcentral"></a>
+                      <a ng-if="rna.fields.entry_type[0] == 'Sequence' && !is_rnacentral(rna.fields.rfamseq_acc[0])" href="/accession/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}?seq_start={{rna.fields.seq_start[0]| htmlToPlaintext}}&seq_end={{rna.fields.seq_end[0] | htmlToPlaintext}}" ng-bind-html="rna.fields.description[0] | sanitize" target="_self"></a>
+                    </span>
+
                     <small ng-if="rna.fields.entry_type[0] != 'Genome' && rna.fields.entry_type[0] != 'Sequence'">{{rna.id}}</small>
                   </h4>
 
@@ -253,7 +258,7 @@
                           <li><span class="label label-default">{{ rna.fields.entry_type[0] }}</span></li>
                           <li>
                             <span>
-                              <a ng-if="is_rnacentral(rna.fields.rfamseq_acc[0])" href="https://rnacentral.org/rna/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
+                              <a ng-if="is_rnacentral(rna.fields.rfamseq_acc[0])" href="https://rnacentral.org/rna/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in RNAcentral">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
                               <a ng-if="!is_rnacentral(rna.fields.rfamseq_acc[0])" href="http://www.ebi.ac.uk/ena/data/view/{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}" target="_blank" style="color: #404040;" title="View sequence in ENA">{{rna.fields.rfamseq_acc[0] | htmlToPlaintext}}</a>
                             </span>
                           </li>
