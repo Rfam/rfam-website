@@ -26,7 +26,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
   </div>
   <div class="blockContent">
 
-    <p>
+    <p style="display:none;">
       Upload a FASTA-format file containing multiple nucleotide sequences to
       be searched for matching Rfam families. Results of the search will be
       returned to you at the email address that you specify. Please check the
@@ -127,7 +127,15 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
       </div>
       [% END %]
 
-      <form method="post"
+      <div class="bootstrap-wrapper">
+        <p class="alert alert-danger">
+          Rfam sequence search is <a href="https://twitter.com/emblebi/status/1092413910077059079">temporarily unavailable</a>.
+          We are working to restore the service as soon as possible.
+          Apologies for the inconvenience.
+        </p>
+      </div>
+
+      <!-- <form method="post"
             id="batchSearchForm"
             action="[% c.uri_for( "/search/batch" ) %]"
             enctype="multipart/form-data">
@@ -151,7 +159,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
           <input class="reset"   type="reset"  name="reset"  value="Reset" />
         </div>
 
-      </form>
+      </form> -->
 
     </div>
   </div>

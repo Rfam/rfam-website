@@ -215,9 +215,17 @@ requirements.cssIeAll.push( "index_all_ie.css" );
 
   <div id="RNA" class="panel" style="display: none">
     <h3>Analyze your RNA sequence for Rfam matches</h3>
-    <p>
-      Paste your RNA sequence here to find matching Rfam families.
-    </p>
+
+    <div class="bootstrap-wrapper">
+      <p class="alert alert-danger">
+      <!-- Paste your RNA sequence here to find matching Rfam families. -->
+      Rfam sequence search is <a href="https://twitter.com/emblebi/status/1092413910077059079">temporarily unavailable</a>.
+      We are working to restore the service as soon as possible.
+      In the meantime, consider using the
+      online <a href="https://www.ebi.ac.uk/Tools/rna/infernal_cmscan/">Infernal cmscan</a>
+      search that uses the latest Rfam covariance models. Apologies for the inconvenience.
+      </p>
+    </div>
     <form action="[% searchBase %]/sequence"
           method="post"
           id="seqForm">
@@ -231,21 +239,21 @@ requirements.cssIeAll.push( "index_all_ie.css" );
         <input type="hidden"
                name="evalue"
                value="1.0" />
-        <textarea class="entryField"
+        <!-- <textarea class="entryField"
                   name="seq"
                   id="seq"
                   cols="50"
-                  rows="6"></textarea>
+                  rows="6"></textarea> -->
       </div>
     </form>
-    <a class="btn go"
-       onclick="if( $('seq').present() ){$('seqForm').submit()};">Go</a>
-    <a class="btn"
+    <!-- <a class="btn go"
+       onclick="if( $('seq').present() ){$('seqForm').submit()};">Go</a> -->
+    <!-- <a class="btn"
        onclick="$('seq').value=exSeq">Example</a>
     <p class="small nlh">
       Annotate a sequence with Rfam families using
       <a href="http://eddylab.org/infernal">Infernal <i>cmscan</i><a>.
-    </p>
+    </p> -->
   </div>
 
   <div id="family" class="panel" style="display: none">
