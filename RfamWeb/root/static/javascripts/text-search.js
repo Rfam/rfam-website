@@ -74,7 +74,7 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
     };
 
     var search_config = {
-        ebeye_base_url: 'http://wwwdev.ebi.ac.uk/ebisearch/ws/rest/rfam',
+        ebeye_base_url: 'http://www.ebi.ac.uk/ebisearch/ws/rest/rfam',
         fields: [
             'assembly_name',
             'common_name',
@@ -101,14 +101,14 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
             'rfamseq_acc',
         ],
         facetfields: [
-            'has_pseudoknot',
-            'pseudoknot_evidence',
             'entry_type',
             'rna_type',
             'TAXONOMY',
             'popular_species',
             'has_3d_structure',
             'author',
+            'has_pseudoknot',
+            'pseudoknot_evidence',
             'alignment_type',
         ], // will be displayed in this order
         facetcount: 30,
