@@ -107,6 +107,8 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
             'popular_species',
             'has_3d_structure',
             'author',
+            'has_pseudoknot',
+            'pseudoknot_evidence',
             'alignment_type',
         ], // will be displayed in this order
         facetcount: 30,
