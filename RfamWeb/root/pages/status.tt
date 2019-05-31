@@ -1,0 +1,16 @@
+[%
+META naked = 1;
+-%]
+<html>
+
+  <head>
+    <title>Rfam Status</title>
+  </head>
+
+  <body>
+
+      <h1>[% status %]</h1>
+
+  </body>
+
+</html>
