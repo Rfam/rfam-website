@@ -1,0 +1,105 @@
+pipeline {
+    agent any
+    parameters {
+        choice(
+            name: 'VM',
+            choices: ['HX', 'OY', 'PG'],
+            description: 'Which environment to update?'
+        )
+    }
+    stages {
+        stage("Update webcode") {
+          steps {
+            script {
+            if (params.VM == 'HX') {
+              sh '''
+              ssh -T ves-hx-b7 << EOF
+              hostname
+              cd /nfs/public/rw/xfam/rfam/test/rfam-website
+              git pull
+              echo flush_all | nc ves-hx-b7.ebi.ac.uk 11211
+EOF
+'''
+            } else if (params.VM == 'OY') {
+              sh '''
+              ssh -T ves-oy-b7 << EOF
+              hostname
+              cd /nfs/public/rw/xfam/rfam/live/rfam-website
+              git pull
+              echo flush_all | nc ves-oy-b7.ebi.ac.uk 11211
+EOF
+'''
+            } else if (params.VM == 'PG') {
+              sh '''
+              ssh -T ves-pg-b7 << EOF
+              hostname
+              cd /nfs/public/rw/xfam/rfam/live/rfam-website
+              git pull
+              echo flush_all | nc ves-pg-b7.ebi.ac.uk 11211
+EOF
+'''
+            }
+          }
+        }
+      }
+      stage("Restart Apache") {
+          steps {
+            script {
+            if (params.VM == 'HX') {
+              sh '''
+              ssh -tt ves-hx-b7 << EOF
+              sudo /etc/init.d/httpd restart && exit 0
+EOF
+'''
+            } else if (params.VM == 'OY') {
+              sh '''
+              ssh -tt ves-oy-b7 << EOF
+              sudo /etc/init.d/httpd restart && exit 0
+EOF
+'''
+              sh '''
+              ssh -tt ves-oy-b9 << EOF
+              sudo /etc/init.d/httpd restart && exit 0
+EOF
+'''
+            } else if (params.VM == 'PG') {
+              sh '''
+              ssh -tt ves-pg-b7 << EOF
+              sudo /etc/init.d/httpd restart && exit 0
+EOF
+'''
+              sh '''
+              ssh -tt ves-pg-b9 << EOF
+              sudo /etc/init.d/httpd restart && exit 0
+EOF
+'''
+
+            }
+          }
+        }
+      } // stage
+  } // stages
+} // pipeline
+
+// THE FOLLOWING SCRIPT WORKS
+// node {
+//     update_webcode()
+// }
+
+// private void update_webcode() {
+//     sh '''
+//     ssh -T ves-hx-b7 << EOF
+//     cd /nfs/public/rw/xfam/rfam/test/rfam-website
+//     git pull
+//     echo flush_all | nc ves-hx-b7.ebi.ac.uk 11211
+//     hostname
+// EOF
+// '''
+//
+//     sh '''
+//     ssh -tt ves-hx-b7 << EOF
+//     sudo /etc/init.d/httpd restart && exit 0
+// EOF
+// '''
+//
+// }
