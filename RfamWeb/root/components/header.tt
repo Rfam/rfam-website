@@ -90,6 +90,22 @@ sharedUri = c.uri_for( "/shared" );
 
 <div class="cleaner"><!-- empty --></div>
 
+<div class="bootstrap-wrapper">
+	  <div class="alert alert-success text-center" style="margin-top: 10px;">
+	    <p class="lead">
+	      <i class="fa fa-users fa-2x" aria-hidden="true"></i>
+        <strong>We are hiring!</strong>
+        Join Rfam as <a href="http://bit.ly/rfam-biocurator"><strong>Biocurator</strong></a>
+        to create new families,
+        <br>
+        update seed alignments using RNA 3D structures,
+        and help improve Rfam.
+        <br>
+        <a href="http://bit.ly/rfam-biocurator"><strong>Apply now &rarr;</strong></a>
+      </p>
+	  </div>
+</div>
+
 <script type="text/javascript">
   jQuery(function() {
     jQuery('#siteSearchForm').submit(function(){
