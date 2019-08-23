@@ -26,7 +26,7 @@ IF refreshUri != "";
 <!-- ====================================================================== -->
 <!-- make the site RSS feed discoverable -->
 
-<link href="http://xfam.wordpress.com/tag/rfam/feed/"
+<link href="https://xfam.wordpress.com/tag/rfam/feed/"
       rel="alternate"
       type="application/rss+xml"
       title="Rfam News" />
@@ -49,16 +49,16 @@ IF refreshUri != "";
 </script>
 
 <!-- YUI -->
-<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
 
-<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/tabview/tabview-min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/tabview/assets/skins/sam/tabview.css"/>
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/tabview/tabview-min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://yui-s.yahooapis.com/2.8.0r4/build/tabview/assets/skins/sam/tabview.css"/>
 
-<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/treeview/treeview-min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/treeview/assets/skins/sam/treeview.css" />
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/treeview/treeview-min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://yui-s.yahooapis.com/2.8.0r4/build/treeview/assets/skins/sam/treeview.css" />
 
-<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/history/history-min.js"></script>
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/history/history-min.js"></script>
 
 <!-- prototip -->
 <script type='text/javascript' src='[% sharedUri %]/javascripts/prototip.js'></script>
