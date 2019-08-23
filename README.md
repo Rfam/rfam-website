@@ -1,5 +1,7 @@
 # Rfam website
 
+[![Build Status](https://jenkins.rnacentral.org/buildStatus/icon?job=update_rfam_website)](https://jenkins.rnacentral.org/job/update_rfam_website/)
+
 Get a local installation of Rfam website using [Docker](https://www.docker.com/)
 and the public Rfam MySQL database.
 
