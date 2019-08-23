@@ -14,7 +14,7 @@
     jQuery.fn.wikiblurb = function (options) {
 
         var defaults = jQuery.extend({
-            wikiURL: "http://en.wikipedia.org/",
+            wikiURL: "https://en.wikipedia.org/",
             apiPath: 'w',
             section: 0,
             page: 'RNA',
