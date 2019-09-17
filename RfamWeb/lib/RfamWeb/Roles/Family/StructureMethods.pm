@@ -61,19 +61,25 @@ sub structures_GET : Private {
     $c->log->debug( 'Family::structures: converting DBIC rows to perl data structure for serialisation' )
       if $c->debug;
 
-    my @mapping;
+    if ( $rs->count == 0 ) {
+      $c->stash->{rest}->{mapping} = ({});
+    } else {
+      $c->stash->{rest}->{mapping} = ();
+    }
 
     # load rows into a regular perl data structure
-    foreach my $row ( @mapping ) {
-      push @{ $c->stash->{rest}->{mapping} }, [
-        $row->rfamseq_acc,
-        $row->seq_start,
-        $row->seq_end,
-        $row->pdb_id,
-        $row->chain || '',
-        $row->pdb_res_start,
-        $row->pdb_res_end,
-      ];
+    foreach my $row ( $rs->all ) {
+      push @{ $c->stash->{rest}->{mapping} }, {
+        "rfam_acc" => $row->rfam_acc->rfam_acc,
+        "cm_start" => $row->cm_start,
+        "cm_end" => $row->cm_end,
+        "pdb_id" => $row->pdb_id,
+        "chain" => $row->chain || '',
+        "pdb_start" => $row->pdb_start,
+        "pdb_end" => $row->pdb_end,
+        "bit_score" => $row->bit_score,
+        "evalue_score" => $row->evalue_score
+      };
     }
 
     # and pick a template

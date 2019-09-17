@@ -1,4 +1,4 @@
-[% 
+[%
 # structure_mapping_xml.tt
 # jt6 20120210 WTSI
 #
@@ -10,7 +10,7 @@ USE date;
 
 META naked = 1;
 
-baseUri = "http://rfam.sanger.ac.uk/";
+baseUri = "http://rfam.org/";
 -%]
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Rfam regions for family [% rfam.rfam_id %] ([% rfam.rfam_acc %])
@@ -19,17 +19,19 @@ baseUri = "http://rfam.sanger.ac.uk/";
       xmlns="[% baseUri %]"
       xsi:schemaLocation="[% baseUri %]
                           [% baseUri %]static/documents/schemas/rfam_structure_mapping.xsd"
-      release="[% relData.rfam_release %]" 
+      release="[% relData.rfam_release %]"
       release_date="[% relData.rfam_release_date %]">
   <structure_mapping accession="[% rfam.rfam_acc %]" id="[% rfam.rfam_id %]">
 [% FOREACH row IN rest.mapping -%]
-    <mapping rfamseq_acc="[% row.0 %]"
-             seq_start="[% row.1 %]"
-             seq_end="[% row.2 %]"
-             pdb_id="[% row.3 %]"
-             chain="[% row.4 %]"
-             pdb_seq_start="[% row.5 %]"
-             pdb_seq_end="[% row.6 %]" />
+    <mapping rfam_acc="[% row.rfam_acc %]"
+             seq_start="[% row.cm_start %]"
+             seq_end="[% row.cm_end %]"
+             pdb_id="[% row.pdb_id %]"
+             chain="[% row.chain %]"
+             pdb_seq_start="[% row.pdb_start %]"
+             pdb_seq_end="[% row.pdb_end %]"
+             bit_score="[% row.bit_score %]"
+             evalue_score="[% row.evalue_score %]" />
 [% END -%]
   </structure_mapping>
 </rfam>
