@@ -12,7 +12,7 @@ META fullPage = 1;
 USE wrap;
 
 #-------------------------------------------------------------------------------
-# specify required stylesheets and javascript files 
+# specify required stylesheets and javascript files
 
 PROCESS "components/require.tt";
 
@@ -33,7 +33,7 @@ sharedRequirements.cssIe.push( "job_ie.css" );
 IF rest.error -%]
 
   <div class="key">
-    
+
     <h2>Sequence search results</h2>
 
     <div id="errors">
@@ -55,7 +55,7 @@ IF rest.error -%]
 END; # of "IF rest.error" -%]
 
 <div class="key">
-	
+
 	<h2>Sequence search results</h2>
 
 	<div id="loading"
@@ -63,7 +63,7 @@ END; # of "IF rest.error" -%]
 		<p>
 			Your results will appear in this page when the search is complete; please
 			don&apos;t close this window or browse to a different page until the
-			results are loaded. 
+			results are loaded.
 		</p>
 		<div id="loadingMessage">
 			<img class="loadingBar"
@@ -73,10 +73,10 @@ END; # of "IF rest.error" -%]
 		</div>
 	</div>
 
-	<div id="summary" 
+	<div id="summary"
        class="showOC"
        style="display: none">
-	
+
 		<p id="hitCount"></p>
 
     [%- resultsURI = c.uri_for( "/search/sequence", jobId ) %]
@@ -98,7 +98,7 @@ END; # of "IF rest.error" -%]
         This is the sequence that you submitted:
       </p>
       <div class="centreWrapper">
-        <p id="plainSequence" 
+        <p id="plainSequence"
            class="plainSequence centredBlock"></p>
       </div>
       <div class="cleaner"><!-- empty --></div>
@@ -123,11 +123,11 @@ END; # of "IF rest.error" -%]
 			to the search form to look for Rfam families on a new sequence.
 		</p>
 
-	</div><!-- end of "summary" --> 
-	
+	</div><!-- end of "summary" -->
+
 </div><!-- end of "key" -->
 
-<div id="resultsHeader" 
+<div id="resultsHeader"
      class="yes"
      style="display: none">
 
@@ -136,13 +136,14 @@ END; # of "IF rest.error" -%]
   <div id="dlLinks">
     <span>Download your results as:</span>
     <a href="[% c.uri_for( '/search/sequence', jobId, { 'content-type' = 'application/json' } ) %]"
-       title="JavaScript Object Notation">JSON</a> 
+       title="JavaScript Object Notation">JSON</a>
     <a href="[% c.uri_for( '/search/sequence', jobId, { 'content-type' = 'text/plain' } ) %]"
-       title="Tab-Separated Values">TSV</a> 
+       title="Tab-Separated Values">TSV</a>
     <a href="[% c.uri_for( '/search/sequence', jobId, { 'content-type' = 'text/xml' } ) %]"
-       title="eXtentsible Markup Language">XML</a> 
+       title="eXtentsible Markup Language">XML</a>
     <a href="[% c.uri_for( '/search/sequence', jobId, { 'content-type' = 'application/x-gff3' } ) %]"
-       title="Generic Feature Format (version 3) style">GFF</a> 
+       title="Generic Feature Format (version 3) style">GFF</a>
+  </div>
 
   <div id="results">
 
@@ -192,7 +193,7 @@ END; # of "IF rest.error" -%]
   document.observe( "dom:loaded", function() {
     resultsHandler = new Results( "[% jobId %]", resultsConfig );
   } );
-  
+
   // ]]>
 </script>
 
