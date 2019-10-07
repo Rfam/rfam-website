@@ -319,6 +319,7 @@ var Results = Class.create( {
         nextRow = cell.up("tr").next("tr");
     nextRow.toggle();
     btn.innerHTML = nextRow.visible() ? "Hide" : "Show";
+    $$("#sequence-search-results-help").invoke("show");
   },
 
   //----------------------------------------------------------------------------
@@ -338,6 +339,7 @@ var Results = Class.create( {
     tbody.select("span.btn-inner").each( function(toggle) {
       toggle.innerHTML = show ? "Hide" : "Show";
     } );
+    $$("#sequence-search-results-help").invoke("show");
   }
 
   //----------------------------------------------------------------------------

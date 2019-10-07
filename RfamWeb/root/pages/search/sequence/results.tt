@@ -143,9 +143,34 @@ END; # of "IF rest.error" -%]
        title="eXtentsible Markup Language">XML</a> 
     <a href="[% c.uri_for( '/search/sequence', jobId, { 'content-type' = 'application/x-gff3' } ) %]"
        title="Generic Feature Format (version 3) style">GFF</a> 
+
+  <div id="results">
+
+
   </div>
 
-  <div id="results"></div>
+  <div class="bootstrap-wrapper" id="sequence-search-results-help" style="display:none; margin-bottom:30px;">
+    <div class="well">
+      <h4>Help</h4>
+
+      <p>
+        Clicking the "Show alignment" button reveals the alignment that includes the following annotations:
+      </p>
+
+      <ul>
+        <li><kbd>#NC</kbd> - negative scoring non-canonical basepairs are marked with a <code>v</code> character in order to identify suspicious basepairs</li>
+        <li><kbd>#SS</kbd> - model consensus secondary structure in <a href="https://rfam.readthedocs.io/en/latest/genome-annotation.html#understanding-hit-alignment-annotation" target="_blank">WUSS format</a></li>
+        <li><kbd>#CM</kbd> - model consensus sequence and coordinates</li>
+        <li><kbd>#MATCH</kbd> - score contribution (upper case means a match with family consensus, <code>:</code> means compensatory basepair, for other cases see <a href="https://rfam.readthedocs.io/en/latest/genome-annotation.html#understanding-hit-alignment-annotation" target="_blank">Rfam help</a>)</li>
+        <li><kbd>#SEQ</kbd> - query sequence and coordinates</li>
+        <li><kbd>#PP</kbd> - expected alignment accuracy (<code>0</code> means 0-5%, <code>1</code> means 5-15%, and so on; <code>9</code> means 85-95%, and a <code>*</code> means 95-100% posterior probability)</li>
+      </ul>
+
+      <p>
+        For a detailed description of these fields, see <a href="https://rfam.readthedocs.io/en/latest/genome-annotation.html#understanding-hit-alignment-annotation" target="_blank">Rfam help &rarr;</a>
+      </p>
+    </div>
+  </div>
 
 </div>
 
