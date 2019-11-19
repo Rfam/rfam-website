@@ -409,9 +409,10 @@ sub queue_seq_search : Private {
                     . $c->stash->{numberPending} . ')' ) if $c->debug;
 
     $c->res->status( 503 ); # 503 Service unavailable
-    $c->stash->{rest}->{error} = 
-      'There are currently too many Rfam jobs in the sequence search queue. ' . 
-      'Please try again in a little while';
+    $c->stash->{rest}->{error} =
+      'There are currently too many Rfam jobs in the sequence search queue. ' .
+      'Please try again in a little while.' .
+      'In the meantime, you can use the <a href="https://www.ebi.ac.uk/Tools/rna/infernal_cmscan/">Infernal cmscan</a> service hosted by EMBL-EBI.';
 
     return 0;
   }
