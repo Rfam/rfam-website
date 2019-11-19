@@ -58,8 +58,8 @@ sub sequence_POST : Private {
     if ( $c->req->looks_like_browser ) {
       # copy the error message to where it will be picked up by the search form
       # template
-      $c->stash->{seqSearchError} = 
-        $c->stash->{rest}->{error} || 
+      $c->stash->{seqSearchError} =
+        $c->stash->{rest}->{error} ||
         'There was an unknown problem when validating your search sequence.';
 
       # go back to the search form
@@ -90,8 +90,8 @@ sub sequence_POST : Private {
   else {
     # failure
     if ( $c->req->looks_like_browser ) {
-      $c->stash->{seqSearchError} = 
-        $c->stash->{rest}->{error} || 
+      $c->stash->{seqSearchError} =
+        $c->stash->{rest}->{error} ||
         'There was an unknown problem when submitting your search.';
       $c->forward( 'search_page' );
     }
@@ -123,8 +123,8 @@ before [ 'sequence_GET', 'sequence_GET_html' ] => sub {
       if $c->debug;
 
     $this->status_bad_request( # 400 Bad request
-      $c, 
-      message => 'No valid job ID' 
+      $c,
+      message => 'No valid job ID'
     );
 
     return;
@@ -165,8 +165,8 @@ sub sequence_GET : Private {
       if $c->debug;
 
     $this->status_no_content( # 204 No content
-      $c, 
-      message => "We could not find any results for job ID $job_id" 
+      $c,
+      message => "We could not find any results for job ID $job_id"
     );
 
     return;
@@ -187,7 +187,7 @@ sub sequence_GET : Private {
   elsif ( $results->{status} eq 'HOLD' ) {
     $c->log->debug( 'Search::sequence_GET": search on hold' )
       if $c->debug;
-    
+
     $c->res->status( 503 ); # 503 Service unavailable
     $c->stash->{rest}->{error} = 'HOLD';
   }
@@ -196,7 +196,7 @@ sub sequence_GET : Private {
   elsif ( $results->{status} eq 'DEL' ) {
     $c->log->debug( 'Search::sequence_GET": search deleted' )
       if $c->debug;
-    
+
     $this->status_gone(
       $c,
       message => 'DEL'
@@ -208,7 +208,7 @@ sub sequence_GET : Private {
           $results->{status} eq 'RUN' ) {
     $c->log->debug( 'Search::sequence_GET": search pending or running' )
       if $c->debug;
-    
+
     $this->status_accepted( # 202 Accepted
       $c,
       location => $c->req->uri,
@@ -218,7 +218,7 @@ sub sequence_GET : Private {
     );
   }
 
-  # any other status code indicates some terminal problem. Retrieve the 
+  # any other status code indicates some terminal problem. Retrieve the
   # contents of the stderr column from job_stream and return it in the
   # response
   else {
@@ -251,12 +251,12 @@ sub sequence_GET : Private {
 
   # make sure there were some results
   unless ( scalar keys %{ $c->stash->{results} } ) {
-    $c->log->debug( 'Search::sequence_GET: no results found' ) 
+    $c->log->debug( 'Search::sequence_GET: no results found' )
       if $c->debug;
 
     $this->status_no_content( # 204 No content
-      $c, 
-      message => "There there were no hits for job ID $job_id" 
+      $c,
+      message => "There there were no hits for job ID $job_id"
     );
 
     return;
@@ -273,16 +273,16 @@ sub sequence_GET : Private {
 =head2 validate_single_sequence : Private
 
 Validate the form input. Returns 1 if all input validated, 0 otherwise.
-Error messages are returned in the stash as "searchError". 
+Error messages are returned in the stash as "searchError".
 
 =cut
 
 # this method made a lot more sense in Pfam, where it was used for processing
-# fields in the form other than the sequence. In Rfam, there are no options, 
+# fields in the form other than the sequence. In Rfam, there are no options,
 # but this stub is here just in case we want to add them at some point
 sub validate_single_sequence : Private {
   my ( $this, $c ) = @_;
-  
+
   # parse and validate the sequence itself
   unless ( $c->forward('parse_sequence') ) {
     $c->stash->{rest}->{error} ||= 'Invalid sequence. Please try again with a valid RNA sequence.';
@@ -297,16 +297,16 @@ sub validate_single_sequence : Private {
 
   $c->log->debug( 'Search::validate_single_sequence: validating input was successful' )
     if $c->debug;
-      
+
   return 1;
 }
 
 #-------------------------------------------------------------------------------
-  
+
 =head2 parse_sequence : Private
 
-Parses the sequence supplied by the CGI parameter "seq". Drops the sequence 
-into the stash if it passed validation. Sets an error message in the stash if 
+Parses the sequence supplied by the CGI parameter "seq". Drops the sequence
+into the stash if it passed validation. Sets an error message in the stash if
 there was a specific problem.
 
 =cut
@@ -318,13 +318,13 @@ sub parse_sequence : Private {
   unless ( defined $c->req->param('seq') and
            $c->req->param('seq') ne '' ) {
     $c->stash->{rest}->{error} = 'You did not supply a nucleic-acid sequence.';
-    
+
     $c->log->debug( 'Search::parse_sequence: no sequence; failed' )
       if $c->debug;
-      
+
     return 0;
   }
-  
+
   # break the string into individual lines and get parse any FASTA header lines
   # before recombining. If there is no user-supplied FASTA header, one will be
   # supplied for them
@@ -334,7 +334,7 @@ sub parse_sequence : Private {
   if ( $seqs[0] =~ /^\>([\w\s]+)/ ) {
     $c->log->debug( 'Search::parse_sequence: found a user-supplied FASTA header; stripping it' )
       if $c->debug;
-    
+
     shift @seqs;
   }
 
@@ -347,28 +347,28 @@ sub parse_sequence : Private {
   # check the length of the sequence at this point. If it's too long, bail
   my $length = length $seq;
   if ( $length > $this->{maxSeqLength} ) {
-    $c->stash->{rest}->{error} = 
+    $c->stash->{rest}->{error} =
         'Your sequence is too long. The maximum length of search sequences is '
       . $this->{maxSeqLength} . ' bases. Please try again with a shorter '
       . 'sequence, or use the batch search form and get your results by email.';
-    
+
     $c->log->debug( 'Search::parse_sequence: sequence is too long; failed' )
       if $c->debug;
-    
+
     return 0;
   }
 
   # check that the sequence string contains only the appropriate letters. Bail
   # if it has anything else in it
-  my $regex_string = $this->{sequenceValidationRegex};      
+  my $regex_string = $this->{sequenceValidationRegex};
   my $regex = qr/$regex_string/i;
   unless ( $seq =~ m/$regex/ ) {
-    $c->stash->{rest}->{error} = 
+    $c->stash->{rest}->{error} =
       'Invalid sequence. Please try again with a valid nucleic-acid sequence';
-    
+
     $c->log->debug( 'Search::parse_sequence: sequence contains illegal characters' )
       if $c->debug;
-    
+
     return 0;
   }
 
@@ -378,7 +378,7 @@ sub parse_sequence : Private {
 
   $c->log->debug( 'Search::parse_sequence: parsing sequence was successful' )
     if $c->debug;
-      
+
   return 1;
 }
 
@@ -392,18 +392,18 @@ Queues an Rfam search. Sets the HTTP response status and body appropriately.
 
 sub queue_seq_search : Private {
   my ( $this, $c ) = @_;
-  
+
   # first, check there's room on the queue
   my $rs = $c->model( 'WebUser::JobHistory' )
              ->find( { status   => 'PEND',
                        job_type => 'rfam' },
                      { select => [ { count => 'status' } ],
                        as     => [ 'numberPending' ] } );
-  
+
   $c->stash->{numberPending} = $rs->get_column( 'numberPending' );
-  $c->log->debug( 'Search::queue_seq_search: |' . 
+  $c->log->debug( 'Search::queue_seq_search: |' .
                   $c->stash->{numberPending} . '| jobs pending' ) if $c->debug;
-  
+
   if ( $c->stash->{numberPending} >= $this->{pendingLimit} ) {
     $c->log->debug( 'Search::queue_seq_search: too many Rfam jobs in queue ('
                     . $c->stash->{numberPending} . ')' ) if $c->debug;
@@ -416,17 +416,17 @@ sub queue_seq_search : Private {
 
     return 0;
   }
-  
+
   #----------------------------------------
 
-  # ok. There's room on the queue, so we can submit the hmmer job and, if 
+  # ok. There's room on the queue, so we can submit the hmmer job and, if
   # required, the blast job
   my @jobs;
-  
+
   unless ( $c->forward('queue_rfam') ) {
     $c->log->debug( 'Search::queue_seq_search: problem submitting Rfam search' )
       if $c->debug;
-    
+
     $c->res->status( 500 ); # 500 Internal server error
     $c->stash->{rest}->{error} ||= 'There was a problem queuing your Rfam search';
 
@@ -438,8 +438,8 @@ sub queue_seq_search : Private {
   # if we get to here, the job submission worked
   my $json = JSON::XS->new->utf8->convert_blessed;
   $c->stash->{jobStatusJSON} = $json->encode( $c->stash->{jobStatus} );
-  
-  $c->log->debug( 'Search::queue_seq_search: json string: |' 
+
+  $c->log->debug( 'Search::queue_seq_search: json string: |'
                   . $c->stash->{jobStatusJSON} . '|' ) if $c->debug;
 
   $this->status_created( # 201 Created
@@ -458,36 +458,36 @@ sub queue_seq_search : Private {
 
 =head2 handle_results : Private
 
-Parses the results and filter based on the the users defined parameters. The 
-parsed results are put in a very generic format so that they can then be used 
+Parses the results and filter based on the the users defined parameters. The
+parsed results are put in a very generic format so that they can then be used
 for generating the results tables and graphics.
 
 =cut
 
 sub handle_results : Private {
   my ( $this, $c, $job_id ) = @_;
-  
+
   $c->log->debug( "Search::handle_results: handling results for |$job_id|" )
     if $c->debug;
 
-  # parse the log into a sensible data structure  
+  # parse the log into a sensible data structure
   $c->forward( 'parse_log', [ $job_id ] );
 #  $c->log->debug( 'Search::Sequence::handle_results: results data structure: ' .
-#                  dump( $c->stash->{rest}->{hits} ) ) if $c->debug;  
+#                  dump( $c->stash->{rest}->{hits} ) ) if $c->debug;
 
   # foreach my $hit ( @{ $c->stash->{rest}->{hits} } ) {
   foreach my $id ( keys %{ $c->stash->{rest}->{hits} } ) {
     foreach my $hit ( @{ $c->stash->{rest}->{hits}->{$id} } ) {
       $c->log->debug( 'Search::handle_results: hit: ', dump( $hit ) )
         if $c->debug;
-      
+
       $hit->{alignment}->{nc}       = '#NC              ';
       $hit->{alignment}->{ss}       = '#SS              ';
       $hit->{alignment}->{hit_seq}  = '#CM   '.sprintf '%10d ', $hit->{blocks}->[0]->{hit}->{start};
       $hit->{alignment}->{match}    = '#MATCH           ';
       $hit->{alignment}->{user_seq} = '#SEQ  '.sprintf '%10d ', $hit->{start};
       $hit->{alignment}->{pp}       = '#PP              ';
-          
+
       foreach my $block ( @{ $hit->{blocks} } ) {
 	$hit->{alignment}->{nc}       .= $block->{nc};
         $hit->{alignment}->{ss}       .= $block->{ss};
@@ -496,7 +496,7 @@ sub handle_results : Private {
         $hit->{alignment}->{user_seq} .= $block->{user}->{seq};
 	$hit->{alignment}->{pp}       .= $block->{pp};
       }
-          
+
       $hit->{alignment}->{nc}       .= '           ';
       $hit->{alignment}->{ss}       .= '           ';
       $hit->{alignment}->{hit_seq}  .= sprintf ' %-10d', $hit->{blocks}->[-1]->{hit}->{end};
@@ -527,7 +527,7 @@ sub handle_results : Private {
   ( $c->stash->{rest}->{searchSequence} ) = $raw->stdin =~ m/^\> UserSeq\n(.*)/;
   # (strip off the FASTA header that was added before storing the sequence
   # in job_stream.)
-  
+
   $c->log->debug( 'Search::handle_results: modified results data structure: ' .
                   dump( $c->stash->{rest}->{hits} ) ) if $c->debug;
 }
@@ -536,20 +536,20 @@ sub handle_results : Private {
 
 =head2 parse_log : Private
 
-Parses the output from the rfam_scan script and dumps the resulting data 
+Parses the output from the rfam_scan script and dumps the resulting data
 structure into the stash.
 
 =cut
 
 sub parse_log : Private {
   my ( $this, $c, $job_id ) = @_;
-  
+
   # we need to look up the accession for a family, based on the ID
   $c->forward( 'get_id_acc_mapping' );
 
-  # split the log into individual lines and parse them 
+  # split the log into individual lines and parse them
   my @lines = split /\n/, $c->stash->{results}->{$job_id}->{rawData};
-  
+
   my $hits     = {}; # everything...
   my $hit;           # an individual hit
   my $id       = ''; # the current family
@@ -561,38 +561,38 @@ sub parse_log : Private {
 
   for ( my $n = 0; $n < scalar @lines; $n++ ) {
       my $line = $lines[$n];
-      
+
       # $c->log->debug( sprintf "Search::Sequence::parse_log: line % 3d: %s",
       #                         $n, $line ) if $c->debug;
-      
+
       # store the name of the family for this hit
       # Example:
       # ......cut......
-      # >> 5S_rRNA  
+      # >> 5S_rRNA
       # rank     E-value  score  bias mdl mdl from   mdl to       seq from      seq to       acc trunc   gc
       # ----   --------- ------ ----- --- -------- --------    ----------- -----------      ---- ----- ----
       #  (1) !     3e-18   84.2   3.7  cm        1      119 []          59         174 + .. 1.00    no 0.66
       #                     v               v       v         v         v             v          v                  NC
       #                    (((((((((,,,,<<-<<<<<---<<--<<<<<<_______>>-->>>>-->>---->>>>>-->><<<-<<---<-<<-----<<____>>--- CS
-      #        5S_rRNA   1 gcuggCggccAUAgcaggguggAaaCACCcGauCCCAUccCGaACuCgGAAGuUAAGcacccuagcgCcgagguGuACuggGgUggGugAccaca 95 
+      #        5S_rRNA   1 gcuggCggccAUAgcaggguggAaaCACCcGauCCCAUccCGaACuCgGAAGuUAAGcacccuagcgCcgagguGuACuggGgUggGugAccaca 95
       #                    :CUGGC:G C UAGC+:GG GG   CACC:GA CCCAU CCG ACUC:GAAG  AA C CC:UAGC CCGA:G G:A :G+G  GGGU  CC CA
       # AAGA01015927.1  59 CCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUG-GUAGUGUG--GGGUCUCCCCA 150
       #                    *************************************************************************.9*******..*********** PP
-      # 
+      #
       #                    v        v v          NC
       #                    -->>->->>->>>,))))))))): CS
       #        5S_rRNA  96 UGgGAaAcuagGucgccGccagcu 119
       #                    UG: A:A:UAGG   C:GCCAG:+
       # AAGA01015927.1 151 UGCGAGAGUAGGGAACUGCCAGGC 174
       #                    ************************ PP
-      # 
+      #
       # >> tRNA
       # ......cut......
-      
+
       if ( $line =~ m/^>>\s+(\S+)/ ) {
 	  # $c->log->debug( "Search::Sequence::parse_log: results for |$1|" )
 	  #   if $c->debug;
-	  
+
 	  $id = $1;
 
 	  # field label line, used only to determine if we have PP annotation for this alignment or not
@@ -601,21 +601,21 @@ sub parse_log : Private {
 	  $line = $lines[$n];
 	  my @elA = split(/\s+/, $line);
 	  $have_pp = ($elA[14] eq "acc") ? 1 : 0;
-	  
-	
+
+
 	  # tabular results line:
 	  # Example: (1) !     3e-18   84.2   3.7  cm        1      119 []          59         174 + .. 1.00    no 0.66
 	  $n += 2; # skip next line after ">>"-prefixed line
 	  $line = $lines[$n];
 	  @elA = split(/\s+/, $line);
-	
+
 	  #   $c->log->debug( "Search::Sequence::parse_log: E:      |$elA[3]|" );
 	  #   $c->log->debug( "Search::Sequence::parse_log: score:  |$elA[4]|" );
 	  #   $c->log->debug( "Search::Sequence::parse_log: start:  |$elA[10]|");
 	  #   $c->log->debug( "Search::Sequence::parse_log: end:    |$elA[11]|");
 	  #   $c->log->debug( "Search::Sequence::parse_log: strand: |$elA[12|]");
 	#   $c->log->debug( "Search::Sequence::parse_log: GC:     |$elA[16]|");
-	  
+
 	  $hit = {
 	      id     => $id,
 	      E      => $elA[3],
@@ -631,14 +631,14 @@ sub parse_log : Private {
 	       $c->stash->{id_acc_mapping}->{$id}) {
 	      $hit->{acc} = $c->stash->{id_acc_mapping}->{$id};
 	  }
-	  
+
 	  push @{ $hits->{$id} }, $hit;
-	  
+
 	  # parse the alignment block
 	  $b = $n + 2;
 	  # $c->log->debug( 'Search::Sequence::parse_log: block constitutes lines ' .
-	  #                 "$b - " . ( $b + 5 ) ) if $c->debug; 
-	  
+	  #                 "$b - " . ( $b + 5 ) ) if $c->debug;
+
 	  my $block;
 	  if ($have_pp) { # alignment has PP annotation so it's 6 lines
 	      $block = read_block( 1, [ @lines[ $b .. $b+5 ] ] );
@@ -647,12 +647,12 @@ sub parse_log : Private {
 	      $block = read_block( 0, [ @lines[ $b .. $b+4 ] ] );
 	  }
 	  # $c->log->debug( 'Search::Sequence::parse_log: block: ' .
-	  #                 dump( $block ) ) if $c->debug; 
-	  
+	  #                 dump( $block ) ) if $c->debug;
+
 	  push @{ $hit->{blocks} }, $block;
       }
   }
-  
+
   # stash the parsed results
   $c->stash->{rest}->{hits} = $hits;
 }
@@ -695,7 +695,7 @@ sub get_id_acc_mapping : Private {
     $c->cache->set( $cache_key, $mapping, 604800 ) unless $ENV{NO_CACHE};
   }
 
-  $c->log->debug( 'Search::get_id_acc_mapping: found ' . scalar( keys %$mapping ) 
+  $c->log->debug( 'Search::get_id_acc_mapping: found ' . scalar( keys %$mapping )
                   . ' families in the mapping' )
     if $c->debug;
 
@@ -710,8 +710,8 @@ sub get_id_acc_mapping : Private {
 
 =head2 read_block
 
-Given a reference to an array containing the five or six lines of an 
-alignment block, this function parses the block and returns a reference 
+Given a reference to an array containing the five or six lines of an
+alignment block, this function parses the block and returns a reference
 to a hash containing all of the relevant information. If $have_pp
 is 1, then we have six lines (we have PP annotation), else if $have_pp
 is 0, then we have five lines (no PP annotation).
@@ -742,15 +742,15 @@ sub read_block {
   $block->{user}->{end}   = $3;
 
   $block->{nc} = substr $lines->[0], $prefix_length, length $2;
-  
-  if($have_pp) { 
+
+  if($have_pp) {
       $block->{pp} = substr $lines->[5], $prefix_length, length $2;
   }
-  else { 
-      $block->{pp} = ""; 
+  else {
+      $block->{pp} = "";
       for($i = 0; $i < (length $2); $i++) { $block->{pp} .= " "; }
   }
-  
+
   return $block;
 }
 
