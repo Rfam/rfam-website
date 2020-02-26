@@ -485,10 +485,6 @@ sharedUri = c.uri_for( "/shared" );
 
   <hr />
 
-  <div>
-      <rnacentral-sequence-search databases='["pdbe", "mirbase", "refseq"]'/>
-  </div>
-
   <div id="newFeatures" style="display: none">
   </div>
 
@@ -676,7 +672,6 @@ GAAGGGCGUCGUCAGUACUAUAGUGGGUGACCAUAUGGGAAUACGACGUGCUGUAGCUU";
 
   // ]]>
 </script>
-<script type='text/javascript' src='[% staticUri %]/javascripts/RNAcentral-sequence-search.js'></script>
 
 <!-- end of index page -->
 [%#
