@@ -85,7 +85,11 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
                 "searchButtonColor": "#621700",
                 "clearButtonColor": "#B15437",
                 "h3Color": "#621700",
-                "facetColor": "#621700"
+                "facetColor": "#621700",
+                "exactMatchBackgroundColor": "#EBE2E2",
+                "similarSeqText": "Similar sequences in RNAcentral",
+                "hideUploadButton": "true",
+                "loadMoreButtonColor": "#621700"
               }'
       />
 
