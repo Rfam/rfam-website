@@ -7,7 +7,7 @@
 # $Id: sequences.tt,v 1.3 2009-10-08 16:01:48 jt6 Exp $
 
 #-------------------------------------------------------------------------------
-# specify required stylesheets and javascript files 
+# specify required stylesheets and javascript files
 
 PROCESS "components/require.tt";
 sharedRequirements.js.push( "tablekit.js" );
@@ -36,7 +36,7 @@ USE String;
 
     document.observe( "dom:loaded", function() {
       var su = new Ajax.Updater(
-        { 
+        {
           success: "sequencesTab", // where to insert data on success
         },
         "[% c.uri_for('/family', acc, 'sequences') %]",
@@ -47,17 +47,98 @@ USE String;
       );
     } );
 
+    var getFasta = function(event, rfamAcc, seqAcc, seqStart, seqEnd) {
+        event.target.style.color = '#b18b80';
+
+        // RNAcentral identifier
+        if (seqAcc.search(/^URS[A-F0-9]{10}/i) !== -1) {
+            rnacentral_id = seqAcc.slice(0,13);
+            jQuery.ajax({
+                url: 'https://rnacentral.org/api/v1/rna/URS.fasta'.replace('URS', rnacentral_id),
+                success: function(data) {
+                    downloadFile(data, rfamAcc + '_' + seqAcc + '.fasta');
+                },
+                error: function(request, status, error) {
+                    event.target.parentNode.innerHTML = '<i class="fa fa-warning fa-2x" aria-hidden="true" style="color: red;" title="Sequence could not be downloaded from RNAcentral: ' + error + '"></i>';
+                },
+            });
+            return;
+        }
+
+        seqStart = parseInt(seqStart);
+        seqEnd = parseInt(seqEnd);
+        var reversed = (seqStart > seqEnd);
+
+        var enaUrl = 'http://www.ebi.ac.uk/ena/data/view/seqAcc&display=fasta&range=seqStart-seqEnd';
+        var proxyUrl = '/ebeye_proxy';
+
+        if (!reversed) {
+            url = enaUrl.replace('seqStart', seqStart).replace('seqEnd', seqEnd);
+        } else {
+            url = enaUrl.replace('seqStart', seqEnd).replace('seqEnd', seqStart);
+        }
+        url = url.replace('seqAcc', seqAcc);
+
+        jQuery.ajax({
+            url: proxyUrl,
+            data: {'url': url},
+            success: function(data) {
+                // parse the response to make sure there are no errors and to update the sequence name
+                var lines = data.split('\n');
+                var sequence = '';
+                for (i = 0; i < lines.length; i++) {
+                    if (i == 0 && lines[i].indexOf('>') !== -1) {
+                        continue; // skip ENA FASTA header
+                    } else if (i == 0 && lines[i].indexOf('>') === -1) {
+                        // ENA error
+                        event.target.parentNode.innerHTML = '<i class="fa fa-warning fa-2x" aria-hidden="true" style="color: red;" title="Sequence could not be downloaded from ENA: ' + lines[0] + '"></i>';
+                        return;
+                    }
+                    sequence += lines[i];
+                }
+                var seq_region = seqAcc + '/' + seqStart + '-' + seqEnd;
+                if (reversed) {
+                    sequence = sequence.split("").reverse().join("");
+                }
+                var fasta = '>' + seq_region + '\n' + sequence;
+                downloadFile(fasta, rfamAcc + '_' + seq_region.replace('/', '_') + '.fasta');
+            }
+        });
+    }
+
+    function downloadFile(data, fileName, type="text/plain") {
+      // Create an invisible A element
+      const a = document.createElement("a");
+      a.style.display = "none";
+      document.body.appendChild(a);
+
+      // Set the HREF to a Blob representation of the data to be downloaded
+      a.href = window.URL.createObjectURL(
+        new Blob([data], { type })
+      );
+
+      // Use download attribute to set set desired file name
+      a.setAttribute("download", fileName);
+
+      // Trigger the download by simulating click
+      a.click();
+
+      // Cleanup
+      window.URL.revokeObjectURL(a.href);
+      document.body.removeChild(a);
+    }
+
     // ]]>
   </script>
 
 </div>
 
-<!-- end sequences block --> 
+<!-- end sequences block -->
 
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under

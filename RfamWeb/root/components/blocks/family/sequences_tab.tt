@@ -11,47 +11,51 @@ META naked = 1;
 USE Number.Format( THOUSANDS_SEP = "," );
 %]
 
-<p>
-  There are <strong>[% rfam.num_full + rfam.num_seed %]</strong> sequence regions for this family.
-  [% IF rfam.num_full < limits.showAll;
-    tabLabel = rfam.num_full %]
-    You can <a href="[% c.uri_for( '/family', acc, 'regions' ) %]">download</a>
-    the details of all regions as a tab-delimited file. The table of results
-    below may be sorted by clicking on the column titles, or restored to the
-    original order <span class="link" id="sortLink">here</span>.
-  [% ELSIF rfam.num_full < limits.showText;
-    tabLabel = limits.showAll _ "+" %]
-    We are showing the first <strong>[% limits.showAll %]</strong>, sorted
-    by bit score, but you can
-    <a href="[% c.uri_for('/family', acc, 'regions' ) %]">download</a>
-    the details of all of them as a tab-delimited file.
-    The table of results below may be sorted by clicking on the column titles, or
-    restored to the original order <span class="link" id="sortLink">here</span>.
-  [% ELSE;
-    tabLabel = limits.showText _ "+" %]
-    We are showing the first <strong>[% limits.showAll %]</strong>, sorted by
-    bit score, but there are too many regions to download. If you really need
-    a list of all regions for this family, please contact us at the address
-    below and we will do our best to help.
-  [% END %]
-</p>
+<h3>Quick actions</h3>
 
 <div class="bootstrap-wrapper">
-  <form method="get" action="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz" style="display: inline;">
-    <button style="margin-bottom:5px;" class="btn btn-default btn-sm">Download unaligned sequences (FASTA)</button>
-  </form>
-
-  <a href="/search?q=[% rfam.rfam_acc %]%20AND%20entry_type:%22Sequence%22" style="margin-left:10px; margin-right: 10px;">Browse sequences using text search</a>
-
-  [% IF (rfam.type.search('riboswitch') || rfam.type.search('leader') || rfam.type.search('Gene') && !rfam.type.search('lncRNA') ) %]
-    <a href="http://rnacentral.org/search?q=[% rfam.rfam_acc %]%20expert_db:%22Rfam%22" target="_blank">
-      Browse distinct sequences in RNAcentral
-    </a>
-    <img src="/static/images/rnacentral_logo.png"
-         style="width: 20px; margin-left: 5px;"
-         alt="RNAcentral logo"/>
-  [% END %]
+  <div class="btn-toolbar" role="toolbar" style="margin-top: 15px; margin-bottom: 15px;">
+    <div class="btn-group" role="group">
+      <button onclick="location.href='ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz'" type="button" class="btn btn-default help" title="FASTA format">
+         <i class="fa fa-download" aria-hidden="true"></i> Download all sequences
+       </button>
+       [% IF rfam.num_full < limits.showText %]
+       <button onclick="location.href='[% c.uri_for( '/family', acc, 'regions' ) %]'" type="button" class="btn btn-default help" title="TSV format">
+          <i class="fa fa-download" aria-hidden="true"></i> Download table
+        </button>
+        [% END %]
+    </div>
+    <div class="btn-group" role="group">
+      <button onclick="location.href='/search?q=[% rfam.rfam_acc %]%20AND%20entry_type:%22Sequence%22'" type="button" class="btn btn-default help" title="View sequence regions using Rfam search">
+         <i class="fa fa-search" aria-hidden="true"></i> Browse in Rfam
+       </button>
+      [% IF (rfam.type.search('riboswitch') || rfam.type.search('leader') || rfam.type.search('Gene') && !rfam.type.search('lncRNA') ) %]
+        <button onclick="location.href='http://rnacentral.org/search?q=[% rfam.rfam_acc %]%20expert_db:%22Rfam%22'" type="button" class="btn btn-default help" title="View distinct sequences using RNAcentral search">
+          <img src="/static/images/rnacentral_logo.png"
+               style="width: 17px;"
+               alt="RNAcentral logo"/>
+          Browse in RNAcentral
+         </button>
+      [% END %]
+    </div>
+  </div>
 </div>
+
+[% IF rfam.num_full < limits.showAll;
+  tabLabel = rfam.num_full %]
+  <h3>Table view ([% rfam.num_full + rfam.num_seed | format_number %] sequence regions)</h3>
+[% ELSIF rfam.num_full < limits.showText;
+  tabLabel = limits.showAll _ "+" %]
+  <h3>Table preview ([% limits.showAll %] out of [% rfam.num_full + rfam.num_seed | format_number %] sequence regions)</h3>
+[% ELSE;
+  tabLabel = limits.showText _ "+" %]
+  <h3>Table preview ([% limits.showAll %] out of [% rfam.num_full + rfam.num_seed | format_number %] sequence regions)</h3>
+  <p>
+  There are too many regions to download. If you need
+  a list of all regions for this family, please contact us at the address
+  below and we will do our best to help.
+  </p>
+[% END %]
 
 [% IF rfam.num_full > 0 || rfam.num_seed > 0 %]
   <table summary="Rfam regions"
@@ -60,13 +64,15 @@ USE Number.Format( THOUSANDS_SEP = "," );
     <thead class="sortIndicator">
       <tr>
         <th id="indexCol" class="rowNum">Original order</th>
-        <th>Sequence accession</th>
+        <th>Download FASTA</th>
+        <th>Accession</th>
         <th>Bit score</th>
         <th>Type</th>
         <th>Start</th>
         <th>End</th>
         <th>Description</th>
         <th>Species</th>
+        <th>View context</th>
       </tr>
     </thead>
     <tbody>
@@ -100,18 +106,17 @@ USE Number.Format( THOUSANDS_SEP = "," );
         <tr class="[% loop.parity %]">
           <td class="rowNum">[% loop.index %]</td>
           <td>
+            <div class="bootstrap-wrapper">
+              <a onclick="getFasta(event, '[% rfam.rfam_acc %]', '[% seqAcc %]', '[% region.seq_start %]', '[% region.seq_end %]');" style="cursor: pointer"><i class="fa fa-download fa-2x" aria-hidden="true" title="Download FASTA sequence"></i></a>
+            </div>
+          </td>
+          <td style="text-align:center;">
             [% IF seqAcc.search('^URS') %]
             <a href="[% rnacentral_url %]/[% seqAcc %]" target="_blank" title="View sequence in RNAcentral">[% seqAcc %]</a>
             [% ELSE %]
-            <a title="[% rfam.rfam_acc %]"
-               href="[% seqUri; seqAcc %]">
+            <a title="View accession in ENA"
+               href="https://www.ebi.ac.uk/ena/data/view/[% seqAcc %]" target="_blank">
               [% seqAcc %]</a>
-            <a href="[% enaURI %]"
-               rel="lightbox[seqs]"
-               title="[% enaTitle %]">
-              <img src="/static/images/seq_icon.png"
-                   class="seqIcon"
-                   alt="ENA graphic" /></a>
             [% END %]
           </td>
           <td title="Bit scores are only provided for full region hits">N/A</td>
@@ -120,6 +125,18 @@ USE Number.Format( THOUSANDS_SEP = "," );
           <td>[% region.seq_end   | format_number %]</td>
           <td class="left">[% region.get_column('description') %]</td>
           <td>[% region.get_column('species') %]</td>
+          <td>
+            [% IF not seqAcc.search('^URS') %]
+            <a href="[% enaURI %]"
+               rel="lightbox[seqs]"
+               title="[% enaTitle %]">
+              <img src="/static/images/seq_icon.png"
+                   class="seqIcon"
+                   alt="ENA graphic" /></a>
+            [% ELSE %]
+            &nbsp;
+            [% END %]
+          </td>
         </tr>
       [% END %]
 
@@ -152,15 +169,18 @@ USE Number.Format( THOUSANDS_SEP = "," );
         <tr class="[% loop.parity %]">
           <td class="rowNum">[% loop.index %]</td>
           <td>
+            <div class="bootstrap-wrapper">
+              <a onclick="getFasta(event, '[% rfam.rfam_acc %]', '[% seqAcc %]', '[% region.seq_start %]', '[% region.seq_end %]');" style="cursor: pointer"><i class="fa fa-download fa-2x" aria-hidden="true" title="Download FASTA sequence"></i></a>
+            </div>
+          </td>
+          <td style="text-align:center;">
+            [% IF seqAcc.search('^URS') %]
+            <a href="[% rnacentral_url %]/[% seqAcc %]" target="_blank" title="View sequence in RNAcentral">[% seqAcc %]</a>
+            [% ELSE %]
             <a title="[% rfam.rfam_acc %]"
-               href="[% seqUri; seqAcc %]">
+               href="https://www.ebi.ac.uk/ena/data/view/[% seqAcc %]" target="_blank">
               [% seqAcc %]</a>
-            <a href="[% enaURI %]"
-               rel="lightbox[seqs]"
-               title="[% enaTitle %]">
-              <img src="/static/images/seq_icon.png"
-                   class="seqIcon"
-                   alt="ENA graphic" /></a>
+            [% END %]
           </td>
           <td>[% region.bit_score %]</td>
           <td>[% region.type %]</td>
@@ -168,22 +188,29 @@ USE Number.Format( THOUSANDS_SEP = "," );
           <td>[% region.seq_end   | format_number %]</td>
           <td class="left">[% region.get_column('description') %]</td>
           <td>[% region.get_column('species') %]</td>
-        </tr>
-      [% END;
-      IF rfam.num_full > limits.showAll %]
-        <tr class="truncationWarning">
-          <td colspan="8">
-            <strong>Note</strong>: this table contains only the first
-            <strong>[% limits.showAll %]</strong> sequences.
-            [% IF rfam.num_full < limits.showText %]
-              <a href="[% c.uri_for('/family', acc, 'regions' ) %]">Download</a>
-              the full result set.
+          <td>
+            [% IF not seqAcc.search('^URS') %]
+            <a href="[% enaURI %]"
+               rel="lightbox[seqs]"
+               title="[% enaTitle %]">
+              <img src="/static/images/seq_icon.png"
+                   class="seqIcon"
+                   alt="ENA graphic" /></a>
+            [% ELSE %]
+            &nbsp;
             [% END %]
           </td>
         </tr>
-      [% END %]
+      [% END; %]
     </tbody>
   </table>
+
+  [% IF rfam.num_full > limits.showAll %]
+    <p>
+      <strong>Note</strong>: this table contains only the first
+      <strong>[% limits.showAll %]</strong> sequences.
+    </p>
+  [% END %]
 
   <script type="text/javascript">
     // <![CDATA[
