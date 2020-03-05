@@ -4,6 +4,8 @@ use LWP::Simple;
 use Moose;
 use namespace::autoclean;
 
+$ENV{'PERL_LWP_SSL_VERIFY_HOSTNAME'} = 0;
+
 BEGIN {
   extends 'Catalyst::Controller::REST';
 }
