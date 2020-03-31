@@ -79,6 +79,10 @@ USE String;
         }
         url = url.replace('seqAcc', seqAcc);
 
+        function complement(a) {
+            return { A: 'U', T: 'A', G: 'C', C: 'G' }[a];
+        }
+
         jQuery.ajax({
             url: proxyUrl,
             data: {'url': url},
@@ -98,7 +102,7 @@ USE String;
                 }
                 var seq_region = seqAcc + '/' + seqStart + '-' + seqEnd;
                 if (reversed) {
-                    sequence = sequence.split("").reverse().join("");
+                    sequence = sequence.split('').reverse().map(complement).join('');
                 }
                 var fasta = '>' + seq_region + '\n' + sequence;
                 downloadFile(fasta, rfamAcc + '_' + seq_region.replace('/', '_') + '.fasta');
