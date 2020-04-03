@@ -24,24 +24,16 @@ sharedUri = c.uri_for( "/shared" );
 
   <body>
 
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the header" );
+    END -%]
+
     <div id="dbd">
-
-      <a class="siteLogoHolder" style="float: left" href="[% c.config.site_home %]">
-        <img alt="[% c.config.site_name %]" 
-             id="siteLogo"
-             src="[% sharedUri %]/images/blank.gif" /></a>
-      
-      <a class="rfamLogoHolder" style="float: right" href="[% c.uri_for( "/" ) %]">
-        <img alt="Rfam" 
-             id="rfamLogo" 
-             src="[% sharedUri %]/images/blank.gif" /></a>
-
-      <div class="cleaner"><!-- empty --></div>
-  
       <h1>[% title %]</h1>
 
       [% message %]
-
     </div>
 
     [% TRY;
@@ -56,7 +48,7 @@ sharedUri = c.uri_for( "/shared" );
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
