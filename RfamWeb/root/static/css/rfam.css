@@ -131,6 +131,22 @@ h4, h5, h6 {
  * IE7 fixes from http://www.gerd-riesselmann.net/development/the-holy-grail-css-layout-fix-for-ie7
  */
 
+.navbar-nav > li > a {
+  color: #734639 !important;
+  text-decoration: none;
+  font-family: Verdana;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+}
+
+.navbar-rfam {
+    text-align: center;
+}
 
 .brush-highlight {
   background: url(/static/images/brush-stroke-banner-6.svg);
@@ -183,7 +199,8 @@ div.rfamLogoHolder a {
 }
 
 div.rfamLogoHolder #searchBox {
-  margin-left: 66px;
+  /* margin-left: 66px; */
+  margin-top: 10px;
 }
 
 /* div.rfamLogoHolder a.button { */
@@ -195,27 +212,21 @@ div.rfamLogoHolder.pre img {
 }
 
 #siteLogo {
-  background-image: url(/shared/images/EMBL_EBI_logo_180pixels_RGB.jpg);
+  background-image: url(/static/images/rfam_logo.png);
   background-repeat: no-repeat;
-  width: 218px;
-  height: 70px;
+  width: 250px;
+  height: 50px;
 }
 
 #rfamLogo {
   background: #FFF url(/static/images/rfam_logo.png) no-repeat;
   width: 230px;
-  height: 50px;
+  height: 64px;
 }
 
 div.pre #rfamLogo {
   background: #FFF url(/static/images/pre_rfam_logo.png) no-repeat ! important;
   width: 230px;
-}
-
-/* tweak the site-wide search box so that it fits nicely under the Rfam logo */
-#siteSearchField {
-  width: 90px;
-  margin-left: 38px;
 }
 
 div.pre #siteSearchField {
@@ -393,10 +404,12 @@ div.jumpSpinner {
 	font-size: large;
 }
 
-/* ======================================== */
-/* the footer. We use a wrapper div (#contentContainer) for the content
-   when the page contains tabs, so add a separate style for that which
-   adds the background image, etc. */
+/* ====== */
+/* Footer */
+
+.rfam-footer a !important, .no-underline !important, .no-underline:hover !important {
+  text-decoration: none;
+}
 
 #siteFooter {
   margin: 0.4em 0 0 0;
@@ -554,7 +567,6 @@ table.links td {
 
 body.tool {
   padding: 80px 2px 2px 2px;
-  background: #FFF url(/shared/images/EMBL_EBI_logo_180pixels_RGB.jpg) 1em 1em no-repeat;
   /* background: #FFF url(/static/images/about_back.png) left top no-repeat;  */
   color: #621700;
 }
@@ -1006,7 +1018,7 @@ div.citation span.jrnl {
 /* a few rules for a page that apologises when the database is down */
 
 #dbd {
-  margin: 120px auto 0 auto;
+  margin: 80px auto 0 auto;
   width: 485px;
   color: #621700;
   text-align: justify;
@@ -1016,14 +1028,6 @@ div.citation span.jrnl {
 #dbd h1 {
   font-size: 20px;
   text-align: center;
-}
-
-#dbdSiteLogo {
-  background: url(/shared/images/EMBL_EBI_logo_180pixels_RGB.jpg) no-repeat;
-  width: 200px;
-  height: 70px;
-  left: 0;
-  position: relative;
 }
 
 #dbdPfamLogo {
@@ -2933,4 +2937,8 @@ a.btn {
 .data-protection-banner a:hover, .data-protection-banner a, #data-protection-agree {
   color: whitesmoke !important;
   text-decoration-style: dotted;
+}
+
+.rfam-footer a, .no-underline, .no-underline:hover {
+  text-decoration: none;
 }
