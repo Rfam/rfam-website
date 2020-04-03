@@ -17,6 +17,9 @@ PROCESS "components/require.tt";
 requirements.css.push( "index.css" );
 requirements.cssIeAll.push( "index_all_ie.css" );
 
+
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
 #-------------------------------------------------------------------------------
 
 # a warning message for users who dont have javascript turned on. The
@@ -24,6 +27,8 @@ requirements.cssIeAll.push( "index_all_ie.css" );
 # javascript is not working, the prototype call will fail and the message
 # will stay visible
 %]
+
+
 <div id="jsWarning">
   <strong>Please note:</strong> this site relies heavily on the use of javascript.
   Without a javascript-enabled browser, this site will not function correctly.
