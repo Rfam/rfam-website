@@ -1,0 +1,49 @@
+[%
+META naked = 1;
+
+# the base URL for static content
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+  <head>
+    <title>Rfam: covid 19</title>
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
+  </head>
+
+  <body>
+
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't process the header" );
+    END -%]
+
+
+    <div id="dbd" style="margin-top: 0;">
+
+      <h1>Rfam Covid-19 resources</h1>
+
+      <h2>Coronavirus RNA families</h2>
+
+      <ul>
+        <li>Family 1</li>
+        <li>Family 2</li>
+        <li>Family 3</li>
+      </ul>
+
+    </div>
+
+    [% TRY;
+      PROCESS "components/footer_${c.config.site}.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the site-specific footer" );
+    END -%]
+
+  </body>
+
+</html>
