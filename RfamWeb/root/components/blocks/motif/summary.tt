@@ -169,7 +169,7 @@ PROCESS components/links.tt;
       <script type="text/javascript">
         jQuery(document).ready(function(){
             jQuery('#wikiArticle').wikiblurb({
-                page: '[%- wiki_title %]',
+                page: "[%- wiki_title %]",
             });
         });
       </script>
