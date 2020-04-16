@@ -71,6 +71,7 @@ staticUri = c.uri_for( "/static" );
     <div class="col-md-2 col-sm-3 col-xs-4">
       <ul class="list-unstyled" style="padding-left: 20px;">
         <li><strong>Data access</strong></li>
+        <li><a href="/covid-19">COVID-19</a></li>
         <li><a href="https://docs.rfam.org/en/latest/ftp-help.html">FTP archive</a></li>
         <li><a href="https://docs.rfam.org/en/latest/api.html">API access</a></li>
         <li><a href="https://docs.rfam.org/en/latest/database.html">Public MySQL database</a></li>
