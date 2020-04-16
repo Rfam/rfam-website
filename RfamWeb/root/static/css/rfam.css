@@ -2942,3 +2942,19 @@ a.btn {
 .rfam-footer a, .no-underline, .no-underline:hover {
   text-decoration: none;
 }
+
+.bootstrap-wrapper h1{
+  font-size: x-large;
+  margin: 0.67em 0;
+  font-family: Verdana;
+  font-weight: bold;
+  color: #621700;
+}
+
+.bootstrap-wrapper h2{
+  font-size: large;
+  margin: 0.67em 0;
+  font-family: Verdana;
+  font-weight: bold;
+  color: #621700;
+}
