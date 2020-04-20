@@ -54,35 +54,35 @@ sharedUri = c.uri_for( "/shared" );
               <div class="col-md-12">
                 <div class="coronavirus-gallery">
                   <div>
-                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="https://www.dropbox.com/s/dh3gabkkd4ivmjw/Alphacoronavirus.png?dl=1" alt="Alphacoronavirus">
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/alphacoronavirus.png" alt="Alphacoronavirus">
                     <ul class="list-unstyled text-center">
                       <li><a href="/family/RF03116">Alphacoronavirus 5'-UTR</a> RF03116</li>
                       <li><a href="/family/RF03121">Alphacoronavirus 3'-UTR</a> RF03121</li>
                     </ul>
                   </div>
                   <div>
-                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="https://www.dropbox.com/s/sios7jy1rafihbc/Betacoronavirus.png?dl=1" alt="Betacoronavirus">
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/betacoronavirus.png" alt="Betacoronavirus">
                     <ul class="list-unstyled text-center">
                       <li><a href="/family/RF03117">Betacoronavirus 5'-UTR</a> RF03117</li>
                       <li><a href="/family/RF03122">Betacoronavirus 3'-UTR</a> RF03122</li>
                     </ul>
                   </div>
                   <div>
-                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="https://www.dropbox.com/s/hhi4x08crccondr/SARS-Cov-2.png?dl=1" alt="SARS-CoV-2">
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/sarbecovirus.png" alt="Sarbecovirus">
                     <ul class="list-unstyled text-center">
-                      <li><a href="/family/RF03120"><strong>SARS-CoV-2 5'-UTR</strong></a> RF03120</li>
-                      <li><a href="/family/RF03125"><strong>SARS-CoV-2 3'-UTR</strong></a> RF03125</li>
+                      <li><a href="/family/RF03120"><strong>Sarbecovirus 5'-UTR</strong></a> RF03120</li>
+                      <li><a href="/family/RF03125"><strong>Sarbecovirus 3'-UTR</strong></a> RF03125</li>
                     </ul>
                   </div>
                   <div>
-                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="https://www.dropbox.com/s/od74soyabtddlxh/Gammacoronavirus.png?dl=1" alt="Gammacoronavirus">
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/gammacoronavirus.png" alt="Gammacoronavirus">
                     <ul class="list-unstyled text-center">
                       <li><a href="/family/RF03118">Gammacoronavirus 5'-UTR</a> RF03118</li>
                       <li><a href="/family/RF03123">Gammacoronavirus 3'-UTR</a> RF03123</li>
                     </ul>
                   </div>
                   <div>
-                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="https://www.dropbox.com/s/ykfwbbyr5iwiznh/Deltacoronavirus.png?dl=1" alt="Deltacoronavirus">
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/deltacoronavirus.png" alt="Deltacoronavirus">
                     <ul class="list-unstyled text-center">
                       <li><a href="/family/RF03119">Deltacoronavirus 5'-UTR</a> RF03119</li>
                       <li><a href="/family/RF03124">Deltacoronavirus 3'-UTR</a> RF03124</li>
