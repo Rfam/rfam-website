@@ -122,7 +122,8 @@ sharedUri = c.uri_for( "/shared" );
               <h2>Where do I find more data?</h3>
 
               <p>
-                EMBL-EBI has set up the <a href="https://www.ebi.ac.uk/covid-19" target="_blank">COVID-19 Portal</a>,
+                More data on SARS-CoV-2 can be found on the
+                <a href="http://www.covid19dataportal.org" target="_blank">European COVID-19 Data Portal</a>,
                 which brings together all relevant datasets submitted to EMBL-EBI
                 and other major centres for biomedical information.
               </p>
