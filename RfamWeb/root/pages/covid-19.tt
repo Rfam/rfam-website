@@ -11,7 +11,7 @@ sharedUri = c.uri_for( "/shared" );
 <html>
 
   <head>
-    <title>Rfam: covid 19</title>
+    <title>Rfam COVID-19 Resources</title>
     <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
     <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/slick-theme.css" />
     <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/slick.css"/>
