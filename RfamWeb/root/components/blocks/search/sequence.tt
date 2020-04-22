@@ -38,12 +38,12 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
       <h3>Sequence validation</h3>
       <p>
         We check all sequences before running a search. In order to avoid
-        problems with the validation of your sequence, you should use only
+        problems with the validation of your sequence, we recommend using
         plain, unformatted text. Here are some of the validation checks that we
         apply to sequences:
       </p>
       <ul>
-        <li>sequence length must be less than 10,000 nucleotides</li>
+        <li>sequence length must be less than 7,000 nucleotides</li>
         <li>the sequence must be a nucleotide sequence; protein sequences will
           not be accepted</li>
         <li>only nucleotide symbols allowed in the sequence. The accepted
@@ -54,19 +54,9 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
           be accepted</li>
         <li>FASTA-header lines are accepted but will be removed</li>
       </ul>
-      <p>
-        If you have problems getting your sequence to upload, please check that
-        it passes these tests. Note that although we do allow FASTA-style
-        header lines on a sequence, some characters in header lines can still
-        cause the sequence to be rejected. If in doubt, please remove header
-        lines before pasting in your sequence.
-      </p>
-      <p>
-        You can see an example of a sequence that will successfully pass all of
-        the validation tests by clicking the Example button below the search
-        form.
-      </p>
 
+      If you have problems with this page, try the <a href="https://www.ebi.ac.uk/Tools/rna/infernal_cmscan/">EBI cmscan tool</a>
+      which uses the latest set of Rfam covariance models.
       <hr />
     </div>
 
