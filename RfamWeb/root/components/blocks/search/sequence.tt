@@ -79,7 +79,8 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
                 "exactMatchBackgroundColor": "#EBE2E2",
                 "similarSeqText": "Similar sequences in RNAcentral",
                 "hideUploadButton": "true",
-                "loadMoreButtonColor": "#621700"
+                "loadMoreButtonColor": "#621700",
+                "linkColor": "#621700"
               }'
       />
 
