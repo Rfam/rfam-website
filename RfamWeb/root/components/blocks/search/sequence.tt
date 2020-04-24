@@ -195,6 +195,7 @@ ATACGACGTGCTGTAGCTT";
     var exEntry = "AJ390104.1";
     // ]]>
   </script>
+  <!-- <script type='text/javascript' src='/static/javascripts/RNAcentral-sequence-search.js'></script> -->
   <script type='text/javascript' src='https://combinatronics.com/RNAcentral/rnacentral-sequence-search-embed/bootstrap/dist/RNAcentral-sequence-search.js'></script>
 
 
