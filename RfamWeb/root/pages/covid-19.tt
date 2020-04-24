@@ -39,7 +39,8 @@ sharedUri = c.uri_for( "/shared" );
                 Rfam produced a special <strong>release 14.2</strong>
                 <br>
                 that includes new and updated Coronavirus families.
-                Read more in a <a href="https://xfam.wordpress.com/tag/rfam/"><strong>blog post &rarr;</strong></a>
+                Read more in a <a href="https://xfam.wordpress.com/tag/rfam/"><strong>blog post</strong></a>
+                or <a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/14.2/covid-19/"><strong>download the data</strong></a>
               </p>
           </div>
 
