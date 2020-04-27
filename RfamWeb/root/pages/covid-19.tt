@@ -1,0 +1,168 @@
+[%
+META naked = 1;
+
+# the base URL for static content
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+  <head>
+    <title>Rfam COVID-19 Resources</title>
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/slick.css"/>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@RfamDB" />
+    <meta name="twitter:title" content="Rfam Covid-19 Resources" />
+    <meta name="twitter:description" content="Browse Coronavirus RNA families, including 5' and 3' UTRs, as well as frameshifting stimulation element, s2m RNA, and packaging signal" />
+    <meta name="twitter:image" content="https://rfam.org/static/images/coronavirus/sarbecovirus.png" />
+  </head>
+
+  <body>
+
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't process the header" );
+    END -%]
+
+    <div class="bootstrap-wrapper">
+      <div class="container-fluid" style="margin: 15px;">
+          <div class="row">
+              <h1>Rfam COVID-19 Resources</h1>
+              <p class="lead">
+                In response to the SARS-CoV-2 outbreak,
+                Rfam produced a special <strong>release 14.2</strong>
+                <br>
+                that includes new and updated Coronavirus families.
+                Read more in a <a href="https://xfam.wordpress.com/tag/rfam/"><strong>blog post</strong></a>
+                or <a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/14.2/covid-19/"><strong>download the data</strong></a>
+              </p>
+          </div>
+
+          <div class="row">
+
+              <h2>Coronavirus UTR families</h2>
+
+              <p>
+                Untranslated regions (UTR) are important functional elements that have
+                conserved secondary structure and are responsible for multiple functions,
+                including replication and packaging.
+                <br>
+                The following <strong>new families</strong> represent the 5'- and 3'-UTRs
+                of the Coronavirus genomes:
+              </p>
+
+              <div class="col-md-12">
+                <div class="coronavirus-gallery">
+                  <div>
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/alphacoronavirus.png" alt="Alphacoronavirus">
+                    <ul class="list-unstyled text-center">
+                      <li><a href="/family/RF03116">Alphacoronavirus 5'-UTR</a> RF03116</li>
+                      <li><a href="/family/RF03121">Alphacoronavirus 3'-UTR</a> RF03121</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/betacoronavirus.png" alt="Betacoronavirus">
+                    <ul class="list-unstyled text-center">
+                      <li><a href="/family/RF03117">Betacoronavirus 5'-UTR</a> RF03117</li>
+                      <li><a href="/family/RF03122">Betacoronavirus 3'-UTR</a> RF03122</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/sarbecovirus.png" alt="Sarbecovirus">
+                    <ul class="list-unstyled text-center">
+                      <li><a href="/family/RF03120"><strong>Sarbecovirus 5'-UTR</strong></a> RF03120</li>
+                      <li><a href="/family/RF03125"><strong>Sarbecovirus 3'-UTR</strong></a> RF03125</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/gammacoronavirus.png" alt="Gammacoronavirus">
+                    <ul class="list-unstyled text-center">
+                      <li><a href="/family/RF03118">Gammacoronavirus 5'-UTR</a> RF03118</li>
+                      <li><a href="/family/RF03123">Gammacoronavirus 3'-UTR</a> RF03123</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/coronavirus/deltacoronavirus.png" alt="Deltacoronavirus">
+                    <ul class="list-unstyled text-center">
+                      <li><a href="/family/RF03119">Deltacoronavirus 5'-UTR</a> RF03119</li>
+                      <li><a href="/family/RF03124">Deltacoronavirus 3'-UTR</a> RF03124</li>
+                    </ul>
+                  </div>
+                </div> <!-- gallery -->
+              </div> <!-- col-md-12 -->
+          </div><!-- row -->
+
+          <div class="row">
+
+              <h2>Non-UTR Coronavirus RNAs</h2>
+
+              <p>
+                The following Coronavirus families have been <strong>updated</strong>
+                to expand the seed alignments:
+              </p>
+
+              <ul>
+                <li><a href="/family/RF00182">Coronavirus packaging signal</a> RF00182</li>
+                <li><a href="/family/RF00164">Coronavirus s2m RNA</a> RF00164</li>
+                <li><a href="/family/RF00165">Coronavirus 3'-UTR pseudoknot</a> RF00165</li>
+                <li><a href="/family/RF00507">Coronavirus frameshifting stimulation element</a> RF00507</li>
+              </ul>
+
+              <h2>Acknowledgements</h3>
+
+              <p>
+                We would like to thank <a href="https://scholar.google.com/citations?user=XmpBJz0AAAAJ">Kevin Lamkiewicz</a>
+                and <a href="https://www.rna.uni-jena.de/members/manja-marz/">Manja Marz</a>
+                (Friedrich Schiller University Jena)
+                for providing the curated UTR alignments as well as
+                <a href="https://scholar.google.com/citations?user=jn84-g0AAAAJ&hl=en">Eric Nawrocki</a> (NCBI)
+                for revising the existing Rfam entries.
+              </p>
+
+              <h2>Where do I find more data?</h3>
+
+              <p>
+                More data on SARS-CoV-2 can be found on the
+                <a href="http://www.covid19dataportal.org" target="_blank">European COVID-19 Data Portal</a>,
+                which brings together all relevant datasets submitted to EMBL-EBI
+                and other major centres for biomedical information.
+              </p>
+
+          </div> <!-- row -->
+
+      </div> <!-- container-fluid -->
+  </div> <!-- bootstrap-wrapper -->
+
+    [% TRY;
+      PROCESS "components/footer_${c.config.site}.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the site-specific footer" );
+    END -%]
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="[% staticUri %]/javascripts/slick.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $('.coronavirus-gallery').slick({
+          dots: true,
+          arrows: false,
+          centerMode: true,
+          slidesToShow: 3,
+          variableWidth: true,
+          infinite: true,
+          autoplay: true,
+        });
+      });
+    </script>
+
+  </body>
+
+</html>

@@ -23,7 +23,7 @@ navLinks = {
   browse  = c.uri_for( "/browse" ),
   ftp     = "ftp://ftp.ebi.ac.uk/pub/databases/Rfam",
   blog    = "http://xfam.wordpress.com/tag/rfam/",
-  help    = "http://rfam.readthedocs.org"
+  help    = "https://docs.rfam.org"
 };
 
 # the order of the items in the navbar - these are the keys for the two
@@ -38,54 +38,45 @@ sharedUri = c.uri_for( "/shared" );
 
 <!-- header starts here -->
 
-<div id="header">
-
-  <div id="navbar" class="column">
-    <ul>
-    [% FOREACH navItem IN navItems -%]
-      <li>
-        [% IF c.stash.nav == navItem -%]
-          <a class="here" href="[% navLinks.$navItem %]">[% navNames.$navItem %]</a>
-        [% ELSE -%]
-          [% IF navLinks.${navItem}.defined -%]
-            <a href="[% navLinks.$navItem %]">[% navNames.$navItem %]</a>
-          [% ELSE -%]
-            <span class="inactive">[% navNames.$navItem %]</span>
-          [% END -%]
-        [% END;
-        IF ! loop.last %]&nbsp;|&nbsp;[% END -%]
-       </li>
-    [% END -%]
-    </ul>
-  </div>
-
-  <div class="siteLogoHolder column">
-    <a href="[% c.config.site_home %]">
-      <img alt="[% c.config.site_name %]"
-           id="siteLogo"
-           src="[% sharedUri %]/images/blank.gif" /></a>
-  </div>
-
-  <div class="rfamLogoHolder column[% IF live %] pre[% END %]">
-    <a href="[% c.uri_for( "/" ) %]">
-      <img alt="rfam"
-           id="rfamLogo"
-           src="[% sharedUri %]/images/blank.gif" /></a>
-    <form id="siteSearchForm">
-      <div id="searchBox">
-        <input class="entryField entryField"
-               type="text"
-               placeholder="Search Rfam"
-               name="query"
-               tabindex="1"
-               id="siteSearchField" />
-        <a class="btn go"
-            onclick="jQuery('#siteSearchForm').submit();">
-          <span class="btn-inner">Go</span></a>
+<div class="bootstrap-wrapper">
+  <nav class="navbar navbar-default" style="background-color: white; border: none;">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          <img alt="Rfam logo" src="/static/images/rfam_logo.png" style="max-height: 40px;">
+        </a>
       </div>
-    </form>
-  </div>
 
+      <div class="navbar-rfam">
+        <ul class="nav navbar-nav" style="display: inline-flex;">
+          <li><a href="/">HOME</a></li>
+          <li><a href="/search">SEARCH</a></li>
+          <li><a href="/browse">BROWSE</a></li>
+          <li><a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
+          <li><a href="http://xfam.wordpress.com/tag/rfam/">BLOG</a></li>
+          <li><a href="https://docs.rfam.org">HELP</a></li>
+          <li class="brush-highlight"><a href="/covid-19">COVID-19</a></li>
+        </ul>
+        <form id="siteSearchForm" class="navbar-form navbar-right col-md-3 col-sm-12 col-xs-12" style="border-top: none; border-bottom: none;">
+          <div class="input-group input-group">
+            <input type="text"
+                   id="siteSearchField"
+                   class="form-control"
+                   name="text"
+                   autocomplete="off"
+                   placeholder="Search Rfam"
+                   style="border-color: #734639;">
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-primary" style="background-color:#734639;">
+                <i class="fa fa-search"></i>
+                <span class="hidden-xs-inline">Search</span>
+              </button>
+            </div><!-- /input-group-btn -->
+          </div><!--input-group -->
+        </form>
+      </div>
+    </div>
+  </nav>
 </div>
 
 <div class="cleaner"><!-- empty --></div>

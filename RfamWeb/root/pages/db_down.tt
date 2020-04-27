@@ -20,29 +20,23 @@ sharedUri = c.uri_for( "/shared" );
   <head>
     <title>Rfam: Database unavailable</title>
     <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
-    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/[% c.config.site %].css" /> 
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/[% c.config.site %].css" />
   </head>
 
   <body>
 
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the header" );
+    END -%]
+
     <div id="dbd">
 
-      <a class="siteLogoHolder" style="float: left" href="[% c.config.site_home %]">
-        <img alt="[% c.config.site_name %]" 
-             id="siteLogo"
-             src="[% sharedUri %]/images/blank.gif" /></a>
-      
-      <a class="rfamLogoHolder" style="float: right" href="[% c.uri_for( "/" ) %]">
-        <img alt="Rfam" 
-             id="rfamLogo" 
-             src="[% sharedUri %]/images/blank.gif" /></a>
-
-      <div class="cleaner"><!-- empty --></div>
-  
       <h1>The Rfam database is currently unavailable</h1>
 
       <p>
-        We are currently unable to connect to the database that drives the 
+        We are currently unable to connect to the database that drives the
         Rfam website. We apologise for this temporary outage. We're working
         to fix the problem as soon as possible.
       </p>
@@ -63,7 +57,7 @@ sharedUri = c.uri_for( "/shared" );
 [%#
 Copyright (c) 2007: Genome Research Ltd.
 
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
+Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under

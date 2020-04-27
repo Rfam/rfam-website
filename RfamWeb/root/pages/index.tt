@@ -17,6 +17,9 @@ PROCESS "components/require.tt";
 requirements.css.push( "index.css" );
 requirements.cssIeAll.push( "index_all_ie.css" );
 
+
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
 #-------------------------------------------------------------------------------
 
 # a warning message for users who dont have javascript turned on. The
@@ -24,6 +27,8 @@ requirements.cssIeAll.push( "index_all_ie.css" );
 # javascript is not working, the prototype call will fail and the message
 # will stay visible
 %]
+
+
 <div id="jsWarning">
   <strong>Please note:</strong> this site relies heavily on the use of javascript.
   Without a javascript-enabled browser, this site will not function correctly.
@@ -106,12 +111,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
   <div class="bootstrap-wrapper">
 
     <form novalidate id="queryForm" class="global-search">
-      <fieldset style="padding: 15px; border: 1px #734639 solid;">
-
-      <p class="lead" style="color: #621700;">
-        Try the <strong>new Rfam search</strong> and
-        <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#097;&#109;&#045;&#104;&#101;&#108;&#112;&#064;&#101;&#098;&#105;&#046;&#097;&#099;&#046;&#117;&#107;">let us know</a> if you have any feedback
-      </p>
+      <fieldset>
 
       <div class="bootstrap-wrapper form-group" style="margin-bottom: 0;">
         <div class="input-group input-group">
@@ -150,7 +150,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
             <a class="help" data-placement="bottom" title="Browse Rfam families" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot;">Families</a>,
             <a class="help" data-placement="bottom" title="Browse Rfam clans" rel="nofollow" href="/search?q=entry_type:&quot;Clan&quot;">Clans</a>,
             <a class="help" data-placement="bottom" title="Browse Rfam motifs" rel="nofollow" href="/search?q=entry_type:&quot;Motif&quot;">Motifs</a>,
-            <label class="label label-warning">New</label> <a class="help" data-placement="bottom" title="Browse Rfam genomes" rel="nofollow" href="/search?q=entry_type:&quot;Genome&quot;">Genomes</a>,
+            <a class="help" data-placement="bottom" title="Browse Rfam genomes" rel="nofollow" href="/search?q=entry_type:&quot;Genome&quot;">Genomes</a>,
             or
             <a class="help" data-placement="bottom" title="Browse Rfam families with 3D structures" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;">Families with 3D structures</a>
           </i>
@@ -208,17 +208,24 @@ requirements.cssIeAll.push( "index_all_ie.css" );
           </div>
         </form>
       </li>
-      <li>Or view the <a href="http://rfam.readthedocs.org">help</a> pages for
+      <li>Or view the <a href="https://docs.rfam.org">help</a> pages for
         more information</li>
     </ul>
   </div>
 
   <div id="RNA" class="panel" style="display: none">
     <h3>Analyze your RNA sequence for Rfam matches</h3>
+
     <p>
-      Paste your RNA sequence here to find matching Rfam families.
+      We developed a new sequence similarity search interface
+      that annotates query sequences with Rfam families and displays
+      related sequences from RNAcentral.
     </p>
-    <form action="[% searchBase %]/sequence"
+
+    <p class="bootstrap-wrapper">
+      <a style="background-color: #621700; border-color: #621700;" class="btn btn-primary" href="/search#tabview=tab1">Go to new sequence search</a>
+    </p>
+    <!-- <form action="[% searchBase %]/sequence"
           method="post"
           id="seqForm">
       <div>
@@ -245,7 +252,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
     <p class="small nlh">
       Annotate a sequence with Rfam families using
       <a href="http://eddylab.org/infernal">Infernal <i>cmscan</i><a>.
-    </p>
+    </p> -->
   </div>
 
   <div id="family" class="panel" style="display: none">
@@ -528,7 +535,7 @@ requirements.cssIeAll.push( "index_all_ie.css" );
   <div class="cleaner"><!-- empty --></div>
 
   <div>
-  <a class="twitter-timeline" data-width="500" data-height="300" data-chrome="nofooter" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by RfamDB</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <a class="twitter-timeline" data-width="500" data-height="500" data-chrome="nofooter" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by RfamDB</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
 
   <div id="restore" class="announcements" style="display: none">
@@ -539,8 +546,6 @@ requirements.cssIeAll.push( "index_all_ie.css" );
     </p>
 
   </div>
-
-  <hr />
 
 </div>
 

@@ -28,8 +28,9 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
 
     <p>
       Find Rfam families within your sequence of interest. Paste your
-      nucleotide sequence into the box below, to have it searched for
-      matching Rfam families.
+      nucleotide sequence below to search for
+      Rfam families as well as similar sequences
+      from <a href="https://rnacentral.org">RNAcentral</a>.
       <span class="moreLink" onclick="reveal(this,'seqNotes',false, true)">More...</span>
     </p>
 
@@ -37,12 +38,12 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
       <h3>Sequence validation</h3>
       <p>
         We check all sequences before running a search. In order to avoid
-        problems with the validation of your sequence, you should use only
+        problems with the validation of your sequence, we recommend using
         plain, unformatted text. Here are some of the validation checks that we
         apply to sequences:
       </p>
       <ul>
-        <li>sequence length must be less than 10,000 nucleotides</li>
+        <li>sequence length must be less than 7,000 nucleotides</li>
         <li>the sequence must be a nucleotide sequence; protein sequences will
           not be accepted</li>
         <li>only nucleotide symbols allowed in the sequence. The accepted
@@ -53,23 +54,36 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
           be accepted</li>
         <li>FASTA-header lines are accepted but will be removed</li>
       </ul>
-      <p>
-        If you have problems getting your sequence to upload, please check that
-        it passes these tests. Note that although we do allow FASTA-style
-        header lines on a sequence, some characters in header lines can still
-        cause the sequence to be rejected. If in doubt, please remove header
-        lines before pasting in your sequence.
-      </p>
-      <p>
-        You can see an example of a sequence that will successfully pass all of
-        the validation tests by clicking the Example button below the search
-        form.
-      </p>
 
+      If you have problems with this page, try the <a href="https://www.ebi.ac.uk/Tools/rna/infernal_cmscan/">EBI cmscan tool</a>
+      which uses the latest set of Rfam covariance models.
       <hr />
     </div>
 
     <div class="formWrapper">
+
+      <rnacentral-sequence-search
+              databases='[]'
+              examples='[
+                {"description": "lysine riboswitch", "urs": "", "sequence": "GGACGGAGGCGCGCCCGAGAUGAGUAGGCUGUCCCAUCAGGGGAGGAAUCGGGGACGGCUGAAAGGCGAGGGCGCCGAAGCGAGCAGAGUUCCUCCCGCUCUGCUUGGCUGGGGGUGAGGGGAAUACCCUUACCACUGUCGCGAAAGCGGAGAGCCGUCCA"},
+                {"description": "16S", "urs": "", "sequence": "AAAUUGAAGAGUUUGAUCAUGGCUCAGAUUGAACGCUGGCGGCAGGCCUAACACAUGCAAGUCGAACGGUAACAGGAAGAAGCUUGCUUCUUUGCUGACGAGUGGCGGACGGGUGAGUAAUGUCUGGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCCAGAUGGGAUUAGCUAGUAGGUGGGGUAACGGCUCACCUAGGCGACGAUCCCUAGCUGGUCUGAGAGGAUGACCAGCCACACUGGAACUGAGACACGGUCCAGACUCCUACGGGAGGCAGCAGUGGGGAAUAUUGCACAAUGGGCGCAAGCCUGAUGCAGCCAUGCCGCGUGUAUGAAGAAGGCCUUCGGGUUGUAAAGUACUUUCAGCGGGGAGGAAGGGAGUAAAGUUAAUACCUUUGCUCAUUGACGUUACCCGCAGAAGAAGCACCGGCUAACUCCGUGCCAGCAGCCGCGGUAAUACGGAGGGUGCAAGCGUUAAUCGGAAUUACUGGGCGUAAAGCGCACGCAGGCGGUUUGUUAAGUCAGAUGUGAAAUCCCCGGGCUCAACCUGGGAACUGCAUCUGAUACUGGCAAGCUUGAGUCUCGUAGAGGGGGGUAGAAUUCCAGGUGUAGCGGUGAAAUGCGUAGAGAUCUGGAGGAAUACCGGUGGCGAAGGCGGCCCCCUGGACGAAGACUGACGCUCAGGUGCGAAAGCGUGGGGAGCAAACAGGAUUAGAUACCCUGGUAGUCCACGCCGUAAACGAUGUCGACUUGGAGGUUGUGCCCUUGAGGCGUGGCUUCCGGAGCUAACGCGUUAAGUCGACCGCCUGGGGAGUACGGCCGCAAGGUUAAAACUCAAAUGAAUUGACGGGGGCCCGCACAAGCGGUGGAGCAUGUGGUUUAAUUCGAUGCAACGCGAAGAACCUUACCUGGUCUUGACAUCCACGGAAGUUUUCAGAGAUGAGAAUGUGCCUUCGGGAACCGUGAGACAGGUGCUGCAUGGCUGUCGUCAGCUCGUGUUGUGAAAUGUUGGGUUAAGUCCCGCAACGAGCGCAACCCUUAUCCUUUGUUGCCAGCGGUCCGGCCGGGAACUCAAAGGAGACUGCCAGUGAUAAACUGGAGGAAGGUGGGGAUGACGUCAAGUCAUCAUGGCCCUUACGACCAGGGCUACACACGUGCUACAAUGGCGCACUACAAAGAGAAGCGACCUCGCGAGAGCAAGCGGACCUCAUAAAGUGCGUCGUAGUCCGGAUUGGAGUCUGCAACUCGACUCCAUGAAGUCGGAAUCGCUAGUAAUCGUGGAUCAGAAUGCCACGGUGAAUACGUUCCCGGGCCUUGUACACACCGCCCGUCACACCAUGGGAGUGGGUUGCAAAAGAAGUAGGUAGCUUAACCUUCGGGAGGGCGCUUACCACUUUGUGAUUCAUGACUGGGGUGAAGUCGUAACAAGGUAACCGUAGGGGAACCUGCGGUUGGAUCACCUCCUUA"},
+                {"description": "SNORD3A", "urs": "", "sequence": "AAGACUAUACUUUCAGGGAUCAUUUCUAUAGUGUGUUACUAGAGAAGUUUCUCUGAACGUGUAGAGCACCGAAAACCACGAGGAAGAGAGGUAGCGUUUUCUCCUGAGCGUGAAGCCGGCUUUCUGGCGUUGCUUGGCUGCAACUGCCGUCAGCCAUUGAUGAUCGUUCUUCUCUCCGUAUUGGGGAGUGAGAGGGAGAGAACGCGGUCUGAGUGGU"}
+              ]'
+              rfam="true"
+              hideFacet='["has_conserved_structure", "qc_warning_found", "has_go_annotations", "has_conserved_structure", "has_genomic_coordinates"]'
+              customStyle='{
+                "searchButtonColor": "#621700",
+                "clearButtonColor": "#B15437",
+                "h3Color": "#621700",
+                "facetColor": "#621700",
+                "exactMatchBackgroundColor": "#EBE2E2",
+                "similarSeqText": "Similar sequences in RNAcentral",
+                "hideUploadButton": "true",
+                "loadMoreButtonColor": "#621700",
+                "linkColor": "#621700"
+              }'
+      />
+
 
       [% IF seqSearchError %]
       <div class="error">
@@ -181,6 +195,9 @@ ATACGACGTGCTGTAGCTT";
     var exEntry = "AJ390104.1";
     // ]]>
   </script>
+  <script type='text/javascript' src='/static/javascripts/RNAcentral-sequence-search.js'></script>
+  <!-- <script type='text/javascript' src='https://combinatronics.com/RNAcentral/rnacentral-sequence-search-embed/bootstrap/dist/RNAcentral-sequence-search.js'></script> -->
+
 
 </div>
 
