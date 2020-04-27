@@ -222,10 +222,10 @@ sharedUri = c.uri_for( "/shared" );
       related sequences from RNAcentral.
     </p>
 
-    <p class="bootstrap-wrapper">
+    <!-- <p class="bootstrap-wrapper">
       <a style="background-color: #621700; border-color: #621700;" class="btn btn-primary" href="/search#tabview=tab1">Go to new sequence search</a>
-    </p>
-    <!-- <form action="[% searchBase %]/sequence"
+    </p> -->
+    <form action="[% searchBase %]/sequence"
           method="post"
           id="seqForm">
       <div>
@@ -252,7 +252,7 @@ sharedUri = c.uri_for( "/shared" );
     <p class="small nlh">
       Annotate a sequence with Rfam families using
       <a href="http://eddylab.org/infernal">Infernal <i>cmscan</i><a>.
-    </p> -->
+    </p>
   </div>
 
   <div id="family" class="panel" style="display: none">

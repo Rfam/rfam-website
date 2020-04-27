@@ -62,7 +62,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
 
     <div class="formWrapper">
 
-      <rnacentral-sequence-search
+      <!-- <rnacentral-sequence-search
               databases='[]'
               examples='[
                 {"description": "lysine riboswitch", "urs": "", "sequence": "GGACGGAGGCGCGCCCGAGAUGAGUAGGCUGUCCCAUCAGGGGAGGAAUCGGGGACGGCUGAAAGGCGAGGGCGCCGAAGCGAGCAGAGUUCCUCCCGCUCUGCUUGGCUGGGGGUGAGGGGAAUACCCUUACCACUGUCGCGAAAGCGGAGAGCCGUCCA"},
@@ -82,7 +82,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
                 "loadMoreButtonColor": "#621700",
                 "linkColor": "#621700"
               }'
-      />
+      /> -->
 
 
       [% IF seqSearchError %]
@@ -195,7 +195,7 @@ ATACGACGTGCTGTAGCTT";
     var exEntry = "AJ390104.1";
     // ]]>
   </script>
-  <script type='text/javascript' src='/static/javascripts/RNAcentral-sequence-search.js'></script>
+  <!-- <script type='text/javascript' src='/static/javascripts/RNAcentral-sequence-search.js'></script> -->
   <!-- <script type='text/javascript' src='https://combinatronics.com/RNAcentral/rnacentral-sequence-search-embed/bootstrap/dist/RNAcentral-sequence-search.js'></script> -->
 
 
