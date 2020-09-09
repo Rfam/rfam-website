@@ -81,7 +81,8 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
                 "hideUploadButton": "true",
                 "loadMoreButtonColor": "#621700",
                 "linkColor": "#621700",
-                "trackingID": "UA-51212613-1"
+                "trackingID": "UA-51212613-1",
+                "showRfamAlignment": "true"
               }'
       />
 
@@ -196,7 +197,8 @@ ATACGACGTGCTGTAGCTT";
     var exEntry = "AJ390104.1";
     // ]]>
   </script>
-  <script type='text/javascript' src='https://rnacentral.github.io/rnacentral-sequence-search-embed/dist/RNAcentral-sequence-search.js'></script>
+  <!-- <script type='text/javascript' src='https://rnacentral.github.io/rnacentral-sequence-search-embed/dist/RNAcentral-sequence-search.js'></script> -->
+  <script type='text/javascript' src='https://test.rnacentral.org/static/rnacentral-sequence-search-embed/dist/RNAcentral-sequence-search.js'></script>
   <!-- <script type='text/javascript' src='https://combinatronics.com/RNAcentral/rnacentral-sequence-search-embed/bootstrap/dist/RNAcentral-sequence-search.js'></script> -->
 
 
