@@ -70,6 +70,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
                 {"description": "SNORD3A", "urs": "", "sequence": "AAGACUAUACUUUCAGGGAUCAUUUCUAUAGUGUGUUACUAGAGAAGUUUCUCUGAACGUGUAGAGCACCGAAAACCACGAGGAAGAGAGGUAGCGUUUUCUCCUGAGCGUGAAGCCGGCUUUCUGGCGUUGCUUGGCUGCAACUGCCGUCAGCCAUUGAUGAUCGUUCUUCUCUCCGUAUUGGGGAGUGAGAGGGAGAGAACGCGGUCUGAGUGGU"}
               ]'
               rfam="true"
+              r2dt=“true”
               hideFacet='["has_conserved_structure", "qc_warning_found", "has_go_annotations", "has_conserved_structure", "has_genomic_coordinates"]'
               customStyle='{
                 "searchButtonColor": "#621700",
@@ -82,8 +83,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
                 "loadMoreButtonColor": "#621700",
                 "linkColor": "#621700",
                 "trackingID": "UA-51212613-1",
-                "showRfamAlignment": "true",
-                "r2dt": “true”
+                "showRfamAlignment": "true"
               }'
       />
 
