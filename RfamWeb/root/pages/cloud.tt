@@ -1,0 +1,59 @@
+[%
+META naked = 1;
+
+# the base URL for static content
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+  <head>
+    <title>Rfam Cloud</title>
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
+  </head>
+
+  <body>
+
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't process the header" );
+    END -%]
+
+    <div class="bootstrap-wrapper">
+      <div class="container-fluid" style="margin: 15px;">
+          <div class="row">
+              <h1>Rfam Cloud</h1>
+              <p class="lead">
+                Rfam Cloud enables you to create or update RNA families using the Rfam pipeline.
+                <br>
+                <a href="https://docs.rfam.org/page/rfam-cloud.html"><strong>Request account</strong></a>
+                <a href="https://docs.rfam.org/page/rfam-cloud.html"><strong>Read documentation</strong></a>
+                <a href="https://docs.rfam.org/page/rfam-cloud.html"><strong>Join Rfam Cloud Slack</strong></a>
+              </p>
+          </div>
+
+          <div class="row">
+              <img class="img-thumbnail" style="width: 500px; height: 300px; margin: 20px;" src="/static/images/rfam-cloud.png" alt="Rfam Cloud command line interface">
+          </div> <!-- row -->
+
+          <div class="row">
+            <h2>Request an account</h2>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSftYDxV3yJxj_Neo-2nbcgGbhM6OlO8M1nTZe2dX_bgUEPMHg/viewform?embedded=true" width="640" height="1000" frameborder="1" marginheight="0" marginwidth="0">Loading…</iframe>
+          </div> <!-- row -->
+
+      </div> <!-- container-fluid -->
+  </div> <!-- bootstrap-wrapper -->
+
+    [% TRY;
+      PROCESS "components/footer_${c.config.site}.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the site-specific footer" );
+    END -%]
+
+  </body>
+
+</html>
