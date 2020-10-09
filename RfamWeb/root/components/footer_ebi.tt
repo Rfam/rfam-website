@@ -55,6 +55,7 @@ staticUri = c.uri_for( "/static" );
         <li><a href="https://docs.rfam.org/en/latest/citing-rfam.html">Citing Rfam</a></li>
         <li><a href="https://docs.rfam.org/en/latest/rfam-team.html">Rfam team</a></li>
         <li><a href="https://twitter.com/RfamDB">Rfam Twitter</a></li>
+        <li><a href="http://www.ebi.ac.uk/about/terms-of-use">Terms of use</a></li>
       </ul>
     </div>
 
@@ -75,7 +76,7 @@ staticUri = c.uri_for( "/static" );
         <li><a href="https://docs.rfam.org/en/latest/ftp-help.html">FTP archive</a></li>
         <li><a href="https://docs.rfam.org/en/latest/api.html">API access</a></li>
         <li><a href="https://docs.rfam.org/en/latest/database.html">Public MySQL database</a></li>
-        <li><a href="http://www.ebi.ac.uk/about/terms-of-use">Terms of use</a></li>
+        <li><a href="/cloud">Rfam Cloud</a></li>
       </ul>
     </div>
 
