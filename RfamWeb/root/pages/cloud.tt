@@ -65,7 +65,7 @@ sharedUri = c.uri_for( "/shared" );
 
           </div> <!-- row -->
 
-          <div class="row">
+          <div class="row well" style="margin-top: 10px;">
             <h2>Using Rfam Cloud for teaching</h2>
 
             <p>
@@ -105,7 +105,7 @@ sharedUri = c.uri_for( "/shared" );
             <strong>Why do I need to request an account?</strong>
 
             <p>
-              Rfam Cloud is a computationally expensive pipeline that shares the resources among the users. Rfam team prioritises access to the pipeline and ensures that it is used for the intended purpose.
+              Rfam Cloud is a computationally expensive pipeline wherein users share limited resources. The Rfam team prioritises access to the pipeline and ensures that it is used for its intended purpose.
             </p>
 
           </div> <!-- row -->
