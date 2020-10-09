@@ -487,7 +487,12 @@ sharedUri = c.uri_for( "/shared" );
 
   <hr />
 
-  <div id="newFeatures" style="display: none">
+  <div id="newFeatures">
+    <h2>Current projects</h2>
+    <p>
+      Find out about the ongoing Rfam projects, such as expanding the coverage of <a href="/viruses">viral</a> and <a href="/microrna">microRNAs</a> families, or
+      learn how to build RNA families in <a href="/cloud">Rfam Cloud</a>.
+    </p>
   </div>
 
   <div id="citation">
