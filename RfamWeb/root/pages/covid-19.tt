@@ -134,6 +134,10 @@ sharedUri = c.uri_for( "/shared" );
                 and other major centres for biomedical information.
               </p>
 
+              <p class="well">
+                Learn about other <a href="/viruses">viral RNA families in Rfam &rarr;</a>
+              </p>
+
           </div> <!-- row -->
 
       </div> <!-- container-fluid -->
