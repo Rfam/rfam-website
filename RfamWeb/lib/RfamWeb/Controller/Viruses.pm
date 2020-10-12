@@ -8,8 +8,6 @@ BEGIN {
   extends 'Catalyst::Controller';
 }
 
-# __PACKAGE__->config( namespace => 'covid-19' );
-
 sub covid : Chained( '/' )
           PathPart( 'viruses' )
           Args( 0 ) {
