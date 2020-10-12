@@ -157,7 +157,7 @@ sharedUri = c.uri_for( "/shared" );
               <em>Hepacivirus</em> (Hepatitis C viruses), <em>Filoviridae</em> (e.g. Ebolavirus) and <em>Rhabdoviridae</em> (e.g. Rabies viruses).
             </p>
             <p>
-              <a href="https://docs.rfam.org/en/latest/contact-us.html">Contact Rfam</a> if you have questions or feedback about this project.
+              Please <a href="https://docs.rfam.org/en/latest/contact-us.html">contact Rfam</a> if you are interested in a specific virus family or if you have feedback about this project.
             </p>
           </div> <!-- row -->
 
