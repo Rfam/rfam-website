@@ -54,13 +54,14 @@ sharedUri = c.uri_for( "/shared" );
               <a href="https://docs.rfam.org/page/rfam-cloud.html" class="btn btn-primary btn-rfam">Rfam Cloud Docs</a>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" onclick="location.href='/submit_alignment';" style="cursor: pointer;">
               <h2>Create RNA families</h2>
               <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/rfam-cloud/rfam-cloud-cli.png" alt="Rfam Cloud command line interface">
 
               <p style="margin: 10px 0px;">
                 Build an RNA family and submit it to Rfam for review.
               </p>
+              <a href="/submit_alignment" class="btn btn-primary btn-rfam">Submit for review</a>
             </div>
 
           </div> <!-- row -->
