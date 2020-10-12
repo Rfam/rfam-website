@@ -27,7 +27,7 @@ sharedUri = c.uri_for( "/shared" );
       <div class="container-fluid" style="margin-left: 15px; margin-right: 15px; margin-bottom: 15px;">
           <div class="row">
               <h1>microRNA families</h1>
-              <img class="img-thumbnail pull-left" style="width: 150px; margin-right: 15px;" src="http://www.mirbase.org/images/mirbase-logo-blue-web.png" alt="miRBase logo">
+              <img class="img-thumbnail pull-left" style="width: 150px; margin-right: 15px;" src="[% staticUri %]/images/mirbase.png" alt="miRBase logo">
               <p class="lead">
                 Rfam collaborates with <strong>miRBase</strong> aiming to provide a comprehensive collection of microRNA families.
                 <br>
