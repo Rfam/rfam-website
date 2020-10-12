@@ -2958,3 +2958,16 @@ a.btn {
   font-weight: bold;
   color: #621700;
 }
+
+.bootstrap-wrapper .btn-rfam {
+  background-color: #734639;
+  border-color: #734639;
+  text-decoration: none;
+}
+
+.bootstrap-wrapper .btn-rfam:hover {
+  background-color: #734639;
+  border-color: #734639;
+  text-decoration: none !important;
+  color: white !important;
+}
