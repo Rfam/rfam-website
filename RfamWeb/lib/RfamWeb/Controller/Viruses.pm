@@ -1,5 +1,5 @@
 
-package RfamWeb::Controller::Cloud;
+package RfamWeb::Controller::Viruses;
 
 use Moose;
 use namespace::autoclean;
