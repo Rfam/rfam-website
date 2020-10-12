@@ -1,0 +1,74 @@
+[%
+META naked = 1;
+
+# the base URL for static content
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+  <head>
+    <title>microRNA families</title>
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
+  </head>
+
+  <body>
+
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't process the header" );
+    END -%]
+
+    <div class="bootstrap-wrapper">
+      <div class="container-fluid" style="margin-left: 15px; margin-right: 15px; margin-bottom: 15px;">
+          <div class="row">
+              <h1>microRNA families</h1>
+              <img class="img-thumbnail pull-left" style="width: 150px; margin-right: 15px;" src="http://www.mirbase.org/images/mirbase-logo-blue-web.png" alt="miRBase logo">
+              <p class="lead">
+                Rfam collaborates with <strong>miRBase</strong> aiming to provide a comprehensive collection of microRNA families.
+                <br>
+                <a href="http://mirbase.org/" target="_blank">Learn more about miRBase &rarr;</a>
+              </p>
+          </div>
+
+          <div class="row">
+            <h2>First phase of synchronisation between miRBase and Rfam</h2>
+
+            <div class="col-md-6">
+              <p>
+                Both Rfam and miRBase contain classifications of microRNA families. However, before Rfam 14.3 the two databases have not been coordinated or synchronised. Previously, miRBase used a semi-automated clustering method relying on BLAST. These sequence-only miRBase families have higher coverage but lower quality than the Rfam microRNA families. In release 14.2, Rfam contained 529 microRNA families, while miRBase v22 annotated 1,983 microRNA families. Only 28% of the miRBase families matched one or more of the Rfam 14.2 families. There was therefore an opportunity to create up to 1,500 new families to increase the coverage of microRNAs in Rfam, as well as investigate and rationalise the entries that are unique to each database.
+              </p>
+              <p style="margin: 10px 0px;">
+                In the first phase of the project we have created and submitted 356 new microRNA families and updated 40 existing families.
+              </p>
+
+              <a href="/search?q=entry_type:%22Family%22%20AND%20rna_type:%22miRNA%22" class="btn btn-primary btn-rfam">Browse microRNA families</a>
+            </div>
+
+          </div> <!-- row -->
+
+          <div class="row well" style="margin-top: 10px;">
+            <h2>Work in progress</h2>
+
+            <p>
+              We are working on including additional microRNA families.
+              <a href="https://docs.rfam.org/en/latest/contact-us.html">Contact Rfam</a> if you have questions or feedback about this project.
+            </p>
+          </div> <!-- row -->
+
+      </div> <!-- container-fluid -->
+  </div> <!-- bootstrap-wrapper -->
+
+    [% TRY;
+      PROCESS "components/footer_${c.config.site}.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the site-specific footer" );
+    END -%]
+
+  </body>
+
+</html>
