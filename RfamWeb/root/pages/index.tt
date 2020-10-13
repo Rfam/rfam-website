@@ -647,6 +647,78 @@ sharedUri = c.uri_for( "/shared" );
   </div>
 
 
+
+  <div class="row well well-sm">
+    <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Featured families</h2>
+      <div class="col-md-3">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">SAM riboswitch</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="/family/RF00162" class="thumbnail">
+                <img class="hvr-grow" src="/family/RF00162/image/rscape" alt="SAM riboswitch secondary structure">
+              </a>
+            </p>
+            <p>
+              The SAM riboswitch seed alignment has been revised using the 3D structure information
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">manA RNA</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="/family/RF01745" class="thumbnail">
+                <img class="hvr-grow" src="/family/RF01745/image/rscape" alt="manA RNA secondary structure">
+              </a>
+            </p>
+            <p>
+              The manA seed alignment has been revised using the original ZWD alignment
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">L4-Archaeoglobi</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="/family/RF03135" class="thumbnail">
+                <img class="hvr-grow" src="/family/RF03135/image/rscape" alt="L4-Archaeoglobi secondary structure">
+              </a>
+            </p>
+            <p>
+              L4-Archaeoglobi is one of the new r-leader families imported from ZWD
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">General Flavivirus xrRNA</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="/family/RF03547" class="thumbnail">
+                <img class="hvr-grow" src="/family/RF03547/image/rscape" alt="Flavivirus xrRNA secondary structure">
+              </a>
+            </p>
+            <p>
+              General Flavivirus exoribonuclease-resistant RNA element is one of the new <em>Flavivirus</em> RNA families
+            </p>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  </div>
+
+
+
 </div>
 
 
