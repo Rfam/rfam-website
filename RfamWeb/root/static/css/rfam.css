@@ -2972,6 +2972,10 @@ a.btn {
   color: white !important;
 }
 
+.bootstrap-wrapper a.thumbnail:hover, .bootstrap-wrapper a.thumbnail:focus, .bootstrap-wrapper a.thumbnail.active {
+  border-color: #734639;
+}
+
 /* Grow. Based on Hover: http://ianlunn.github.io/Hover/ */
 .hvr-grow {
   vertical-align: middle;
