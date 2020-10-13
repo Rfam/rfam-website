@@ -495,52 +495,10 @@ sharedUri = c.uri_for( "/shared" );
     </p>
   </div>
 
-  <div id="citation">
-    <h2>Citing Rfam</h2>
-    <p>
-      If you find Rfam useful, please consider
-      <a href="http://rfam.readthedocs.io/en/latest/citing-rfam.html">citing</a> the references
-      that describe this work:
-    </p>
-
-    <div class="citation">
-      <span class="title">
-        <a class="ext"
-          href="https://academic.oup.com/nar/article/4588106">
-          Rfam 13.0: shifting to a genome-centric resource for non-coding RNA families.</a>
-      </span>
-      <br>
-      <span class="authors">
-        Ioanna Kalvari, Joanna Argasinska, Natalia Quinones-Olvera, Eric P. Nawrocki, Elena Rivas, Sean R. Eddy, Alex Bateman, Robert D. Finn, Anton I. Petrov
-      </span>
-      <span class="ref">
-        <span class="jrnl">Nucleic Acids Research</span>&nbsp;(2017)
-        &nbsp;10.1093/nar/gkx1038
-      </span>
-    </div>
-
-    <div class="citation">
-      <span class="title">
-        <a class="ext"
-          href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6754622/">
-          Non-coding RNA analysis using the Rfam database.</a>
-      </span>
-      <br>
-      <span class="authors">
-        Ioanna Kalvari, Eric P. Nawrocki, Joanna Argasinska, Natalia Quinones-Olvera, Robert D. Finn, Alex Bateman and Anton I. Petrov
-      </span>
-      <span class="ref">
-        <span class="jrnl">Current Protocols in Bioinformatics</span>&nbsp;(2018)
-        &nbsp;10.1002/cpbi.51
-      </span>
-    </div>
-
-  </div>
-
   <div class="cleaner"><!-- empty --></div>
 
   <div>
-  <a class="twitter-timeline" data-width="500" data-height="500" data-chrome="nofooter" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by RfamDB</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <!-- <a class="twitter-timeline" data-width="500" data-height="500" data-chrome="nofooter" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by RfamDB</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
   </div>
 
   <div id="restore" class="announcements" style="display: none">
@@ -553,6 +511,98 @@ sharedUri = c.uri_for( "/shared" );
   </div>
 
 </div>
+
+<div class="bootstrap-wrapper">
+  <div class="container-fluid">
+  <div class="row well well-sm">
+    <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">News</h2>
+      <div class="col-md-4">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>
+          <div class="panel-body">
+            <ul class="list-inline margin-top-5px">
+              <li class="twitter-follow-button-list">
+                <a class="twitter-follow-button text-center"
+                   href="https://twitter.com/rfamdb"
+                   data-dnt="true"
+                   data-show-count="true"
+                   data-show-screen-name="false"
+                   data-lang="en">Follow</a>
+                <a class="twitter-timeline" data-height="300" data-width="500" data-chrome="noheader nofooter noborders" data-dnt="true" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by Rfam</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-bullhorn"></i> Announcements</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
+                <img class="hvr-grow" src="[% staticUri %]/images/release-14-2.png" alt="Release announcement">
+              </a>
+            </p>
+            <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
+              <li><a href="https://xfam.wordpress.com/tag/rfam/" target="_blank"><i class="fa fa-bookmark-o"></i> Rfam Blog</a></li>
+            </ul>
+
+            <p class="margin-top-5px">
+                <span class="label label-success">New</span> Read new Rfam NAR paper <a href="https://currentprotocols.onlinelibrary.wiley.com/doi/full/10.1002/cpbi.104" target="_blank">Current Protocols in Biodinformatics</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-pencil"></i> Citing Rfam</h3>
+          <div class="panel-body">
+            If you use Rfam, please cite our latest papers:
+            <blockquote class="callout-info" style="font-size: small;">
+              <p>
+                <span class="title">
+                  <a class="ext"
+                    href="https://academic.oup.com/nar/article/4588106">
+                    Rfam 13.0: shifting to a genome-centric resource for non-coding RNA families.</a>
+                </span>
+                <br>
+                <span class="authors">
+                  Kalvari et al.,
+                </span>
+                <span class="ref">
+                  <span class="jrnl">Nucleic Acids Research</span>&nbsp;(2017)
+                  &nbsp;10.1093/nar/gkx1038
+                </span>
+              </p>
+            </blockquote>
+            <blockquote style="font-size: small;">
+              <div class="citation">
+                <span class="title">
+                  <a class="ext"
+                    href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6754622/">
+                    Non-coding RNA analysis using the Rfam database.</a>
+                </span>
+                <br>
+                <span class="authors">
+                  Kalvari et al.,
+                </span>
+                <span class="ref">
+                  <span class="jrnl">Current Protocols in Bioinformatics</span>&nbsp;(2018)
+                  &nbsp;10.1002/cpbi.51
+                </span>
+              </div>
+
+            </blockquote>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  </div>
+</div>
+
 
 <div id="data-protection-message-configuration" data-message="This website requires cookies and limited processing of your personal data in order to function. By using this site you are agreeing to this as outlined in our <a href='https://www.ebi.ac.uk/data-protection/privacy-notice/rfam'>Privacy Policy</a> and <a href='https://www.ebi.ac.uk/about/terms-of-use'>Terms of Use</a>." data-service-id="rfam"></div>
 
