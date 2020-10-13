@@ -5,6 +5,8 @@ META fullPage = 1;
 # specify required stylesheets and javascript files
 PROCESS "components/require.tt";
 requirements.css.push( "index.css" );
+requirements.css.push( "slick.css" );
+requirements.css.push( "slick-theme.css" );
 requirements.cssIeAll.push( "index_all_ie.css" );
 staticUri = c.uri_for( "/static" );
 sharedUri = c.uri_for( "/shared" );
@@ -268,6 +270,7 @@ sharedUri = c.uri_for( "/shared" );
    </div>
    <div class="row">
       <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Featured families</h2>
+      <div class="featured-gallery">
       <div class="col-md-3 col-sm-3 col-xs-6">
          <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
             <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">SAM riboswitch</h3>
@@ -332,7 +335,62 @@ sharedUri = c.uri_for( "/shared" );
             </div>
          </div>
       </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+         <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">LOOT RNA</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/family/RF03000" class="thumbnail">
+                  <img class="hvr-grow" src="/family/RF03000/image/rscape" alt="LOOT RNA secondary structure" style="max-height: 200px">
+                  </a>
+               </p>
+               <p class="lead">
+                  LOOT RNA has been imported from ZWD
+                  <a href="/family/RF03000">View family &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+         <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">Alphacoronavirus 5' UTR</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/family/RF03116" class="thumbnail">
+                  <img class="hvr-grow" src="/family/RF03116/image/rscape" alt="Alphacoronavirus 5' UTR secondary structure" style="max-height: 200px">
+                  </a>
+               </p>
+               <p class="lead">
+                 Alphacoronavirus 5' UTR includes SL1, SL2, SL4, and SL5 stem loops
+                  <a href="/family/RF03116">View family &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      </div>
    </div>
 </div>
 <div id="data-protection-message-configuration" data-message="This website requires cookies and limited processing of your personal data in order to function. By using this site you are agreeing to this as outlined in our <a href='https://www.ebi.ac.uk/data-protection/privacy-notice/rfam'>Privacy Policy</a> and <a href='https://www.ebi.ac.uk/about/terms-of-use'>Terms of Use</a>." data-service-id="rfam"></div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="[% staticUri %]/javascripts/slick.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    var total = $('.featured-gallery img').length;
+    var rand = Math.floor( Math.random() * total );
+    $('.featured-gallery').slick({
+      dots: true,
+      arrows: false,
+      slidesToShow: 4,
+      infinite: true,
+      autoplay: true,
+      initialSlide: rand, //navigate to random slide;
+      draggable: true,
+      focusOnSelect: false,
+    });
+  });
+</script>
+
 <!-- end of index page -->
