@@ -5,592 +5,347 @@
 # build the main Rfam home page.
 #
 # $Id: index.tt,v 1.10 2009-06-09 12:13:25 jt6 Exp $
-
 META title = "Home page";
 META fullPage = 1;
-
 #-------------------------------------------------------------------------------
 # specify required stylesheets and javascript files
-
 PROCESS "components/require.tt";
-
 requirements.css.push( "index.css" );
 requirements.cssIeAll.push( "index_all_ie.css" );
-
-
 staticUri = c.uri_for( "/static" );
 sharedUri = c.uri_for( "/shared" );
 #-------------------------------------------------------------------------------
-
 # a warning message for users who dont have javascript turned on. The
 # message should be hidden immediately after its displayed, but if
 # javascript is not working, the prototype call will fail and the message
 # will stay visible
 %]
-
-
-<div id="jsWarning">
-  <strong>Please note:</strong> this site relies heavily on the use of javascript.
-  Without a javascript-enabled browser, this site will not function correctly.
-  Please enable javascript and reload the page, or switch to a different browser.
-</div>
-<script type="text/javascript">
-  // <![CDATA[
-  $("jsWarning").hide();
-  // ]]>
-</script>
-
 <!-- start of index page -->
-
-<div class="bootstrap-wrapper" style="background: url('[% staticUri %]/images/rna-2d-background.png')">
-  <div class="container-fluid">
-    <div class="row text-center">
-      <div class="homepage-callout-overlay col-md-8 col-md-offset-2" style="background: rgba(245,245,245,0.7); margin-top: 50px; margin-bottom: 50px;">
-      [% # if the database is down, we will be unable to retrieve release data, so
-         # change the construction of the page title accordingly
-      IF relData;
-
-        # we have release data; format the date nicely
-        USE date( format = "%B %Y" );
-        d = relData.rfam_release_date.match( '(\d+)\-(\d+)\-(\d+)' );
-
-        USE String;
-        release_date = String.new( "00:00:00 " );
-        CALL release_date.append( d.2, ":", d.1, ":", d.0 ); %]
-        <h2 style="text-transform: inherit; font-size: x-large; color: #621700;">Rfam [% relData.rfam_release %] ([% date.format( release_date ) %],
-          [% relData.number_families %] families)</h2>
-      [% ELSE %]
-        <h2>Rfam - RNA Families Database</h2>
-      [% END %]
-      <p class="lead">
-        The Rfam database is a collection of RNA families, each represented by <strong>multiple
-        sequence alignments,</strong> <strong>consensus secondary structures</strong> and <strong>covariance
-        models</strong>
-      </p>
-      <p class="lead">
-        <a href="https://docs.rfam.org/en/latest/about-rfam.html">Learn more about Rfam &rarr;</a>
-      </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <br>
-
-   [% # URI shortcuts
-   helpBase   = c.uri_for( "/help" );
-   searchBase = c.uri_for( "/search" );
-   jumpUri    = "${searchBase}/jump";
-   %]
-
-<div class="bootstrap-wrapper" >
-
-    <h2 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-search"></i> Search and browse Rfam</h2>
-
-    <form novalidate id="queryForm" class="global-search">
-      <fieldset>
-
-      <div class="form-group col-md-6 col-md-offset-3" style="margin-bottom: 0;">
-        <div class="input-group input-group">
-          <input type="text"
-                 class="form-control"
-                 id="query-text"
-                 name="text"
-                 tabindex="1"
-                 autocomplete="off"
-                 placeholder="Search Rfam"
-                 autofocus
-                 required
-                 style="border-color: #734639; background: #f0d9d3 url(/shared/images/search_gradient.png) repeat-x top left;">
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-primary" style="background-color:#734639;">
-              <i class="fa fa-search"></i>
-              <span class="hidden-xs-inline">Search</span>
-            </button>
-          </div><!-- /input-group-btn -->
-        </div><!--input-group -->
-        <span class="help-block example-searches text-center">
-
-            <i>
-              Examples:
-              <a class="help" data-placement="bottom" title="Search by a keyword" rel="nofollow" href="/search?q=SAM riboswitch">SAM</a>,
-              <a class="help" data-placement="bottom" title="Search by species" rel="nofollow" href="/search?q=TAXONOMY:&quot;9606&quot;">Homo sapiens</a>,
-              <a class="help" data-placement="bottom" title="Search by RNA type" rel="nofollow" href="/search?q=rna_type:&quot;snoRNA&quot;">snoRNA</a>,
-              <a class="help" data-placement="bottom" title="Search by author name" rel="nofollow" href="/search?q=author:&quot;Weinberg&quot;">author:"Weinberg"</a>
-            </i>
-
-        </span>
-
-        <p style="margin-bottom: 0;" class="text-center">
-          Browse
-          <i>
-            <a class="help" data-placement="bottom" title="Browse Rfam families" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot;">Families</a>,
-            <a class="help" data-placement="bottom" title="Browse Rfam clans" rel="nofollow" href="/search?q=entry_type:&quot;Clan&quot;">Clans</a>,
-            <a class="help" data-placement="bottom" title="Browse Rfam motifs" rel="nofollow" href="/search?q=entry_type:&quot;Motif&quot;">Motifs</a>,
-            <a class="help" data-placement="bottom" title="Browse Rfam genomes" rel="nofollow" href="/search?q=entry_type:&quot;Genome&quot;">Genomes</a>,
-            or
-            <a class="help" data-placement="bottom" title="Browse Rfam families with 3D structures" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;">Families with 3D structures</a>
-          </i>
-        </p>
-      </div><!-- /form-group -->
-      </fieldset>
-    </form><!-- /form -->
-
-  </div>
-
-  [%# uncomment to add an advance warning of maintenance downtime
-  <hr />
-
-  <div id="maintenanceMsg" style="width:80%;margin:0 auto;background:#F0E8E6;border:1px solid #621700;padding:1em">
-    <h2>Emergency network maintenance</h2>
-    <h3>08 July 2014 22.00 - 02.00 (BST)</h3>
-    <p>
-      Due to essential emergency work on the EBI network, some parts of the
-      Rfam website may be unavailable for a period of 4 hours between 22.00
-      today, 8th July 2014, and 02.00 tomorrow, Wednesday 9th July 2014.
-    </p>
-    <p>
-      The maintenance work is likely to impact the submission of sequence
-      search jobs primarily. Interactive sequence searches may be unavailable,
-      along with the submission of batch searches. Any batch jobs that were
-      submitted before the maintenance window will not be affected and you
-      should receive results as normal. Finally, the generation of alignments
-      of selected sequences in the sunburst tool may be disrupted during the
-      work.
-    </p>
-    <p>
-      Please accept our apologies for any inconvenience.
-    </p>
-  </div>
-  # end of maintenance message %]
-
-  <br>
-
-  <div class="cleaner"><!-- empty --></div>
-
-  <div>
-  <!-- <a class="twitter-timeline" data-width="500" data-height="500" data-chrome="nofooter" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by RfamDB</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-  </div>
-
-  <div id="restore" class="announcements" style="display: none">
-    <hr />
-    <p>
-      You have hidden the blog posts section. You can restore it
-      <span class="link" id="restoreLink">here</span>.
-    </p>
-
-  </div>
-
-</div>
-
 <div class="bootstrap-wrapper">
-  <div class="container-fluid">
-
-    <div class="row well well-sm">
-      <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Getting started</h2>
-
-        <div class="col-md-4 col-sm-4 col-xs-4">
-          <div class="panel panel-default hvr-grow-panel" style="width: 100%;">
-            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-search"></i> Sequence search</h3>
-            <div class="panel-body text-center">
-              <p>
-                Annotate your sequences with RNA families and visualise their secondary structure using R2DT
-              </p>
-              <p>
-                <a href="/search?q=mana#tabview=tab1" class="btn btn-primary btn-rfam">Search by sequence</a>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-4 col-xs-4">
-          <div class="panel panel-default hvr-grow-panel" style="width: 100%;">
-            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-download"></i> Downloads</h3>
-            <div class="panel-body text-center">
-              <p>
-                Download covariance models, FASTA sequences, database dumps, previous releases, and more
-              </p>
-              <p>
-                <a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT" class="btn btn-primary btn-rfam">Open FTP Archive</a>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-4 col-xs-4">
-          <div class="panel panel-default hvr-grow-panel" style="width: 100%;">
-            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-book"></i> Help</h3>
-            <div class="panel-body text-center">
-              <p>
-                Access Rfam using the <a href="https://docs.rfam.org/en/latest/api.html">API</a> and <a href="https://docs.rfam.org/en/latest/database.html">public MySQL database</a>, or learn how to <a href="https://docs.rfam.org/en/latest/genome-annotation.html">annotate genomes</a> using Infernal
-              </p>
-              <p>
-                <a href="https://docs.rfam.org/" class="btn btn-primary btn-rfam">Rfam Help</a>
-              </p>
-            </div>
-          </div>
-        </div>
-    </div>
-
-  <div class="row">
-    <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">News</h2>
-      <div class="col-md-4 col-sm-4 col-xs-4">
-        <div class="panel panel-default" style="width: 100%;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>
-          <div class="panel-body">
-            <ul class="list-inline margin-top-5px">
-              <li class="twitter-follow-button-list">
-                <a class="twitter-follow-button text-center"
-                   href="https://twitter.com/rfamdb"
-                   data-dnt="true"
-                   data-show-count="true"
-                   data-show-screen-name="false"
-                   data-lang="en">Follow</a>
-                <a class="twitter-timeline" data-height="270" data-width="500" data-chrome="noheader nofooter noborders" data-dnt="true" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by Rfam</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-sm-4 col-xs-4">
-        <div class="panel panel-default" style="width: 100%;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-bullhorn"></i> Announcements</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
-                <img class="hvr-grow" src="[% staticUri %]/images/release-14-2.png" alt="Release announcement">
-              </a>
-            </p>
-            <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
-              <li><a href="https://xfam.wordpress.com/tag/rfam/" target="_blank"><i class="fa fa-bookmark-o"></i> Subscribe to Rfam Blog</a></li>
-              <li><span class="label label-success">New</span> <a href="" target="_blank">Read new Rfam NAR paper</a><li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-sm-4 col-xs-4">
-        <div class="panel panel-default" style="width: 100%;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-pencil"></i> Citing Rfam</h3>
-          <div class="panel-body">
-            If you use Rfam, please cite our latest papers:
-            <blockquote class="callout-info" style="font-size: small;">
-              <p>
-                <span class="title">
-                  <a class="ext"
-                    href="https://academic.oup.com/nar/article/4588106">
-                    Rfam 13.0: shifting to a genome-centric resource for non-coding RNA families.</a>
-                </span>
-                <br>
-                <span class="authors">
-                  Kalvari et al.,
-                </span>
-                <span class="ref">
-                  <strong>Nucleic Acids Research</strong>&nbsp;(2017)
-                </span>
-              </p>
-            </blockquote>
-            <blockquote style="font-size: small;">
-              <div class="citation">
-                <span class="title">
-                  <a class="ext"
-                    href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6754622/">
-                    Non-coding RNA analysis using the Rfam database.</a>
-                </span>
-                <br>
-                <span class="authors">
-                  Kalvari et al.,
-                </span>
-                <span class="ref">
-                  <strong>Current Protocols in Bioinformatics</strong>&nbsp;(2018)
-                </span>
-              </div>
-
-            </blockquote>
-
-            <a href="https://docs.rfam.org/en/latest/citing-rfam.html">View all Rfam papers</a>
-          </div>
-        </div>
-      </div>
-
-  </div>
-  </div>
-
-  <div class="row well well-sm">
-    <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Current projects</h2>
-
-      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/cloud';" style="cursor: pointer;">
-        <div class="panel panel-default" style="width: 100%;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-cloud"></i> Rfam Cloud</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="/cloud" class="thumbnail">
-                <img class="hvr-grow" src="[% staticUri %]/images/rfam-cloud/rfam-cloud-cli.png" alt="Rfam Cloud command line" style="width: 80%">
-              </a>
-            </p>
-            <p class="lead text-center">
-              <a href="">Learn how to build families using Rfam Cloud &rarr;</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/viruses';" style="cursor: pointer;">
-        <div class="panel panel-default" style="width: 100%;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-empire"></i> Viruses</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="/cloud" class="thumbnail">
-                <img class="hvr-grow" src="[% staticUri %]/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 UTRs" style="width: 80%">
-              </a>
-            </p>
-            <p class="lead text-center">
-              <a href="">Discover new <em>Coronaviridae</em> and <em>Flaviviridae</em> RNA families &rarr;</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/microrna';" style="cursor: pointer;">
-        <div class="panel panel-default" style="width: 100%;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-refresh"></i> microRNAs</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="/microrna" class="thumbnail">
-                <img class="hvr-grow" src="[% staticUri %]/images/mirbase.png" alt="miRBase logo" style="width: 60%">
-              </a>
-            </p>
-            <p class="lead text-center">
-              <a href="">Find out about the first phase of synchronising microRNA families between miRBase and Rfam &rarr;</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-  </div>
-
-
-
-  <div class="row">
-    <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Featured families</h2>
-      <div class="col-md-3 col-sm-3 col-xs-6">
-        <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">SAM riboswitch</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="/family/RF00162" class="thumbnail">
-                <img class="hvr-grow" src="/family/RF00162/image/rscape" alt="SAM riboswitch secondary structure" style="max-height: 200px">
-              </a>
+   <div class="container-fluid">
+      <div class="row text-center" style="background: url('[% staticUri %]/images/rna-2d-background.png')">
+         <div class="homepage-callout-overlay col-md-8 col-md-offset-2" style="background: rgba(245,245,245,0.7); margin-top: 50px; margin-bottom: 50px;">
+            [% # if the database is down, we will be unable to retrieve release data, so
+            # change the construction of the page title accordingly
+            IF relData;
+            # we have release data; format the date nicely
+            USE date( format = "%B %Y" );
+            d = relData.rfam_release_date.match( '(\d+)\-(\d+)\-(\d+)' );
+            USE String;
+            release_date = String.new( "00:00:00 " );
+            CALL release_date.append( d.2, ":", d.1, ":", d.0 ); %]
+            <h2 style="text-transform: inherit; font-size: x-large; color: #621700;">Rfam [% relData.rfam_release %] ([% date.format( release_date ) %],
+               [% relData.number_families %] families)
+            </h2>
+            [% ELSE %]
+            <h2>Rfam - RNA Families Database</h2>
+            [% END %]
+            <p class="lead">
+               The Rfam database is a collection of RNA families, each represented by <strong>multiple
+               sequence alignments,</strong> <strong>consensus secondary structures</strong> and <strong>covariance
+               models</strong>
             </p>
             <p class="lead">
-              The SAM riboswitch seed alignment has been revised using the 3D structure information
-              <a href="/family/RF00162">View family &rarr;</a>
+               <a href="https://docs.rfam.org/en/latest/about-rfam.html">Learn more about Rfam &rarr;</a>
             </p>
-          </div>
-        </div>
+         </div>
       </div>
-
-      <div class="col-md-3 col-sm-3 col-xs-6">
-        <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">manA RNA</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="/family/RF01745" class="thumbnail">
-                <img class="hvr-grow" src="/family/RF01745/image/rscape" alt="manA RNA secondary structure" style="max-height: 200px">
-              </a>
-            </p>
-            <p class="lead">
-              The manA seed alignment has been revised using the original ZWD alignment
-              <a href="/family/RF01745">View family &rarr;</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-sm-3 col-xs-6">
-        <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">L4-Archaeoglobi</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="/family/RF03135" class="thumbnail">
-                <img class="hvr-grow" src="/family/RF03135/image/rscape" alt="L4-Archaeoglobi secondary structure" style="max-height: 200px">
-              </a>
-            </p>
-            <p class="lead">
-              L4-Archaeoglobi is one of the new r-leader families imported from ZWD
-              <a href="/family/RF03135">View family &rarr;</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-sm-3 col-xs-6">
-        <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
-          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">General Flavivirus xrRNA</h3>
-          <div class="panel-body">
-            <p class="margin-top-5px">
-              <a href="/family/RF03547" class="thumbnail">
-                <img class="hvr-grow" src="/family/RF03547/image/rscape" alt="Flavivirus xrRNA secondary structure" style="max-height: 200px">
-              </a>
-            </p>
-            <p class="lead">
-              General Flavivirus exoribonuclease-resistant RNA element is one of the new <em>Flavivirus</em> RNA families
-              <a href="/family/RF03547">View family &rarr;</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-  </div>
-  </div>
-
-
-
+   </div>
 </div>
-
-
+<br>
+<div class="bootstrap-wrapper" >
+   <h2 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-search"></i> Search and browse Rfam</h2>
+   <form novalidate id="queryForm" class="global-search">
+      <fieldset>
+         <div class="form-group col-md-6 col-md-offset-3" style="margin-bottom: 0;">
+            <div class="input-group input-group">
+               <input type="text"
+                  class="form-control"
+                  id="query-text"
+                  name="text"
+                  tabindex="1"
+                  autocomplete="off"
+                  placeholder="Search Rfam"
+                  autofocus
+                  required
+                  style="border-color: #734639; background: #f0d9d3 url(/shared/images/search_gradient.png) repeat-x top left;">
+               <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary" style="background-color:#734639;">
+                  <i class="fa fa-search"></i>
+                  <span class="hidden-xs-inline">Search</span>
+                  </button>
+               </div>
+               <!-- /input-group-btn -->
+            </div>
+            <!--input-group -->
+            <span class="help-block example-searches text-center">
+            <i>
+            Examples:
+            <a class="help" data-placement="bottom" title="Search by a keyword" rel="nofollow" href="/search?q=SAM%20riboswitch">SAM</a>,
+            <a class="help" data-placement="bottom" title="Search by species" rel="nofollow" href="/search?q=TAXONOMY:&quot;9606&quot;">Homo sapiens</a>,
+            <a class="help" data-placement="bottom" title="Search by RNA type" rel="nofollow" href="/search?q=rna_type:&quot;snoRNA&quot;">snoRNA</a>,
+            <a class="help" data-placement="bottom" title="Search by author name" rel="nofollow" href="/search?q=author:&quot;Weinberg&quot;">author:"Weinberg"</a>
+            </i>
+            </span>
+            <p style="margin-bottom: 0;" class="text-center">
+               Browse
+               <i>
+               <a class="help" data-placement="bottom" title="Browse Rfam families" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot;">Families</a>,
+               <a class="help" data-placement="bottom" title="Browse Rfam clans" rel="nofollow" href="/search?q=entry_type:&quot;Clan&quot;">Clans</a>,
+               <a class="help" data-placement="bottom" title="Browse Rfam motifs" rel="nofollow" href="/search?q=entry_type:&quot;Motif&quot;">Motifs</a>,
+               <a class="help" data-placement="bottom" title="Browse Rfam genomes" rel="nofollow" href="/search?q=entry_type:&quot;Genome&quot;">Genomes</a>,
+               or
+               <a class="help" data-placement="bottom" title="Browse Rfam families with 3D structures" rel="nofollow" href="/search?q=entry_type:&quot;Family&quot; AND has_3d_structure:&quot;Yes&quot;">Families with 3D structures</a>
+               </i>
+            </p>
+         </div>
+         <!-- /form-group -->
+      </fieldset>
+   </form>
+   <!-- /form -->
+</div>
+<br>
+<div class="cleaner">
+   <!-- empty -->
+</div>
+<div class="bootstrap-wrapper">
+   <div class="container-fluid">
+      <div class="row well well-sm">
+         <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Getting started</h2>
+         <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default hvr-grow-panel" style="width: 100%;">
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-search"></i> Sequence search</h3>
+               <div class="panel-body text-center">
+                  <p>
+                     Annotate your sequences with RNA families and visualise their secondary structure using R2DT
+                  </p>
+                  <p>
+                     <a href="/search?q=mana#tabview=tab1" class="btn btn-primary btn-rfam">Search by sequence</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default hvr-grow-panel" style="width: 100%;">
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-download"></i> Downloads</h3>
+               <div class="panel-body text-center">
+                  <p>
+                     Download covariance models, FASTA sequences, database dumps, previous releases, and more
+                  </p>
+                  <p>
+                     <a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT" class="btn btn-primary btn-rfam">Open FTP Archive</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default hvr-grow-panel" style="width: 100%;">
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-book"></i> Help</h3>
+               <div class="panel-body text-center">
+                  <p>
+                     Access Rfam using the <a href="https://docs.rfam.org/en/latest/api.html">API</a> and <a href="https://docs.rfam.org/en/latest/database.html">public MySQL database</a>, or learn how to <a href="https://docs.rfam.org/en/latest/genome-annotation.html">annotate genomes</a> using Infernal
+                  </p>
+                  <p>
+                     <a href="https://docs.rfam.org/" class="btn btn-primary btn-rfam">Rfam Help</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default" style="width: 100%;">
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>
+               <div class="panel-body">
+                  <ul class="list-inline margin-top-5px">
+                     <li class="twitter-follow-button-list">
+                        <a class="twitter-follow-button text-center"
+                           href="https://twitter.com/rfamdb"
+                           data-dnt="true"
+                           data-show-count="true"
+                           data-show-screen-name="false"
+                           data-lang="en">Follow</a>
+                        <a class="twitter-timeline" data-height="270" data-width="500" data-chrome="noheader nofooter noborders" data-dnt="true" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by Rfam</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default" style="width: 100%;">
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-bullhorn"></i> Announcements</h3>
+               <div class="panel-body">
+                  <p class="margin-top-5px">
+                     <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
+                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-2.png" alt="Release announcement">
+                     </a>
+                  </p>
+                  <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
+                     <li><a href="https://xfam.wordpress.com/tag/rfam/" target="_blank"><i class="fa fa-bookmark-o"></i> Subscribe to Rfam Blog</a></li>
+                     <li><span class="label label-success">New</span> <a href="" target="_blank">Read new Rfam NAR paper</a>
+                     <li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default" style="width: 100%;">
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-pencil"></i> Citing Rfam</h3>
+               <div class="panel-body">
+                  If you use Rfam, please cite our latest papers:
+                  <blockquote class="callout-info" style="font-size: small;">
+                     <p>
+                        <span class="title">
+                        <a class="ext"
+                           href="https://academic.oup.com/nar/article/4588106">
+                        Rfam 13.0: shifting to a genome-centric resource for non-coding RNA families.</a>
+                        </span>
+                        <br>
+                        <span class="authors">
+                        Kalvari et al.,
+                        </span>
+                        <span class="ref">
+                        <strong>Nucleic Acids Research</strong>&nbsp;(2017)
+                        </span>
+                     </p>
+                  </blockquote>
+                  <blockquote style="font-size: small;">
+                     <div class="citation">
+                        <span class="title">
+                        <a class="ext"
+                           href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6754622/">
+                        Non-coding RNA analysis using the Rfam database.</a>
+                        </span>
+                        <br>
+                        <span class="authors">
+                        Kalvari et al.,
+                        </span>
+                        <span class="ref">
+                        <strong>Current Protocols in Bioinformatics</strong>&nbsp;(2018)
+                        </span>
+                     </div>
+                  </blockquote>
+                  <a href="https://docs.rfam.org/en/latest/citing-rfam.html">View all Rfam papers</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row well well-sm">
+      <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Current projects</h2>
+      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/cloud';" style="cursor: pointer;">
+         <div class="panel panel-default" style="width: 100%;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-cloud"></i> Rfam Cloud</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/cloud" class="thumbnail">
+                  <img class="hvr-grow" src="[% staticUri %]/images/rfam-cloud/rfam-cloud-cli.png" alt="Rfam Cloud command line" style="width: 80%">
+                  </a>
+               </p>
+               <p class="lead text-center">
+                  <a href="">Learn how to build families using Rfam Cloud &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/viruses';" style="cursor: pointer;">
+         <div class="panel panel-default" style="width: 100%;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-empire"></i> Viruses</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/cloud" class="thumbnail">
+                  <img class="hvr-grow" src="[% staticUri %]/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 UTRs" style="width: 80%">
+                  </a>
+               </p>
+               <p class="lead text-center">
+                  <a href="">Discover new <em>Coronaviridae</em> and <em>Flaviviridae</em> RNA families &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/microrna';" style="cursor: pointer;">
+         <div class="panel panel-default" style="width: 100%;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-refresh"></i> microRNAs</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/microrna" class="thumbnail">
+                  <img class="hvr-grow" src="[% staticUri %]/images/mirbase.png" alt="miRBase logo" style="width: 60%">
+                  </a>
+               </p>
+               <p class="lead text-center">
+                  <a href="">Find out about the first phase of synchronising microRNA families between miRBase and Rfam &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Featured families</h2>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+         <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">SAM riboswitch</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/family/RF00162" class="thumbnail">
+                  <img class="hvr-grow" src="/family/RF00162/image/rscape" alt="SAM riboswitch secondary structure" style="max-height: 200px">
+                  </a>
+               </p>
+               <p class="lead">
+                  The SAM riboswitch seed alignment has been revised using the 3D structure information
+                  <a href="/family/RF00162">View family &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+         <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">manA RNA</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/family/RF01745" class="thumbnail">
+                  <img class="hvr-grow" src="/family/RF01745/image/rscape" alt="manA RNA secondary structure" style="max-height: 200px">
+                  </a>
+               </p>
+               <p class="lead">
+                  The manA seed alignment has been revised using the original ZWD alignment
+                  <a href="/family/RF01745">View family &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+         <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">L4-Archaeoglobi</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/family/RF03135" class="thumbnail">
+                  <img class="hvr-grow" src="/family/RF03135/image/rscape" alt="L4-Archaeoglobi secondary structure" style="max-height: 200px">
+                  </a>
+               </p>
+               <p class="lead">
+                  L4-Archaeoglobi is one of the new r-leader families imported from ZWD
+                  <a href="/family/RF03135">View family &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+         <div class="panel panel-default hvr-grow-panel" style="width: 100%; background-color: #ece2e0;">
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;">General Flavivirus xrRNA</h3>
+            <div class="panel-body">
+               <p class="margin-top-5px">
+                  <a href="/family/RF03547" class="thumbnail">
+                  <img class="hvr-grow" src="/family/RF03547/image/rscape" alt="Flavivirus xrRNA secondary structure" style="max-height: 200px">
+                  </a>
+               </p>
+               <p class="lead">
+                  General Flavivirus exoribonuclease-resistant RNA element is one of the new <em>Flavivirus</em> RNA families
+                  <a href="/family/RF03547">View family &rarr;</a>
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
 <div id="data-protection-message-configuration" data-message="This website requires cookies and limited processing of your personal data in order to function. By using this site you are agreeing to this as outlined in our <a href='https://www.ebi.ac.uk/data-protection/privacy-notice/rfam'>Privacy Policy</a> and <a href='https://www.ebi.ac.uk/about/terms-of-use'>Terms of Use</a>." data-service-id="rfam"></div>
-
-<script type="text/javascript">
-  // <![CDATA[
-
-  // submit text search queries
-  jQuery(function() {
-    jQuery('#queryForm').submit(function(){
-      var searchField = jQuery('#query-text');
-      if (!searchField.val()) {
-        searchField.focus();
-        return false;
-      }
-      window.location = '/search?q=' + searchField.val();
-      return false;
-    });
-  });
-
-  // set up the "jump to" field
-
-  // first, make it behave nicely
-  $("jumpField").value = "enter any accession or ID";
-  $("jumpField").selectionStart = 0;
-  $("jumpField").selectionEnd   = 0;
-
-  // add observers to clear out the field when the user first enters something
-  // in it. We need several to catch all eventualities...
-
-  var jumpCleared = false;
-  $("jumpField").observe( "keypress", function() {
-    var start = $("jumpField").selectionStart;
-    $("jumpField").value = $F("jumpField").substr( 0, start );;
-    jumpCleared = true;
-    $("jumpField").stopObserving();
-  } );
-
-  $("jumpField").observe( "click", function() {
-    $("jumpField").value = '';
-    jumpCleared = true;
-    $("jumpField").stopObserving();
-  } );
-
-  $("jumpField").observe( "focus", function() {
-    $("jumpField").selectionStart = 0;
-    $("jumpField").selectionEnd   = 0;
-  } );
-
-  // rotate through example IDs
-  var jumpExamples = $w("SAM telomerase");
-  var lastJumpExample = 0;
-  var fillJumpField = function() {
-    $("jumpField").value = jumpExamples[lastJumpExample++];
-    jumpCleared = true;
-    if ( lastJumpExample >= jumpExamples.size() ) {
-      lastJumpExample = 0;
-    }
-  }
-
-  // add an observer to submit the form when the user hits "go"
-  $("jumpButton").observe( "click", function() {
-    if ( $("jumpField").present() &&
-         jumpCleared ) {
-      jump('jumpForm');
-    }
-  } );
-  // example values for the various forms
-
-  var exRfamId = "snoZ107_R87";
-  var exClanId = "telomerase";
-  var exKw     = "spliceosomal";
-  var exTx     = "plasmodium";
-  var exSeq    = "AGUUACGGCCAUACCUCAGAGAAUAUACCGUAUCCCGUUCGAUCUGCGAAGUUAAGCUCU\n\
-GAAGGGCGUCGUCAGUACUAUAGUGGGUGACCAUAUGGGAAUACGACGUGCUGUAGCUU";
-
-  // hide the announcements or new features list when the user clicks the
-  // "hide this" button
-  var hideThis = function( id ) {
-    $(id).hide();
-
-    // tell urchin that we've hidden the blog
-    try {
-      urchinTracker( "/index/hidBlog" );
-    } catch( e ) {}
-
-    var d = new Date();
-    var t = Math.round( d.getTime() / 1000 );
-    createCookie( 'hide_' + id, t, '365' );
-    $("restore").show();
-  };
-
-  $("restoreLink").observe( "click", function() {
-    ['announcements','website_changes','posts'].each( function( type ) {
-      var cookieValue = readCookie( "hide_" + type );
-      if ( cookieValue != null ) {
-
-        // tell urchin that we've shown the blog
-        try {
-          urchinTracker( "/index/shownBlog" );
-        } catch( e ) {}
-
-
-        eraseCookie( "hide_" + type );
-        window.location = "[% c.uri_for('/') %]";
-      }
-    } );
-  } );
-
-  // jQuery(function() {
-  //   jQuery.get('/ebeye_proxy?url=https://xfam.wordpress.com/tag/rfam/feed/', function(data){
-  //     var html = jQuery('<div>');
-  //     jQuery(data).find('item').slice(0,3).each(function(){
-  //       title = jQuery(this).find('title').html();
-  //       content = jQuery(this).find('description').text();
-  //       link = jQuery(this).find('link').text();
-  //       html.append('<h3><a class="ext" href="' + link + '">'+ title + '</a></h3>')
-  //           .append('<p>' + content + '</p>');
-  //     });
-  //     jQuery('#posts').append(html).show();
-  //   });
-  // });
-
-  // ]]>
-</script>
-
 <!-- end of index page -->
-[%#
-Copyright (c) 2007: Genome Research Ltd.
-
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
-         Jennifer Daub (jd7@sanger.ac.uk)
-
-This is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-details.
-
-You should have received a copy of the GNU General Public License along with
-this program. If not, see <http://www.gnu.org/licenses/>.
--%]
