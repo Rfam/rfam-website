@@ -487,14 +487,6 @@ sharedUri = c.uri_for( "/shared" );
 
   <hr />
 
-  <div id="newFeatures">
-    <h2>Current projects</h2>
-    <p>
-      Find out about the ongoing Rfam projects, such as expanding the coverage of <a href="/viruses">viral</a> and <a href="/microrna">microRNAs</a> families, or
-      learn how to build RNA families in <a href="/cloud">Rfam Cloud</a>.
-    </p>
-  </div>
-
   <div class="cleaner"><!-- empty --></div>
 
   <div>
@@ -601,6 +593,60 @@ sharedUri = c.uri_for( "/shared" );
 
   </div>
   </div>
+
+  <div class="row">
+    <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Current projects</h2>
+      <div class="col-md-4">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-cloud"></i> Rfam Cloud</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="/cloud" class="thumbnail">
+                <img class="hvr-grow" src="[% staticUri %]/images/rfam-cloud/rfam-cloud-cli.png" alt="Rfam Cloud command line">
+              </a>
+            </p>
+            <p>
+              Learn how to build families using Rfam Cloud
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-empire"></i> Viruses</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="/cloud" class="thumbnail">
+                <img class="hvr-grow" src="[% staticUri %]/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 UTRs">
+              </a>
+            </p>
+            <p>
+              New families for Coronavirus and Flavivirus RNAs
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="panel panel-default" style="width: 100%;">
+          <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-refresh"></i> microRNAs</h3>
+          <div class="panel-body">
+            <p class="margin-top-5px">
+              <a href="/cloud" class="thumbnail">
+                <img class="hvr-grow" src="[% staticUri %]/images/mirbase.png" alt="miRBase logo">
+              </a>
+            </p>
+            <p>
+              Synchronising microRNA families between miRBase and Rfam
+            </p>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+
 </div>
 
 
