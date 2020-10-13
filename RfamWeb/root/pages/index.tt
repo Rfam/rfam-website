@@ -1,10 +1,4 @@
 [%
-# index.tt
-# jt6 20060717 WTSI
-#
-# build the main Rfam home page.
-#
-# $Id: index.tt,v 1.10 2009-06-09 12:13:25 jt6 Exp $
 META title = "Home page";
 META fullPage = 1;
 #-------------------------------------------------------------------------------
@@ -15,10 +9,6 @@ requirements.cssIeAll.push( "index_all_ie.css" );
 staticUri = c.uri_for( "/static" );
 sharedUri = c.uri_for( "/shared" );
 #-------------------------------------------------------------------------------
-# a warning message for users who dont have javascript turned on. The
-# message should be hidden immediately after its displayed, but if
-# javascript is not working, the prototype call will fail and the message
-# will stay visible
 %]
 <!-- start of index page -->
 <div class="bootstrap-wrapper">
@@ -105,9 +95,6 @@ sharedUri = c.uri_for( "/shared" );
    <!-- /form -->
 </div>
 <br>
-<div class="cleaner">
-   <!-- empty -->
-</div>
 <div class="bootstrap-wrapper">
    <div class="container-fluid">
       <div class="row well well-sm">
