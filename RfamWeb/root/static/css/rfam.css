@@ -2971,3 +2971,26 @@ a.btn {
   text-decoration: none !important;
   color: white !important;
 }
+
+/* Grow. Based on Hover: http://ianlunn.github.io/Hover/ */
+.hvr-grow {
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-grow-panel:hover .btn,
+.hvr-grow-panel:hover img,
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
