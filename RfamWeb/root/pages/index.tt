@@ -377,6 +377,20 @@ sharedUri = c.uri_for( "/shared" );
 <script type="text/javascript" src="[% staticUri %]/javascripts/slick.min.js"></script>
 
 <script>
+
+  // submit text search queries
+  jQuery(function() {
+    jQuery('#queryForm').submit(function(){
+      var searchField = jQuery('#query-text');
+      if (!searchField.val()) {
+        searchField.focus();
+        return false;
+      }
+      window.location = '/search?q=' + searchField.val();
+      return false;
+    });
+  });
+
   $(document).ready(function(){
     var total = $('.featured-gallery img').length;
     var rand = Math.floor( Math.random() * total );
