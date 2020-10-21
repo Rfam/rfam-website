@@ -16,7 +16,7 @@ sharedUri = c.uri_for( "/shared" );
 <div class="bootstrap-wrapper">
    <div class="container-fluid">
       <div class="row text-center" style="background: url('[% staticUri %]/images/rna-2d-background.png')">
-         <div class="homepage-callout-overlay col-md-8 col-md-offset-2" style="background: rgba(245,245,245,0.7); margin-top: 50px; margin-bottom: 50px;">
+         <div class="homepage-callout-overlay col-md-8 col-md-offset-2" style="background: rgba(245,245,245,0.8); margin-top: 50px; margin-bottom: 50px;">
             [% # if the database is down, we will be unable to retrieve release data, so
             # change the construction of the page title accordingly
             IF relData;
@@ -399,7 +399,7 @@ sharedUri = c.uri_for( "/shared" );
       arrows: false,
       slidesToShow: 4,
       infinite: true,
-      autoplay: true,
+      autoplay: false,
       initialSlide: rand, //navigate to random slide;
       draggable: true,
       focusOnSelect: false,
