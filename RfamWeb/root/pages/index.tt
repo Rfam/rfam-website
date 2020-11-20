@@ -171,7 +171,7 @@ sharedUri = c.uri_for( "/shared" );
                   </p>
                   <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
                      <li><a href="https://xfam.wordpress.com/tag/rfam/" target="_blank"><i class="fa fa-bookmark-o"></i> Subscribe to Rfam Blog</a></li>
-                     <li><span class="label label-success">New</span> <a href="" target="_blank">Read new Rfam NAR paper</a>
+                     <li><span class="label label-success">New</span> <a href="https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaa1047/5992291" target="_blank">Read new Rfam NAR paper</a>
                      <li>
                   </ul>
                </div>
@@ -185,16 +185,16 @@ sharedUri = c.uri_for( "/shared" );
                   <blockquote class="callout-info" style="font-size: small;">
                      <p>
                         <span class="title">
-                        <a class="ext"
-                           href="https://academic.oup.com/nar/article/4588106">
-                        Rfam 13.0: shifting to a genome-centric resource for non-coding RNA families.</a>
+                        <a class="ext" target="_blank"
+                           href="https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaa1047/5992291">
+                           Rfam 14: expanded coverage of metagenomic, viral and microRNA families</a>
                         </span>
                         <br>
                         <span class="authors">
                         Kalvari et al.,
                         </span>
                         <span class="ref">
-                        <strong>Nucleic Acids Research</strong>&nbsp;(2017)
+                        <strong>Nucleic Acids Research</strong>&nbsp;(2020)
                         </span>
                      </p>
                   </blockquote>
