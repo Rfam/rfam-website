@@ -43,7 +43,7 @@ sharedUri = c.uri_for( "/shared" );
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="/">
-          <img alt="Rfam logo" src="/static/images/rfam_logo.png" style="max-height: 40px;">
+          <img alt="Rfam logo" src="/static/images/rfam_logo.svg" style="max-height: 40px;">
         </a>
       </div>
 
@@ -51,7 +51,7 @@ sharedUri = c.uri_for( "/shared" );
         <ul class="nav navbar-nav" style="display: inline-flex;">
           <li><a href="/">HOME</a></li>
           <li><a href="/search">SEARCH</a></li>
-          <li><a href="/browse">BROWSE</a></li>
+          <li><a href="/search">BROWSE</a></li>
           <li><a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
           <li><a href="http://xfam.wordpress.com/tag/rfam/">BLOG</a></li>
           <li><a href="https://docs.rfam.org">HELP</a></li>
