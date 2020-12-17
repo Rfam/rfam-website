@@ -43,7 +43,7 @@ sharedUri = c.uri_for( "/shared" );
                 Both Rfam and miRBase contain classifications of microRNA families. However, before Rfam 14.3 the two databases have not been coordinated or synchronised. Previously, miRBase used a semi-automated clustering method relying on BLAST. These sequence-only miRBase families have higher coverage but lower quality than the Rfam microRNA families. In release 14.2, Rfam contained 529 microRNA families, while miRBase v22 annotated 1,983 microRNA families. Only 28% of the miRBase families matched one or more of the Rfam 14.2 families. There was therefore an opportunity to create up to 1,500 new families to increase the coverage of microRNAs in Rfam, as well as investigate and rationalise the entries that are unique to each database.
               </p>
               <p style="margin: 10px 0px;">
-                In the first phase of the project we have created and submitted 356 new microRNA families and updated 40 existing families.
+                In the first phase of the project we have created and submitted 852 new microRNA families (356 in release 14.3 and 496 in release 14.4) and updated 40 existing families.
               </p>
 
               <a href="/search?q=entry_type:%22Family%22%20AND%20rna_type:%22miRNA%22" class="btn btn-primary btn-rfam">Browse microRNA families</a>
