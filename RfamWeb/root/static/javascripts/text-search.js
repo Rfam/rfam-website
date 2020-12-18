@@ -74,8 +74,8 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
     };
 
     var search_config = {
-        ebeye_base_url: 'http://www.ebi.ac.uk/ebisearch/ws/rest/rfam',
-        // ebeye_base_url: 'http://wwwdev.ebi.ac.uk/ebisearch/ws/rest/rfam',
+        // ebeye_base_url: 'http://www.ebi.ac.uk/ebisearch/ws/rest/rfam',
+        ebeye_base_url: 'http://wwwdev.ebi.ac.uk/ebisearch/ws/rest/rfam',
         fields: [
             'assembly_name',
             'common_name',
