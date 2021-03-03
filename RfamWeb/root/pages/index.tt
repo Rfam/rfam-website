@@ -242,7 +242,7 @@ sharedUri = c.uri_for( "/shared" );
             <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-empire"></i> Viruses</h3>
             <div class="panel-body">
                <p class="margin-top-5px">
-                  <a href="/cloud" class="thumbnail">
+                  <a href="/viruses" class="thumbnail">
                   <img class="hvr-grow" src="[% staticUri %]/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 UTRs" style="width: 80%">
                   </a>
                </p>
