@@ -1,0 +1,126 @@
+[%
+META naked = 1;
+
+# the base URL for static content
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+  <head>
+    <title>Rfam Genome Explorers</title>
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
+  </head>
+
+  <body>
+
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't process the header" );
+    END -%]
+
+    <div class="bootstrap-wrapper">
+      <div class="container-fluid" style="margin-left: 15px; margin-right: 15px; margin-bottom: 15px;">
+          <div class="row">
+              <h1>Rfam Genome Explorers</h1>
+              <p class="lead">
+                Create new Rfam families or update the existing ones using the Rfam family building pipeline.
+                <a href="https://docs.rfam.org/en/latest/building-families.html">Learn more &rarr;</a>
+              </p>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4" onclick="location.href='https://forms.gle/EqRxFNqmuyaQwUf69';" style="cursor: pointer;">
+              <h2>Request an account</h2>
+              <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/rfam-cloud/rfam-cloud-form.png" alt="Rfam Cloud sign up form">
+
+              <p style="margin: 10px 0px;">
+                Are you an RNA expert comfortable with UNIX command line?
+              </p>
+              <a href="https://forms.gle/EqRxFNqmuyaQwUf69" class="btn btn-primary btn-rfam">Sign up for Rfam Cloud</a>
+            </div>
+
+            <div class="col-md-4" onclick="location.href='https://docs.rfam.org/page/rfam-cloud.html';" style="cursor: pointer;">
+              <h2>Read documentation</h2>
+              <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/rfam-cloud/rfam-cloud-docs.png" alt="Rfam Cloud documentation">
+              <p style="margin: 10px 0px;">
+                Learn how to build a new RNA family in 10 steps.
+              </p>
+              <a href="https://docs.rfam.org/page/rfam-cloud.html" class="btn btn-primary btn-rfam">Rfam Cloud Docs</a>
+            </div>
+
+            <div class="col-md-4" onclick="location.href='/submit_alignment';" style="cursor: pointer;">
+              <h2>Create RNA families</h2>
+              <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/rfam-cloud/rfam-cloud-cli.png" alt="Rfam Cloud command line interface">
+
+              <p style="margin: 10px 0px;">
+                Build an RNA family and submit it to Rfam for review.
+              </p>
+              <a href="/submit_alignment" class="btn btn-primary btn-rfam">Submit for review</a>
+            </div>
+
+          </div> <!-- row -->
+
+          <div class="row well" style="margin-top: 10px;">
+            <h2>Using Rfam Cloud for teaching</h2>
+
+            <p>
+              Rfam Cloud has been successfully used in a three-month masters level RNA bioinformatics course
+              at <a href="https://www.universite-paris-saclay.fr/en">Paris-Saclay University</a>
+              under the supervision of <a href="https://scholar.google.com/citations?user=vmFK4ywAAAAJ&hl=en">Prof Daniel Gautheret</a>.
+              Eight teams of three graduate students used Rfam Cloud to build RNA families.
+              Each team was assigned one candidate sequence to initiate the family building process.
+              The students used Rfam Cloud at their own pace and produced 6 new Rfam families (<a href="/family/RF03530">RF03530</a>,
+              <a href="/family/RF03531">RF03531</a>,
+              <a href="/family/RF03532">RF03532</a>,
+              <a href="/family/RF03533">RF03533</a>,
+              <a href="/family/RF03534">RF03534</a>,
+              <a href="/family/RF03535">RF03535</a>, and
+              <a href="/family/RF03536">RF03536</a>).
+              <a href="https://docs.google.com/presentation/d/1k_xMEUcZ8fF_v4mU2ctl0L_NsNNlpYlqpIiDEe2_oKk/edit?usp=sharing" target="_blank">View course slides &rarr;</a>
+            </p>
+            <p>
+              <a href="https://docs.rfam.org/en/latest/contact-us.html">Contact Rfam</a> if you would like to hold a course using Rfam Cloud.
+            </p>
+          </div> <!-- row -->
+
+          <div class="row">
+            <h2>FAQ</h2>
+
+            <strong>Where is Rfam Cloud hosted?</strong>
+
+            <p>
+              Rfam Cloud is hosted by the <a href="https://www.embassycloud.org/">EMBASSY cloud</a> platform provided by <a href="https://www.ebi.ac.uk/">EMBL-EBI</a>.
+            </p>
+
+            <strong>Can I see the code?</strong>
+
+            <p>
+              Rfam Cloud uses <strong>Docker</strong> and <strong>Kubernetes</strong> to run the family building pipeline. All code is available on <a href="https://github.com/Rfam/rfam-family-pipeline">GitHub</a>.
+            </p>
+
+            <strong>Why do I need to request an account?</strong>
+
+            <p>
+              Rfam Cloud is a computationally expensive pipeline wherein users share limited resources. The Rfam team prioritises access to the pipeline and ensures that it is used for its intended purpose.
+            </p>
+
+          </div> <!-- row -->
+
+      </div> <!-- container-fluid -->
+  </div> <!-- bootstrap-wrapper -->
+
+    [% TRY;
+      PROCESS "components/footer_${c.config.site}.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the site-specific footer" );
+    END -%]
+
+  </body>
+
+</html>
