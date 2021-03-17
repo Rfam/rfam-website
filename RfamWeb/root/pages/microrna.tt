@@ -29,23 +29,33 @@ sharedUri = c.uri_for( "/shared" );
               <h1>microRNA families</h1>
               <img class="img-thumbnail pull-left" style="width: 150px; margin-right: 15px;" src="[% staticUri %]/images/mirbase.png" alt="miRBase logo">
               <p class="lead">
-                Rfam collaborates with <strong>miRBase</strong> aiming to provide a comprehensive collection of microRNA families.
+                Rfam is collaborating with <strong>miRBase</strong> in order to provide a comprehensive collection of microRNA families
                 <br>
                 <a href="http://mirbase.org/" target="_blank">Learn more about miRBase &rarr;</a>
               </p>
           </div>
 
           <div class="row">
-            <h2>First phase of synchronisation between miRBase and Rfam</h2>
 
             <div class="col-md-6">
+              <h2>Project goal</h2>
               <p>
-                Both Rfam and miRBase contain classifications of microRNA families. However, before Rfam 14.3 the two databases have not been coordinated or synchronised. Previously, miRBase used a semi-automated clustering method relying on BLAST. These sequence-only miRBase families have higher coverage but lower quality than the Rfam microRNA families. In release 14.2, Rfam contained 529 microRNA families, while miRBase v22 annotated 1,983 microRNA families. Only 28% of the miRBase families matched one or more of the Rfam 14.2 families. There was therefore an opportunity to create up to 1,500 new families to increase the coverage of microRNAs in Rfam, as well as investigate and rationalise the entries that are unique to each database.
+                Both Rfam and miRBase contain classifications of microRNA families. However, before Rfam 14.3 the two databases have not been coordinated or synchronised. Previously, miRBase used a semi-automated clustering method relying on BLAST. These sequence-only miRBase families have higher coverage but lower quality than the Rfam microRNA families.
               </p>
-              <p style="margin: 10px 0px;">
-                In the first phase of the project we have created and submitted 852 new microRNA families (356 in release 14.3 and 496 in release 14.4) and updated 40 existing families.
+              <p>
+                Before the start of the project, Rfam contained 529 microRNA families, while miRBase annotated 1,983 microRNA families. Only 28% of the miRBase families matched one or more of the Rfam families.
               </p>
+              <p>
+                Our goal is to create and review <strong>up to 2,000 microRNA families</strong> to increase the coverage of microRNAs in Rfam, as well as investigate and rationalise the entries that are unique to each database.
+              </p>
+            </div>
 
+            <div class="col-md-6">
+              <h2>Current progress</h2>
+              <p style="margin: 10px 0px;">
+                In the first phase of the project we created 852 new microRNA families (356 in release 14.3 and 496 in release 14.4) and updated 152 existing families (40 in release 14.3 and 112 in release 14.5).
+                We estimate that <strong>the project is about 50% complete</strong>, and additional microRNA families will be made available in the future releases.
+              </p>
               <a href="/search?q=entry_type:%22Family%22%20AND%20rna_type:%22miRNA%22" class="btn btn-primary btn-rfam">Browse microRNA families</a>
             </div>
 
