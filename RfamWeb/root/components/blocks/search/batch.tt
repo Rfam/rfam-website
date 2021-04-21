@@ -98,7 +98,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
       <p>
         If you are planning to submit a lot of sequence searches, we recommend
         installing
-        <a href="ftp://ftp.sanger.ac.uk/pub/databases/Rfam/tools/rfam_scan.pl">rfam_scan.pl</a>
+        <a href="http://eddylab.org/Infernal">Infernal</a>
         locally.
       </p>
 

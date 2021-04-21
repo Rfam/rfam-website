@@ -40,7 +40,7 @@ sharedUri = c.uri_for( "/shared" );
                 <br>
                 that includes new and updated Coronavirus families.
                 Read more in a <a href="https://xfam.wordpress.com/2020/04/27/rfam-coronavirus-release/"><strong>blog post</strong></a>
-                or <a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/14.2/covid-19/"><strong>download the data</strong></a>
+                or <a href="http://ftp.ebi.ac.uk/pub/databases/Rfam/14.2/covid-19/"><strong>download the data</strong></a>
               </p>
           </div>
 

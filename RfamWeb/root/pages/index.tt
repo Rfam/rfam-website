@@ -122,7 +122,7 @@ sharedUri = c.uri_for( "/shared" );
                      Download covariance models, FASTA sequences, database dumps, previous releases, and more
                   </p>
                   <p>
-                     <a href="ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT" class="btn btn-primary btn-rfam">Open FTP Archive</a>
+                     <a href="http://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT" class="btn btn-primary btn-rfam">Open FTP Archive</a>
                   </p>
                </div>
             </div>
