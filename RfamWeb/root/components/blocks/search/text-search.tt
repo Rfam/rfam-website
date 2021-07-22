@@ -185,7 +185,7 @@
               </li>
               <li>
                 <p>
-                  Read more about <a href="http://www.ebi.ac.uk/ebisearch/documentation.ebi">query syntax</a>
+                  Read more about <a href="[% c.config.ebi_search %]/ebisearch/documentation.ebi">query syntax</a>
                 </p>
               </li>
             </ul>
@@ -210,7 +210,7 @@
             </ul>
             <hr>
             <small class="text-muted">
-              Powered by <a href="http://www.ebi.ac.uk/ebisearch/metadata.ebi?db=rfam" target="_blank">EBI Search</a>
+              Powered by <a href="[% c.config.ebi_search %]/ebisearch/metadata.ebi?db=rfam" target="_blank">EBI Search</a>
             </small>
 
           </div>
