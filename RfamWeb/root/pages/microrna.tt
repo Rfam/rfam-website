@@ -53,7 +53,7 @@ sharedUri = c.uri_for( "/shared" );
             <div class="col-md-6">
               <h2>Current progress</h2>
               <p style="margin: 10px 0px;">
-                In the first phase of the project we created 852 new microRNA families (356 in release 14.3 and 496 in release 14.4) and updated 152 existing families (40 in release 14.3 and 112 in release 14.5).
+                In the first phase of the project we created 973 new microRNA families (356 in release 14.3, 496 in release 14.4, and 121 in release 14.6) and updated 152 existing families (40 in release 14.3 and 112 in release 14.5).
                 We estimate that <strong>the project is about 50% complete</strong>, and additional microRNA families will be made available in the future releases.
               </p>
               <a href="/search?q=entry_type:%22Family%22%20AND%20rna_type:%22miRNA%22" class="btn btn-primary btn-rfam">Browse microRNA families</a>
