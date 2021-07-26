@@ -26,6 +26,12 @@ IF refreshUri != "";
 <!-- ====================================================================== -->
 <!-- make the site RSS feed discoverable -->
 
+<script>
+  var global_settings = {
+    EBI_SEARCH_ENDPOINT: '[% c.config.ebi_search %]',
+  };
+</script>
+
 <link href="https://xfam.wordpress.com/tag/rfam/feed/"
       rel="alternate"
       type="application/rss+xml"
@@ -86,7 +92,7 @@ IF refreshUri != "";
 <link rel='stylesheet' href='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.css?20202404000000' type='text/css' />
 <script type='text/javascript' src='[% staticUri %]/javascripts/angular/json3/json3.min.js'></script>
 <script type='text/javascript' src='[% staticUri %]/javascripts/underscore-min.js'></script>
-<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20202404000000'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20212207000000'></script>
 <link rel="stylesheet" href="[% staticUri %]/css/font-awesome/css/font-awesome.min.css" type="text/css" />
 
 <!-- GDPR -->
