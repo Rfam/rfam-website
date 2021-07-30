@@ -69,19 +69,18 @@ USE String;
         seqEnd = parseInt(seqEnd);
         var reversed = (seqStart > seqEnd);
 
-        var enaUrl = 'http://www.ebi.ac.uk/ena/data/view/seqAcc&display=fasta&range=seqStart-seqEnd';
+        var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=seqAcc&rettype=fasta&retmode=text&seq_start=seqStart&seq_stop=seqEnd&strand=seqStrand';
         var proxyUrl = '/ebeye_proxy';
 
         if (!reversed) {
-            url = enaUrl.replace('seqStart', seqStart).replace('seqEnd', seqEnd);
+            url = url.replace('seqStart', seqStart).replace('seqEnd', seqEnd);
+            url = url.replace('seqStrand', '1');
         } else {
-            url = enaUrl.replace('seqStart', seqEnd).replace('seqEnd', seqStart);
+            url = url.replace('seqStart', seqEnd).replace('seqEnd', seqStart);
+            url = url.replace('seqStrand', '2');
         }
         url = url.replace('seqAcc', seqAcc);
 
-        function complement(a) {
-            return { A: 'U', T: 'A', G: 'C', C: 'G' }[a];
-        }
 
         jQuery.ajax({
             url: proxyUrl,
@@ -89,21 +88,21 @@ USE String;
             success: function(data) {
                 // parse the response to make sure there are no errors and to update the sequence name
                 var lines = data.split('\n');
+                if (lines.length == 1) {
+                    event.target.parentNode.innerHTML = '<i class="fa fa-warning fa-2x" aria-hidden="true" style="color: red;" title="Sequence could not be downloaded: ' + lines[0] + '"></i>';
+                    console.log(url);
+                    console.log('Error received: ' + data);
+                    return;
+                }
                 var sequence = '';
                 for (i = 0; i < lines.length; i++) {
                     if (i == 0 && lines[i].indexOf('>') !== -1) {
-                        continue; // skip ENA FASTA header
-                    } else if (i == 0 && lines[i].indexOf('>') === -1) {
-                        // ENA error
-                        event.target.parentNode.innerHTML = '<i class="fa fa-warning fa-2x" aria-hidden="true" style="color: red;" title="Sequence could not be downloaded from ENA: ' + lines[0] + '"></i>';
-                        return;
+                        continue; // skip FASTA header
                     }
                     sequence += lines[i];
                 }
+                sequence = sequence.replace(/T/gi, 'U');
                 var seq_region = seqAcc + '/' + seqStart + '-' + seqEnd;
-                if (reversed) {
-                    sequence = sequence.split('').reverse().map(complement).join('');
-                }
                 var fasta = '>' + seq_region + '\n' + sequence;
                 downloadFile(fasta, rfamAcc + '_' + seq_region.replace('/', '_') + '.fasta');
             }
