@@ -170,10 +170,6 @@ angular.module('rfamApp')
       <dd ng-if="rna.rnacentral_id"><a href="http://rnacentral.org/rna/{{rna.rnacentral_id}}">{{rna.rnacentral_id}}</a></dd>\
     </dl>\
     <a class="btn btn-primary" style="background-color: #734639; border-color: #734639;" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}"><i class="fa fa-download" aria-hidden="true"></i> FASTA sequence</a>\
-    <br>\
-    <a target="_blank" ng-if="!genoverse" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">\
-      <img style="margin-top: 20px;" src="http://www.ebi.ac.uk/ena/data/view/graphics/{{rna.rfamseq_acc}}%26showSequence=false%26featureRange={{rna.seq_start}}-{{rna.seq_end}}%26sequenceRange=1-1000.jpg">\
-    </a>\
     </div>\
     '
   };
