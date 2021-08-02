@@ -1,31 +1,15 @@
-var getFasta = function(event, rfamAcc, seqAcc, seqStart, seqEnd) {
-    event.target.style.color = '#b18b80';
-
+var getFastaDownloadUrl = function(seqAcc, seqStart, seqEnd) {
     // RNAcentral identifier
     if (seqAcc.search(/^URS[A-F0-9]{10}/i) !== -1) {
         rnacentral_id = seqAcc.slice(0,13);
-        jQuery.ajax({
-            url: 'https://rnacentral.org/api/v1/rna/URS.fasta'.replace('URS', rnacentral_id),
-            success: function(data) {
-                var filename = seqAcc + '.fasta';
-                if (rfamAcc !== '') {
-                    filename = rfamAcc + '_' + filename;
-                }
-                downloadFile(data, filename);
-            },
-            error: function(request, status, error) {
-                event.target.parentNode.innerHTML = '<i class="fa fa-warning fa-2x" aria-hidden="true" style="color: red;" title="Sequence could not be downloaded from RNAcentral: ' + error + '"></i>';
-            },
-        });
-        return;
+        return 'https://rnacentral.org/api/v1/rna/URS.fasta'.replace('URS', rnacentral_id);
     }
 
     seqStart = parseInt(seqStart);
     seqEnd = parseInt(seqEnd);
     var reversed = (seqStart > seqEnd);
 
-    var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=seqAcc&rettype=fasta&retmode=text&seq_start=seqStart&seq_stop=seqEnd&strand=seqStrand';
-    var proxyUrl = '/ebeye_proxy';
+    var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=seqAcc&rettype=fasta&retmode=text&seq_start=seqStart&seq_stop=seqEnd&strand=seqStrand&api_key=b5b1ec23eb825f62f13e74e5215e60cd1208';
 
     if (!reversed) {
         url = url.replace('seqStart', seqStart).replace('seqEnd', seqEnd);
@@ -35,10 +19,16 @@ var getFasta = function(event, rfamAcc, seqAcc, seqStart, seqEnd) {
         url = url.replace('seqStrand', '2');
     }
     url = url.replace('seqAcc', seqAcc);
+    return url;
+}
+
+
+var getFasta = function(event, rfamAcc, seqAcc, seqStart, seqEnd) {
+    event.target.style.color = '#b18b80';
 
     jQuery.ajax({
-        url: proxyUrl,
-        data: {'url': url},
+        url: '/ebeye_proxy',
+        data: {'url': getFastaDownloadUrl(seqAcc, seqStart, seqEnd)},
         success: function(data) {
             // parse the response to make sure there are no errors and to update the sequence name
             var lines = data.split('\n');
@@ -63,7 +53,10 @@ var getFasta = function(event, rfamAcc, seqAcc, seqStart, seqEnd) {
                 filename = rfamAcc + '_' + filename;
             }
             downloadFile(fasta, filename);
-        }
+        },
+        error: function(request, status, error) {
+            event.target.parentNode.innerHTML = '<i class="fa fa-warning fa-2x" aria-hidden="true" style="color: red;" title="Sequence could not be downloaded: ' + error + '"></i>';
+        },
     });
 }
 
