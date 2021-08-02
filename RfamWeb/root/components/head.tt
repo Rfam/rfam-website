@@ -81,6 +81,7 @@ IF refreshUri != "";
 
 <!-- local javascript -->
 <script type="text/javascript" src="[% sharedUri %]/javascripts/sharedFunctions.js?20202404000000"></script>
+<script type="text/javascript" src="[% staticUri %]/javascripts/get_fasta.js?20220208000000"></script>
 
 <!-- humanize -->
 <script type="text/javascript" src="[% staticUri %]/javascripts/humanize.js"></script>
