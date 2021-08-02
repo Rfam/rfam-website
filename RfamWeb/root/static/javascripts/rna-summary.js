@@ -59,8 +59,6 @@ angular.module('rfamApp')
         }
       };
 
-      $scope.getFasta = getFasta;
-
       $http({
           url: query_urls.proxy + encodeURIComponent(query_urls.ebeye_search.replace('{ACCESSION}', $scope.name).replace('{SEQ_START}', $scope.seqstart).replace('{SEQ_END}', $scope.seqend)),
           method: 'GET'
@@ -138,6 +136,11 @@ angular.module('rfamApp')
           console.log('RNA data could not be loaded');
       });
 
+      $scope.downloadFasta = function(){
+        var url = getFastaDownloadUrl($scope.rna.rfamseq_acc, $scope.seqstart, $scope.seqend);
+        window.open(url);
+      }
+
     },
 
     template: '\
@@ -171,9 +174,8 @@ angular.module('rfamApp')
       <dt ng-if="rna.rnacentral_id">RNAcentral</dt>\
       <dd ng-if="rna.rnacentral_id"><a href="http://rnacentral.org/rna/{{rna.rnacentral_id}}">{{rna.rnacentral_id}}</a></dd>\
     </dl>\
-    <a class="btn btn-primary" style="background-color: #734639; border-color: #734639; cursor: pointer;"\
-       ng-click="getFasta($event, \'\', rna.rfamseq_acc, seqstart, seqend)">\
-       <i class="fa fa-download" aria-hidden="true"></i> FASTA sequence</a>\
+    <a ng-click="downloadFasta()" class="btn btn-primary" style="background-color: #734639; border-color: #734639; cursor: pointer;">\
+       <i class="fa fa-download fa-download-2x" aria-hidden="true"></i> FASTA sequence</a>\
     </div>\
     '
   };
