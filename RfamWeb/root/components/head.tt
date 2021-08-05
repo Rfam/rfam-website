@@ -80,19 +80,20 @@ IF refreshUri != "";
 <!-- local javascript files -->
 
 <!-- local javascript -->
-<script type="text/javascript" src="[% sharedUri %]/javascripts/sharedFunctions.js?20202404000000"></script>
+<script type="text/javascript" src="[% sharedUri %]/javascripts/sharedFunctions.js?20210208000000"></script>
+<script type="text/javascript" src="[% staticUri %]/javascripts/get_fasta.js?20210208000000"></script>
 
 <!-- humanize -->
 <script type="text/javascript" src="[% staticUri %]/javascripts/humanize.js"></script>
 
 <!-- Angular text search -->
 <base href="/"/>
-<script type='text/javascript' src='[% staticUri %]/javascripts/angular/angular.min.js?20202404000000'></script>
-<script type='text/javascript' src='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.js?20202404000000'></script>
-<link rel='stylesheet' href='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.css?20202404000000' type='text/css' />
+<script type='text/javascript' src='[% staticUri %]/javascripts/angular/angular.min.js?20210208000000'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.js?20210208000000'></script>
+<link rel='stylesheet' href='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.css?20210208000000' type='text/css' />
 <script type='text/javascript' src='[% staticUri %]/javascripts/angular/json3/json3.min.js'></script>
 <script type='text/javascript' src='[% staticUri %]/javascripts/underscore-min.js'></script>
-<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20212207000000'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20210208000000'></script>
 <link rel="stylesheet" href="[% staticUri %]/css/font-awesome/css/font-awesome.min.css" type="text/css" />
 
 <!-- GDPR -->
@@ -105,11 +106,11 @@ IF refreshUri != "";
 <!-- local stylesheets -->
 
 <!-- global stylesheet -->
-<link rel="stylesheet" href="[% staticUri %]/css/rfam.css?20202404000000" type="text/css" />
+<link rel="stylesheet" href="[% staticUri %]/css/rfam.css?20210208000000" type="text/css" />
 <link rel="stylesheet" href="[% sharedUri %]/css/buttons.css" type="text/css" />
 
 <!-- site-specific stylesheet -->
-<link rel="stylesheet" href="[% staticUri %]/css/[% c.config.site %].css?20202404000000" type="text/css" />
+<link rel="stylesheet" href="[% staticUri %]/css/[% c.config.site %].css?20210208000000" type="text/css" />
 
 <link rel="stylesheet" href="[% staticUri %]/javascripts/tipsy/src/stylesheets/tipsy.css" type="text/css" />
 

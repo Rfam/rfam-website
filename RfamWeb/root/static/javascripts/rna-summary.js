@@ -70,36 +70,36 @@ angular.module('rfamApp')
           });
           window.document.title = $scope.rna['description'];
           var species_label = $scope.rna.scientific_name.replace(' ', '_').toLowerCase();
-          if (jQuery.inArray(species_label, ensembl_genomes) !== -1 && $scope.rna.chromosome_name) {
-            $scope.genoverse = true;
-          } else {
-            $scope.genoverse = false;
-          }
+          // if (jQuery.inArray(species_label, ensembl_genomes) !== -1 && $scope.rna.chromosome_name) {
+          //   $scope.genoverse = true;
+          // } else {
+          //   $scope.genoverse = false;
+          // }
           sort_start_end();
           var offset = Number(Math.round(($scope.seqend - $scope.seqstart)/10));
-          if ($scope.genoverse) {
-            var genoverse = new Genoverse({
-              container: '#genoverse',
-              genome: species_label,
-              chr: $scope.rna.chromosome_name,
-              start: Number($scope.seqstart) - offset,
-              end: Number($scope.seqend) + offset,
-              tracks: [
-                Genoverse.Track.Scalebar,
-                Genoverse.Track.Gene,
-              ],
-              trackAutoHeight: true, // expand tracks to show all features
-              plugins: [ "controlPanel", "trackControls", "karyotype"],
-              urlParamTemplate: '', // do not update URL when navigating the genome
-              hideEmptyTracks: false,
-              highlights: [{
-                start: 	Number($scope.seqstart),
-                end: Number($scope.seqend),
-                label: "RFXXXXX",
-                removable: false,
-              }],
-            });
-          }
+          // if ($scope.genoverse) {
+          //   var genoverse = new Genoverse({
+          //     container: '#genoverse',
+          //     genome: species_label,
+          //     chr: $scope.rna.chromosome_name,
+          //     start: Number($scope.seqstart) - offset,
+          //     end: Number($scope.seqend) + offset,
+          //     tracks: [
+          //       Genoverse.Track.Scalebar,
+          //       Genoverse.Track.Gene,
+          //     ],
+          //     trackAutoHeight: true, // expand tracks to show all features
+          //     plugins: [ "controlPanel", "trackControls", "karyotype"],
+          //     urlParamTemplate: '', // do not update URL when navigating the genome
+          //     hideEmptyTracks: false,
+          //     highlights: [{
+          //       start: 	Number($scope.seqstart),
+          //       end: Number($scope.seqend),
+          //       label: "RFXXXXX",
+          //       removable: false,
+          //     }],
+          //   });
+          // }
 
           $http({
               url: query_urls.proxy + encodeURIComponent(query_urls.xref_rfam_search.replace('{ID}', $scope.rna.id)),
@@ -120,21 +120,26 @@ angular.module('rfamApp')
           });
 
           $scope.rna.rnacentral_id = '';
-          $http({
-              url: query_urls.proxy + encodeURIComponent(query_urls.xref_rnacentral_search.replace('{ID}', $scope.rna.id)),
-              method: 'GET',
-          }).success(function(data) {
-              if (data.entries[0].referenceCount > 0) {
-                $scope.rna.rnacentral_id = data.entries[0].references[0].id;
-              } else {
-                $scope.rna.rnacentral_id = '';
-              }
-          }).error(function(){
-              console.log('Error while retrieving RNAcentral xref');
-          });
+          // $http({
+          //     url: query_urls.proxy + encodeURIComponent(query_urls.xref_rnacentral_search.replace('{ID}', $scope.rna.id)),
+          //     method: 'GET',
+          // }).success(function(data) {
+          //     if (data.entries[0].referenceCount > 0) {
+          //       $scope.rna.rnacentral_id = data.entries[0].references[0].id;
+          //     } else {
+          //       $scope.rna.rnacentral_id = '';
+          //     }
+          // }).error(function(){
+          //     console.log('Error while retrieving RNAcentral xref');
+          // });
       }).error(function(){
           console.log('RNA data could not be loaded');
       });
+
+      $scope.downloadFasta = function(){
+        var url = getFastaDownloadUrl($scope.rna.rfamseq_acc, $scope.seqstart, $scope.seqend);
+        window.open(url);
+      }
 
     },
 
@@ -169,11 +174,8 @@ angular.module('rfamApp')
       <dt ng-if="rna.rnacentral_id">RNAcentral</dt>\
       <dd ng-if="rna.rnacentral_id"><a href="http://rnacentral.org/rna/{{rna.rnacentral_id}}">{{rna.rnacentral_id}}</a></dd>\
     </dl>\
-    <a class="btn btn-primary" style="background-color: #734639; border-color: #734639;" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}&display=fasta&range={{seqstart}}-{{seqend}}"><i class="fa fa-download" aria-hidden="true"></i> FASTA sequence</a>\
-    <br>\
-    <a target="_blank" ng-if="!genoverse" href="http://www.ebi.ac.uk/ena/data/view/{{rna.rfamseq_acc}}">\
-      <img style="margin-top: 20px;" src="http://www.ebi.ac.uk/ena/data/view/graphics/{{rna.rfamseq_acc}}%26showSequence=false%26featureRange={{rna.seq_start}}-{{rna.seq_end}}%26sequenceRange=1-1000.jpg">\
-    </a>\
+    <a ng-click="downloadFasta()" class="btn btn-primary" style="background-color: #734639; border-color: #734639; cursor: pointer;">\
+       <i class="fa fa-download fa-download-2x" aria-hidden="true"></i> FASTA sequence</a>\
     </div>\
     '
   };

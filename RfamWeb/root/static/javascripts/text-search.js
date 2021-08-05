@@ -678,6 +678,12 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
         });
     };
 
+    $scope.download_fasta = function(rna) {
+      var url = getFastaDownloadUrl(rna.fields.rfamseq_acc[0], rna.fields.seq_start[0], rna.fields.seq_end[0]);
+      window.open(url);
+    }
+
+
 }]);
 
 /**

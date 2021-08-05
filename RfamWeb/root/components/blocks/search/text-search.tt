@@ -352,6 +352,7 @@
                               <span ng-if="(rna.fields.truncated[0]|htmlToPlaintext) == '53'">Truncated on both 5' and 3' ends</span>
                             </li>
                             <li ng-if="rna.fields.chromosome_name[0]">chromosome {{rna.fields.chromosome_name[0]}}</li>
+                            <li><i class="fa fa-download fa-download-2x" aria-hidden="true"></i> <a href="" ng-click="download_fasta(rna)">Dowload fasta</a></li>
                           </ul>
                         </div>
                       </div>

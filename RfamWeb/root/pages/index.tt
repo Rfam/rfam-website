@@ -1,5 +1,5 @@
 [%
-META title = "Home page";
+META title = "The RNA families database";
 META fullPage = 1;
 #-------------------------------------------------------------------------------
 # specify required stylesheets and javascript files
@@ -109,7 +109,7 @@ sharedUri = c.uri_for( "/shared" );
                      Annotate your sequences with RNA families and visualise their secondary structure using R2DT
                   </p>
                   <p>
-                     <a href="/search?q=mana#tabview=tab1" class="btn btn-primary btn-rfam">Search by sequence</a>
+                     <a href="/search#tabview=tab1" class="btn btn-primary btn-rfam">Search by sequence</a>
                   </p>
                </div>
             </div>

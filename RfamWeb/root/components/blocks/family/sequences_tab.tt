@@ -107,7 +107,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
           <td class="rowNum">[% loop.index %]</td>
           <td>
             <div class="bootstrap-wrapper">
-              <a onclick="getFasta(event, '[% rfam.rfam_acc %]', '[% seqAcc %]', '[% region.seq_start %]', '[% region.seq_end %]');" style="cursor: pointer"><i class="fa fa-download fa-2x" aria-hidden="true" title="Download FASTA sequence"></i></a>
+              <a onclick="window.open(getFastaDownloadUrl('[% seqAcc %]', '[% region.seq_start %]', '[% region.seq_end %]'));" style="cursor: pointer"><i class="fa fa-download fa-2x" aria-hidden="true" title="Download FASTA sequence"></i></a>
             </div>
           </td>
           <td style="text-align:center;">
@@ -170,7 +170,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
           <td class="rowNum">[% loop.index %]</td>
           <td>
             <div class="bootstrap-wrapper">
-              <a onclick="getFasta(event, '[% rfam.rfam_acc %]', '[% seqAcc %]', '[% region.seq_start %]', '[% region.seq_end %]');" style="cursor: pointer"><i class="fa fa-download fa-2x" aria-hidden="true" title="Download FASTA sequence"></i></a>
+              <a onclick="window.open(getFastaDownloadUrl('[% seqAcc %]', '[% region.seq_start %]', '[% region.seq_end %]'));" style="cursor: pointer"><i class="fa fa-download fa-2x" aria-hidden="true" title="Download FASTA sequence"></i></a>
             </div>
           </td>
           <td style="text-align:center;">
