@@ -21,7 +21,7 @@ navLinks = {
   home    = c.uri_for( "/" ),
   search  = c.uri_for( "/search" ),
   browse  = c.uri_for( "/browse" ),
-  ftp     = "http://ftp.ebi.ac.uk/pub/databases/Rfam",
+  ftp     = "https://ftp.ebi.ac.uk/pub/databases/Rfam",
   blog    = "http://xfam.wordpress.com/tag/rfam/",
   help    = "https://docs.rfam.org"
 };
@@ -52,7 +52,7 @@ sharedUri = c.uri_for( "/shared" );
           <li><a href="/">HOME</a></li>
           <li><a href="/search">SEARCH</a></li>
           <li><a href="/search">BROWSE</a></li>
-          <li><a href="http://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
+          <li><a href="https://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
           <li><a href="http://xfam.wordpress.com/tag/rfam/">BLOG</a></li>
           <li><a href="https://docs.rfam.org">HELP</a></li>
           <li class="brush-highlight"><a href="/covid-19">COVID-19</a></li>
