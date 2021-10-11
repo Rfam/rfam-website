@@ -16,7 +16,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
 <div class="bootstrap-wrapper">
   <div class="btn-toolbar" role="toolbar" style="margin-top: 15px; margin-bottom: 15px;">
     <div class="btn-group" role="group">
-      <button onclick="location.href='http://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz'" type="button" class="btn btn-default help" title="FASTA format">
+      <button onclick="location.href='https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/[% rfam.rfam_acc %].fa.gz'" type="button" class="btn btn-default help" title="FASTA format">
          <i class="fa fa-download" aria-hidden="true"></i> Download all sequences
        </button>
        [% IF rfam.num_full < limits.showText %]
