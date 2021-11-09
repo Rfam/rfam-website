@@ -14,30 +14,6 @@ sharedUri = c.uri_for( "/shared" );
 %]
 <!-- start of index page -->
 <div class="bootstrap-wrapper">
-   <div class="modal-backdrop in"></div>
-   <div class="modal" style="display:block;" id="myModal" role="dialog" tabindex="-1" data-show="true">
-         <div class="modal-dialog">  
-            <div class="modal-content" style="font-size:20px">
-               <div class="modal-header">
-                     <div class="alert alert-success text-center" style="margin-top: 10px;">
-                        <div class="modal-body">
-                           <i class="fa fa-users fa-2x"></i>
-                           <strong>We want to hear from you!</strong>
-                           <br>
-                           We need your 
-                           <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>feedback</strong></a> 
-                           to keep Rfam going.
-                           </br>
-                           <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>Help out Rfam by taking the survey &rarr;</strong></a>
-                        </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <button type="button" onclick = "$('.modal-backdrop').remove();$('.modal').removeClass('show').addClass('fade');" class="btn" data-dismiss="modal">Close</button>
-               </div>
-            </div>   
-         </div>
-   </div>
    <div class="container-fluid">
       <div class="row text-center" style="background: url('[% staticUri %]/images/rna-2d-background.png')">
          <div class="homepage-callout-overlay col-md-8 col-md-offset-2" style="background: rgba(245,245,245,0.8); margin-top: 50px; margin-bottom: 50px;">
@@ -393,7 +369,32 @@ sharedUri = c.uri_for( "/shared" );
       </div>
       </div>
    </div>
+   <div class="modal-backdrop in"></div>
+   <div class="modal" style="display:block;" id="myModal" role="dialog" tabindex="-1" >
+         <div class="modal-dialog">  
+            <div class="modal-content" style="font-size:20px">
+               <div class="modal-header">
+                     <div class="alert alert-success text-center" style="margin-top: 10px;">
+                        <div class="modal-body">
+                           <i class="fa fa-users fa-2x"></i>
+                           <strong>We want to hear from you!</strong>
+                           <br>
+                           We need your 
+                           <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>feedback</strong></a> 
+                           to keep Rfam going.
+                           </br>
+                           <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>Help out Rfam by taking the survey &rarr;</strong></a>
+                        </div>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" onclick = "hideModal();" class="btn" data-dismiss="modal">Close</button>
+               </div>
+            </div>   
+         </div>
+   </div>
 </div>
+
 <div id="data-protection-message-configuration" data-message="This website requires cookies and limited processing of your personal data in order to function. By using this site you are agreeing to this as outlined in our <a href='https://www.ebi.ac.uk/data-protection/privacy-notice/rfam'>Privacy Policy</a> and <a href='https://www.ebi.ac.uk/about/terms-of-use'>Terms of Use</a>." data-service-id="rfam"></div>
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -401,7 +402,13 @@ sharedUri = c.uri_for( "/shared" );
 <script type="text/javascript" src="[% staticUri %]/javascripts/slick.min.js"></script>
 
 <script>
-
+   function hideModal() {
+      $("#myModal").removeClass("in");
+      $(".modal-backdrop").remove();
+      $('body').removeClass('modal-open');
+      $('body').css('padding-right', '');
+      $("#myModal").hide();
+   }
   // submit text search queries
   jQuery(function() {
     jQuery('#queryForm').submit(function(){
