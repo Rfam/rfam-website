@@ -369,31 +369,6 @@ sharedUri = c.uri_for( "/shared" );
       </div>
       </div>
    </div>
-   <div class="modal-backdrop in"></div>
-   <div class="modal" style="display:block;" id="myModal" role="dialog" tabindex="-1" >
-         <div class="modal-dialog">  
-            <div class="modal-content" style="font-size:20px">
-               <div class="modal-header">
-                     <div class="alert alert-success text-center" style="margin-top: 10px;">
-                        <div class="modal-body">
-                           <i class="fa fa-users fa-2x"></i>
-                           <strong>We want to hear from you!</strong>
-                           <br>
-                           We need your 
-                           <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>feedback</strong></a> 
-                           to keep Rfam going.
-                           </br>
-                           <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>Help out Rfam by taking the survey &rarr;</strong></a>
-                        </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <button type="button" onclick = "hideModal();" class="btn" data-dismiss="modal">Close</button>
-               </div>
-            </div>   
-         </div>
-   </div>
-</div>
 
 <div id="data-protection-message-configuration" data-message="This website requires cookies and limited processing of your personal data in order to function. By using this site you are agreeing to this as outlined in our <a href='https://www.ebi.ac.uk/data-protection/privacy-notice/rfam'>Privacy Policy</a> and <a href='https://www.ebi.ac.uk/about/terms-of-use'>Terms of Use</a>." data-service-id="rfam"></div>
 
