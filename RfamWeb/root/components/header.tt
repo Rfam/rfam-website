@@ -81,19 +81,6 @@ sharedUri = c.uri_for( "/shared" );
 
 <div class="cleaner"><!-- empty --></div>
 
-<div class="bootstrap-wrapper">
- 	  <div class="alert alert-success text-center" style="margin-top: 10px;">
- 	    <p class="lead">
- 	      <i class="fa fa-users fa-2x" aria-hidden="true"></i>
-         <strong>We want to hear from you!</strong>
-         <br>
-         We need your <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>feedback</strong></a> to keep Rfam going.
-         </br>
-         <a href="https://www.surveymonkey.co.uk/r/rfam-survey-2021"><strong>Help out Rfam by taking the survey &rarr;</strong></a>
-       </p>
- 	  </div>
- </div>
-
 <script type="text/javascript">
   jQuery(function() {
     jQuery('#siteSearchForm').submit(function(){
