@@ -91,7 +91,7 @@ USE Number.Format( THOUSANDS_SEP = "," );
           to = region.get_column('length');
         END;
 
-        rnacentral_url = "https://rnacentral.org/rna/";
+        rnacentral_url = "https://rnacentral.org/rna";
 
         enaURI = "http://www.ebi.ac.uk/ena/data/view/graphics/"
           _ seqAcc
