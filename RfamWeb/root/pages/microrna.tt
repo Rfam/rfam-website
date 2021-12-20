@@ -57,6 +57,7 @@ sharedUri = c.uri_for( "/shared" );
                 We estimate that <strong>the project is about 60% complete</strong>, and additional microRNA families will be made available in the future releases.
               </p>
               <a href="/search?q=entry_type:%22Family%22%20AND%20rna_type:%22miRNA%22" class="btn btn-primary btn-rfam">Browse microRNA families</a>
+              <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaDqyVPiTzLm_-jSZx6l73oJOt9FW_9OJ84blY2okj5ny2X-lXlPv7mP1O7qAxkLmrpNFlLi--bPcr/pubchart?oid=340943210&amp;format=interactive"></iframe>
             </div>
 
           </div> <!-- row -->
