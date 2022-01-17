@@ -1,0 +1,21 @@
+<!-- start publications block -->
+
+<div class="block" id="publicationsBlock">
+  <div class="handle">
+    <h1>Publications</h1>
+  </div>
+  <div class="blockContent">
+   <h2>Publications with reference to "[% rfam.rfam_acc %]"</h2>
+    <rnacentral-references search='["[% rfam.rfam_acc %]"]'
+    customStyle='{
+                "linkColor": "#621700",
+                "titleColor": "#621700",
+                "facetColor": "#621700",
+                "loadMoreButtonColor": "#621700"
+              }'
+              />
+    <script type="text/javascript" src="https://rnacentral.github.io/rnacentral-references-embed/dist/rnacentral-references-embed.js"></script>
+  </div>
+</div>
+
+<!-- end publications block --> 
