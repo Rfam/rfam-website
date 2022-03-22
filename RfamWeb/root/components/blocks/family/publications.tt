@@ -1,10 +1,8 @@
-<!-- start publications block -->
-
-<div class="block" id="publicationsBlock">
-  <div class="handle">
+<div>
+  <div>
     <h1>Publications</h1>
   </div>
-  <div class="blockContent">
+  <div>
    <h2>Publications with reference to "[% rfam.rfam_acc %]"</h2>
     <rnacentral-references search='["[% rfam.rfam_acc %]"]' 
     "database"='{"name":"Rfam"}'
@@ -19,4 +17,3 @@
   </div>
 </div>
 
-<!-- end publications block --> 
