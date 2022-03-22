@@ -7,7 +7,7 @@
   <div class="blockContent">
    <h2>Publications with reference to "[% rfam.rfam_acc %]"</h2>
     <rnacentral-references search='["[% rfam.rfam_acc %]"]' 
-    database='{"name":"Rfam"}'
+    "database"='{"name":"Rfam"}'
     customStyle='{
                 "linkColor": "#621700",
                 "titleColor": "#621700",
