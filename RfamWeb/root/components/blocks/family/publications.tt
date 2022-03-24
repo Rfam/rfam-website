@@ -1,0 +1,12 @@
+<div>
+  <rnacentral-references search='["[% rfam.rfam_acc %]"]' 
+  database='{"name":"Rfam"}'
+  customStyle='{
+              "linkColor": "#621700",
+              "titleColor": "#621700",
+              "facetColor": "#621700",
+              "loadMoreButtonColor": "#621700"
+            }'
+  />
+  <script type="text/javascript" src="https://rnacentral.github.io/rnacentral-references-embed/dist/rnacentral-references-embed.js"></script>
+</div>
