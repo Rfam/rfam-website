@@ -17,13 +17,14 @@ pipeline {
     stages {
         stage("Update webcode") {
           steps {
-            sh 'echo Building ${params.BRANCH}...'
             script {
+              sh 'echo Building ${params.BRANCH}...'
             if (params.VM == 'HX') {
               sh '''
               ssh -T ves-hx-b7 << EOF
               hostname
               cd /nfs/public/rw/xfam/rfam/test/rfam-website
+              git checkout ${params.BRANCH}
               git pull
               echo flush_all | nc ves-hx-b7.ebi.ac.uk 11211
 EOF
