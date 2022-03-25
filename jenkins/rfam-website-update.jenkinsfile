@@ -24,7 +24,6 @@ pipeline {
               ssh -T ves-hx-b7 << EOF
               hostname
               cd /nfs/public/rw/xfam/rfam/test/rfam-website
-              git checkout ${params.BRANCH}
               git pull
               echo flush_all | nc ves-hx-b7.ebi.ac.uk 11211
 EOF
@@ -34,7 +33,6 @@ EOF
               ssh -T ves-oy-b7 << EOF
               hostname
               cd /nfs/public/rw/xfam/rfam/live/rfam-website
-              git checkout ${params.BRANCH}
               git pull
               echo flush_all | nc ves-oy-b7.ebi.ac.uk 11211
 EOF
@@ -44,7 +42,6 @@ EOF
               ssh -T ves-pg-b7 << EOF
               hostname
               cd /nfs/public/rw/xfam/rfam/live/rfam-website
-              git checkout ${params.BRANCH}
               git pull
               echo flush_all | nc ves-pg-b7.ebi.ac.uk 11211
 EOF
