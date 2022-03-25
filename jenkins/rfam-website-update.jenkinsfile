@@ -18,7 +18,6 @@ pipeline {
     stages {
         stage("Update webcode") {
           steps {
-            git branch: "${params.BRANCH}", url: 'https://github.com/Rfam/rfam-website.git'
             script {
             if (params.VM == 'HX') {
               sh '''
