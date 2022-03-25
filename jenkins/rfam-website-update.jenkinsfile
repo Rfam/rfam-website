@@ -6,10 +6,19 @@ pipeline {
             choices: ['HX', 'OY', 'PG'],
             description: 'Which environment to update?'
         )
+        gitParameter(
+            branchFilter: 'origin/(.*)',
+            defaultValue: 'master',
+            name: 'BRANCH',
+            type: 'PT_BRANCH',
+            selectedValue: 'DEFAULT',
+            description: 'Name of the branch to test and deploy'
+        )
     }
     stages {
         stage("Update webcode") {
           steps {
+            git branch: "${params.BRANCH}", url: 'https://github.com/Rfam/rfam-website.git'
             script {
             if (params.VM == 'HX') {
               sh '''
