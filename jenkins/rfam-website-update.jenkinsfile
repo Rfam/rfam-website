@@ -18,9 +18,8 @@ pipeline {
         stage("Update webcode") {
           steps {
             script {
-              sh 'echo Building ${params.BRANCH}...'
             if (params.VM == 'HX') {
-              sh '''
+              sh """
               ssh -T ves-hx-b7 << EOF
               hostname
               cd /nfs/public/rw/xfam/rfam/test/rfam-website
@@ -28,25 +27,25 @@ pipeline {
               git pull
               echo flush_all | nc ves-hx-b7.ebi.ac.uk 11211
 EOF
-'''
+"""
             } else if (params.VM == 'OY') {
-              sh '''
+              sh """
               ssh -T ves-oy-b7 << EOF
               hostname
               cd /nfs/public/rw/xfam/rfam/live/rfam-website
               git pull
               echo flush_all | nc ves-oy-b7.ebi.ac.uk 11211
 EOF
-'''
+"""
             } else if (params.VM == 'PG') {
-              sh '''
+              sh """
               ssh -T ves-pg-b7 << EOF
               hostname
               cd /nfs/public/rw/xfam/rfam/live/rfam-website
               git pull
               echo flush_all | nc ves-pg-b7.ebi.ac.uk 11211
 EOF
-'''
+"""
             }
           }
         }
