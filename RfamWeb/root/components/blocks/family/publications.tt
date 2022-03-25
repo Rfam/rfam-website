@@ -1,0 +1,9 @@
+[%
+META naked = 1;
+
+requirements.js.push( "rscape.js" );
+
+%]
+
+  <rnacentral-references search='["RF00005"]' "database"='{"name": "Rfam"}' />
+  <script type="text/javascript" src="https://rnacentral.github.io/rnacentral-references-embed/dist/rnacentral-references-embed.js"></script>
