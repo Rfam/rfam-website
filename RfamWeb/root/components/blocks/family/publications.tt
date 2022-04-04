@@ -1,6 +1,6 @@
 <div class="block" id="publicationsBlock">
   <div class="blockContent">
-    <rnacentral-references search='["[% rfam.rfam_acc %]"]'
+    <rnacentral-litscan search='["[% rfam.rfam_acc %]"]'
     database='{"name":"Rfam"}'
     customStyle='{
                 "linkColor": "#621700",
@@ -9,6 +9,6 @@
                 "loadMoreButtonColor": "#621700"
               }'
               />
-    <script type="text/javascript" src="https://rnacentral.github.io/rnacentral-references-embed/dist/rnacentral-references-embed.js"></script>
+    <script type="text/javascript" src="https://rnacentral.github.io/rnacentral-litscan/dist/rnacentral-litscan.js"></script>
   </div>
 </div>
