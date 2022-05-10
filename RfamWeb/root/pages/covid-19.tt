@@ -115,7 +115,7 @@ sharedUri = c.uri_for( "/shared" );
               </ul>
 
               <h2>Release 14.8</h2>
-              <p>In Rfam release 14.8, we have added 10 new <em>Coronaviridae</em> families, and updated 3 exiting families. </p>
+              <p>In Rfam release 14.8, we have added 10 new <em>Coronaviridae</em> families, and updated 3 existing families. </p>
 
                 <table class="table table-condensed">
                   <thead>

@@ -48,15 +48,15 @@ sharedUri = c.uri_for( "/shared" );
                 A specialised set of alignments for the subgenus <em>Sarbecovirus</em> is also provided, including the SARS-CoV-1 and SARS-CoV-2 UTRs.
               </p>
 
+              <p>
+                In release 14.8 we have added 10 new <em>Coronaviridae</em> families, and updated 3 families. 
+              </p>
+
               <p style="margin: 10px 0px;">
                 There are also 4 non-UTR families, including <a href="/family/RF00182">Coronavirus packaging signal</a>,
                 <a href="/family/RF00507">Coronavirus frameshifting stimulation element</a>,
                 <a href="/family/RF00164">Coronavirus s2m RNA</a>,
                 and <a href="/family/RF00165">Coronavirus 3'-UTR pseudoknot</a>.
-              </p>
-
-              <p style="margin: 10px 0px;">
-                In release 14.8 we have added 10 new <em>Coronaviridae</em> families, and updated 3 families. 
               </p>
 
               <a href="/covid-19" class="btn btn-primary btn-rfam">View <em>Coronaviridae</em> families</a>
@@ -155,8 +155,9 @@ sharedUri = c.uri_for( "/shared" );
 
           <div class="row">
 
-            <h2><em>Hepatitis C</em> RNA families</h2>
-            <p> In Rfam release 14.8, we have added 4 new <em>Hepatitis C</em> families, and updated 5 exiting families. </p>
+            <h2><em>Hepacivirus</em> RNA families</h2>
+            <p> In release 14.8, we have added 4 new <em>Hepacivirus</em> families, and have updated 5 existing families. We have also
+            removed 4 families: RF02585, RF02586, RF02587, RF02588</p>
 
             <div class="col-md-6" onclick="location.href='https://docs.rfam.org/page/rfam-cloud.html';" style="cursor: pointer;">
 
@@ -223,7 +224,7 @@ sharedUri = c.uri_for( "/shared" );
 
             <p>
               We are working on adding RNA families from other viruses, such as
-              <em>Hepacivirus</em> (Hepatitis C viruses), <em>Filoviridae</em> (e.g. Ebolavirus) and <em>Rhabdoviridae</em> (e.g. Rabies viruses).
+              <em>Filoviridae</em> (e.g. Ebolavirus) and <em>Rhabdoviridae</em> (e.g. Rabies viruses).
             </p>
             <p>
               Please <a href="https://docs.rfam.org/en/latest/contact-us.html">contact Rfam</a> if you are interested in a specific virus family or if you have feedback about this project.
