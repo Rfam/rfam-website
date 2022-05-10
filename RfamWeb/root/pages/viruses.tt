@@ -47,11 +47,6 @@ sharedUri = c.uri_for( "/shared" );
                 In Rfam release 14.2 we created 10 families representing the entire 5'- and 3'- untranslated regions (UTRs) for <em>Alpha-</em>, <em>Beta-</em>, <em>Gamma-</em>, and <em>Deltacoronaviruses</em>.
                 A specialised set of alignments for the subgenus <em>Sarbecovirus</em> is also provided, including the SARS-CoV-1 and SARS-CoV-2 UTRs.
               </p>
-
-              <p>
-                In release 14.8 we have added 10 new <em>Coronaviridae</em> families, and updated 3 families. 
-              </p>
-
               <p style="margin: 10px 0px;">
                 There are also 4 non-UTR families, including <a href="/family/RF00182">Coronavirus packaging signal</a>,
                 <a href="/family/RF00507">Coronavirus frameshifting stimulation element</a>,
