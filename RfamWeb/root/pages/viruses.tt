@@ -29,38 +29,111 @@ sharedUri = c.uri_for( "/shared" );
               <h1>Viral RNA families</h1>
               <img class="img-thumbnail pull-left" style="width: 200px; margin-right: 15px;" src="/static/images/evbc.png" alt="EVBC logo">
               <p class="lead">
-                Rfam collaborates with the <strong>European Virus Bioinformatics Centre</strong> (EVBC) aiming to provide a comprehensive database for virologists interested in RNA secondary structures.
+                Rfam is collaborating with the <strong>European Virus Bioinformatics Centre</strong> (EVBC), with an aim to provide a comprehensive database for virologists interested in RNA secondary structures.
                 <br>
                 <a href="http://evbc.uni-jena.de/" target="_blank">Learn more about EVBC &rarr;</a>
               </p>
           </div>
 
-          <div class="row">
+          <div class="row" style="margin-top: 15px;" >
             <h2><em>Coronaviridae</em> RNA families</h2>
-
-            <div class="col-md-4" onclick="location.href='/covid-19';" style="cursor: pointer;">
-              <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 Rfam model">
-            </div>
-
-            <div class="col-md-6">
+            <div>
               <p>
-                Rfam contains 10 families representing the entire 5'- and 3'- untranslated regions (UTRs) for <em>Alpha-</em>, <em>Beta-</em>, <em>Gamma-</em>, and <em>Deltacoronaviruses</em>.
+                In Rfam release 14.2 we created 10 families representing the entire 5'- and 3'- untranslated regions (UTRs) for <em>Alpha-</em>, <em>Beta-</em>, <em>Gamma-</em>, and <em>Deltacoronaviruses</em>.
                 A specialised set of alignments for the subgenus <em>Sarbecovirus</em> is also provided, including the SARS-CoV-1 and SARS-CoV-2 UTRs.
               </p>
-
               <p style="margin: 10px 0px;">
                 There are also 4 non-UTR families, including <a href="/family/RF00182">Coronavirus packaging signal</a>,
                 <a href="/family/RF00507">Coronavirus frameshifting stimulation element</a>,
                 <a href="/family/RF00164">Coronavirus s2m RNA</a>,
                 and <a href="/family/RF00165">Coronavirus 3'-UTR pseudoknot</a>.
               </p>
-
               <a href="/covid-19" class="btn btn-primary btn-rfam">View <em>Coronaviridae</em> families</a>
+              <br></br>
             </div>
 
+            <div class="col-md-5" onclick="location.href='/covid-19';" style="cursor: pointer; margin-top: 15px;">
+              <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 Rfam model">
+            </div>
+            <div class="col-md-6" onclick="location.href='https://docs.rfam.org/page/rfam-cloud.html';" style="cursor: pointer;">
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Accession</th>
+                    <th>Rfam ID</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td><a href="/family/RF00507">RF00507</a></td>
+                  <td>Corona_FSE</td>
+                  <td>Coronavirus frameshifting stimulation element</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00164">RF00164</a></td>
+                  <td>s2m</td>
+                  <td>Coronavirus 3' stem-loop II-like motif (s2m)</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00165">RF00165</a></td>
+                  <td>Corona_pk3</td>
+                  <td>Coronavirus 3' UTR pseudoknot</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03116">RF03116</a></td>
+                  <td>aCoV-5UTR</td>
+                  <td>Alphacoronavirus 5'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03117">RF03117</a></td>
+                  <td>bCoV-5UTR </td>
+                  <td>Betacoronavirus 5'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03118">RF03118</a></td>
+                  <td>gCoV-5UTR </td>
+                  <td>Gammacoronavirus 5'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03119">RF03119</a></td>
+                  <td>dCoV-5UTR </td>
+                  <td>Deltacoronavirus 5'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03120">RF03120</a></td>
+                  <td>Sarbecovirus-5UTR</td>
+                  <td>Sarbecovirus 5'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03121">RF03121</a></td>
+                  <td>aCoV-3UTR</td>
+                  <td>Alphacoronavirus 3'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03122">RF03122</a></td>
+                  <td>bCoV-3UTR</td>
+                  <td>Betacoronavirus 3'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03123">RF03123</a></td>
+                  <td>gCoV-3UTR</td>
+                  <td>Gammacoronavirus 3'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03124">RF03124</a></td>
+                  <td>dCoV-3UTR</td>
+                  <td>Deltacoronavirus 3'UTR</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF03125">RF03125</a></td>
+                  <td>Sarbecovirus-3UTR </td>
+                  <td>Sarbecovirus 3'UTR</td>
+                </tr>
+              </table>
+            </div>
           </div> <!-- row -->
 
-          <div class="row">
+          <div class="row" style="margin-top: 15px;">
 
             <h2><em>Flaviviridae</em> RNA families</h2>
 
@@ -149,12 +222,78 @@ sharedUri = c.uri_for( "/shared" );
 
           </div> <!-- row -->
 
+          <div class="row" style="margin-top: 15px;">
+
+            <h2><em>Hepacivirus</em> RNA families</h2>
+            <p> In release 14.8, we have added 4 new <em>Hepatitis C</em> RNA families, and have updated 5 existing families. We have also
+            removed 4 families: RF02585, RF02586, RF02587, RF02588.</p>
+
+            <div class="col-md-6" onclick="location.href='https://docs.rfam.org/page/rfam-cloud.html';" style="cursor: pointer;">
+
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Accession</th>
+                    <th>Rfam ID</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td><a href="/family/RF00061">RF00061</a></td>
+                  <td>IRES_HCV</td>
+                  <td>Hepatitis C virus internal ribosome entry site</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00260">RF00260</a></td>
+                  <td>HepC_CRE</td>
+                  <td>Hepatitis C virus (HCV) cis-acting replication element (CRE)</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00620">RF00620</a></td>
+                  <td>HCV_ARF_SL</td>
+                  <td>Hepatitis C alternative reading frame stem-loop</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00468">RF00468</a></td>
+                  <td>HCV_SLVII</td>
+                  <td>Hepatitis C virus stem-loop VII</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00481">RF00481</a></td>
+                  <td>HCV_X3</td>
+                  <td>Hepatitis C virus 3'X element</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04218">RF04218</a></td>
+                  <td>HCV_5BSL1</td>
+                  <td>Hepatitis C virus stem-loop I</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04219">RF04219</a></td>
+                  <td>HCV_J750</td>
+                  <td>J750 non-coding RNA (containing SLSL761 and SL783)</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04220">RF04220</a></td>
+                  <td>HCV_SL588</td>
+                  <td>SL588 non-coding RNA</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04221">RF04221</a></td>
+                  <td>HCV_SL669</td>
+                  <td>SL669 non-coding RNA</td>
+                </tr>
+              </table>
+            </div>
+
+          </div> <!-- row -->
+
           <div class="row well" style="margin-top: 10px;">
             <h2>Work in progress</h2>
 
             <p>
               We are working on adding RNA families from other viruses, such as
-              <em>Hepacivirus</em> (Hepatitis C viruses), <em>Filoviridae</em> (e.g. Ebolavirus) and <em>Rhabdoviridae</em> (e.g. Rabies viruses).
+              <em>Filoviridae</em> (e.g. Ebolavirus) and <em>Rhabdoviridae</em> (e.g. Rabies viruses).
             </p>
             <p>
               Please <a href="https://docs.rfam.org/en/latest/contact-us.html">contact Rfam</a> if you are interested in a specific virus family or if you have feedback about this project.
