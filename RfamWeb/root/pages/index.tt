@@ -166,7 +166,7 @@ sharedUri = c.uri_for( "/shared" );
                <div class="panel-body">
                   <p class="margin-top-5px">
                      <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
-                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-7.png" alt="Release announcement">
+                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-8.png" alt="Release announcement">
                      </a>
                   </p>
                   <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
