@@ -1,0 +1,48 @@
+[%
+# rfam_20.tt
+#
+# A page to display the content for the celebration of 20 years of Rfam.
+#
+# $Id$
+
+META naked = 1;
+
+# the base URL for static content
+staticUri = c.uri_for( "/static" );
+sharedUri = c.uri_for( "/shared" );
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<body>
+
+    [% TRY;
+      PROCESS "components/header.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't process the header" );
+    END -%]
+
+    <div class="bootstrap-wrapper">
+      <div class="container-fluid" style="margin: 15px;">
+          <div class="row">
+              <h1>Some Header Here</h1>
+              <p class="lead"></p>
+          </div>
+          <div class="row">
+              <h2>Smaller header here</h2>
+              <p>
+                more content...
+              </p>
+          </div><!-- row -->
+      </div> <!-- container-fluid -->
+  </div> <!-- bootstrap-wrapper -->
+
+    [% TRY;
+      PROCESS "components/footer_${c.config.site}.tt";
+    CATCH file;
+      CALL c.log.error( "wrapper.tt: couldn't find the site-specific footer" );
+    END -%]
+
+  </body>
+
+</html>
