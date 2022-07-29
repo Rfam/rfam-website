@@ -15,6 +15,11 @@ sharedUri = c.uri_for( "/shared" );
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html>
+  <head>
+    <title>Rfam 20 years</title>
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam_20_years.css"/>
+  </head>
   <body>
 
     [% TRY;
@@ -30,10 +35,76 @@ sharedUri = c.uri_for( "/shared" );
               <p class="lead"></p>
           </div>
           <div class="row">
-              <h2>Smaller header here</h2>
-              <p>
-                more content...
-              </p>
+              <div class="col-xs-12 col-md-4">
+                  <ul class="timeline">
+                      <li>
+                          <h4>2000</h4>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      </li>
+                      <li>
+                          <h4>2005</h4>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      </li>
+                      <li>
+                          <h4>2010</h4>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      </li>
+                      <li>
+                          <h4>2015</h4>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      </li>
+                      <li>
+                          <h4>2020</h4>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      </li>
+                  </ul>
+              </div>
+              <div class="col-xs-12 col-md-8">
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Title</h4>
+                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Title</h4>
+                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Title</h4>
+                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Title</h4>
+                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div><!-- row -->
       </div> <!-- container-fluid -->
   </div> <!-- bootstrap-wrapper -->
