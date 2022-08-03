@@ -33,17 +33,17 @@ sharedUri = c.uri_for( "/shared" );
           <div class="row">
               <h1>20 years of Rfam</h1>
               <p class="lead">
-                  In the past 20 years Rfam has changed singifcant. It began
+                  In the past 20 years Rfam has changed significantly. It began
                   with only 25 families and minimal descriptions of each family.
                   As of 2022, it contains over 4000 families, has undergone 13
-                  major updates, integrated with wikipedia and the team has
+                  major updates, has integrated with Wikipedia, and the team has
                   changed many times. Here are a few of the people responsible
                   for Rfam, past and present, and a small summary of the changes
                   over the years.
               </p>
 
               <p>
-                  Rfam has been developed an maintained by <a
+                  Rfam has been developed and maintained by <a
                   href="https://docs.rfam.org/en/latest/rfam-team.html">outstanding
                   teams</a> over the past years. We would like to thank everyone
                   who has been part of Rfam over the years.
@@ -127,7 +127,7 @@ sharedUri = c.uri_for( "/shared" );
                                 href="https://www.research.manchester.ac.uk/portal/sam.griffiths-jones.html">Sam
                                 Griffiths-Jones</a> is the founding project
                                 leader of Rfam. He is a Professor at University
-                                of Manchester and develops an maintains <a href="https://www.mirbase.org/">miRBase</a>.
+                                of Manchester and develops and maintains <a href="https://www.mirbase.org/">miRBase</a>.
                                 </div>
                           </div>
                       </div>
@@ -144,7 +144,7 @@ sharedUri = c.uri_for( "/shared" );
                                   <a href="https://www.mcb.harvard.edu/directory/sean-eddy/">Sean Eddy</a> 
                                   is the founding PI of Rfam. Currently, he is
                                   the Ellmore C. Patterson Professor, an HHMI
-                                  Investigator, and the chair of MCB at Havard
+                                  Investigator, and the chair of MCB at Harvard
                                   University.
                               </div>
                           </div>
@@ -161,7 +161,7 @@ sharedUri = c.uri_for( "/shared" );
                               <div class="thumbnail-description smaller">
                                 <a href="http://www.gardner-binflab.org/">Paul Gardner</a> 
                                 was a project leader for Rfam and is
-                                currently an assitant professor at University of
+                                currently an assistant professor at University of
                                 Otago, New Zealand.
                             </div>
                           </div>
@@ -192,7 +192,7 @@ sharedUri = c.uri_for( "/shared" );
                               <div class="thumbnail-description smaller">
                                 <a href="http://rivaslab.org/">Elena Rivas</a> is collaborator and user of Rfam.
                                 She is a Senior Research Fellow and Lecturer
-                                Molecular and Cellular Biology at Havard
+                                Molecular and Cellular Biology at Harvard
                                 University.
                             </div>
                           </div>
@@ -227,7 +227,7 @@ sharedUri = c.uri_for( "/shared" );
                               <div class="thumbnail-description smaller">
                                 <a href="https://antonpetrov.com/">Anton Petrov</a> is a former Project leader and
                                 currently is the Head of RNA Bioinformatics at
-                                Ladder theraputics.
+                                Ladder therapeutics.
                             </div>
                           </div>
                       </div>
@@ -240,7 +240,7 @@ sharedUri = c.uri_for( "/shared" );
                                   <iframe class="embed-responsive-item" src="https://youtube.com/embed/qCRD32Oj5-M" frameborder="0" allowfullscreen=""></iframe>
                               </div>
                               <h4>Nancy Ontiveros</h4>
-                              <div class="thumbnail-description smaller">Nancy Ontiveros is the current Biocurator for Rfam</div>
+                              <div class="thumbnail-description smaller">Nancy Ontiveros is the current Biocurator for Rfam.</div>
                           </div>
                       </div>
                   </div>
