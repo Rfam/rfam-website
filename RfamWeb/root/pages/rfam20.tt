@@ -31,32 +31,71 @@ sharedUri = c.uri_for( "/shared" );
     <div class="bootstrap-wrapper">
       <div class="container-fluid" style="margin: 15px;">
           <div class="row">
-              <h1>Some Header Here</h1>
-              <p class="lead"></p>
+              <h1>20 years of Rfam</h1>
+              <p class="lead">
+                  In the past 20 years Rfam has changed singifcant. It began
+                  with only 25 families and minimal descriptions of each family.
+                  As of 2022, it contains over 4000 families, has undergone 13
+                  major updates, integrated with wikipedia and the team has
+                  changed many times. Here are a few of the people responsible
+                  for Rfam, past and present, and a small summary of the changes
+                  over the years.
+              </p>
+
+              <p>
+                  Rfam has been developed an maintained by <a
+                  href="https://docs.rfam.org/en/latest/rfam-team.html">outstanding
+                  teams</a> over the past years. We would like to thank everyone
+                  who has been part of Rfam over the years.
+              </p>
           </div>
           <div class="row">
               <div class="col-xs-12 col-md-4">
                   <ul class="timeline">
                       <li>
-                          <h4>2000</h4>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                          <h4>2002</h4>
+                          <p><strong>08 August</strong> First family (<a href="https://rfam.org/family/RF00001">RF00001</a>) committed</p>
+                          <p><strong>15 September</strong> First NAR Database issue <a href="https://europepmc.org/article/MED/12520045">paper</a> submitted </p>
+                      </li>
+                      <li>
+                          <h4>2003</h4>
+                          <p><strong>01 January</strong> <a href="http://nar.oxfordjournals.org/cgi/content/full/31/1/439">Rfam: an RNA family database</a> published</p>
                       </li>
                       <li>
                           <h4>2005</h4>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                          <p><strong>01 January</strong> <a href="http://nar.oxfordjournals.org/cgi/content/full/33/suppl_1/D121">Rfam: annotating non-coding RNAs in complete genomes</a> published</p>
                       </li>
+                      <li>
+                          <h4>2008</h4>
+                          <p><strong>29 August</strong> <a href="http://rnajournal.cshlp.org/content/14/12/2462">The RNA WikiProject: community annotation of RNA families</a> published</p>
+                          <p><strong>25 October</strong> <a href="https://academic.oup.com/nar/article/37/suppl_1/D136/1009525">Rfam: updates to the RNA families database</a> published</p>
+                      </li>
+
                       <li>
                           <h4>2010</h4>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                          <p><strong>08 November</strong> <a href="https://academic.oup.com/nar/article/39/suppl_1/D141/2507084">Rfam: Wikipedia, clans and the &quotdecimal&quot release</a> published</p>
                       </li>
+
                       <li>
-                          <h4>2015</h4>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                          <h4>2012</h4>
+                          <p><strong>02 November</strong> <a href="https://academic.oup.com/nar/article/41/D1/D226/1050811"> Rfam 11.0: 10 years of RNA families</a> published</p>
                       </li>
+
+                      <li>
+                          <h4>2014</h4>
+                          <p><strong>11 November</strong> <a href="https://academic.oup.com/nar/article/43/D1/D130/2437148">Rfam 12.0: updates to the RNA families database</a> published</p>
+                      </li>
+
+                      <li>
+                          <h4>2017</h4>
+                          <p><strong>03 November</strong> <a href="">Rfam 13.0: shifting to a genome-centric resource for non-coding RNA families</a> published</p>
+                      </li>
+
                       <li>
                           <h4>2020</h4>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                          <p><strong>19 November</strong> <a href="https://academic.oup.com/nar/article/49/D1/D192/5992291?login=false">Rfam 14: expanded coverage of metagenomic, viral and microRNA families</a> published</p>
                       </li>
+
                   </ul>
               </div>
               <div class="col-xs-12 col-md-8">
@@ -64,46 +103,172 @@ sharedUri = c.uri_for( "/shared" );
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/vd4mBDR2vgM" frameborder="0" allowfullscreen=""></iframe>
                               </div>
-                              <h4>Title</h4>
-                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                              <h4>Alex Bateman</h4>
+                              <div class="thumbnail-description smaller">
+                                <a href="https://www.ebi.ac.uk/people/person/alex-bateman/">Alex Bateman</a> 
+                                is the current and founding team leader for
+                                Rfam. Currently he is a Senior Team Leader at EMBL-EBI.
+                            </div>
                           </div>
                       </div>
                   </div>
+
                   <div class="col-xs-12 col-md-6">
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                                  <iframe class="embed-responsive-item" src="" frameborder="0" allowfullscreen=""></iframe>
                               </div>
-                              <h4>Title</h4>
-                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                              <h4>Sam Griffiths-Jones</h4>
+                              <div class="thumbnail-description smaller">
+                                <a
+                                href="https://www.research.manchester.ac.uk/portal/sam.griffiths-jones.html">Sam
+                                Griffiths-Jones</a> is the founding project
+                                leader of Rfam. He is a Professor at University
+                                of Manchester and develops an maintains <a href="https://www.mirbase.org/">miRBase</a>.
+                                </div>
                           </div>
                       </div>
                   </div>
+
                   <div class="col-xs-12 col-md-6">
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/7tlQpnKE2Ds" frameborder="0" allowfullscreen=""></iframe>
                               </div>
-                              <h4>Title</h4>
-                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                              <h4>Sean Eddy</h4>
+                              <div class="thumbnail-description smaller">
+                                  <a href="https://www.mcb.harvard.edu/directory/sean-eddy/">Sean Eddy</a> 
+                                  is the founding PI of Rfam. Currently, he is
+                                  the Ellmore C. Patterson Professor, an HHMI
+                                  Investigator, and the chair of MCB at Havard
+                                  University.
+                              </div>
                           </div>
                       </div>
                   </div>
+
                   <div class="col-xs-12 col-md-6">
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HiwfOa6hwnQ" frameborder="0" allowfullscreen=""></iframe>
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/pFeYRvNfv4o" frameborder="0" allowfullscreen=""></iframe>
                               </div>
-                              <h4>Title</h4>
-                              <div class="thumbnail-description smaller">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                              <h4>Paul Gardner</h4>
+                              <div class="thumbnail-description smaller">
+                                <a href="http://www.gardner-binflab.org/">Paul Gardner</a> 
+                                was a project leader for Rfam and is
+                                currently an assitant professor at University of
+                                Otago, New Zealand.
+                            </div>
                           </div>
                       </div>
                   </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="http://youtube.com/embed/-KfWoKbhAjY" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Sarah Burge</h4>
+                              <div class="thumbnail-description smaller">
+                                <a href="https://crukcambridgecentre.org.uk/users/sarah-burge">Sarah Burge</a> was a project leader for Rfam, and currently is the Director for Clinical Integration at CRUK.
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/d4pL7xdhGEQ" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Elena Rivas</h4>
+                              <div class="thumbnail-description smaller">
+                                <a href="http://rivaslab.org/">Elena Rivas</a> is collaborator and user of Rfam.
+                                She is a Senior Research Fellow and Lecturer
+                                Molecular and Cellular Biology at Havard
+                                University.
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="http://youtube.com/embed/AV4i5HdJc38" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Eric Nawrocki</h4>
+                              <div class="thumbnail-description smaller">
+                                <a href="https://github.com/nawrockie">Eric
+                                Nawrocki</a> is a collaborator and the developer of <a
+                                href="http://eddylab.org/infernal/">Infernal</a>
+                                the software that powers Rfam. Currently he is a
+                                staff scientist at the NCBI.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/AbIcjhPXn-I" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Anton Petrov</h4>
+                              <div class="thumbnail-description smaller">
+                                <a href="https://antonpetrov.com/">Anton Petrov</a> is a former Project leader and
+                                currently is the Head of RNA Bioinformatics at
+                                Ladder theraputics.
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/qCRD32Oj5-M" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Nancy Ontiveros</h4>
+                              <div class="thumbnail-description smaller">Nancy Ontiveros is the current Biocurator for Rfam</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/bm3hez5ODt4" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Emma Cooke</h4>
+                              <div class="thumbnail-description smaller">Emma Cooke is the current software developer for Rfam.</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/OmHmgihBlfM" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Blake Sweeney</h4>
+                              <div class="thumbnail-description smaller">Blake Sweeney is the current project leader for Rfam.</div>
+                          </div>
+                      </div>
+                  </div>
+
               </div>
           </div><!-- row -->
       </div> <!-- container-fluid -->
