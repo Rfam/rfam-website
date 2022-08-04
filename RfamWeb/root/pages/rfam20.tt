@@ -116,6 +116,11 @@ sharedUri = c.uri_for( "/shared" );
                           <p><strong>04 December</strong> 4000th family <a href="https://rfam.org/family/RF04000">MIR8139</a> added</p>
                       </li>
 
+                      <li>
+                          <h4>2022</h4>
+                          <p><strong>30 May</strong> <a href="https://xfam.wordpress.com/2022/05/30/rfam-release-14-8/">Release 14.8</a> announced</p>
+                      </li>
+
                   </ul>
               </div>
               <div class="col-xs-12 col-md-8">
