@@ -106,10 +106,12 @@ sharedUri = c.uri_for( "/shared" );
                       <li>
                           <h4>2018</h4>
                           <p><strong>20 December</strong> 3000th family <a href="https://rfam.org/family/RF03000">LOOT RNA</a> added </p>
+                          <p><strong>05 June</strong> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6754622/">Non-coding RNA analysis using the Rfam database</a> published</p>
                       </li>
 
                       <li>
                           <h4>2020</h4>
+                          <p><strong>04 November</strong> <a href="https://academic.oup.com/bib/article/22/2/642/5955939?login=false">Computational strategies to combat COVID-19: useful tools to accelerate SARS-CoV-2 and coronavirus research</a> published</p>
                           <p><strong>19 November</strong> <a href="https://academic.oup.com/nar/article/49/D1/D192/5992291?login=false">Rfam 14: expanded coverage of metagenomic, viral and microRNA families</a> published</p>
                           <p><strong>04 December</strong> 4000th family <a href="https://rfam.org/family/RF04000">MIR8139</a> added</p>
                       </li>
