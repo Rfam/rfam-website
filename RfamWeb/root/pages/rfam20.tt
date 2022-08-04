@@ -227,9 +227,8 @@ sharedUri = c.uri_for( "/shared" );
                               <div class="thumbnail-description smaller">
                                 <a href="https://github.com/nawrockie">Eric
                                 Nawrocki</a> is a collaborator and the developer of <a
-                                href="http://eddylab.org/infernal/">infernal</a>
-                                which powers Rfam. Currently he is a
-                                staff scientist at the NCBI.
+                                href="http://eddylab.org/infernal/">infernal</a>.
+                                Currently he is a staff scientist at the NCBI.
                               </div>
                           </div>
                       </div>
