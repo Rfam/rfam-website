@@ -32,27 +32,31 @@ sharedUri = c.uri_for( "/shared" );
       <div class="container-fluid" style="margin: 15px;">
           <div class="row">
               <h1>20 years of Rfam</h1>
-              <p class="lead">
-                  In the past 20 years Rfam has changed significantly. It began
-                  with only <a href="https://rfam.org/family/RF00001">25
-                  families and minimal descriptions</a> of each family. As of
-                  2022, it contains <a
-                  href="https://rfam.org/search?q=entry_type:%22Family%22">over
-                  4000 families</a>, has undergone 13 major updates, has
-                  integrated with Wikipedia, transitioned to SVN from RCS,
-                  switched to <a
-                  href="http://eddylab.org/infernal/">infernal</a> from
-                  COVE, moved between institutions and more.
-              </p>
+              <div class="col-xs-12 col-md-6">
+                  <img src="[% staticUri%]/images/20-years-logo.png" class="img-fluid img-thumbnail" alt="20 years of building RNA families - come celebrate with us"/>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                  <p class="lead">
+                      In the past 20 years Rfam has changed significantly. It began
+                      with only <a href="https://rfam.org/family/RF00001">25
+                      families</a> and as of 2022, it contains <a
+                      href="https://rfam.org/search?q=entry_type:%22Family%22">over
+                      4000 families</a>. Since starting it has undergone 13
+                      major updates, has integrated with Wikipedia, transitioned
+                      to SVN from RCS, switched to <a
+                      href="http://eddylab.org/infernal/">Infernal</a> from
+                      COVE, moved between institutions and more.
+                  </p>
 
-              <p class="lead">
-                  None of this would be possible without the <a
-                  href="https://docs.rfam.org/en/latest/rfam-team.html">excellent
-                  people</a> that have worked on Rfam over the past 20 years. We
-                  would like to thank everyone that has worked on Rfam.
-                  Here are a few of the people, past and present, discussing
-                  Rfam's changes over the years.
-              </p>
+                  <p class="lead">
+                      None of this would be possible without the <a
+                      href="https://docs.rfam.org/en/latest/rfam-team.html">excellent
+                      people</a> that have worked on Rfam over the past 20 years. We
+                      would like to thank everyone who has worked on Rfam.
+                      Here are a few of the responsible people, past and
+                      present, discussing Rfam's changes over the years.
+                  </p>
+              </div>
           </div>
           <div class="row">
               <div class="col-xs-12 col-md-4">
@@ -232,7 +236,7 @@ sharedUri = c.uri_for( "/shared" );
                               <div class="thumbnail-description smaller">
                                 <a href="https://github.com/nawrockie">Eric
                                 Nawrocki</a> is a collaborator and the developer of <a
-                                href="http://eddylab.org/infernal/">infernal</a>.
+                                href="http://eddylab.org/infernal/">Infernal</a>.
                                 Currently he is a staff scientist at the NCBI.
                               </div>
                           </div>
@@ -247,9 +251,7 @@ sharedUri = c.uri_for( "/shared" );
                               </div>
                               <h4>Anton Petrov</h4>
                               <div class="thumbnail-description smaller">
-                                <a href="https://antonpetrov.com/">Anton Petrov</a> is a former Project leader and
-                                currently is the Head of RNA Bioinformatics at
-                                Ladder therapeutics.
+                                <a href="https://antonpetrov.com/">Anton Petrov</a> is a former project leader from  2015 to 2022.
                             </div>
                           </div>
                       </div>
