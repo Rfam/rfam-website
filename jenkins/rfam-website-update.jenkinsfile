@@ -3,7 +3,7 @@ pipeline {
     parameters {
         choice(
             name: 'VM',
-            choices: ['HX', 'OY', 'PG'],
+            choices: ['HX (preview)', 'OY (production fallback)', 'PG (production)'],
             description: 'Which environment to update?'
         )
         gitParameter(
