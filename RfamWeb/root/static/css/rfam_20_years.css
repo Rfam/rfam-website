@@ -39,7 +39,7 @@ ul.timeline>li:before {
     border-radius: 5px;
  }
 .thumbnail-description {
-    min-height: 40px;
+    min-height: 80px;
 }
 .thumbnail:hover {
     cursor: pointer;
