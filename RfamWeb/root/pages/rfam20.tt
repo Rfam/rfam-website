@@ -182,23 +182,6 @@ sharedUri = c.uri_for( "/shared" );
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/pFeYRvNfv4o" frameborder="0" allowfullscreen=""></iframe>
-                              </div>
-                              <h4>Paul Gardner</h4>
-                              <div class="thumbnail-description smaller">
-                                <a href="http://www.gardner-binflab.org/">Paul Gardner</a> 
-                                was a project leader for Rfam and is
-                                currently an assistant professor at University of
-                                Otago, New Zealand.
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="col-xs-12 col-md-6">
-                      <div class="thumbnail">
-                          <div class="caption text-center">
-                              <div class="embed-responsive embed-responsive-16by9">
                                   <iframe class="embed-responsive-item" src="http://youtube.com/embed/-KfWoKbhAjY" frameborder="0" allowfullscreen=""></iframe>
                               </div>
                               <h4>Sarah Burge</h4>
@@ -221,6 +204,23 @@ sharedUri = c.uri_for( "/shared" );
                                 She is a Senior Research Fellow and Lecturer
                                 Molecular and Cellular Biology at Harvard
                                 University.
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/pFeYRvNfv4o" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Paul Gardner</h4>
+                              <div class="thumbnail-description smaller">
+                                <a href="http://www.gardner-binflab.org/">Paul Gardner</a> 
+                                was a project leader for Rfam and is
+                                currently an assistant professor at University of
+                                Otago, New Zealand.
                             </div>
                           </div>
                       </div>
