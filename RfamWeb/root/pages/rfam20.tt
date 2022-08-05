@@ -33,7 +33,7 @@ sharedUri = c.uri_for( "/shared" );
           <div class="row">
               <h1>20 years of Rfam</h1>
               <div class="col-xs-12 col-md-6">
-                  <img src="[% staticUri%]/images/20-years-logo.png" class="img-fluid img-thumbnail" alt="20 years of building RNA families - come celebrate with us"/>
+                  <img src="[% staticUri %]/images/20-years-logo.png" class="img-fluid img-thumbnail" alt="20 years of building RNA families - come celebrate with us"/>
               </div>
               <div class="col-xs-12 col-md-6">
                   <p class="lead">
