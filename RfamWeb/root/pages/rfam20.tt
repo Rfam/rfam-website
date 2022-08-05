@@ -182,7 +182,7 @@ sharedUri = c.uri_for( "/shared" );
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="http://youtube.com/embed/-KfWoKbhAjY" frameborder="0" allowfullscreen=""></iframe>
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/-KfWoKbhAjY" frameborder="0" allowfullscreen=""></iframe>
                               </div>
                               <h4>Sarah Burge</h4>
                               <div class="thumbnail-description smaller">
@@ -230,7 +230,7 @@ sharedUri = c.uri_for( "/shared" );
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="http://youtube.com/embed/AV4i5HdJc38" frameborder="0" allowfullscreen=""></iframe>
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/AV4i5HdJc38" frameborder="0" allowfullscreen=""></iframe>
                               </div>
                               <h4>Eric Nawrocki</h4>
                               <div class="thumbnail-description smaller">
