@@ -148,7 +148,7 @@ sharedUri = c.uri_for( "/shared" );
                       <div class="thumbnail">
                           <div class="caption text-center">
                               <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item" src="" frameborder="0" allowfullscreen=""></iframe>
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/I0-Lr1fXn3o" frameborder="0" allowfullscreen=""></iframe>
                               </div>
                               <h4>Sam Griffiths-Jones</h4>
                               <div class="thumbnail-description smaller">
