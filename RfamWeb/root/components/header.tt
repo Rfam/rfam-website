@@ -55,6 +55,7 @@ sharedUri = c.uri_for( "/shared" );
           <li><a href="https://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
           <li><a href="http://xfam.wordpress.com/tag/rfam/">BLOG</a></li>
           <li><a href="https://docs.rfam.org">HELP</a></li>
+          <li class="brush-highlight"><a href="/rfam20">Rfam's 20th</a></li>
           <li class="brush-highlight"><a href="/covid-19">COVID-19</a></li>
         </ul>
         <form id="siteSearchForm" class="navbar-form navbar-right col-md-3 col-sm-12 col-xs-12" style="border-top: none; border-bottom: none;">
