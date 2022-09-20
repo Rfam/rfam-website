@@ -32,7 +32,7 @@ sharedUri = c.uri_for( "/shared" );
       <div class="container-fluid" style="margin: 15px;">
           <div class="row">
               <h1>20 years of Rfam</h1>
-              <div class="col-xs-12 col-md-6">
+              <div class="col-xs-12 col-md-4">
                   <img src="[% staticUri %]/images/20-years-logo.png" class="img-fluid img-thumbnail" alt="20 years of building RNA families - come celebrate with us"/>
               </div>
               <div class="col-xs-12 col-md-6">
@@ -64,7 +64,7 @@ sharedUri = c.uri_for( "/shared" );
                       <li>
                           <h4>2002</h4>
                           <p><strong>08 August</strong> First family (<a href="https://rfam.org/family/RF00001">5S rRNA</a>) committed</p>
-                          <p><strong>15 September</strong> First NAR Database issue <a href="https://europepmc.org/article/MED/12520045">paper</a> submitted </p>
+                          <p><strong>15 August</strong> First NAR Database issue <a href="https://europepmc.org/article/MED/12520045">paper</a> submitted </p>
                       </li>
                       <li>
                           <h4>2003</h4>
@@ -123,11 +123,27 @@ sharedUri = c.uri_for( "/shared" );
                       <li>
                           <h4>2022</h4>
                           <p><strong>30 May</strong> <a href="https://xfam.wordpress.com/2022/05/30/rfam-release-14-8/">Release 14.8</a> announced</p>
+                          <p><strong>08 August</strong> Rfam begins celebrating its 20th anniversary!</p>
                       </li>
-
                   </ul>
+                  <br>
+                  <div class="col-xs-12 col-md-10">
+                    <img src="[% staticUri %]/images/birthday.png" class="img-fluid img-thumbnail" alt="Birthday cake collage"/>
+                  </div>
               </div>
               <div class="col-xs-12 col-md-8">
+                   <div class="col-xs-12 col-md-6">
+                      <div class="thumbnail">
+                          <div class="caption text-center">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="https://youtube.com/embed/FZ9Ma0VV_2o" frameborder="0" allowfullscreen=""></iframe>
+                              </div>
+                              <h4>Birthday Celebrations</h4>
+                              <div class="thumbnail-description smaller">Thank you so much to everyone who helped us celebrate 20 years of Rfam at RNA Benasque 2022. It was amazing
+                                to share this ocassion with many past and present team members. And the cake was delicious! </div>
+                          </div>
+                      </div>
+                  </div>
                   <div class="col-xs-12 col-md-6">
                       <div class="thumbnail">
                           <div class="caption text-center">
@@ -292,7 +308,6 @@ sharedUri = c.uri_for( "/shared" );
                           </div>
                       </div>
                   </div>
-
               </div>
           </div><!-- row -->
       </div> <!-- container-fluid -->
