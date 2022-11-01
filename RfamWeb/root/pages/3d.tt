@@ -1,24 +1,22 @@
 [%
-# 3d.tt
-#
-# A page to display the family 3D updates.
-#
-# $Id$
-
 META naked = 1;
 
 # the base URL for static content
 staticUri = c.uri_for( "/static" );
 sharedUri = c.uri_for( "/shared" );
 -%]
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<script type='text/javascript' src='[% staticUri %]/javascripts/jquery-1.8.3.min.js'></script>
 
 <html>
+
   <head>
-    <title>Families updated with 3D information</title>
-    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css"/>
+    <title>3D</title>
+    <link rel="stylesheet" type="text/css" href="[% staticUri %]/css/rfam.css" />
   </head>
+
   <body>
 
     [% TRY;
@@ -28,107 +26,22 @@ sharedUri = c.uri_for( "/shared" );
     END -%]
 
     <div class="bootstrap-wrapper">
-      <div class="container-fluid" style="margin: 15px;">
-            <div class="col-md-6" >
-              <h2>Families updated with 3D information</h2>
-              <p>
-                insert information
-              </p>
-              <table class="table table-condensed">
-                <thead>
-                  <tr>
-                    <th>Rfam ID</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
+      <div class="container-fluid" style="margin-left: 15px; margin-right: 15px; margin-bottom: 15px;">
+          <div class="row">
+            <table class="table text-left mt-2" id="data">
+              <thead class="thead-dark">
                 <tr>
-                  <td><a href="/family/RF00162">RF00162</a></td>
-                  <td>SAM riboswitch (S box leader)</td>
+                  <th scope="col">Rfam ID</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">PDB IDs</th>
+                  <th scope="col">Download</th>
                 </tr>
-                <tr>
-                  <td><a href="/family/RF01725">RF01725</a></td>
-                  <td>SAM-I/IV variant riboswitch</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00164">RF00164</a></td>
-                  <td>Coronavirus 3' stem-loop II-like motif (s2m)</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00013">RF00013</a></td>
-                  <td>6S/SsrS RNA</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00003">RF00003</a></td>
-                  <td>U1 spliceosomal RNA</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF03118">RF03118</a></td>
-                  <td>U1 spliceosomal RNA</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00015">RF00015</a></td>
-                  <td>U4 spliceosomal RNA</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00442">RF00442</a></td>
-                  <td>Guanidine-I riboswitch</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00027">RF00027</a></td>
-                  <td>let-7 microRNA precursor</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF01054">RF01054</a></td>
-                  <td>preQ1-II (pre queuosine) riboswitch</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF02680">RF02680</a></td>
-                  <td>preQ1-III riboswitch</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00050">RF00050</a></td>
-                  <td>FMN riboswitch (RFN element)</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF01689">RF01689</a></td>
-                  <td>3D AdoCbl variant RNA</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00174">RF00174</a></td>
-                  <td>3D Cobalamin riboswitch</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00207">RF00207</a></td>
-                  <td>RF00207-K10-TLS</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00008">RF00008</a></td>
-                  <td>3D HammerHead ribozyme III</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF01831">RF01831</a></td>
-                  <td>3D THF riboswitch</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF02095">RF02095</a></td>
-                  <td>3D 2985-2-miRNA</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00380">RF00380</a></td>
-                  <td>3D yKoK leader</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00059">RF00059</a></td>
-                  <td>3D TPP riboswitch</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00025">RF00025</a></td>
-                  <td>RF00025-telomerase-cil</td>
-                </tr>
-              </table>
-            </div>
-
-          </div><!-- row -->
+              </thead>
+              <tbody id='table-body'>
+                <!-- csv table rows here -->
+              </tbody>
+            </table>
+          </div> <!-- row -->
       </div> <!-- container-fluid -->
   </div> <!-- bootstrap-wrapper -->
 
@@ -139,5 +52,5 @@ sharedUri = c.uri_for( "/shared" );
     END -%]
 
   </body>
-
+  <script src="[% staticUri %]/javascripts/generate_table.js"></script>
 </html>
