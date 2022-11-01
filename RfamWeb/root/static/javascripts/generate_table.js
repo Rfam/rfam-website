@@ -3,13 +3,13 @@ const tableBody = document.getElementById("table-body");
 getData();
 
 async function getData() {
-      const response = await fetch('static/data/3d-pdb.csv')
+      const response = await fetch('static/data/3d-pdb.tsv')
       const data = await response.text();
       console.log(data);
 
       const table = data.split('\n');
       table.forEach((row,index) => {
-      const columns = row.split(',')
+      const columns = row.split('\t')
       const id = columns[0]
       const desc = columns[1]
       const pdb = columns[2]
