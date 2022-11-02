@@ -30,11 +30,11 @@ sharedUri = c.uri_for( "/shared" );
         <div class="row">
               <h1>Families with 3D Information</h1>
               <p class="lead">
-                some more info
+                some more 
               </p>
           </div>
           <div class="row">
-            <table class="table text-left mt-2" id="data">
+            <table class="table table-condensed" id="data">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Rfam ID</th>
