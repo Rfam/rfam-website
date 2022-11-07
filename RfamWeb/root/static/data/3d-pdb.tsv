@@ -1,5 +1,5 @@
 RF00162	SAM riboswitch (S box leader)  	3iqn,5fkh,4kqy,3iqr,2gis,5fk4,2ydh,4b5r,7eaf,3gx6,5fkf,5fjc,5fk3,4aob,5fke,5fkd,5fk6,3gx5,5fkg,3gx3,3v7e,3gx7,2ygh,3iqp,5fk1,5fk2,3v7e,5fk5,3gx2
-RF01725	SAM-I/IV variant riboswitch	4l81 and 4oqu
+RF01725	SAM-I/IV variant riboswitch	4l81,4oqu
 RF00164	Coronavirus 3' stem-loop II-like motif (s2m)   	1xjr
 RF00013	6S / SsrS RNA   	5vt0
 RF00003	U1 spliceosomal RNA 	3cw1,6qx9,3cw1,3cw1,3pgw,3cw1,7b0y,3pgw
@@ -22,8 +22,7 @@ RF00507	Coronavirus frameshifting stimulation element	7o7z,7o7y,7o80,7o81,6xrz
 RF01763	ykkC-III_Guanidine-III riboswitch	5nwq,5ny8,5nz3,5nz6,5nzd,5o62,5o69
 RF01734	Fluoride riboswitch	4en5,3vrs,5kh8,4ena,4enb,4enc
 RF01704	Glutamine-II riboswitch/Downstream peptide	6qn3
-RF01750	ZMP/ZTP riboswitch	6wzs,6wzr,6od9,5btp,4znp
-RF01739	glnA-glutamine riboswitch	
+RF01750	ZMP/ZTP riboswitch	6wzs,6wzr,6od9,5btp,4znp	
 RF02683	Nico riboswitch	4rum
 RF01826	SAM_V	6fz0
 RF01047	HBV_epsilon	6var
@@ -35,6 +34,5 @@ RF02553	Y_RNA-like	6cu1
 RF03054	Xanthine riboswitch/NMT1_RNA	7els,7elr,7elq
 RF02796	Pab160_RNA	3lwv,3lwr,3lwq,3lwp,3lwo,3hjw
 RF02253	Iron response element II	3sn2
-RF00522	preQ1_riboswitch	
 RF04222	Potato leafroll virus exoribonuclease-resistant RNA	7jju
 RF00037	Iron response element I	3snp
