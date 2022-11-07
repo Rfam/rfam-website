@@ -30,7 +30,8 @@ sharedUri = c.uri_for( "/shared" );
         <div class="row">
               <h1>Families with 3D Information</h1>
               <p class="lead">
-                some more 
+                Download of seed file containing all 3D families: 
+                <a href="https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/Rfam.3d.seed.gz">Rfam.seed.fa</a>
               </p>
           </div>
           <div class="row">
