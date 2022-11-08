@@ -27,13 +27,23 @@ sharedUri = c.uri_for( "/shared" );
 
     <div class="bootstrap-wrapper">
       <div class="container-fluid" style="margin-left: 15px; margin-right: 15px; margin-bottom: 15px;">
+
         <div class="row">
               <h1>Families with 3D Information</h1>
               <p class="lead">
                 Download of seed file containing all 3D families: 
-                <a href="https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/Rfam.3d.seed.gz">Rfam.seed.fa</a>
+                <a href="https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/Rfam.3d.seed.gz">Rfam.3d.seed.gz</a>
               </p>
           </div>
+
+        <div class="row">
+          <p>
+          Rfam is updating families by aligning sequences from 3D structures into the SEED alignment. 
+          In addition to updating the secondary structure with basepairs from 3D, we also add pseudoknots and other features observed in 3D.
+          This page tracks all updated families. Please reach out if you have any questions.
+          </p>
+        </div>
+
           <div class="row">
             <table class="table table-condensed" id="data">
               <thead class="thead-dark">
