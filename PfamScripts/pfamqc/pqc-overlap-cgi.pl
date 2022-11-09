@@ -147,7 +147,7 @@ $ua->timeout(600);
 
 # Pass request to the user agent and get a response back
 my $res = $ua->request(
-  POST 'https://xfamsvn.ebi.ac.uk/cgi-bin/overlap.cgi',
+  POST 'https://svn.rfam.org/cgi-bin/overlap.cgi',
   Content_Type => 'form-data',
   Content      => [
     file   => [$filename],

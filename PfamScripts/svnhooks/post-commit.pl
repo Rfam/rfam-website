@@ -207,7 +207,7 @@ eval{
 if($@){
   
   my %header = ( To      => $config->view_process_admin,
-                 From    => 'xfamsvn@ebi.ac.uk',
+                 From    => 'svn.rfam.org',
                  Subject => 'Error in post-commit ' );
 	 $header{Cc} = $revlook->author.'@ebi.ac.uk' if($revlook);
 	 
