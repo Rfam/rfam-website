@@ -14,7 +14,7 @@ use List::Util qw(max min); # used only by Paul's code in makesvgfile() which is
 # NOTES TO JOHN AND/OR ROB:
 # 
 # I've replaced all the code up to line 133 of the original RFAMbling.pln
-# (https://xfamsvn.ebi.ac.uk/svn/code/branches/jfrc-rfam_20121001/Rfam/CVSimport/make/RFAMbling.pl)
+# (https://svn.rfam.org/svn/code/branches/jfrc-rfam_20121001/Rfam/CVSimport/make/RFAMbling.pl)
 # And slightly modified the rest of the script, by modifying variable
 # names and reordering some code blocks to make it easier to follow in
 # my opinion.
