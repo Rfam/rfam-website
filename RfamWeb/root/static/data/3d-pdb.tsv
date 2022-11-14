@@ -1,0 +1,40 @@
+RF00003	U1 spliceosomal RNA 	3cw1,6qx9,3cw1,3cw1,3pgw,3cw1,7b0y,3pgw
+RF00008	Hammerhead ribozyme (type III)  2qus	2qus
+RF00013	6S / SsrS RNA   	5vt0
+RF00015	U4 spliceosomal RNA 	5o9z,3jcr,6ah0,6ahd,5zwm,5gan,5zwo,2n7m,5gap,6qw6,6qx9,3jcm,5nrl
+RF00025	Ciliate telomerase RNA	7uy6,7lma,6d6v,7uy5,7lmb
+RF00027	let-7 microRNA precursor    	5zam,5zal
+RF00037	Iron response element I	3snp
+RF00050	FMN riboswitch (RFN element)    	3f2q,3f2t,3f2w,3f2y,6wjs,3f2x,6wjr,3f30
+RF00059	TPP riboswitch (THI element)	4nyg,7tzt,7tda,2gdi,7tzu,3d2x,2hoj,7tdb,2hok,7tdc,2cky,7tzs,7tzr,2hom,7tzs,4nyb,3d2g,3d2v,4nya,4nya,2cky,4nyd,3d2g,3d2v,4nyc,2hoo,3d2x,3k0j,7tzr,2gdi,2hop,3k0j,2hol,7td7
+RF00162	SAM riboswitch (S box leader)  	3iqn,5fkh,4kqy,3iqr,2gis,5fk4,2ydh,4b5r,7eaf,3gx6,5fkf,5fjc,5fk3,4aob,5fke,5fkd,5fk6,3gx5,5fkg,3gx3,3v7e,3gx7,2ygh,3iqp,5fk1,5fk2,3v7e,5fk5,3gx2
+RF00164	Coronavirus 3' stem-loop II-like motif (s2m)   	1xjr
+RF00174	Cobalamin riboswitch    	4gma,4gxy,6vmy
+RF00207	K10 transport/localisation element (TLS)    	2kuv,2kuu,2kuw,2ke6,2kur
+RF00380	ykoK leader / M-box riboswitch	3pdr,2qbz,3pr
+RF00442	Guanidine-I riboswitch  	5t83
+RF00507	Coronavirus frameshifting stimulation element	7o7z,7o7y,7o80,7o81,6xrz
+RF00522	preQ1_riboswitch	2l1v
+RF01047	HBV_epsilon	6var
+RF01054	preQ1-II (pre queuosine) riboswitch	2miy
+RF01073	Gag/pol translational readthrough site	2lc8
+RF01689	AdoCbl variant RNA  	4frg_X,4frg_B,4frn_A,4frn_B
+RF01704	Glutamine-II riboswitch/Downstream peptide	6qn3
+RF01725	SAM-I/IV variant riboswitch	4l81,4oqu
+RF01727	SAM/SAH riboswitch	6hag
+RF01734	Fluoride riboswitch	4en5,3vrs,5kh8,4ena,4enb,4enc
+RF01739	glnA-glutamine riboswitch	5ddp,5ddq,5ddr
+RF01750	ZMP/ZTP riboswitch	6wzs,6wzr,6od9,5btp,4znp
+RF01763	ykkC-III_Guanidine-III riboswitch	5nwq,5ny8,5nz3,5nz6,5nzd,5o62,5o69
+RF01826	SAM_V	6fz0
+RF01831	THF riboswitch	3suy,3sd3,3suh,4lvw,7kd1,4lvx,4lw0,6q57,4lvz,3sux,4lvy,4lvv
+RF02095	mir-2985-2 microRNA precursor	2l3j
+RF02253	Iron response element II	3sn2
+RF02519	Tox_antitoxin	4ato
+RF02553	Y_RNA-like	6cu1
+RF02678	Hatchet_ribozyme	6jq5,6jq6
+RF02680	preQ1-III riboswitch    	4rzd,6xko,6xkn
+RF02683	Nico riboswitch	4rum
+RF02796	Pab160_RNA	3lwv,3lwr,3lwq,3lwp,3lwo,3hjw
+RF03054	Xanthine riboswitch/NMT1_RNA	7els,7elr,7elq
+RF04222	Potato leafroll virus exoribonuclease-resistant RNA	7jju
