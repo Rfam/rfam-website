@@ -41,6 +41,7 @@ sharedUri = c.uri_for( "/shared" );
           Rfam is updating families by aligning sequences from 3D structures into the SEED alignment. 
           In addition to updating the secondary structure with basepairs from 3D, we also add pseudoknots and other features observed in 3D.
           This page tracks all updated families. Please reach out if you have any questions.
+          <img class="img graphicImage" style="max-height: 300px;" src="[% staticUri %]/images/3d-families.png" alt="Rfam 3D families graph">
           </p>
         </div>
 

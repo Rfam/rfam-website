@@ -166,7 +166,7 @@ sharedUri = c.uri_for( "/shared" );
                <div class="panel-body">
                   <p class="margin-top-5px">
                      <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
-                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-8.png" alt="Release announcement">
+                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-9.png" alt="Release announcement">
                      </a>
                   </p>
                   <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
@@ -222,17 +222,17 @@ sharedUri = c.uri_for( "/shared" );
    </div>
    <div class="row well well-sm">
       <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Current projects</h2>
-      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/cloud';" style="cursor: pointer;">
+      <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/3d';" style="cursor: pointer;">
          <div class="panel panel-default" style="width: 100%;">
-            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-cloud"></i> Rfam Cloud</h3>
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-cloud"></i> 3D Families</h3>
             <div class="panel-body">
                <p class="margin-top-5px">
-                  <a href="/cloud" class="thumbnail">
-                  <img class="hvr-grow" src="[% staticUri %]/images/rfam-cloud/rfam-cloud-cli.png" alt="Rfam Cloud command line" style="width: 80%">
+                  <a href="/3d" class="thumbnail">
+                  <img class="hvr-grow" src="[% staticUri %]/images/3d-families.png" alt="Rfam 3D families graph" style="width: 80%">
                   </a>
                </p>
                <p class="lead text-center">
-                  <a href="">Learn how to build families using Rfam Cloud &rarr;</a>
+                  <a href="">Explore families with 3D Information &rarr;</a>
                </p>
             </div>
          </div>
