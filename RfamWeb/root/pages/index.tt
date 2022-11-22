@@ -224,7 +224,7 @@ sharedUri = c.uri_for( "/shared" );
       <h2 class="text-center margin-bottom-0px" style="font-size: x-large;">Current projects</h2>
       <div class="col-md-4 col-sm-4 col-xs-4" onclick="location.href='/3d';" style="cursor: pointer;">
          <div class="panel panel-default" style="width: 100%;">
-            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-cloud"></i> 3D Families</h3>
+            <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"> 3D Families</h3>
             <div class="panel-body">
                <p class="margin-top-5px">
                   <a href="/3d" class="thumbnail">
