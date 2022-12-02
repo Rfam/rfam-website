@@ -26,9 +26,9 @@ staticUri = c.uri_for( "/static" );
           </a>
         </div>
       </div>
-</div>
+  </div>
 
-<div class="row small">
+  <div class="row small">
 
     <hr />
 
@@ -55,7 +55,7 @@ staticUri = c.uri_for( "/static" );
         <li><a href="https://docs.rfam.org/en/latest/citing-rfam.html">Citing Rfam</a></li>
         <li><a href="https://docs.rfam.org/en/latest/rfam-team.html">Rfam team</a></li>
         <li><a href="https://twitter.com/RfamDB">Rfam Twitter</a></li>
-        <li><a href="http://www.ebi.ac.uk/about/terms-of-use">Terms of use</a></li>
+        <li><a href="https://creativecommons.org/share-your-work/public-domain/cc0/e">Terms of use</a></li>
       </ul>
     </div>
 
@@ -79,9 +79,16 @@ staticUri = c.uri_for( "/static" );
         <li><a href="/cloud">Rfam Cloud</a></li>
       </ul>
     </div>
-
-    </div>
   </div>
+
+  <div class="col-md-12">
+      <p class="text-muted text-center">
+        <br>
+        <a class="no-icon" href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank"><img src="[% staticUri %]/images/CC0.png" alt="CC0 license icon"></a>
+        <small>All Rfam data are freely available under the Creative Commons Zero license (CC0)</small>
+      </p>
+    </div>
+</div>
 
 
 <script type='text/javascript' src='[% staticUri %]/javascripts/tipsy/src/javascripts/jquery.tipsy.js'></script>
