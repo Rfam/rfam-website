@@ -141,7 +141,7 @@ PROCESS "components/load_requirements.tt" %]
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-50480748-3', 'xfam.org');
+  ga('create', '384283537', 'Rfam - GA4');
   ga('send', 'pageview');
 </script>
 
