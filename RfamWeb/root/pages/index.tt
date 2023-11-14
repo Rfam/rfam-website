@@ -142,6 +142,26 @@ sharedUri = c.uri_for( "/shared" );
          </div>
       </div>
       <div class="row">
+         <div class="col-md-4 col-sm-4 col-xs-4">	
+            <div class="panel panel-default" style="width: 100%;">	
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>	
+               <div class="panel-body">	
+                  <ul class="list-inline margin-top-5px">	
+                     <li class="twitter-follow-button-list">	
+                        <a class="twitter-follow-button text-center"	
+                           href="https://twitter.com/rfamdb"	
+                           data-dnt="true"	
+                           data-show-count="true"	
+                           data-show-screen-name="false"	
+                           data-lang="en">Follow</a>	
+                             <a href="https://twitter.com/rfamdb" class="thumbnail">
+                             <img class="hvr-grow" src="[% staticUri %]/images/twitter-page.png" alt="RfamDB account twitter header">
+                             </a>	
+                     </li>	
+                  </ul>	
+               </div>	
+            </div>	
+         </div>
          <div class="col-md-4 col-sm-4 col-xs-4">
             <div class="panel panel-default" style="width: 100%;">
                <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-bullhorn"></i> Announcements</h3>
@@ -225,7 +245,7 @@ sharedUri = c.uri_for( "/shared" );
             <div class="panel-body">
                <p class="margin-top-5px">
                   <a href="/viruses" class="thumbnail">
-                  <img class="hvr-grow" src="[% staticUri %]/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 UTRs" style="width: 80%">
+                  <img class="hvr-grow" src="[% staticUri %]/images/HCV.png" alt="HCV families" style="width: 80%">
                   </a>
                </p>
                <p class="lead text-center">

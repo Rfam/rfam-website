@@ -50,14 +50,16 @@ sharedUri = c.uri_for( "/shared" );
                 <a href="/family/RF00164">Coronavirus s2m RNA</a>,
                 and <a href="/family/RF00165">Coronavirus 3'-UTR pseudoknot</a>.
               </p>
+              <p>
               <a href="/covid-19" class="btn btn-primary btn-rfam">View <em>Coronaviridae</em> families</a>
+              </p>
               <br></br>
             </div>
 
             <div class="col-md-5" onclick="location.href='/covid-19';" style="cursor: pointer; margin-top: 15px;">
               <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 Rfam model">
             </div>
-            <div class="col-md-6" onclick="location.href='https://docs.rfam.org/page/rfam-cloud.html';" style="cursor: pointer;">
+            <div class="col-md-6">
               <table class="table table-condensed">
                 <thead>
                   <tr>
@@ -140,14 +142,14 @@ sharedUri = c.uri_for( "/shared" );
           <div class="row" style="margin-top: 15px;">
 
             <h2><em>Hepacivirus</em> RNA families</h2>
-            <p> In release 14.10, we have updated 9 HCV families to better reflect their secondary structures</p>
+            <p> In release 14.10, we have updated 9 HCV families to better reflect their secondary structures.</p>
             <p> In release 14.8, we have added 4 new <em>Hepatitis C</em> RNA families, and have updated 5 existing families. We have also
             removed 4 families: RF02585, RF02586, RF02587, RF02588.</p>
 
-            <div class="col-md-5" style="cursor: pointer; margin-top: 15px;">
+            <div class="col-md-5" margin-top: 15px;">
               <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/HCV.png" alt="HCV families">
             </div>
-
+            <div class="col-md-6">
               <table class="table table-condensed">
                 <thead>
                   <tr>
@@ -206,14 +208,13 @@ sharedUri = c.uri_for( "/shared" );
 
           </div> <!-- row -->
 
-
           <!-- Flaviviridae -->
 
           <div class="row" style="margin-top: 15px;">
 
             <h2><em>Flaviviridae</em> RNA families</h2>
 
-            <div class="col-md-6" onclick="location.href='https://docs.rfam.org/page/rfam-cloud.html';" style="cursor: pointer;">
+            <div class="col-md-6">
 
               <table class="table table-condensed">
                 <thead>
