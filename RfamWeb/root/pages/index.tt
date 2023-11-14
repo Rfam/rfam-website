@@ -146,19 +146,11 @@ sharedUri = c.uri_for( "/shared" );
             <div class="panel panel-default" style="width: 100%;">	
                <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>	
                <div class="panel-body">	
-                  <ul class="list-inline margin-top-5px">	
-                     <li class="twitter-follow-button-list">	
-                        <a class="twitter-follow-button text-center"	
-                           href="https://twitter.com/rfamdb"	
-                           data-dnt="true"	
-                           data-show-count="true"	
-                           data-show-screen-name="false"	
-                           data-lang="en">Follow</a>	
-                             <a href="https://twitter.com/rfamdb" class="thumbnail">
-                             <img class="hvr-grow" src="[% staticUri %]/images/twitter-page.png" alt="RfamDB account twitter header">
-                             </a>	
-                     </li>	
-                  </ul>	
+                  <p class="margin-top-5px">
+                     <a href="https://twitter.com/rfamdb" class="thumbnail">
+                     <img class="hvr-grow" src="[% staticUri %]/images/twitter-page.png" alt="RfamDB account twitter header">
+                     </a>
+                  </p>
                </div>	
             </div>	
          </div>
@@ -168,7 +160,7 @@ sharedUri = c.uri_for( "/shared" );
                <div class="panel-body">
                   <p class="margin-top-5px">
                      <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
-                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-9.png" alt="Release announcement">
+                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-10.png" alt="Release announcement">
                      </a>
                   </p>
                   <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
