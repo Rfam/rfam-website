@@ -145,6 +145,7 @@ sharedUri = c.uri_for( "/shared" );
             <p> In release 14.10, we have updated 9 HCV families to better reflect their secondary structures.</p>
             <p> In release 14.8, we have added 4 new <em>Hepatitis C</em> RNA families, and have updated 5 existing families. We have also
             removed 4 families: RF02585, RF02586, RF02587, RF02588.</p>
+            <br></br>
 
             <div class="col-md-5" margin-top: 15px;">
               <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/HCV.png" alt="HCV families">
