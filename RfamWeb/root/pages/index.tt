@@ -148,7 +148,7 @@ sharedUri = c.uri_for( "/shared" );
                <div class="panel-body">	
                   <p class="margin-top-5px">
                      <a href="https://twitter.com/rfamdb" class="thumbnail">
-                     <img class="hvr-grow" src="[% staticUri %]/images/twitter-page.png" alt="RfamDB account twitter header" style="width: 50%">
+                     <img class="hvr-grow" src="[% staticUri %]/images/twitter-page.png" alt="RfamDB account twitter header" style="width: 80%">
                      </a>
                   </p>
                </div>	
