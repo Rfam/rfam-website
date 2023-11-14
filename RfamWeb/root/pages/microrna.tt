@@ -57,6 +57,7 @@ sharedUri = c.uri_for( "/shared" );
                 In this release we created 62 new miRBase families and updated 138. Over the course of the project we have created and updated 1536 families in total. 
                 We have updated all miRNA families in Rfam that do not require novel data from miRBase. 
                 Further phases will focus on updating or improving miRBase families and then reflecting these changes in miRBase and Rfam.
+              </p>
                 
             </div>
 

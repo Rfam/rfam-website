@@ -35,77 +35,6 @@ sharedUri = c.uri_for( "/shared" );
               </p>
           </div>
 
-          <!-- Hepacivirus -->
-
-          <div class="row" style="margin-top: 15px;">
-
-            <h2><em>Hepacivirus</em> RNA families</h2>
-            <p> In release 14.10, we have updated 9 HCV families to better reflect their secondary structures</p>
-            <p> In release 14.8, we have added 4 new <em>Hepatitis C</em> RNA families, and have updated 5 existing families. We have also
-            removed 4 families: RF02585, RF02586, RF02587, RF02588.</p>
-
-            <div class="col-md-5" style="cursor: pointer; margin-top: 15px;">
-              <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/HCV.png" alt="HCV families">
-            </div>
-
-              <table class="table table-condensed">
-                <thead>
-                  <tr>
-                    <th>Accession</th>
-                    <th>Rfam ID</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tr>
-                  <td><a href="/family/RF00061">RF00061</a></td>
-                  <td>IRES_HCV</td>
-                  <td>Hepatitis C virus internal ribosome entry site</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00260">RF00260</a></td>
-                  <td>HepC_CRE</td>
-                  <td>Hepatitis C virus (HCV) cis-acting replication element (CRE)</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00620">RF00620</a></td>
-                  <td>HCV_ARF_SL</td>
-                  <td>Hepatitis C alternative reading frame stem-loop</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00468">RF00468</a></td>
-                  <td>HCV_SLVII</td>
-                  <td>Hepatitis C virus stem-loop VII</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF00481">RF00481</a></td>
-                  <td>HCV_X3</td>
-                  <td>Hepatitis C virus 3'X element</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF04218">RF04218</a></td>
-                  <td>HCV_5BSL1</td>
-                  <td>Hepatitis C virus stem-loop I</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF04219">RF04219</a></td>
-                  <td>HCV_J750</td>
-                  <td>J750 non-coding RNA (containing SLSL761 and SL783)</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF04220">RF04220</a></td>
-                  <td>HCV_SL588</td>
-                  <td>SL588 non-coding RNA</td>
-                </tr>
-                <tr>
-                  <td><a href="/family/RF04221">RF04221</a></td>
-                  <td>HCV_SL669</td>
-                  <td>SL669 non-coding RNA</td>
-                </tr>
-              </table>
-            </div>
-
-          </div> <!-- row -->
-
           <!-- Coronaviridae -->
 
           <div class="row" style="margin-top: 15px;" >
@@ -205,6 +134,78 @@ sharedUri = c.uri_for( "/shared" );
               </table>
             </div>
           </div> <!-- row -->
+
+          <!-- Hepacivirus -->
+
+          <div class="row" style="margin-top: 15px;">
+
+            <h2><em>Hepacivirus</em> RNA families</h2>
+            <p> In release 14.10, we have updated 9 HCV families to better reflect their secondary structures</p>
+            <p> In release 14.8, we have added 4 new <em>Hepatitis C</em> RNA families, and have updated 5 existing families. We have also
+            removed 4 families: RF02585, RF02586, RF02587, RF02588.</p>
+
+            <div class="col-md-5" style="cursor: pointer; margin-top: 15px;">
+              <img class="img-thumbnail" style="max-height: 300px;" src="/static/images/HCV.png" alt="HCV families">
+            </div>
+
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Accession</th>
+                    <th>Rfam ID</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td><a href="/family/RF00061">RF00061</a></td>
+                  <td>IRES_HCV</td>
+                  <td>Hepatitis C virus internal ribosome entry site</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00260">RF00260</a></td>
+                  <td>HepC_CRE</td>
+                  <td>Hepatitis C virus (HCV) cis-acting replication element (CRE)</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00620">RF00620</a></td>
+                  <td>HCV_ARF_SL</td>
+                  <td>Hepatitis C alternative reading frame stem-loop</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00468">RF00468</a></td>
+                  <td>HCV_SLVII</td>
+                  <td>Hepatitis C virus stem-loop VII</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF00481">RF00481</a></td>
+                  <td>HCV_X3</td>
+                  <td>Hepatitis C virus 3'X element</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04218">RF04218</a></td>
+                  <td>HCV_5BSL1</td>
+                  <td>Hepatitis C virus stem-loop I</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04219">RF04219</a></td>
+                  <td>HCV_J750</td>
+                  <td>J750 non-coding RNA (containing SLSL761 and SL783)</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04220">RF04220</a></td>
+                  <td>HCV_SL588</td>
+                  <td>SL588 non-coding RNA</td>
+                </tr>
+                <tr>
+                  <td><a href="/family/RF04221">RF04221</a></td>
+                  <td>HCV_SL669</td>
+                  <td>SL669 non-coding RNA</td>
+                </tr>
+              </table>
+            </div>
+
+          </div> <!-- row -->
+
 
           <!-- Flaviviridae -->
 
