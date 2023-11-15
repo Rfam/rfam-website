@@ -142,23 +142,17 @@ sharedUri = c.uri_for( "/shared" );
          </div>
       </div>
       <div class="row">
-         <div class="col-md-4 col-sm-4 col-xs-4">
-            <div class="panel panel-default" style="width: 100%;">
-               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>
-               <div class="panel-body">
-                  <ul class="list-inline margin-top-5px">
-                     <li class="twitter-follow-button-list">
-                        <a class="twitter-follow-button text-center"
-                           href="https://twitter.com/rfamdb"
-                           data-dnt="true"
-                           data-show-count="true"
-                           data-show-screen-name="false"
-                           data-lang="en">Follow</a>
-                        <a class="twitter-timeline" data-height="270" data-width="500" data-chrome="noheader nofooter noborders" data-dnt="true" href="https://twitter.com/RfamDB?ref_src=twsrc%5Etfw">Tweets by Rfam</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                     </li>
-                  </ul>
-               </div>
-            </div>
+         <div class="col-md-4 col-sm-4 col-xs-4">	
+            <div class="panel panel-default" style="width: 100%;">	
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>	
+               <div class="panel-body">	
+                  <p class="margin-top-5px">
+                     <a href="https://twitter.com/rfamdb" class="thumbnail">
+                     <img class="hvr-grow" src="[% staticUri %]/images/twitter-page.png" alt="RfamDB account twitter header" style="width: 80%">
+                     </a>
+                  </p>
+               </div>	
+            </div>	
          </div>
          <div class="col-md-4 col-sm-4 col-xs-4">
             <div class="panel panel-default" style="width: 100%;">
@@ -166,7 +160,7 @@ sharedUri = c.uri_for( "/shared" );
                <div class="panel-body">
                   <p class="margin-top-5px">
                      <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
-                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-9.png" alt="Release announcement">
+                     <img class="hvr-grow" src="[% staticUri %]/images/release-14-10.png" alt="Release announcement">
                      </a>
                   </p>
                   <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
@@ -243,7 +237,7 @@ sharedUri = c.uri_for( "/shared" );
             <div class="panel-body">
                <p class="margin-top-5px">
                   <a href="/viruses" class="thumbnail">
-                  <img class="hvr-grow" src="[% staticUri %]/images/coronavirus/SARS-Cov-2.png" alt="SARS-Cov-2 UTRs" style="width: 80%">
+                  <img class="hvr-grow" src="[% staticUri %]/images/HCV.png" alt="HCV families" style="width: 80%">
                   </a>
                </p>
                <p class="lead text-center">

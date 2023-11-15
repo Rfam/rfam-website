@@ -53,21 +53,21 @@ sharedUri = c.uri_for( "/shared" );
             <div class="col-md-6">
               <h2>Current progress</h2>
               <p style="margin: 10px 0px;">
-                From release 14.3 to release 14.8, we have created 998 new microRNA families, and updated 321 existing families. 
-                In our latest release, 14.9, we have created an additional 14 families and updated 23 families.
-                We estimate that <strong>the project is about 80% complete</strong>, and additional microRNA families will be made available in the future releases.
+                
+                <p>We are pleased to announce that as of our latest release, 14.10, <strong>the first phase of the synchronisation between Rfam and miRBase is complete!</strong></p>
+                <p>In this release, we created 62 new miRBase families and updated 138. Over the course of the project we have created and updated 1536 families in total.</p>
+                <p>We have updated all miRNA families in Rfam that do not require novel data from miRBase.</p>
               </p>
-              <a href="/search?q=entry_type:%22Family%22%20AND%20rna_type:%22miRNA%22" class="btn btn-primary btn-rfam">Browse microRNA families</a>
-              <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaDqyVPiTzLm_-jSZx6l73oJOt9FW_9OJ84blY2okj5ny2X-lXlPv7mP1O7qAxkLmrpNFlLi--bPcr/pubchart?oid=340943210&amp;format=interactive"></iframe>
+                
             </div>
 
           </div> <!-- row -->
 
           <div class="row well" style="margin-top: 10px;">
-            <h2>Work in progress</h2>
+            <h2>Phase Two</h2>
 
             <p>
-              We are working on including additional microRNA families.
+              Further phases will focus on updating or improving miRBase families and then reflecting these changes in miRBase and Rfam.
               <a href="https://docs.rfam.org/en/latest/contact-us.html">Contact Rfam</a> if you have questions or feedback about this project.
             </p>
           </div> <!-- row -->
