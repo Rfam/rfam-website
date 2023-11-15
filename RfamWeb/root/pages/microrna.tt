@@ -57,7 +57,6 @@ sharedUri = c.uri_for( "/shared" );
                 <p>We are pleased to announce that as of our latest release, 14.10, <strong>the first phase of the synchronisation between Rfam and miRBase is complete!</strong></p>
                 <p>In this release, we created 62 new miRBase families and updated 138. Over the course of the project we have created and updated 1536 families in total.</p>
                 <p>We have updated all miRNA families in Rfam that do not require novel data from miRBase.</p>
-                <p>Further phases will focus on updating or improving miRBase families and then reflecting these changes in miRBase and Rfam.</p>
               </p>
                 
             </div>
@@ -65,10 +64,10 @@ sharedUri = c.uri_for( "/shared" );
           </div> <!-- row -->
 
           <div class="row well" style="margin-top: 10px;">
-            <h2>Work in progress</h2>
+            <h2>Phase Two</h2>
 
             <p>
-              We are working on including additional microRNA families.
+              Further phases will focus on updating or improving miRBase families and then reflecting these changes in miRBase and Rfam.
               <a href="https://docs.rfam.org/en/latest/contact-us.html">Contact Rfam</a> if you have questions or feedback about this project.
             </p>
           </div> <!-- row -->
