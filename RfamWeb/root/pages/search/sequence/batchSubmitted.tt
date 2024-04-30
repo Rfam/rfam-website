@@ -25,8 +25,9 @@ META fullPage = 1;
 
 <p>
   Thanks for using the Rfam batch search tool. Your search has been submitted 
-  to the server and your results will be emailed to you at <em>[% email %]</em>
-  when they are ready.  
+  to the server and your results will be emailed to you at
+  <em>[% email_address %]</em> when they are ready. The results will also be
+  available at https://batch.rfam.org/result/[% jobId %]/tblout
 </p>
 <p>
   The identifier for this search is <strong>[% jobId %]</strong>. Please make
