@@ -129,7 +129,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
 
       <form method="post"
             id="batchSearchForm"
-            action="https://batch.rfam.org/submit-job"
+            action="[% c.uri_for( "/search/batch" ) %]"
             enctype="multipart/form-data">
 
         <div class="row">
@@ -147,14 +147,15 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
 
         <div class="row">
           <label class="blankLabel">Submit</label>
-          <input class="submit" type="button" name="submit" value="Submit" id="batchSubmit" onclick="submitBatchForm()" />
-          <input class="reset"   type="reset"  name="reset"  value="Reset" />
+          <input class="submit"  type="button" name="batch_submit" value="Submit" id="batchSubmit" onclick="submitBatchForm(event)" />
+          <input class="reset"   type="reset"  name="batch_reset"  value="Reset" />
         </div>
 
       </form>
 
       <script type="text/javascript">
-        function submitBatchForm() {
+        function submitBatchForm(event) {
+          event.preventDefault();
           var form = document.getElementById('batchSearchForm');
 
           // Disable the Submit button
@@ -174,7 +175,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
 
           var formData = new FormData(form);
 
-          fetch(form.action, {
+          fetch("https://batch.rfam.org/submit-job", {
             method: 'POST',
             body: formData
           })
@@ -183,9 +184,20 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
             else { throw response }
           })
           .then(data => {
-            setTimeout(function() {
-              fetchResults(data.resultURL, form, submitButton, spinner, textNode);
-            }, 5000);
+            // Re-enable the Submit button and remove spinner
+            submitButton.disabled = false;
+            form.removeChild(spinner);
+            form.removeChild(textNode);
+
+            // Create new element and set attributes
+            var newInput = document.createElement('input');
+            newInput.type = 'hidden';
+            newInput.name = 'jobId';
+            newInput.value = data.jobId;
+            form.appendChild(newInput);
+
+            // Submit the form
+            form.submit();
           })
           .catch(error => {
             // Re-enable the Submit button and remove spinner
@@ -198,98 +210,6 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
             submitErrorDiv.innerHTML = 'There was an error while submitting your query. Please try again later.<br>';
             submitErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
             form.appendChild(submitErrorDiv);
-          });
-        }
-
-        function fetchResults(resultURL, form, submitButton, spinner, textNode) {
-          fetch(resultURL)
-          .then(function(response) {
-            if (response.ok) { return response.json(); }
-            else { throw response; }
-          })
-          .then(function(data) {
-            if (data.searchSequence === "") {
-              // Results are not ready yet, try again in 5 seconds
-              setTimeout(function() {
-                fetchResults(resultURL, form, submitButton, spinner, textNode);
-              }, 5000);
-            } else {
-              // Re-enable the Submit button and remove spinner
-              submitButton.disabled = false;
-              form.removeChild(spinner);
-              form.removeChild(textNode);
-
-              var searchResultsH2 = document.createElement('h2');
-              searchResultsH2.textContent = 'Results'
-              form.appendChild(searchResultsH2);
-
-              // Create a div to show the searchSequence
-              var searchSequenceDiv = document.createElement('div');
-              searchSequenceDiv.setAttribute('style', 'white-space: pre;');
-              searchSequenceDiv.innerHTML = '<strong>Job ID</strong>: ' + data.jobId + '<br>';
-              searchSequenceDiv.innerHTML += '<strong>Search sequence</strong>: ' + data.searchSequence + '<br>';
-              searchSequenceDiv.innerHTML += '<strong>Number of Hits</strong>: ' + data.numHits + '<br>';
-              searchSequenceDiv.innerHTML += '<strong>Opened</strong>: ' + data.opened + '<br>';
-              searchSequenceDiv.innerHTML += '<strong>Hits</strong>:<br>';
-              form.appendChild(searchSequenceDiv);
-
-              // Loop through each hit type
-              for (var hitType in data.hits) {
-                if (data.hits.hasOwnProperty(hitType)) {
-                  var hits = data.hits[hitType];
-
-                  // Create a heading for the hit type
-                  var hitTypeHeading = document.createElement('h3');
-                  hitTypeHeading.innerHTML = '<br>' + hitType;
-                  form.appendChild(hitTypeHeading);
-
-                  // Loop through each hit in this hit type
-                  hits.forEach(function (hit) {
-                    var hitDiv = document.createElement('div');
-                    hitDiv.setAttribute('style', 'white-space: pre;');
-                    hitDiv.innerHTML = '&ensp;<strong>ID:</strong> ' + hit.id + '<br>';
-                    hitDiv.innerHTML += '&ensp;<strong>Acc:</strong> ' + hit.acc + '<br>';
-                    hitDiv.innerHTML += '&ensp;<strong>Start:</strong> ' + hit.start + '<br>';
-                    hitDiv.innerHTML += '&ensp;<strong>End:</strong> ' + hit.end + '<br>';
-                    hitDiv.innerHTML += '&ensp;<strong>Strand:</strong> ' + hit.strand + '<br>';
-                    hitDiv.innerHTML += '&ensp;<strong>GC:</strong> ' + hit.GC + '<br>';
-                    hitDiv.innerHTML += '&ensp;<strong>Score:</strong> ' + hit.score + '<br>';
-                    hitDiv.innerHTML += '&ensp;<strong>E:</strong> ' + hit.E + '<br>';
-
-                    // Add alignment info if available
-                    if (hit.alignment) {
-                      var alignmentTable = document.createElement('table');
-                      for (var prop in hit.alignment) {
-                        if (hit.alignment.hasOwnProperty(prop)) {
-                          var row = document.createElement('tr');
-                          var propNameCell = document.createElement('td');
-                          propNameCell.innerHTML = '&emsp;' + prop;
-                          var propValueCell = document.createElement('td');
-                          propValueCell.textContent = hit.alignment[prop];
-                          row.appendChild(propNameCell);
-                          row.appendChild(propValueCell);
-                          alignmentTable.appendChild(row);
-                        }
-                      }
-                      hitDiv.appendChild(alignmentTable);
-                    }
-                    form.appendChild(hitDiv);
-                  });
-                }
-              }
-            }
-          })
-          .catch(function(error) {
-            // Re-enable the Submit button and remove spinner
-            submitButton.disabled = false;
-            form.removeChild(spinner);
-            form.removeChild(textNode);
-
-            // Create a div to show an error message
-            var searchErrorDiv = document.createElement('div');
-            searchErrorDiv.innerHTML = 'There was an error while processing your query. Please check if the results are available at ' + resultURL + '<br>';
-            searchErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
-            form.appendChild(searchErrorDiv);
           });
         }
       </script>
