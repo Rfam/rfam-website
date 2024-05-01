@@ -102,16 +102,10 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
         locally.
       </p>
 
-      <h3>File size</h3>
-
-      <p>
-        Files must have fewer than 100,000 lines and fewer than 1000 sequences.
-      </p>
-
       <h3>Sequence length</h3>
 
       <p>
-        Each sequence must be no longer than 200,000 nucleotides.
+        Each sequence must be no longer than 7,000 nucleotides.
       </p>
 
       <hr />
