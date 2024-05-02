@@ -218,6 +218,9 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
                 submitErrorDiv.innerHTML = 'There was an error while submitting your query. Please try again later.<br>';
                 submitErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
               }
+            } else {
+              submitErrorDiv.innerHTML = 'There was an error while submitting your query. Please try again later.<br>';
+              submitErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
             }
 
             form.appendChild(submitErrorDiv);
