@@ -150,6 +150,13 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
       <script type="text/javascript">
         function submitBatchForm(event) {
           event.preventDefault();
+
+          // Check if the submitErrorDiv div exists and remove it
+          var removeSubmitErrorDiv = document.getElementById("submitErrorDiv");
+          if (removeSubmitErrorDiv !== null) {
+            removeSubmitErrorDiv.parentNode.removeChild(removeSubmitErrorDiv);
+          }
+
           var form = document.getElementById('batchSearchForm');
 
           // Disable the Submit button
@@ -175,7 +182,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
           })
           .then(function (response) {
             if (response.ok) { return response.json() }
-            else { throw response }
+            else { return response.json().then(error => { throw error; }); }
           })
           .then(data => {
             // Re-enable the Submit button and remove spinner
@@ -201,8 +208,18 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
 
             // Create a div to show an error message
             var submitErrorDiv = document.createElement('div');
-            submitErrorDiv.innerHTML = 'There was an error while submitting your query. Please try again later.<br>';
-            submitErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
+            submitErrorDiv.id = "submitErrorDiv";
+
+            if (error && error.detail) {
+              var pattern = /^(Invalid characters|Sequence length|Gap characters)/;
+              if (pattern.test(error.detail)) {
+                submitErrorDiv.innerHTML = error.detail
+              } else {
+                submitErrorDiv.innerHTML = 'There was an error while submitting your query. Please try again later.<br>';
+                submitErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
+              }
+            }
+
             form.appendChild(submitErrorDiv);
           });
         }
