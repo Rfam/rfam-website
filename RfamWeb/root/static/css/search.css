@@ -170,15 +170,3 @@ td.nodeSummaryCell {
 .ygtvlabel {
   background-color: inherit ! important;
 }
-
-/* ---------------------------------------- */
-/* batch search */
-
-.alignment-item table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.alignment-item td {
-    padding-left: 15px;
-}
