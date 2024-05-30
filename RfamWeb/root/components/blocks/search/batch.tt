@@ -102,6 +102,12 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
         locally.
       </p>
 
+      <h3>Number of sequences</h3>
+
+      <p>
+        Files can have up to 100 sequences.
+      </p>
+
       <h3>Sequence length</h3>
 
       <p>
