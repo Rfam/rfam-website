@@ -211,7 +211,7 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
             submitErrorDiv.id = "submitErrorDiv";
 
             if (error && error.detail) {
-              var pattern = /^(Invalid characters|Sequence length|Gap characters|Please upload)/;
+              var pattern = /^(Invalid|Sequence length|Gap characters|Please)/;
               if (pattern.test(error.detail)) {
                 submitErrorDiv.innerHTML = error.detail
               } else {
