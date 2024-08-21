@@ -4,7 +4,7 @@ services:
   # Rfam website
   web:
     # build: .
-    image: antonipetrov/rfam-website:latest
+    image: rfam/rfam-website:latest
     volumes:
       - .:/src
       - ./config:/src/RfamWeb/config
