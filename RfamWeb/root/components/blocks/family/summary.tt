@@ -70,6 +70,22 @@ END;
     normalizedTitle = rfam.auto_wiki.title;
     title           = rfam.auto_wiki.title.replace( "_", " " ) -%]
 
+    [% IF rfam.type == "Cis-reg; riboswitch;" %]
+      <h2>Note on Riboswitches</h2>
+      <p>
+          This Rfam family [% rfam.rfam_id %] ([% rfam.rfam_acc %]) represents
+          an aptamer domain of a full riboswitch [% rfam.description %].
+          Riboswitches are non-coding RNA structures that regulate gene
+          expression in response to ligand. Each riboswitch has two main parts:
+          the aptamer domain and the expression platform. The aptamer domain is
+          highly conserved to precisely bind its ligand. However, the expression
+          platform has multiple modes of gene regulation, which introduces
+          sequence and structure variability that increases difficulty in its
+          detection through covariance model searching. For more information see
+          the original publications.
+      </p>
+    [% END %]
+
     <h1>
       Wikipedia annotation
       <a class="btn lrg"
