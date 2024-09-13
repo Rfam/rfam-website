@@ -102,16 +102,16 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
         locally.
       </p>
 
-      <h3>File size</h3>
+      <h3>Number of sequences</h3>
 
       <p>
-        Files must have fewer than 100,000 lines and fewer than 1000 sequences.
+        Files can have up to 100 sequences.
       </p>
 
       <h3>Sequence length</h3>
 
       <p>
-        Each sequence must be no longer than 200,000 nucleotides.
+        Each sequence must be no longer than 7,000 nucleotides.
       </p>
 
       <hr />
@@ -136,22 +136,103 @@ requirements.cssIeAll.push( "forms_all_ie.css" );
           <label for="batchSeq">Sequences file</label>
           <input type="file"
                  size="20"
-                 name="batchSeq"
+                 name="sequence_file"
                  id="batchSeq" />
         </div>
 
         <div class="row">
           <label for="pEmail">Email address</label>
-          <input type="text" size="20" maxlength="100" name="email" id="pEmail" />
+          <input type="text" size="20" maxlength="100" name="email_address" id="pEmail" />
         </div>
 
         <div class="row">
           <label class="blankLabel">Submit</label>
-          <input class="submit"  type="submit" name="submit" value="Submit" />
-          <input class="reset"   type="reset"  name="reset"  value="Reset" />
+          <input class="submit"  type="button" name="batch_submit" value="Submit" id="batchSubmit" onclick="submitBatchForm(event)" />
+          <input class="reset"   type="reset"  name="batch_reset"  value="Reset" />
         </div>
 
       </form>
+
+      <script type="text/javascript">
+        function submitBatchForm(event) {
+          event.preventDefault();
+
+          // Check if the submitErrorDiv div exists and remove it
+          var removeSubmitErrorDiv = document.getElementById("submitErrorDiv");
+          if (removeSubmitErrorDiv !== null) {
+            removeSubmitErrorDiv.parentNode.removeChild(removeSubmitErrorDiv);
+          }
+
+          var form = document.getElementById('batchSearchForm');
+
+          // Disable the Submit button
+          var submitButton = document.getElementById('batchSubmit');
+          submitButton.disabled = true;
+
+          // Create a spinner element
+          var spinner = document.createElement('i');
+          spinner.className = 'fa fa-spinner fa-spin';
+
+          // Create a text node
+          var textNode = document.createTextNode(' Searching...');
+
+          // Append the spinner and text node to the form
+          form.appendChild(spinner);
+          form.appendChild(textNode);
+
+          var formData = new FormData(form);
+
+          fetch("https://batch.rfam.org/submit-job", {
+            method: 'POST',
+            body: formData
+          })
+          .then(function (response) {
+            if (response.ok) { return response.json() }
+            else { return response.json().then(error => { throw error; }); }
+          })
+          .then(data => {
+            // Re-enable the Submit button and remove spinner
+            submitButton.disabled = false;
+            form.removeChild(spinner);
+            form.removeChild(textNode);
+
+            // Create new element and set attributes
+            var newInput = document.createElement('input');
+            newInput.type = 'hidden';
+            newInput.name = 'jobId';
+            newInput.value = data.jobId;
+            form.appendChild(newInput);
+
+            // Submit the form
+            form.submit();
+          })
+          .catch(error => {
+            // Re-enable the Submit button and remove spinner
+            submitButton.disabled = false;
+            form.removeChild(spinner);
+            form.removeChild(textNode);
+
+            // Create a div to show an error message
+            var submitErrorDiv = document.createElement('div');
+            submitErrorDiv.id = "submitErrorDiv";
+
+            if (error && error.detail) {
+              var pattern = /^(Invalid|Sequence length|Gap characters|Please)/;
+              if (pattern.test(error.detail)) {
+                submitErrorDiv.innerHTML = error.detail
+              } else {
+                submitErrorDiv.innerHTML = 'There was an error while submitting your query. Please try again later.<br>';
+                submitErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
+              }
+            } else {
+              submitErrorDiv.innerHTML = 'There was an error while submitting your query. Please try again later.<br>';
+              submitErrorDiv.innerHTML += 'If you continue to have problems, please report this to the helpdesk.'
+            }
+
+            form.appendChild(submitErrorDiv);
+          });
+        }
+      </script>
 
     </div>
   </div>

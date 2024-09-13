@@ -24,9 +24,12 @@ META fullPage = 1;
 <h1>Searching</h1>
 
 <p>
-  Thanks for using the Rfam batch search tool. Your search has been submitted 
-  to the server and your results will be emailed to you at <em>[% email %]</em>
-  when they are ready.  
+  Thanks for using the Rfam batch search tool. Your search has been submitted
+  to the server and your results will be available at
+  <a href="https://batch.rfam.org/result/[% jobId %]/tblout" target="_blank">
+  https://batch.rfam.org/result/[% jobId %]/tblout</a>. [% IF email_address %]
+  The results will also be emailed to you at <em>[% email_address %]</em>
+  when they are ready.[% END %]
 </p>
 <p>
   The identifier for this search is <strong>[% jobId %]</strong>. Please make
