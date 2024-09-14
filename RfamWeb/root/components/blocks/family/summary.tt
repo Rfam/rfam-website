@@ -70,7 +70,7 @@ END;
     normalizedTitle = rfam.auto_wiki.title;
     title           = rfam.auto_wiki.title.replace( "_", " " ) -%]
 
-    [% IF rfam.type == "Cis-reg; riboswitch;" %]
+    [% IF rfam.type.search('riboswitch') %]
       <h2>Note on Riboswitches</h2>
       <p>
           This Rfam family [% rfam.rfam_id %] ([% rfam.rfam_acc %]) represents
