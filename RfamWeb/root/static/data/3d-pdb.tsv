@@ -1,40 +1,58 @@
-RF00003	U1 spliceosomal RNA 	3cw1,6qx9,3cw1,3cw1,3pgw,3cw1,7b0y,3pgw
-RF00008	Hammerhead ribozyme (type III)  2qus	2qus
-RF00013	6S / SsrS RNA   	5vt0
-RF00015	U4 spliceosomal RNA 	5o9z,3jcr,6ah0,6ahd,5zwm,5gan,5zwo,2n7m,5gap,6qw6,6qx9,3jcm,5nrl
-RF00025	Ciliate telomerase RNA	7uy6,7lma,6d6v,7uy5,7lmb
-RF00027	let-7 microRNA precursor    	5zam,5zal
-RF00037	Iron response element I	3snp
-RF00050	FMN riboswitch (RFN element)    	3f2q,3f2t,3f2w,3f2y,6wjs,3f2x,6wjr,3f30
-RF00059	TPP riboswitch (THI element)	4nyg,7tzt,7tda,2gdi,7tzu,3d2x,2hoj,7tdb,2hok,7tdc,2cky,7tzs,7tzr,2hom,7tzs,4nyb,3d2g,3d2v,4nya,4nya,2cky,4nyd,3d2g,3d2v,4nyc,2hoo,3d2x,3k0j,7tzr,2gdi,2hop,3k0j,2hol,7td7
-RF00162	SAM riboswitch (S box leader)  	3iqn,5fkh,4kqy,3iqr,2gis,5fk4,2ydh,4b5r,7eaf,3gx6,5fkf,5fjc,5fk3,4aob,5fke,5fkd,5fk6,3gx5,5fkg,3gx3,3v7e,3gx7,2ygh,3iqp,5fk1,5fk2,3v7e,5fk5,3gx2
-RF00164	Coronavirus 3' stem-loop II-like motif (s2m)   	1xjr
-RF00174	Cobalamin riboswitch    	4gma,4gxy,6vmy
-RF00207	K10 transport/localisation element (TLS)    	2kuv,2kuu,2kuw,2ke6,2kur
-RF00380	ykoK leader / M-box riboswitch	3pdr,2qbz,3pr
-RF00442	Guanidine-I riboswitch  	5t83
-RF00507	Coronavirus frameshifting stimulation element	7o7z,7o7y,7o80,7o81,6xrz
-RF00522	preQ1_riboswitch	2l1v
-RF01047	HBV_epsilon	6var
-RF01054	preQ1-II (pre queuosine) riboswitch	2miy
-RF01073	Gag/pol translational readthrough site	2lc8
-RF01689	AdoCbl variant RNA  	4frg_X,4frg_B,4frn_A,4frn_B
-RF01704	Glutamine-II riboswitch/Downstream peptide	6qn3
-RF01725	SAM-I/IV variant riboswitch	4l81,4oqu
-RF01727	SAM/SAH riboswitch	6hag
-RF01734	Fluoride riboswitch	4en5,3vrs,5kh8,4ena,4enb,4enc
-RF01739	glnA-glutamine riboswitch	5ddp,5ddq,5ddr
-RF01750	ZMP/ZTP riboswitch	6wzs,6wzr,6od9,5btp,4znp
-RF01763	ykkC-III_Guanidine-III riboswitch	5nwq,5ny8,5nz3,5nz6,5nzd,5o62,5o69
-RF01826	SAM_V	6fz0
-RF01831	THF riboswitch	3suy,3sd3,3suh,4lvw,7kd1,4lvx,4lw0,6q57,4lvz,3sux,4lvy,4lvv
-RF02095	mir-2985-2 microRNA precursor	2l3j
-RF02253	Iron response element II	3sn2
-RF02519	Tox_antitoxin	4ato
-RF02553	Y_RNA-like	6cu1
-RF02678	Hatchet_ribozyme	6jq5,6jq6
-RF02680	preQ1-III riboswitch    	4rzd,6xko,6xkn
-RF02683	Nico riboswitch	4rum
-RF02796	Pab160_RNA	3lwv,3lwr,3lwq,3lwp,3lwo,3hjw
-RF03054	Xanthine riboswitch/NMT1_RNA	7els,7elr,7elq
-RF04222	Potato leafroll virus exoribonuclease-resistant RNA	7jju
+RF00003 U1 spliceosomal RNA     6QX9
+RF00015 U4 spliceosomal RNA     2N7M,3JCM,5GAN,5GAP,5NRL,5O9Z,5ZWM,5ZWO,6AH0,6AHD,6QW6,6QX9
+RF00025 Ciliate telomerase RNA  6D6V,7LMA,7LMB
+RF00027 let-7 microRNA precursor        5ZAL,5ZAM
+RF00032 Histone 3' UTR stem-loop        1JU7,1JWC,4L8R,4QOZ,4TUW,4TUX,4TV0
+RF00037 Iron response element I 3SNP
+RF00044 3WJ core of Phi29 Bacteriophage pRNA    1FOQ,6QYZ,7JQQ
+RF00050 FMN riboswitch aptamer (RFN element)    3F2Q,3F2T,3F2W,3F2X,3F2Y,3F30,6WJR,6WJS
+RF00059 TPP riboswitch aptamer (THI element)    2CKY,2GDI,2HOJ,2HOK,2HOL,2HOM,2HOO,2HOP,3D2G,3D2V,3D2X,3K0J,4NYA,4NYB,4NYC,4NYD,4NYG,7TD7,7TDA,7TDB,7TDC,7TZR,7TZS,7TZT,7TZU
+RF00162 SAM riboswitch aptamer (S box leader)   2GIS,2YDH,2YGH,3GX2,3GX3,3GX5,3GX6,3GX7,3IQN,3IQP,3IQR,3V7E,4AOB,4B5R,4KQY,5FJC,5FK1,5FK2,5FK3,5FK4,5FK5,5FK6,5FKD,5FKE,5FKF,5FKG,5FKH,7EAF
+RF00164 Coronavirus 3' stem-loop II-like motif (s2m)    1XJR
+RF00174 Cobalamin riboswitch aptamer    4GMA,4GXY,6VMY,8FW4,8SA2,8SA3,8SA4,8SA5,8SA6
+RF00207 K10 transport/localisation element (TLS)        2KE6,2KUR,2KUU,2KUV,2KUW
+RF00233 Tymovirus/Pomovirus/Furovirus tRNA-like 3' UTR element  4P5J,6MJ0
+RF00254 mir-16 microRNA precursor family        6LXD,6V5B,6V5C
+RF00374 Gammaretrovirus core encapsidation signal       1S9S,1U6P,2L1F
+RF00375 HIV primer binding site (PBS)   6WB0,6WB1,6WB2,7LVA
+RF00380 M-box riboswitch aptamer (ykoK leader)  2QBZ,3PDR
+RF00442 Guanidine-I riboswitch aptamer  5T83,5U3G,7MLW
+RF00480 HIV Ribosomal frameshift signal 1Z2J,2L94,6VWL,6VWM,6VWN
+RF00505 RydC RNA        4V2S
+RF00507 Coronavirus frameshifting stimulation element   6XRZ
+RF00525 Flavivirus DB element   7KGA
+RF00622 Mammalian CPEB3 ribozyme        7QR3,7QR4
+RF01047 HBV RNA encapsidation signal epsilon    6VAR
+RF01054 PreQ1-II (pre queuosine) riboswitch aptamer     2MIY
+RF01073 Gag/pol translational readthrough site  2LC8
+RF01084 Pseudoknot of tRNA-like structure       7SAM,7SC6,7SCQ
+RF01415 Flavivirus 3'UTR stem loop IV   4PQV
+RF01689 AdoCbl-II (Cobalamin/B12) riboswitch aptamer    4FRG,4FRN
+RF01704 Glutamine-II riboswitch aptamer 6QN3
+RF01725 SAM-I/IV (S-adenosyl methionine) riboswitch aptamer     4L81,4OQU
+RF01727 SAM/SAH riboswitch aptamer      6HAG
+RF01734 Fluoride riboswitch aptamer (crcB RNA motif)    3VRS,5KH8
+RF01750 ZMP/ZTP riboswitch aptamer (pfl RNA motif)      4XW7,4XWF,4ZNP,5BTP,6OD9,6WZR,6WZS
+RF01763 Guanidine-III riboswitch aptamer (yKKC-III)     5NWQ,5NY8,5NZ3,5NZ6,5NZD,5O62,5O69
+RF01786 Cyclic di-GMP-II riboswitch aptamer     3Q3Z
+RF01807 GIR1 branching ribozyme 4P8Z
+RF01826 SAM-V (S-adenosyl methionine) riboswitch aptamer        6FZ0
+RF01831 THF (Tetrahydrofolate) riboswitch aptamer       3SD3,3SUH,3SUX,3SUY,4LVV,4LVW,4LVX,4LVY,4LVZ,4LW0,6Q57,7KD1
+RF01857 Archaeal signal recognition particle RNA        3NDB
+RF02095 mir-2985-2 microRNA precursor   2L3J
+RF02253 Iron response element II        3SN2
+RF02340 Dengue virus SLA        7LYF,7LYG,7UMC,8GZP,8GZQ
+RF02519 ToxI antitoxin  4ATO
+RF02521 Panicum mosaic virus cap-independent translation enhancer RNA (PTE)     8SH5
+RF02553 Y RNA-like      6CU1
+RF02678 Hatchet ribozyme        6JQ5,6JQ6
+RF02679 Pistol ribozyme 6UEY,6UF1,6UFJ,6UFK
+RF02680 PreQ1-III (pre queuosine) riboswitch aptamer    4RZD,6XKN,6XKO
+RF02681 Twister_sister_ribozyme 5T5A
+RF02683 NiCo (Nickel/Cobalt) riboswitch aptamer 4RUM
+RF02796 Pab160 RNA      3HJW,3LWO,3LWP,3LWQ,3LWR,3LWV
+RF02977 THF-II riboswitch (folE RNA)    7WI9,7WIB,7WIE,7WIF,7WII
+RF03013 nadA riboswitch 6TB7,6TF0,6TF1,6TF2,6TF3,6TFE,6TFF,6TFG,6TFH,7D7V,7D7W,7D7X,7D7Y,7D7Z,7D81,7D82
+RF03054 Xanthine riboswitch aptamer (NMT1 RNA)  7ELP,7ELQ,7ELR,7ELS
+RF03167 c-di-GMP-I-GGC riboswitch aptamer       3IRW,3IWN,3MXH,3UCU,3UCZ
+RF04222 Flavivirus Potato leading responsible virus exoribonuclease-resistant RNA       7JJU
