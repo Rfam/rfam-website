@@ -26,7 +26,7 @@ sharedUri = c.uri_for( "/shared" );
             USE String;
             release_date = String.new( "00:00:00 " );
             CALL release_date.append( d.2, ":", d.1, ":", d.0 ); %]
-            <h2 style="text-transform: inherit; font-size: x-large; color: #621700;">Rfam [% relData.rfam_release %] ([% date.format( release_date ) %],
+            <h2 style="text-transform: inherit; font-size: x-large; color: #621700;">Rfam [% relData.rfam_release.replace('.00', '.0') %] ([% date.format( release_date ) %],
                [% relData.number_families %] families)
             </h2>
             [% ELSE %]
@@ -142,17 +142,17 @@ sharedUri = c.uri_for( "/shared" );
          </div>
       </div>
       <div class="row">
-         <div class="col-md-4 col-sm-4 col-xs-4">	
-            <div class="panel panel-default" style="width: 100%;">	
-               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>	
-               <div class="panel-body">	
+         <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default" style="width: 100%;">
+               <h3 class="text-center margin-bottom-0px" style="text-transform: inherit; font-size: x-large; color: #621700;"><i class="fa fa-twitter"></i> Tweets</h3>
+               <div class="panel-body">
                   <p class="margin-top-5px">
                      <a href="https://twitter.com/rfamdb" class="thumbnail">
                      <img class="hvr-grow" src="[% staticUri %]/images/twitter-page.png" alt="RfamDB account twitter header" style="width: 80%">
                      </a>
                   </p>
-               </div>	
-            </div>	
+               </div>
+            </div>
          </div>
          <div class="col-md-4 col-sm-4 col-xs-4">
             <div class="panel panel-default" style="width: 100%;">
