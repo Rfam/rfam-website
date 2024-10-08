@@ -138,7 +138,7 @@ var load_rscape = function(rscape_url, rscape_svg_div_id, rscape_msg_id) {
             svg.selectAll("path").each(function(d) {
                 var path = d3.select(this),
                     title = '';
-                if (path.attr('fill') == '#d7efc5') {
+                if (path.attr('fill') == '#31a354') {
                     title = "Significant basepair";
                     significant_basepairs += 1;
                 } else if (path.attr('fill') == '#d90000') {
