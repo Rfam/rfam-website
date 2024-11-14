@@ -27,7 +27,7 @@ sharedUri = c.uri_for( "/shared" );
       <div class="container-fluid" style="margin-left: 15px; margin-right: 15px; margin-bottom: 15px;">
           <div class="row">
               <h1>microRNA families</h1>
-              <img class="img-thumbnail pull-left" style="width: 150px; margin-right: 15px;" src="[% staticUri %]/images/mirbase.png" alt="miRBase logo">
+              <img class="img-thumbnail pull-left" style="width: 150px; margin-right: 15px;" src="[% staticUri %]/images/mirBase_sync.png" alt="Image of miRBase miRNAs flowing into Rfam and Rfam to miRBase">
               <p class="lead">
                 Rfam is collaborating with <strong>miRBase</strong> in order to provide a comprehensive collection of microRNA families
                 <br>
@@ -53,12 +53,12 @@ sharedUri = c.uri_for( "/shared" );
             <div class="col-md-6">
               <h2>Current progress</h2>
               <p style="margin: 10px 0px;">
-                
+
                 <p>We are pleased to announce that as of our latest release, 14.10, <strong>the first phase of the synchronisation between Rfam and miRBase is complete!</strong></p>
                 <p>In this release, we created 62 new miRBase families and updated 138. Over the course of the project we have created and updated 1536 families in total.</p>
                 <p>We have updated all miRNA families in Rfam that do not require novel data from miRBase.</p>
               </p>
-                
+
             </div>
 
           </div> <!-- row -->
