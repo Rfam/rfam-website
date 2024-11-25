@@ -180,15 +180,15 @@ sharedUri = c.uri_for( "/shared" );
                      <p>
                         <span class="title">
                         <a class="ext" target="_blank"
-                           href="https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaa1047/5992291">
-                           Rfam 14: expanded coverage of metagenomic, viral and microRNA families</a>
+                           href="https://doi.org/10.1093/nar/gkae1023">
+                           Rfam 15: RNA families database in 2025</a>
                         </span>
                         <br>
                         <span class="authors">
-                        Kalvari et al.,
+                         Ontiveros-Palacios et al.,
                         </span>
                         <span class="ref">
-                        <strong>Nucleic Acids Research</strong>&nbsp;(2020)
+                        <strong>Nucleic Acids Research</strong>&nbsp;(2024)
                         </span>
                      </p>
                   </blockquote>
