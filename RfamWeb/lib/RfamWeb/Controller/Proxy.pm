@@ -45,12 +45,20 @@ sub proxy : Chained( 'ebeye_proxy' )
   my $url = $c->request->query_parameters->{url};
 
   if (defined $url) {
-    my $browser = LWP::UserAgent->new;
-    my $response = $browser->get( $url );
-    if ($response->is_success) {
-      $data = $response->content;
+    my $uri = URI->new($url);
+    my $host = $uri->host;
+
+    if ($host && ($host =~ /\.?rfam\.org$/ || $host =~ /\.?ebi\.ac\.uk$/)) {
+      my $browser = LWP::UserAgent->new;
+      my $response = $browser->get($url);
+      if ($response->is_success) {
+        $data = $response->content;
+      } else {
+        $data = $response->status_line;
+      }
     } else {
-      $data = $response->status_line;
+      $c->log->debug("Disallowed domain: " . ($host // 'undefined')) if $c->debug;
+      $data = 'Disallowed domain';
     }
   } else {
     $data = 'URL not found';
