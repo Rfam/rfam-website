@@ -33,18 +33,18 @@ sub accession : Chained( '/' )
   }
 
   my $seq_start = $c->request->query_parameters->{seq_start};
-  unless ( defined $seq_start ) {
-    $c->log->debug( 'Sequence summary: no seq_start found' )
+  unless ( defined $seq_start && $seq_start =~ /^\d+$/ ) {
+    $c->log->debug( 'Sequence summary: invalid seq_start found' )
       if $c->debug;
-    $c->stash->{errorMsg} = 'No sequence start specified';
+    $c->stash->{errorMsg} = 'Invalid or missing sequence start';
     return;
   }
 
   my $seq_end = $c->request->query_parameters->{seq_end};
-  unless ( defined $seq_end ) {
+  unless ( defined $seq_end && $seq_end =~ /^\d+$/ ) {
     $c->log->debug( 'Sequence summary: no seq_end found' )
       if $c->debug;
-    $c->stash->{errorMsg} = 'No sequence end specified';
+    $c->stash->{errorMsg} = 'Invalid or missing sequence end';
     return;
   }
 
