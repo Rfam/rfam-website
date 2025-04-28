@@ -364,7 +364,7 @@ sharedUri = c.uri_for( "/shared" );
       </div>
    </div>
 
-<div id="data-protection-message-configuration" data-message="This website requires cookies and limited processing of your personal data in order to function. By using this site you are agreeing to this as outlined in our <a href='https://rfam.org/static/documents/privacy-notice.pdf'>Privacy Policy</a> and <a href='https://www.ebi.ac.uk/about/terms-of-use'>Terms of Use</a>." data-service-id="rfam"></div>
+<div id="data-protection-message-configuration" data-message="This website requires cookies and limited processing of your personal data in order to function. By using this site you are agreeing to this as outlined in our <a href='/static/documents/privacy-notice.pdf'>Privacy Policy</a> and <a href='https://www.ebi.ac.uk/about/terms-of-use'>Terms of Use</a>." data-service-id="rfam"></div>
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
