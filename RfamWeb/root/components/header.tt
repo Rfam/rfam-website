@@ -51,12 +51,15 @@ sharedUri = c.uri_for( "/shared" );
         <ul class="nav navbar-nav" style="display: inline-flex;">
           <li><a href="/">HOME</a></li>
           <li><a href="/search">SEARCH</a></li>
-          <li><a href="/search">BROWSE</a></li>
+          <li>
+            <select id="projects">
+              <option value="">Projects</option>
+              <option value="rfams_20th">Rfam's 20th</option>
+              <option value="covid_19">COVID-19</option>
+            </select></li>
           <li><a href="https://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
           <li><a href="http://xfam.wordpress.com/tag/rfam/">BLOG</a></li>
           <li><a href="https://docs.rfam.org">HELP</a></li>
-          <li class="brush-highlight"><a href="/rfam20">Rfam's 20th</a></li>
-          <li class="brush-highlight"><a href="/covid-19">COVID-19</a></li>
         </ul>
         <form id="siteSearchForm" class="navbar-form navbar-right col-md-3 col-sm-12 col-xs-12" style="border-top: none; border-bottom: none;">
           <div class="input-group input-group">
@@ -93,6 +96,24 @@ sharedUri = c.uri_for( "/shared" );
       window.location = '/search?q=' + searchField.val();
       return false;
     });
+
+  });
+
+</script>
+
+<script type="text/javascript">
+  document.getElementById('projects').addEventListener('change', function () {
+    var project = document.getElementById('projects').value;
+    var base_url = window.location.origin;
+    console.log('BASE URL' + base_url);
+
+    if (project === 'rfams_20th') {
+      window.location.href = base_url + '/rfam20';
+    }
+
+    if (project === 'covid_19') {
+      window.location.href = base_url + '/covid-19';
+    }
   });
 </script>
 
