@@ -54,8 +54,10 @@ sharedUri = c.uri_for( "/shared" );
           <li>
             <select id="projects">
               <option value="">Projects</option>
-              <option value="rfams_20th">Rfam's 20th</option>
-              <option value="covid_19">COVID-19</option>
+              <option value="rfam20">Rfam's 20th</option>
+              <option value="3d">3D Families</option>
+              <option value="viruses">Viruses</option>
+              <option value="microrna">microRNAs</option>
             </select></li>
           <li><a href="https://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
           <li><a href="http://xfam.wordpress.com/tag/rfam/">BLOG</a></li>
@@ -105,14 +107,21 @@ sharedUri = c.uri_for( "/shared" );
   document.getElementById('projects').addEventListener('change', function () {
     var project = document.getElementById('projects').value;
     var base_url = window.location.origin;
-    console.log('BASE URL' + base_url);
 
-    if (project === 'rfams_20th') {
+    if (project === 'rfam20') {
       window.location.href = base_url + '/rfam20';
     }
 
-    if (project === 'covid_19') {
-      window.location.href = base_url + '/covid-19';
+    if (project === '3d') {
+      window.location.href = base_url + '/3d';
+    }
+
+    if (project === 'viruses') {
+      window.location.href = base_url + '/viruses';
+    }
+
+    if (project === 'microrna') {
+      window.location.href = base_url + '/microrna';
     }
   });
 </script>
