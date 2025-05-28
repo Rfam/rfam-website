@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
     display:inline-block;
     cursor:pointer;
     height:20px;  
-    font-size:11pt;
     text-align:center;
     line-height:20px;
 }
