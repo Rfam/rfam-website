@@ -52,8 +52,8 @@ sharedUri = c.uri_for( "/shared" );
           <li><a href="/">HOME</a></li>
           <li><a href="/search">SEARCH</a></li>
           <li>
-            <select id="projects">
-              <option value="">Projects</option>
+            <select id="projects" class="custom-select" style="width:200px;">
+              <option value="">PROJECTS</option>
               <option value="rfam20">Rfam's 20th</option>
               <option value="3d">3D Families</option>
               <option value="viruses">Viruses</option>
@@ -125,6 +125,29 @@ sharedUri = c.uri_for( "/shared" );
     }
   });
 </script>
+
+<style>
+#projects {
+  width: 150px !important;
+  border: 1px solid #734639;
+  border-radius: 3px;
+  height: 30px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: white;
+
+
+  color: #734639 !important;
+  text-decoration: none;
+  font-family: Verdana;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+</style>
 
 [%- # dump out the name of the host that served the file -%]
 [%- # <!-- {% c.config.server_name %} / {% c.config.server_pid %} --> -%]
