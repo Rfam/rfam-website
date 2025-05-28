@@ -52,13 +52,22 @@ sharedUri = c.uri_for( "/shared" );
           <li><a href="/">HOME</a></li>
           <li><a href="/search">SEARCH</a></li>
           <li>
-            <select id="projects">
-              <option value="">PROJECTS</option>
-              <option value="rfam20">Rfam's 20th</option>
-              <option value="3d">3D Families</option>
-              <option value="viruses">Viruses</option>
-              <option value="microrna">microRNAs</option>
-            </select></li>
+            <div id="divMenuWrapper1" class="divMenuWrapper1">
+    <div id="hoverli">
+        <div class="lbtn">
+            PROJECTS
+        </div>
+        <div id="actions_menu" class="file_menu">
+
+            <div><a href="/3d">3D FAMILIES</a></div>
+            <div><a href="/viruses">VIRUSES</a></div>
+            <div><a href="/microrna">MICRORNAs</a></div>
+            <div><a href="/rfam20">RFAM'S 20TH</a></div>
+        </div>
+    </div>
+</div>
+            
+            </li>
           <li><a href="https://ftp.ebi.ac.uk/pub/databases/Rfam">FTP</a></li>
           <li><a href="http://xfam.wordpress.com/tag/rfam/">BLOG</a></li>
           <li><a href="https://docs.rfam.org">HELP</a></li>
@@ -99,32 +108,107 @@ sharedUri = c.uri_for( "/shared" );
       return false;
     });
 
+    
+
   });
 
 </script>
 
 <script type="text/javascript">
-  document.getElementById('projects').addEventListener('change', function () {
-    var project = document.getElementById('projects').value;
-    var base_url = window.location.origin;
-
-    if (project === 'rfam20') {
-      window.location.href = base_url + '/rfam20';
+document.addEventListener('DOMContentLoaded', function() {
+    const hoverElement = document.getElementById('hoverli');
+    const actionsMenu = document.getElementById('actions_menu');
+    
+    if (hoverElement && actionsMenu) {
+        // Mouse enter event
+        hoverElement.addEventListener('mouseenter', function() {
+            // Stop any ongoing animation and slide down
+            actionsMenu.style.transition = 'height 0.2s ease-out';
+            actionsMenu.style.overflow = 'hidden';
+            actionsMenu.style.display = 'block';
+            
+            // Get the natural height
+            const naturalHeight = actionsMenu.scrollHeight;
+            actionsMenu.style.height = '0px';
+            
+            // Trigger the animation
+            requestAnimationFrame(function() {
+                actionsMenu.style.height = naturalHeight + 'px';
+            });
+        });
+        
+        // Mouse leave event
+        hoverElement.addEventListener('mouseleave', function() {
+            // Stop any ongoing animation and slide up
+            actionsMenu.style.transition = 'height 0.2s ease-out';
+            actionsMenu.style.height = actionsMenu.scrollHeight + 'px';
+            
+            requestAnimationFrame(function() {
+                actionsMenu.style.height = '0px';
+            });
+            
+            // Hide completely after animation
+            setTimeout(function() {
+                if (actionsMenu.style.height === '0px') {
+                    actionsMenu.style.display = 'none';
+                }
+            }, 200);
+        });
     }
-
-    if (project === '3d') {
-      window.location.href = base_url + '/3d';
-    }
-
-    if (project === 'viruses') {
-      window.location.href = base_url + '/viruses';
-    }
-
-    if (project === 'microrna') {
-      window.location.href = base_url + '/microrna';
-    }
-  });
+});
 </script>
+
+
+<style>
+.lbtn
+{
+    margin-top: 14px;
+    display:inline-block;
+    cursor:pointer;
+    height:20px;  
+    font-size:11pt;
+    text-align:center;
+    line-height:20px;
+}
+
+.divMenuWrapper1 > * {
+  background: white;
+  color: #734639;
+  text-decoration: none;
+  font-family: Verdana;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-align: center;
+  border:0;
+}
+
+
+.divMenuWrapper1
+{
+    height: 25px;
+    width: 130px;
+}
+
+.file_menu 
+{
+    display:none;
+    width:130px;
+    position:relative;
+    z-index:100000;
+}
+
+.file_menu div a 
+{
+    text-decoration:none; 
+    padding:5px; 
+    display:block;
+}
+
+.file_menu div a:hover 
+{
+    text-decoration:underline;
+}
+</style>
 
 <style>
 
