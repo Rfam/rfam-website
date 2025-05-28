@@ -52,7 +52,7 @@ sharedUri = c.uri_for( "/shared" );
           <li><a href="/">HOME</a></li>
           <li><a href="/search">SEARCH</a></li>
           <li>
-            <select id="projects" class="custom-select" style="width:200px;">
+            <select id="projects">
               <option value="">PROJECTS</option>
               <option value="rfam20">Rfam's 20th</option>
               <option value="3d">3D Families</option>
@@ -127,24 +127,33 @@ sharedUri = c.uri_for( "/shared" );
 </script>
 
 <style>
+
 #projects {
-  width: 150px !important;
-  border: 1px solid #734639;
-  border-radius: 3px;
-  height: 30px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  width: 100%;
   background: white;
-
-
   color: #734639 !important;
   text-decoration: none;
   font-family: Verdana;
   letter-spacing: 2px;
   font-weight: bold;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 6.5px;
+  padding: 10px;
+  border:0;
+}
+
+#projects {
+  &, &::picker(select) {
+    appearance: base-select;    
+  }
+}
+
+#projects option {
+  align-content: left;
+  display: block;
+  white-space: nowrap;
+  color: #734639 !important;
+  border:0;
 }
 
 </style>
