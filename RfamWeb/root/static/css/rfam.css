@@ -131,6 +131,9 @@ h4, h5, h6 {
  * IE7 fixes from http://www.gerd-riesselmann.net/development/the-holy-grail-css-layout-fix-for-ie7
  */
 
+
+
+
 .navbar-nav > li > a {
   color: #734639 !important;
   text-decoration: none;
