@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rfam
+  labels:
+    app: rfam
+spec:
+  ports:
+  - port: {{ .Values.rfamPort }}
+    targetPort: {{ .Values.rfamPort }}
+    protocol: TCP
+  selector:
+    app: rfam
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rfam-init
+data:
+  init.sh: |
+    #!/bin/sh
+    set -e    
+    git clone https://github.com/Rfam/rfam-website.git /tmp/rfam; then
+    echo "Copying to /src..."
+    cp -r /tmp/rfam/* /src/
+ 
+    # Look for the server script
+    SCRIPT_PATH="/src/RfamWeb/script/rfamweb_server.pl"
+    echo "Found server script: $SCRIPT_PATH"
+    chmod +x "$SCRIPT_PATH"
+    cd "$(dirname "$SCRIPT_PATH")"
+    
+    echo "Checking script dependencies..."
+    head -20 "$SCRIPT_PATH"
+    
+    echo "Starting server..."
+    # Try different execution methods
+    if head -1 "$SCRIPT_PATH" | grep -q "#!/.*perl"; then
+      echo "Script has perl shebang, executing directly..."
+      exec "$SCRIPT_PATH" -p {{ .Values.rfamPort }} --debug --restart
+    else
+      echo "Executing with perl interpreter..."
+      exec perl "$SCRIPT_PATH" -p {{ .Values.rfamPort }} --debug --restart
+    fi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rfam
+spec:
+  replicas: {{ .Values.rfamReplicas }}
+  selector:
+    matchLabels:
+      app: rfam
+  template:
+    metadata:
+      labels:
+        app: rfam
+    spec:
+      containers:
+        - image: rfam/rfam-website:latest
+          name: rfam
+          command: ["/bin/sh", "/scripts/init.sh"]
+          ports:
+          - containerPort: {{ .Values.rfamPort }}
+          env:
+            - name: DATABASE_HOST
+              value: {{ .Values.DATABASE_HOST }}
+            - name: DATABASE_PORT
+              value: {{ .Values.DATABASE_PORT | quote }}
+            - name: DATABASE_USER
+              value: {{ .Values.DATABASE_USER }}
+            - name: DATABASE_PASSWORD
+              value: {{ .Values.DATABASE_PASSWORD }}
+            - name: DATABASE_NAME
+              value: {{ .Values.DATABASE_NAME }}
+            - name: http_proxy
+              value: {{ .Values.EBI_PROXY }}
+            - name: HTTP_PROXY
+              value: {{ .Values.EBI_PROXY }}
+            - name: https_proxy
+              value: {{ .Values.EBI_PROXY }}
+            - name: HTTPS_PROXY
+              value: {{ .Values.EBI_PROXY }}
+          volumeMounts:
+            - name: rfam-source
+              mountPath: /src
+            - name: rfam-init
+              mountPath: /scripts
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+      volumes:
+        - name: rfam-source
+          emptyDir: {}
+        - name: rfam-init
+          configMap:
+            name: rfam-init
+            defaultMode: 0755

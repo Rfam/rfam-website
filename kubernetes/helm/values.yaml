@@ -1,0 +1,15 @@
+# Rfam
+rfamBranch: master
+rfamPort: 8000
+rfamReplicas: 1
+setEnv: "dev"
+
+
+#TODO:  Database
+DATABASE_HOST: "mysql-rfam-live.ebi.ac.uk"
+DATABASE_PORT: "4442"  # or your database port
+DATABASE_NAME: "rfamlive"
+DATABASE_USER: "admin"
+DATABASE_PASSWORD: "b67QoVNe"
+
+EBI_PROXY: "http://hh-wwwcache.ebi.ac.uk:3128"
