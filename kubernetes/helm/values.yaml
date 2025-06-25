@@ -1,15 +1,19 @@
 # Rfam
 rfamBranch: master
-rfamPort: 8000
+rfamPort: 3000
 rfamReplicas: 1
 setEnv: "dev"
 
 
 #TODO:  Database
-DATABASE_HOST: "mysql-rfam-live.ebi.ac.uk"
-DATABASE_PORT: "4442"  # or your database port
-DATABASE_NAME: "rfamlive"
-DATABASE_USER: "admin"
-DATABASE_PASSWORD: "b67QoVNe"
+DATABASE_HOST: "<SET_ME>"
+DATABASE_PORT: "<SET_ME>"
+DATABASE_NAME: "<SET_ME>"
+DATABASE_USER: "<SET_ME>"
+DATABASE_PASSWORD: "<SET_ME>"
 
 EBI_PROXY: "http://hh-wwwcache.ebi.ac.uk:3128"
+
+# Optional: Override default repository
+rfamGitRepo: "https://github.com/Rfam/rfam-website.git"
+rfamGitBranch: "create-k8s-deployment-for-preview-site" 

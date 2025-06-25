@@ -13,35 +13,133 @@ spec:
     app: rfam
 ---
 apiVersion: v1
+kind: Service
+metadata:
+  name: rfam-nodeport
+  labels:
+    app: rfam
+spec:
+  type: NodePort
+  ports:
+  - port: {{ .Values.rfamPort }}
+    targetPort: {{ .Values.rfamPort }}
+    protocol: TCP
+    # nodePort will be automatically assigned in the 30000-32767 range if not specified
+  selector:
+    app: rfam
+---
+# Alternative: LoadBalancer service (if your cluster supports it)
+apiVersion: v1
+kind: Service
+metadata:
+  name: rfam-loadbalancer
+  labels:
+    app: rfam
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: {{ .Values.rfamPort }}
+    protocol: TCP
+  selector:
+    app: rfam
+---
+# Alternative: Ingress (requires ingress controller)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rfam-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: rfam.{{ .Values.baseDomain | default "example.com" }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rfam
+            port:
+              number: {{ .Values.rfamPort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memcached
+  labels:
+    app: memcached
+spec:
+  ports:
+  - port: 11211
+    targetPort: 11211
+    protocol: TCP
+  selector:
+    app: memcached
+---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rfam-init
 data:
   init.sh: |
     #!/bin/sh
-    set -e    
-    git clone https://github.com/Rfam/rfam-website.git /tmp/rfam; then
-    echo "Copying to /src..."
-    cp -r /tmp/rfam/* /src/
- 
-    # Look for the server script
-    SCRIPT_PATH="/src/RfamWeb/script/rfamweb_server.pl"
-    echo "Found server script: $SCRIPT_PATH"
-    chmod +x "$SCRIPT_PATH"
-    cd "$(dirname "$SCRIPT_PATH")"
+    set -e
     
-    echo "Checking script dependencies..."
-    head -20 "$SCRIPT_PATH"
+    # Configuration
+    REPO_URL="https://github.com/Rfam/rfam-website.git"
+    CLONE_DIR="/tmp/rfam"
+    TARGET_DIR="/src"
     
-    echo "Starting server..."
-    # Try different execution methods
-    if head -1 "$SCRIPT_PATH" | grep -q "#!/.*perl"; then
-      echo "Script has perl shebang, executing directly..."
-      exec "$SCRIPT_PATH" -p {{ .Values.rfamPort }} --debug --restart
-    else
-      echo "Executing with perl interpreter..."
-      exec perl "$SCRIPT_PATH" -p {{ .Values.rfamPort }} --debug --restart
+    # Clean up any existing files
+    rm -rf $CLONE_DIR
+    mkdir -p $TARGET_DIR
+    
+    # Clone the repository
+    git clone --depth 1 --quiet $REPO_URL $CLONE_DIR
+    
+    # Copy files to target directory
+    cp -r $CLONE_DIR/* $TARGET_DIR/
+    
+    # Verify the copy was successful
+    if [ ! -f "$TARGET_DIR/RfamWeb/script/rfamweb_server.pl" ]; then
+        echo "ERROR: Main application script not found"
+        exit 1
     fi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memcached
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memcached
+  template:
+    metadata:
+      labels:
+        app: memcached
+    spec:
+      containers:
+        - name: memcached
+          image: memcached:1.6-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 11211
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          args:
+            - "-m"
+            - "64"  # 64MB memory limit
+            - "-I" 
+            - "1m"  # max item size 1MB
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -57,31 +155,20 @@ spec:
       labels:
         app: rfam
     spec:
-      containers:
-        - image: rfam/rfam-website:latest
-          name: rfam
-          command: ["/bin/sh", "/scripts/init.sh"]
-          ports:
-          - containerPort: {{ .Values.rfamPort }}
+      initContainers:
+        - name: git-clone
+          image: alpine/git:latest
+          command: ["/bin/sh"]
+          args: ["/scripts/init.sh"]
           env:
-            - name: DATABASE_HOST
-              value: {{ .Values.DATABASE_HOST }}
-            - name: DATABASE_PORT
-              value: {{ .Values.DATABASE_PORT | quote }}
-            - name: DATABASE_USER
-              value: {{ .Values.DATABASE_USER }}
-            - name: DATABASE_PASSWORD
-              value: {{ .Values.DATABASE_PASSWORD }}
-            - name: DATABASE_NAME
-              value: {{ .Values.DATABASE_NAME }}
             - name: http_proxy
-              value: {{ .Values.EBI_PROXY }}
+              value: {{ .Values.EBI_PROXY | quote }}
             - name: HTTP_PROXY
-              value: {{ .Values.EBI_PROXY }}
+              value: {{ .Values.EBI_PROXY | quote }}
             - name: https_proxy
-              value: {{ .Values.EBI_PROXY }}
+              value: {{ .Values.EBI_PROXY | quote }}
             - name: HTTPS_PROXY
-              value: {{ .Values.EBI_PROXY }}
+              value: {{ .Values.EBI_PROXY | quote }}
           volumeMounts:
             - name: rfam-source
               mountPath: /src
@@ -89,11 +176,73 @@ spec:
               mountPath: /scripts
           resources:
             requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+      containers:
+        - image: rfam/rfam-website:latest
+          name: rfam
+          imagePullPolicy: Always
+          ports:
+          - containerPort: {{ .Values.rfamPort }}
+          volumeMounts:
+            - name: rfam-source
+              mountPath: /src
+          env:
+            - name: DATABASE_HOST
+              value: {{ .Values.DATABASE_HOST | quote }}
+            - name: DATABASE_PORT
+              value: {{ .Values.DATABASE_PORT | quote }}
+            - name: DATABASE_USER
+              value: {{ .Values.DATABASE_USER | quote }}
+            - name: DATABASE_PASSWORD
+              value: {{ .Values.DATABASE_PASSWORD | quote }}
+            - name: DATABASE_NAME
+              value: {{ .Values.DATABASE_NAME | quote }}
+            - name: http_proxy
+              value: {{ .Values.EBI_PROXY | quote }}
+            - name: HTTP_PROXY
+              value: {{ .Values.EBI_PROXY | quote }}
+            - name: https_proxy
+              value: {{ .Values.EBI_PROXY | quote }}
+            - name: HTTPS_PROXY
+              value: {{ .Values.EBI_PROXY | quote }}
+            - name: no_proxy
+              value: "localhost,127.0.0.1,::1"
+            - name: NO_PROXY
+              value: "localhost,127.0.0.1,::1"
+            - name: PERL5LIB
+              value: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
+            - name: RFAMWEB_CONFIG
+              value: "/src/config/rfamweb.conf"
+          # Debugging: keep container alive and start server manually
+          # command: ["/bin/sh"]
+          # args: ["-c", "echo 'Container started, checking environment...' && ls -la /src/config/ && echo 'Starting server...' && /src/RfamWeb/script/rfamweb_server.pl -p 3000 --debug --restart || (echo 'Server failed, keeping container alive for debugging...' && sleep 3600)"]
+          resources:
+            requests:
               memory: "256Mi"
               cpu: "250m"
             limits:
               memory: "1Gi"
               cpu: "1000m"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.rfamPort }}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.rfamPort }}
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
       volumes:
         - name: rfam-source
           emptyDir: {}
