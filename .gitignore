@@ -4,3 +4,4 @@
 rfamweb_local.conf
 RfamWeb/root/shared/*
 kubernetes/helm/values.yaml
+kubernetes/helm/values.yaml
