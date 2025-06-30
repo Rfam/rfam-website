@@ -1,0 +1,268 @@
+# ConfigMap for init script
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rfam-init
+  namespace: {{ .Release.Namespace }}
+data:
+  init.sh: |
+    #!/bin/sh
+    set -e
+    
+    # Configuration
+    REPO_URL="https://github.com/Rfam/rfam-website.git"
+    BRANCH="{{ .Values.rfamBranch | default "main" }}"
+    CLONE_DIR="/tmp/rfam"
+    TARGET_DIR="/src"
+    PROXY_URL="{{ .Values.EBI_PROXY }}"
+    
+    # Configure git to use proxy
+    git config --global http.proxy "$PROXY_URL"
+    git config --global https.proxy "$PROXY_URL"
+    
+    # Clean up and clone repository
+    rm -rf $CLONE_DIR
+    mkdir -p $TARGET_DIR
+    git clone --depth 1 --branch $BRANCH --quiet $REPO_URL $CLONE_DIR
+    cp -r $CLONE_DIR/* $TARGET_DIR/
+    
+    # Copy all config files to expected location
+    mkdir -p $TARGET_DIR/RfamWeb/config
+    if [ -d "$TARGET_DIR/config" ]; then
+        cp -r $TARGET_DIR/config/* $TARGET_DIR/RfamWeb/config/
+    fi
+    
+    # Create changelog.conf if it doesn't exist
+    if [ ! -f "$TARGET_DIR/RfamWeb/config/changelog.conf" ]; then
+        touch $TARGET_DIR/RfamWeb/config/changelog.conf
+        echo "# Changelog configuration file" > $TARGET_DIR/RfamWeb/config/changelog.conf
+    fi
+    
+    # Copy from config.dist if available
+    if [ -d "$TARGET_DIR/RfamWeb/config.dist" ]; then
+        cp -r $TARGET_DIR/RfamWeb/config.dist/* $TARGET_DIR/RfamWeb/config/ 2>/dev/null || true
+    fi
+    
+    # Verify required files exist
+    if [ ! -f "$TARGET_DIR/RfamWeb/script/rfamweb_server.pl" ]; then
+        echo "ERROR: Main application script not found"
+        exit 1
+    fi
+    
+    if [ ! -f "$TARGET_DIR/RfamWeb/config/rfamweb.conf" ]; then
+        echo "ERROR: Configuration file not found"
+        exit 1
+    fi
+---
+# ConfigMap for application configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rfam-config
+  namespace: {{ .Release.Namespace }}
+data:
+  DATABASE_HOST: {{ .Values.DATABASE_HOST | quote }}
+  DATABASE_PORT: {{ .Values.DATABASE_PORT | quote }}
+  DATABASE_NAME: {{ .Values.DATABASE_NAME | quote }}
+  DATABASE_USER: {{ .Values.DATABASE_USER | quote }}
+  EBI_PROXY: {{ .Values.EBI_PROXY | quote }}
+  PERL5LIB: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
+  RFAMWEB_CONFIG: "/src/RfamWeb/config/rfamweb.conf"
+  DBIC_TRACE: "1"
+---
+# Secret for sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rfam-secrets
+  namespace: {{ .Release.Namespace }}
+type: Opaque
+data:
+  DATABASE_PASSWORD: {{ .Values.DATABASE_PASSWORD | b64enc | quote }}
+---
+
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rfam-web
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: rfam-web
+spec:
+  replicas: {{ .Values.rfamReplicas }}
+  selector:
+    matchLabels:
+      app: rfam-web
+  template:
+    metadata:
+      labels:
+        app: rfam-web
+    spec:
+      initContainers:
+      - name: source-init
+        image: alpine/git:latest
+        command: ["/bin/sh", "/scripts/init.sh"]
+        volumeMounts:
+        - name: source-code
+          mountPath: /src
+        - name: init-script
+          mountPath: /scripts
+      containers:
+      - name: rfam-web
+        image: rfam/rfam-website:latest
+        imagePullPolicy: Always
+        command: ["/bin/bash"]
+        args:
+        - -c
+        - |
+          # Create database configuration override
+          cat > /src/RfamWeb/config/rfamweb_local.conf << EOF
+          <Model RfamDB>
+            schema_class RfamDB
+            connect_info "dbi:mysql:database=${DATABASE_NAME};host=${DATABASE_HOST};port=${DATABASE_PORT};mysql_connect_timeout=5"
+            connect_info ${DATABASE_USER}
+            connect_info ${DATABASE_PASSWORD}
+            <connect_info>
+              on_connect_do "SET SESSION sql_mode=''"
+              mysql_enable_utf8 1
+              mysql_auto_reconnect 1
+            </connect_info>
+          </Model>
+          EOF
+          
+          # Start the application
+          exec /src/RfamWeb/script/rfamweb_server.pl -p 3000 --debug --restart
+        ports:
+        - containerPort: {{ .Values.rfamPort }}
+          name: http
+        env:
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: DATABASE_PORT
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: DATABASE_NAME
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rfam-secrets
+              key: DATABASE_PASSWORD
+        - name: EBI_PROXY
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: EBI_PROXY
+        - name: PERL5LIB
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: PERL5LIB
+        - name: RFAMWEB_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: RFAMWEB_CONFIG
+        - name: DBIC_TRACE
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: DBIC_TRACE
+        - name: http_proxy
+          value: {{ .Values.EBI_PROXY | quote }}
+        - name: HTTP_PROXY
+          value: {{ .Values.EBI_PROXY | quote }}
+        - name: https_proxy
+          value: {{ .Values.EBI_PROXY | quote }}
+        - name: HTTPS_PROXY
+          value: {{ .Values.EBI_PROXY | quote }}
+        volumeMounts:
+        - name: source-code
+          mountPath: /src
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 120
+          periodSeconds: 15
+          timeoutSeconds: 15
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 90
+          periodSeconds: 10
+          timeoutSeconds: 15
+          failureThreshold: 8
+      volumes:
+      - name: source-code
+        emptyDir: {}
+      - name: init-script
+        configMap:
+          name: rfam-init
+          defaultMode: 0755
+      restartPolicy: Always
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: rfam-web-service
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: rfam-web
+spec:
+  selector:
+    app: rfam-web
+  ports:
+  - name: http
+    port: 80
+    targetPort: {{ .Values.rfamPort }}
+    protocol: TCP
+    nodePort: 30080
+  type: NodePort
+---
+# Ingress for external access
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rfam-web-ingress
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: rfam-web
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: rfam-{{ .Release.Namespace }}.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rfam-web-service
+            port:
+              number: 80
