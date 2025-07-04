@@ -66,6 +66,8 @@ data:
   DATABASE_NAME: {{ .Values.DATABASE_NAME | quote }}
   DATABASE_USER: {{ .Values.DATABASE_USER | quote }}
   EBI_PROXY: {{ .Values.EBI_PROXY | quote }}
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
   PERL5LIB: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
   RFAMWEB_CONFIG: "/src/RfamWeb/config/rfamweb.conf"
   DBIC_TRACE: "1"
@@ -80,7 +82,73 @@ type: Opaque
 data:
   DATABASE_PASSWORD: {{ .Values.DATABASE_PASSWORD | b64enc | quote }}
 ---
-
+# Redis Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: redis
+spec:
+  selector:
+    app: redis
+  ports:
+  - port: 6379
+    targetPort: 6379
+    protocol: TCP
+---
+# Redis Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        command: ["redis-server"]
+        args: 
+        - --maxmemory
+        - "256mb"
+        - --maxmemory-policy
+        - allkeys-lru
+        - --save
+        - ""
+        - --appendonly
+        - "no"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          tcpSocket:
+            port: 6379
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: 6379
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
 # Deployment
 apiVersion: apps/v1
 kind: Deployment
@@ -108,6 +176,13 @@ spec:
           mountPath: /src
         - name: init-script
           mountPath: /scripts
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
       containers:
       - name: rfam-web
         image: rfam/rfam-website:latest
@@ -116,23 +191,66 @@ spec:
         args:
         - -c
         - |
-          # Create database configuration override
+          # Create database configuration override with connection pooling
           cat > /src/RfamWeb/config/rfamweb_local.conf << EOF
           <Model RfamDB>
             schema_class RfamDB
-            connect_info "dbi:mysql:database=${DATABASE_NAME};host=${DATABASE_HOST};port=${DATABASE_PORT};mysql_connect_timeout=5"
+            connect_info "dbi:mysql:database=${DATABASE_NAME};host=${DATABASE_HOST};port=${DATABASE_PORT};mysql_connect_timeout=10;mysql_read_timeout=30;mysql_write_timeout=30;mysql_multi_statements=1"
             connect_info ${DATABASE_USER}
             connect_info ${DATABASE_PASSWORD}
             <connect_info>
               on_connect_do "SET SESSION sql_mode=''"
               mysql_enable_utf8 1
               mysql_auto_reconnect 1
+              AutoCommit 1
+              RaiseError 1
+              PrintError 0
+              # Connection pooling settings
+              mysql_use_result 0
+              mysql_server_prepare 1
+              mysql_server_prepare_disable_fallback 1
             </connect_info>
           </Model>
+          
+          # Redis Cache Configuration
+          <Plugin Cache>
+            <backend>
+              class Cache::Redis
+              server ${REDIS_HOST}:${REDIS_PORT}
+              debug 0
+              reconnect 10
+              every 500
+              <data>
+                namespace rfam_cache
+                default_expire 3600
+              </data>
+            </backend>
+          </Plugin>
+          
+          # Performance optimizations
+          <Plugin Static::Simple>
+            expires 86400
+            <mime>
+              css text/css
+              js  application/javascript
+              png image/png
+              jpg image/jpeg
+              gif image/gif
+            </mime>
+          </Plugin>
+          
+          # Enable compression
+          <Plugin Compress>
+            content_type text/html
+            content_type text/plain
+            content_type text/css
+            content_type application/javascript
+            content_type application/json
+          </Plugin>
           EOF
           
-          # Start the application
-          exec /src/RfamWeb/script/rfamweb_server.pl -p 3000 --debug --restart
+          # Start the application with optimized settings
+          exec /src/RfamWeb/script/rfamweb_server.pl -p 3000 --fork --keepalive --workers 4
         ports:
         - containerPort: {{ .Values.rfamPort }}
           name: http
@@ -167,6 +285,16 @@ spec:
             configMapKeyRef:
               name: rfam-config
               key: EBI_PROXY
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: REDIS_PORT
         - name: PERL5LIB
           valueFrom:
             configMapKeyRef:
@@ -182,6 +310,12 @@ spec:
             configMapKeyRef:
               name: rfam-config
               key: DBIC_TRACE
+        # Performance environment variables
+        - name: CATALYST_DEBUG
+          value: "0"
+        - name: PERL_CARTON_PATH
+          value: "/src/local"
+        # Proxy settings
         - name: http_proxy
           value: {{ .Values.EBI_PROXY | quote }}
         - name: HTTP_PROXY
@@ -195,12 +329,20 @@ spec:
           mountPath: /src
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
             memory: "1Gi"
             cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
         livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 180
+          periodSeconds: 30
+          timeoutSeconds: 15
+          failureThreshold: 3
+        readinessProbe:
           httpGet:
             path: /
             port: {{ .Values.rfamPort }}
@@ -208,14 +350,14 @@ spec:
           periodSeconds: 15
           timeoutSeconds: 15
           failureThreshold: 5
-        readinessProbe:
+        startupProbe:
           httpGet:
             path: /
             port: {{ .Values.rfamPort }}
-          initialDelaySeconds: 90
+          initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 15
-          failureThreshold: 8
+          failureThreshold: 30
       volumes:
       - name: source-code
         emptyDir: {}
@@ -254,6 +396,13 @@ metadata:
     app: rfam-web
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
 spec:
   rules:
   - host: rfam-{{ .Release.Namespace }}.local
@@ -266,3 +415,43 @@ spec:
             name: rfam-web-service
             port:
               number: 80
+---
+# Horizontal Pod Autoscaler for dynamic scaling
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: rfam-web-hpa
+  namespace: {{ .Release.Namespace }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: rfam-web
+  minReplicas: {{ .Values.rfamReplicas }}
+  maxReplicas: {{ .Values.rfamReplicas | mul 3 }}
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
