@@ -35,7 +35,6 @@ data:
     # Create changelog.conf if it doesn't exist
     if [ ! -f "$TARGET_DIR/RfamWeb/config/changelog.conf" ]; then
         touch $TARGET_DIR/RfamWeb/config/changelog.conf
-        echo "# Changelog configuration file" > $TARGET_DIR/RfamWeb/config/changelog.conf
     fi
     
     # Copy from config.dist if available
@@ -43,16 +42,6 @@ data:
         cp -r $TARGET_DIR/RfamWeb/config.dist/* $TARGET_DIR/RfamWeb/config/ 2>/dev/null || true
     fi
     
-    # Verify required files exist
-    if [ ! -f "$TARGET_DIR/RfamWeb/script/rfamweb_server.pl" ]; then
-        echo "ERROR: Main application script not found"
-        exit 1
-    fi
-    
-    if [ ! -f "$TARGET_DIR/RfamWeb/config/rfamweb.conf" ]; then
-        echo "ERROR: Configuration file not found"
-        exit 1
-    fi
 ---
 # ConfigMap for application configuration
 apiVersion: v1
