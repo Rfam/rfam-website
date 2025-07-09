@@ -1,48 +1,3 @@
-# ConfigMap for init script
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: rfam-init
-  namespace: {{ .Release.Namespace }}
-data:
-  init.sh: |
-    #!/bin/sh
-    set -e
-    
-    # Configuration
-    REPO_URL="https://github.com/Rfam/rfam-website.git"
-    BRANCH="{{ .Values.rfamBranch | default "main" }}"
-    CLONE_DIR="/tmp/rfam"
-    TARGET_DIR="/src"
-    PROXY_URL="{{ .Values.EBI_PROXY }}"
-    
-    # Configure git to use proxy
-    git config --global http.proxy "$PROXY_URL"
-    git config --global https.proxy "$PROXY_URL"
-    
-    # Clean up and clone repository
-    rm -rf $CLONE_DIR
-    mkdir -p $TARGET_DIR
-    git clone --depth 1 --branch $BRANCH --quiet $REPO_URL $CLONE_DIR
-    cp -r $CLONE_DIR/* $TARGET_DIR/
-    
-    # Copy all config files to expected location
-    mkdir -p $TARGET_DIR/RfamWeb/config
-    if [ -d "$TARGET_DIR/config" ]; then
-        cp -r $TARGET_DIR/config/* $TARGET_DIR/RfamWeb/config/
-    fi
-    
-    # Create changelog.conf if it doesn't exist
-    if [ ! -f "$TARGET_DIR/RfamWeb/config/changelog.conf" ]; then
-        touch $TARGET_DIR/RfamWeb/config/changelog.conf
-    fi
-    
-    # Copy from config.dist if available
-    if [ -d "$TARGET_DIR/RfamWeb/config.dist" ]; then
-        cp -r $TARGET_DIR/RfamWeb/config.dist/* $TARGET_DIR/RfamWeb/config/ 2>/dev/null || true
-    fi
-    
----
 # ConfigMap for application configuration
 apiVersion: v1
 kind: ConfigMap
@@ -156,32 +111,16 @@ spec:
       labels:
         app: rfam-web
     spec:
-      initContainers:
-      - name: source-init
-        image: alpine/git:latest
-        command: ["/bin/sh", "/scripts/init.sh"]
-        volumeMounts:
-        - name: source-code
-          mountPath: /src
-        - name: init-script
-          mountPath: /scripts
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            memory: "128Mi"
-            cpu: "200m"
       containers:
       - name: rfam-web
-        image: rfam/rfam-website:latest
+        image: ghcr.io/rfam/rfam-website:latest
         imagePullPolicy: Always
         command: ["/bin/bash"]
         args:
         - -c
         - |
           # Create database configuration override with connection pooling
-          cat > /src/RfamWeb/config/rfamweb_local.conf << EOF
+          cat > /src/RfamWeb/config/rfamweb_local.conf << 'EOF'
           <Model RfamDB>
             schema_class RfamDB
             connect_info "dbi:mysql:database=${DATABASE_NAME};host=${DATABASE_HOST};port=${DATABASE_PORT};mysql_connect_timeout=10;mysql_read_timeout=30;mysql_write_timeout=30;mysql_multi_statements=1"
@@ -237,6 +176,12 @@ spec:
             content_type application/json
           </Plugin>
           EOF
+          
+          # Wait for Redis to be ready
+          until nc -z ${REDIS_HOST} ${REDIS_PORT}; do
+            echo "Waiting for Redis..."
+            sleep 2
+          done
           
           # Start the application with optimized settings
           exec /src/RfamWeb/script/rfamweb_server.pl -p 3000 --fork --keepalive --workers 4
@@ -313,9 +258,6 @@ spec:
           value: {{ .Values.EBI_PROXY | quote }}
         - name: HTTPS_PROXY
           value: {{ .Values.EBI_PROXY | quote }}
-        volumeMounts:
-        - name: source-code
-          mountPath: /src
         resources:
           requests:
             memory: "1Gi"
@@ -327,7 +269,7 @@ spec:
           httpGet:
             path: /
             port: {{ .Values.rfamPort }}
-          initialDelaySeconds: 180
+          initialDelaySeconds: 90
           periodSeconds: 30
           timeoutSeconds: 15
           failureThreshold: 3
@@ -335,7 +277,7 @@ spec:
           httpGet:
             path: /
             port: {{ .Values.rfamPort }}
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 15
           timeoutSeconds: 15
           failureThreshold: 5
@@ -346,14 +288,7 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 15
-          failureThreshold: 30
-      volumes:
-      - name: source-code
-        emptyDir: {}
-      - name: init-script
-        configMap:
-          name: rfam-init
-          defaultMode: 0755
+          failureThreshold: 18
       restartPolicy: Always
 ---
 # Service
