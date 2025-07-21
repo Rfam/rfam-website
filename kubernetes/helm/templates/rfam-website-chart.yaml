@@ -115,76 +115,6 @@ spec:
       - name: rfam-web
         image: ghcr.io/rfam/rfam-website:latest
         imagePullPolicy: Always
-        command: ["/bin/bash"]
-        args:
-        - -c
-        - |
-          # Create database configuration override with connection pooling
-          cat > /src/RfamWeb/config/rfamweb_local.conf << 'EOF'
-          <Model RfamDB>
-            schema_class RfamDB
-            connect_info "dbi:mysql:database=${DATABASE_NAME};host=${DATABASE_HOST};port=${DATABASE_PORT};mysql_connect_timeout=10;mysql_read_timeout=30;mysql_write_timeout=30;mysql_multi_statements=1"
-            connect_info ${DATABASE_USER}
-            connect_info ${DATABASE_PASSWORD}
-            <connect_info>
-              on_connect_do "SET SESSION sql_mode=''"
-              mysql_enable_utf8 1
-              mysql_auto_reconnect 1
-              AutoCommit 1
-              RaiseError 1
-              PrintError 0
-              # Connection pooling settings
-              mysql_use_result 0
-              mysql_server_prepare 1
-              mysql_server_prepare_disable_fallback 1
-            </connect_info>
-          </Model>
-          
-          # Redis Cache Configuration
-          <Plugin Cache>
-            <backend>
-              class Cache::Redis
-              server ${REDIS_HOST}:${REDIS_PORT}
-              debug 0
-              reconnect 10
-              every 500
-              <data>
-                namespace rfam_cache
-                default_expire 3600
-              </data>
-            </backend>
-          </Plugin>
-          
-          # Performance optimizations
-          <Plugin Static::Simple>
-            expires 86400
-            <mime>
-              css text/css
-              js  application/javascript
-              png image/png
-              jpg image/jpeg
-              gif image/gif
-            </mime>
-          </Plugin>
-          
-          # Enable compression
-          <Plugin Compress>
-            content_type text/html
-            content_type text/plain
-            content_type text/css
-            content_type application/javascript
-            content_type application/json
-          </Plugin>
-          EOF
-          
-          # Wait for Redis to be ready
-          until nc -z ${REDIS_HOST} ${REDIS_PORT}; do
-            echo "Waiting for Redis..."
-            sleep 2
-          done
-          
-          # Start the application with optimized settings
-          exec /src/RfamWeb/script/rfamweb_server.pl -p 3000 --fork --keepalive --workers 4
         ports:
         - containerPort: {{ .Values.rfamPort }}
           name: http
@@ -249,7 +179,7 @@ spec:
           value: "0"
         - name: PERL_CARTON_PATH
           value: "/src/local"
-        # Proxy settings
+        # Proxy settings (only for external connections)
         - name: http_proxy
           value: {{ .Values.EBI_PROXY | quote }}
         - name: HTTP_PROXY
@@ -258,6 +188,10 @@ spec:
           value: {{ .Values.EBI_PROXY | quote }}
         - name: HTTPS_PROXY
           value: {{ .Values.EBI_PROXY | quote }}
+        - name: no_proxy
+          value: "localhost,127.0.0.1,redis-service,rfam-web-service,10.252.0.0/16"
+        - name: NO_PROXY
+          value: "localhost,127.0.0.1,redis-service,rfam-web-service,10.252.0.0/16"
         resources:
           requests:
             memory: "1Gi"
