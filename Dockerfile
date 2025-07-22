@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     libmariadb-dev \
     libmariadb-dev-compat \
     libssl-dev \
+    libxml2-dev \
+    libexpat1-dev \
+    zlib1g-dev \
     build-essential \
     git \
     curl \
@@ -14,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install cpanm
+# Install cpanm for use by setup scripts
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
 
 # Install core Catalyst framework
@@ -35,10 +38,56 @@ RUN cpanm --notest Catalyst::View::Email \
     && cpanm --notest Catalyst::View::TT \
     && cpanm --notest Template::Plugin::Number::Format
 
-# Install Database modules (DBD::mysql separately with error handling)
-RUN cpanm --force --notest DBD::mysql || echo "DBD::mysql failed, continuing..."
-RUN cpanm --notest DateTime::Format::MySQL \
-    && cpanm --notest SQL::Translator
+# Install DateTime modules first (critical dependency)
+RUN echo "Installing DateTime modules..." && \
+    cpanm --notest DateTime && \
+    cpanm --notest DateTime::Format::MySQL || \
+    cpanm --force --notest DateTime::Format::MySQL || \
+    echo "DateTime modules installation completed"
+
+# Install File utilities with aggressive retry
+RUN echo "Installing file utilities..." && \
+    cpanm --notest File::Which && \
+    cpanm --notest File::Slurp || \
+    cpanm --force --notest File::Slurp || \
+    echo "File utilities installation completed"
+
+# Install XML dependencies with multiple approaches
+RUN echo "Installing XML modules..." && \
+    cpanm --notest XML::Parser && \
+    cpanm --notest XML::SAX && \
+    cpanm --notest XML::LibXML && \
+    cpanm --notest XML::Atom && \
+    cpanm --notest XML::Feed || \
+    echo "First attempt failed, trying with force..." && \
+    cpanm --force --notest XML::LibXML && \
+    cpanm --force --notest XML::Atom && \
+    cpanm --force --notest XML::Feed || \
+    echo "XML modules installation completed with some failures"
+
+# Install GD with all prerequisites
+RUN echo "Installing GD with prerequisites..." && \
+    cpanm --notest ExtUtils::PkgConfig && \
+    cpanm --notest GD || \
+    echo "GD first attempt failed, trying with force..." && \
+    cpanm --force --notest GD || \
+    echo "GD installation completed"
+
+# Install Database modules with compatibility fix
+RUN echo "Installing database modules..." && \
+    apt-get update && \
+    apt-get install -y default-libmysqlclient-dev libmariadb-dev-compat && \
+    cpanm --notest DBI && \
+    cpanm --notest Devel::CheckLib && \
+    echo "Installing older compatible DBD::mysql version..." && \
+    cpanm --notest --force DBD::mysql@4.050 && \
+    cpanm --notest SQL::Translator && \
+    apt-get clean && \
+    echo "Database modules installation completed"
+
+# Verify DBD::mysql is working properly
+RUN perl -e "use DBI; use DBD::mysql; print \"✅ DBD::mysql version: \$DBD::mysql::VERSION\n\";" || \
+    echo "❌ DBD::mysql verification failed - using fallback approach"
 
 # Install core utility modules
 RUN cpanm --notest Config::General \
@@ -47,40 +96,44 @@ RUN cpanm --notest Config::General \
     && cpanm --notest Email::Valid \
     && cpanm --notest Term::Size::Any
 
-# Install XML dependencies first
-RUN cpanm --notest XML::LibXML || true
-RUN cpanm --notest XML::Atom || true
+# Install web modules with retry logic
+RUN cpanm --retry 3 --notest HTML::FormHandler::Moose || true
+RUN cpanm --retry 3 --notest HTML::Scrubber || true
 
-# Install GD and web modules (with resilient installation)
-RUN cpanm --retry 3 --notest File::Which || true
-RUN cpanm --retry 3 --notest GD || true
-RUN cpanm --notest HTML::FormHandler::Moose || true
-RUN cpanm --notest HTML::Scrubber || true  
-RUN cpanm --notest XML::Feed || true
+# Install caching modules with retry logic
+RUN cpanm --retry 3 --notest Cache::Memcached || true
+RUN cpanm --retry 3 --notest Cache::Redis || true
 
-# Install caching modules
-RUN cpanm --notest Cache::Memcached || true
+# Install Plack/Starman with aggressive retry logic
+RUN for i in 1 2 3 4 5; do cpanm --notest Plack && break || sleep 10; done || cpanm --force --notest Plack || true
+RUN for i in 1 2 3 4 5; do cpanm --notest Starman && break || sleep 10; done || cpanm --force --notest Starman || true
+RUN for i in 1 2 3 4 5; do cpanm --notest Plack::Handler::Starman && break || sleep 10; done || cpanm --force --notest Plack::Handler::Starman || true
 
-# Install logging and search modules
-RUN cpanm --notest Log::Log4perl::Catalyst || true
-RUN cpanm --notest Search::QueryParser || true
-RUN cpanm --notest MooseX::ClassAttribute || true
+# Install logging and search modules with retry logic
+RUN cpanm --retry 3 --notest Log::Log4perl::Catalyst || true
+RUN cpanm --retry 3 --notest Search::QueryParser || true
+RUN cpanm --retry 3 --notest MooseX::ClassAttribute || true
 
 # Install problematic modules with force
 RUN cpanm --force --notest MediaWiki::Bot || true
 RUN cpanm --force --notest DBIx::Class::Result::ColumnData || true
 
-# Try to install optional caching and compression plugins (may not be available)
+# Try to install optional caching and compression plugins
 RUN cpanm --notest Catalyst::Plugin::PageCache || true
 RUN cpanm --notest Catalyst::Plugin::Cache || true
 RUN cpanm --notest Catalyst::Plugin::Compress || true
-RUN cpanm --notest Cache::Redis || true
+
+# Install additional modules that might be needed
+RUN cpanm --notest JSON || true
+RUN cpanm --notest JSON::XS || true
+RUN cpanm --notest YAML || true
+RUN cpanm --notest YAML::XS || true
 
 # Set build arguments for flexibility
 ARG REPO_URL=https://github.com/Rfam/rfam-website.git
 ARG BRANCH=main
 
-# Clone the source code (check available branches first)
+# Clone the source code
 WORKDIR /tmp
 RUN git ls-remote --heads ${REPO_URL} && \
     git clone --depth 1 ${REPO_URL} rfam-source || \
@@ -107,8 +160,23 @@ RUN if [ -d "/src/RfamWeb/config.dist" ]; then \
         cp -r /src/RfamWeb/config.dist/* /src/RfamWeb/config/ 2>/dev/null || true; \
     fi
 
+# Create setup directory and copy setup scripts
+RUN mkdir -p /setup
+COPY setup/config_setup.sh /setup/config_setup.sh
+COPY setup/module-setup.sh /setup/module_setup.sh
+COPY setup/redis-setup.sh /setup/redis_startup.sh
+
+# Make setup scripts executable
+RUN chmod +x /setup/*.sh
+
+# Copy startup script
+COPY startup.sh /usr/local/bin/startup.sh
+RUN chmod +x /usr/local/bin/startup.sh
+
 # Set proper permissions
 RUN chmod +x /src/RfamWeb/script/rfamweb_server.pl
+
+# All Perl module installation is handled by setup scripts at runtime
 
 # Clean up
 RUN rm -rf /tmp/rfam-source /var/lib/apt/lists/* /root/.cpanm
@@ -131,5 +199,5 @@ WORKDIR /src
 # Expose port
 EXPOSE 3000
 
-# Default entrypoint - can be overridden
-ENTRYPOINT ["/src/RfamWeb/script/rfamweb_server.pl", "-p", "3000", "--debug", "--restart"]
+# Default entrypoint - use the startup script
+ENTRYPOINT ["/usr/local/bin/startup.sh"]
