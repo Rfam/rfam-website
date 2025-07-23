@@ -1,0 +1,16 @@
+# Application configuration
+rfamReplicas: 2
+rfamPort: 3000
+
+# Proxy configuration (can remain in ConfigMap)
+EBI_PROXY: "http://proxy.ebi.ac.uk:3128"
+
+# Secret configuration
+secret:
+  existingSecret: "rfam-database-secret"
+
+# Image configuration
+image:
+  repository: "ghcr.io/rfam/rfam-website"
+  tag: "latest"
+  pullPolicy: "Always"

@@ -1,14 +1,10 @@
-# ConfigMap for application configuration
+# ConfigMap for application configuration (non-sensitive only)
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rfam-config
   namespace: {{ .Release.Namespace }}
 data:
-  DATABASE_HOST: {{ .Values.DATABASE_HOST | quote }}
-  DATABASE_PORT: {{ .Values.DATABASE_PORT | quote }}
-  DATABASE_NAME: {{ .Values.DATABASE_NAME | quote }}
-  DATABASE_USER: {{ .Values.DATABASE_USER | quote }}
   EBI_PROXY: {{ .Values.EBI_PROXY | quote }}
   REDIS_HOST: "redis-service"
   REDIS_PORT: "6379"
@@ -16,7 +12,8 @@ data:
   RFAMWEB_CONFIG: "/src/RfamWeb/config/rfamweb.conf"
   DBIC_TRACE: "1"
 ---
-# Secret for sensitive data
+{{- if not .Values.secret.existingSecret }}
+# Secret for sensitive data (only created if not using existing secret)
 apiVersion: v1
 kind: Secret
 metadata:
@@ -24,7 +21,32 @@ metadata:
   namespace: {{ .Release.Namespace }}
 type: Opaque
 data:
-  DATABASE_PASSWORD: {{ .Values.DATABASE_PASSWORD | b64enc | quote }}
+  {{- if .Values.secret.databaseHost }}
+  DATABASE_HOST: {{ .Values.secret.databaseHost | quote }}
+  {{- else }}
+  DATABASE_HOST: {{ required "DATABASE_HOST must be provided when not using existing secret" .Values.secret.databaseHost }}
+  {{- end }}
+  {{- if .Values.secret.databasePort }}
+  DATABASE_PORT: {{ .Values.secret.databasePort | quote }}
+  {{- else }}
+  DATABASE_PORT: {{ required "DATABASE_PORT must be provided when not using existing secret" .Values.secret.databasePort }}
+  {{- end }}
+  {{- if .Values.secret.databaseName }}
+  DATABASE_NAME: {{ .Values.secret.databaseName | quote }}
+  {{- else }}
+  DATABASE_NAME: {{ required "DATABASE_NAME must be provided when not using existing secret" .Values.secret.databaseName }}
+  {{- end }}
+  {{- if .Values.secret.databaseUser }}
+  DATABASE_USER: {{ .Values.secret.databaseUser | quote }}
+  {{- else }}
+  DATABASE_USER: {{ required "DATABASE_USER must be provided when not using existing secret" .Values.secret.databaseUser }}
+  {{- end }}
+  {{- if .Values.secret.databasePassword }}
+  DATABASE_PASSWORD: {{ .Values.secret.databasePassword | quote }}
+  {{- else }}
+  DATABASE_PASSWORD: {{ required "DATABASE_PASSWORD must be provided when not using existing secret" .Values.secret.databasePassword }}
+  {{- end }}
+{{- end }}
 ---
 # Redis Service
 apiVersion: v1
@@ -77,20 +99,20 @@ spec:
         - "no"
         resources:
           requests:
-            memory: "64Mi"    # Reduced from 128Mi
-            cpu: "50m"        # Reduced from 100m
+            memory: "64Mi"
+            cpu: "50m"
           limits:
-            memory: "128Mi"   # Reduced from 256Mi
-            cpu: "100m"       # Reduced from 200m
+            memory: "128Mi"
+            cpu: "100m"
         livenessProbe:
           tcpSocket:
             port: 6379
-          initialDelaySeconds: 5   # Reduced from 30
+          initialDelaySeconds: 5
           periodSeconds: 10
         readinessProbe:
           tcpSocket:
             port: 6379
-          initialDelaySeconds: 1   # Reduced from 5
+          initialDelaySeconds: 1
           periodSeconds: 5
 ---
 # Deployment
@@ -113,37 +135,59 @@ spec:
     spec:
       containers:
       - name: rfam-web
-        image: ghcr.io/rfam/rfam-website:latest
-        imagePullPolicy: Always
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.rfamPort }}
           name: http
         env:
+        # All database parameters now come from secrets
         - name: DATABASE_HOST
           valueFrom:
-            configMapKeyRef:
-              name: rfam-config
+            secretKeyRef:
+              {{- if .Values.secret.existingSecret }}
+              name: {{ .Values.secret.existingSecret }}
+              {{- else }}
+              name: rfam-secrets
+              {{- end }}
               key: DATABASE_HOST
         - name: DATABASE_PORT
           valueFrom:
-            configMapKeyRef:
-              name: rfam-config
+            secretKeyRef:
+              {{- if .Values.secret.existingSecret }}
+              name: {{ .Values.secret.existingSecret }}
+              {{- else }}
+              name: rfam-secrets
+              {{- end }}
               key: DATABASE_PORT
         - name: DATABASE_NAME
           valueFrom:
-            configMapKeyRef:
-              name: rfam-config
+            secretKeyRef:
+              {{- if .Values.secret.existingSecret }}
+              name: {{ .Values.secret.existingSecret }}
+              {{- else }}
+              name: rfam-secrets
+              {{- end }}
               key: DATABASE_NAME
         - name: DATABASE_USER
           valueFrom:
-            configMapKeyRef:
-              name: rfam-config
+            secretKeyRef:
+              {{- if .Values.secret.existingSecret }}
+              name: {{ .Values.secret.existingSecret }}
+              {{- else }}
+              name: rfam-secrets
+              {{- end }}
               key: DATABASE_USER
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
+              {{- if .Values.secret.existingSecret }}
+              name: {{ .Values.secret.existingSecret }}
+              {{- else }}
               name: rfam-secrets
+              {{- end }}
               key: DATABASE_PASSWORD
+        # Non-sensitive config from ConfigMap
         - name: EBI_PROXY
           valueFrom:
             configMapKeyRef:
@@ -194,36 +238,35 @@ spec:
           value: "localhost,127.0.0.1,redis-service,rfam-web-service,10.252.0.0/16"
         resources:
           requests:
-            memory: "512Mi"   # Reduced from 1Gi for faster scheduling
-            cpu: "250m"       # Reduced from 500m
+            memory: "512Mi"
+            cpu: "250m"
           limits:
-            memory: "1Gi"     # Reduced from 2Gi
-            cpu: "500m"       # Reduced from 1000m
-        # OPTIMIZED PROBES - Much faster startup
+            memory: "1Gi"
+            cpu: "500m"
+        # OPTIMIZED PROBES
         startupProbe:
           httpGet:
             path: /
             port: {{ .Values.rfamPort }}
-          initialDelaySeconds: 10    # Reduced from 30
-          periodSeconds: 5           # Reduced from 10
-          timeoutSeconds: 10         # Reduced from 15
-          failureThreshold: 12       # Reduced from 18
-          # Total startup time: 10 + (5 × 12) = 70 seconds max
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 12
         readinessProbe:
           httpGet:
             path: /
             port: {{ .Values.rfamPort }}
-          initialDelaySeconds: 5     # Reduced from 60
-          periodSeconds: 5           # Reduced from 15
-          timeoutSeconds: 10         # Reduced from 15
-          failureThreshold: 3        # Reduced from 5
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 3
         livenessProbe:
           httpGet:
             path: /
             port: {{ .Values.rfamPort }}
-          initialDelaySeconds: 30    # Reduced from 90
-          periodSeconds: 15          # Reduced from 30
-          timeoutSeconds: 10         # Reduced from 15
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 10
           failureThreshold: 3
       restartPolicy: Always
 ---
