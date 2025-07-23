@@ -119,22 +119,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rfam-web
+  name: rfam-website
   namespace: {{ .Release.Namespace }}
   labels:
-    app: rfam-web
+    app: rfam-website
 spec:
   replicas: {{ .Values.rfamReplicas }}
   selector:
     matchLabels:
-      app: rfam-web
+      app: rfam-website
   template:
     metadata:
       labels:
-        app: rfam-web
+        app: rfam-website
     spec:
       containers:
-      - name: rfam-web
+      - name: rfam-website
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
@@ -233,9 +233,9 @@ spec:
         - name: HTTPS_PROXY
           value: {{ .Values.EBI_PROXY | quote }}
         - name: no_proxy
-          value: "localhost,127.0.0.1,redis-service,rfam-web-service,10.252.0.0/16"
+          value: "localhost,127.0.0.1,redis-service,rfam-website-service,10.252.0.0/16"
         - name: NO_PROXY
-          value: "localhost,127.0.0.1,redis-service,rfam-web-service,10.252.0.0/16"
+          value: "localhost,127.0.0.1,redis-service,rfam-website-service,10.252.0.0/16"
         resources:
           requests:
             memory: "512Mi"
@@ -274,13 +274,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rfam-web-service
+  name: rfam-website-service
   namespace: {{ .Release.Namespace }}
   labels:
-    app: rfam-web
+    app: rfam-website
 spec:
   selector:
-    app: rfam-web
+    app: rfam-website
   ports:
   - name: http
     port: 80
@@ -293,10 +293,10 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: rfam-web-ingress
+  name: rfam-website-ingress
   namespace: {{ .Release.Namespace }}
   labels:
-    app: rfam-web
+    app: rfam-website
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
@@ -315,7 +315,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: rfam-web-service
+            name: rfam-website-service
             port:
               number: 80
 ---
@@ -323,13 +323,13 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: rfam-web-hpa
+  name: rfam-website-hpa
   namespace: {{ .Release.Namespace }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: rfam-web
+    name: rfam-website
   minReplicas: {{ .Values.rfamReplicas }}
   maxReplicas: {{ .Values.rfamReplicas | mul 3 }}
   metrics:
