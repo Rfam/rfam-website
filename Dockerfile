@@ -162,21 +162,22 @@ RUN if [ -d "/src/RfamWeb/config.dist" ]; then \
 
 # Create setup directory and copy setup scripts
 RUN mkdir -p /setup
+
+# Force cache bust to ensure fresh copy of setup scripts
+ARG CACHE_BUST=1
 COPY setup/config_setup.sh /setup/config_setup.sh
-COPY setup/module-setup.sh /setup/module_setup.sh
+COPY setup/module-setup.sh /setup/module_setup.sh  
 COPY setup/redis-setup.sh /setup/redis_startup.sh
 
 # Make setup scripts executable
 RUN chmod +x /setup/*.sh
 
-# Copy startup script
+# Copy startup script with cache bust
 COPY startup.sh /usr/local/bin/startup.sh
 RUN chmod +x /usr/local/bin/startup.sh
 
 # Set proper permissions
 RUN chmod +x /src/RfamWeb/script/rfamweb_server.pl
-
-# All Perl module installation is handled by setup scripts at runtime
 
 # Clean up
 RUN rm -rf /tmp/rfam-source /var/lib/apt/lists/* /root/.cpanm
