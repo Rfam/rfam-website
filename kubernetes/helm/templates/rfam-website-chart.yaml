@@ -77,20 +77,20 @@ spec:
         - "no"
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "64Mi"    # Reduced from 128Mi
+            cpu: "50m"        # Reduced from 100m
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "128Mi"   # Reduced from 256Mi
+            cpu: "100m"       # Reduced from 200m
         livenessProbe:
           tcpSocket:
             port: 6379
-          initialDelaySeconds: 30
+          initialDelaySeconds: 5   # Reduced from 30
           periodSeconds: 10
         readinessProbe:
           tcpSocket:
             port: 6379
-          initialDelaySeconds: 5
+          initialDelaySeconds: 1   # Reduced from 5
           periodSeconds: 5
 ---
 # Deployment
@@ -194,35 +194,37 @@ spec:
           value: "localhost,127.0.0.1,redis-service,rfam-web-service,10.252.0.0/16"
         resources:
           requests:
-            memory: "1Gi"
-            cpu: "500m"
+            memory: "512Mi"   # Reduced from 1Gi for faster scheduling
+            cpu: "250m"       # Reduced from 500m
           limits:
-            memory: "2Gi"
-            cpu: "1000m"
-        # livenessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: {{ .Values.rfamPort }}
-        #   initialDelaySeconds: 90
-        #   periodSeconds: 30
-        #   timeoutSeconds: 15
-        #   failureThreshold: 3
-        # readinessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: {{ .Values.rfamPort }}
-        #   initialDelaySeconds: 60
-        #   periodSeconds: 15
-        #   timeoutSeconds: 15
-        #   failureThreshold: 5
-        # startupProbe:
-        #   httpGet:
-        #     path: /
-        #     port: {{ .Values.rfamPort }}
-        #   initialDelaySeconds: 30
-        #   periodSeconds: 10
-        #   timeoutSeconds: 15
-        #   failureThreshold: 18
+            memory: "1Gi"     # Reduced from 2Gi
+            cpu: "500m"       # Reduced from 1000m
+        # OPTIMIZED PROBES - Much faster startup
+        startupProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 10    # Reduced from 30
+          periodSeconds: 5           # Reduced from 10
+          timeoutSeconds: 10         # Reduced from 15
+          failureThreshold: 12       # Reduced from 18
+          # Total startup time: 10 + (5 × 12) = 70 seconds max
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 5     # Reduced from 60
+          periodSeconds: 5           # Reduced from 15
+          timeoutSeconds: 10         # Reduced from 15
+          failureThreshold: 3        # Reduced from 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 30    # Reduced from 90
+          periodSeconds: 15          # Reduced from 30
+          timeoutSeconds: 10         # Reduced from 15
+          failureThreshold: 3
       restartPolicy: Always
 ---
 # Service
