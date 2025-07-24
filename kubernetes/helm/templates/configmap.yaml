@@ -6,8 +6,6 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   EBI_PROXY: {{ .Values.EBI_PROXY | quote }}
-  REDIS_HOST: "redis-service"
-  REDIS_PORT: "6379"
   PERL5LIB: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
   RFAMWEB_CONFIG: "/src/RfamWeb/config/rfamweb.conf"
   DBIC_TRACE: "1"

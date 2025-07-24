@@ -56,16 +56,6 @@ spec:
             configMapKeyRef:
               name: rfam-config
               key: EBI_PROXY
-        - name: REDIS_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: rfam-config
-              key: REDIS_HOST
-        - name: REDIS_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: rfam-config
-              key: REDIS_PORT
         - name: PERL5LIB
           valueFrom:
             configMapKeyRef:
@@ -96,9 +86,9 @@ spec:
         - name: HTTPS_PROXY
           value: {{ .Values.EBI_PROXY | quote }}
         - name: no_proxy
-          value: "localhost,127.0.0.1,redis-service,rfam-website-service,10.252.0.0/16"
+          value: "localhost,127.0.0.1,rfam-website-service,10.252.0.0/16"
         - name: NO_PROXY
-          value: "localhost,127.0.0.1,redis-service,rfam-website-service,10.252.0.0/16"
+          value: "localhost,127.0.0.1,rfam-website-service,10.252.0.0/16"
         resources:
           requests:
             memory: "512Mi"
