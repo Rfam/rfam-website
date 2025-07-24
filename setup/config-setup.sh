@@ -1,9 +1,9 @@
 #!/bin/bash
-# config_setup.sh
+# config-setup.sh
 # Generate Catalyst plugin and database configuration
 set -euo pipefail
 
-echo "=== config_setup.sh: Generating configuration ==="
+echo "=== config-setup.sh: Generating configuration ==="
 mkdir -p /src/RfamWeb/config
 
 cat > /src/RfamWeb/config/rfamweb_local.conf <<EOF
@@ -60,4 +60,4 @@ EOF
 
 echo "Generated /src/RfamWeb/config/rfamweb_local.conf:"
 cat /src/RfamWeb/config/rfamweb_local.conf
-echo "=== config_setup.sh complete ==="
+echo "=== config-setup.sh complete ==="

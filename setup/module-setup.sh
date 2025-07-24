@@ -168,9 +168,6 @@ sub process { 1 }
 EOF
 "
 
-# Clean up any problematic DBD::mysql stubs
-rm -f "${PERL_SITE}/DBD/mysql.pm" 2>/dev/null || true
-
 # Final database verification
 if perl -e "use DBI; use DBD::mysql; 1" 2>/dev/null; then
   echo "✅ DBD::mysql - Working properly"

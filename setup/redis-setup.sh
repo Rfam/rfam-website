@@ -1,5 +1,5 @@
 #!/bin/bash
-# redis_startup.sh
+# redis-setup.sh
 # Wait for Redis to be reachable (best-effort).
 set -euo pipefail
 

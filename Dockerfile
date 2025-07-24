@@ -115,9 +115,9 @@ RUN mkdir -p /setup
 
 # Force cache bust to ensure fresh copy of setup scripts
 ARG CACHE_BUST=1
-COPY setup/config_setup.sh /setup/config_setup.sh
+COPY setup/config-setup.sh /setup/config-setup.sh
 COPY setup/module-setup.sh /setup/module_setup.sh  
-COPY setup/redis-setup.sh /setup/redis_startup.sh
+COPY setup/redis-setup.sh /setup/redis-setup.sh
 
 # Make setup scripts executable
 RUN chmod +x /setup/*.sh

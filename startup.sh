@@ -140,8 +140,8 @@ fi
 # Generate config
 # -------------------------------------------------
 echo "=== Running config setup ==="
-if [ -f "/setup/config_setup.sh" ]; then
-  source "/setup/config_setup.sh"
+if [ -f "/setup/config-setup.sh" ]; then
+  source "/setup/config-setup.sh"
 else
   echo "⚠️  Config setup script not found"
 fi
@@ -151,10 +151,10 @@ fi
 # -------------------------------------------------
 if [ -n "${REDIS_HOST:-}" ]; then
   echo "=== Waiting for Redis ==="
-  if [ -f "/setup/redis_startup.sh" ]; then
-    source "/setup/redis_startup.sh"
+  if [ -f "/setup/redis-setup.sh" ]; then
+    source "/setup/redis-setup.sh"
   else
-    echo "⚠️  Redis startup script not found"
+    echo "⚠️  Redis setup script not found"
   fi
 else
   echo "REDIS_HOST not set; skipping Redis wait."
