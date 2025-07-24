@@ -14,120 +14,70 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     netcat-openbsd \
+    default-libmysqlclient-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install cpanm for use by setup scripts
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
 
-# Install core Catalyst framework
-RUN cpanm --notest Catalyst::Runtime \
+# Install CRITICAL modules that cannot be stubbed (need network during build)
+RUN echo "Installing Core Catalyst Framework..." && \
+    cpanm --notest Catalyst::Runtime \
     && cpanm --notest Catalyst::Devel \
     && cpanm --notest Catalyst::ScriptRunner
 
-# Install Catalyst plugins
-RUN cpanm --notest Catalyst::Action::RenderView \
+RUN echo "Installing Essential Catalyst Plugins..." && \
+    cpanm --notest Catalyst::Action::RenderView \
     && cpanm --notest Catalyst::Controller::REST \
     && cpanm --notest Catalyst::Model::DBIC::Schema \
     && cpanm --notest Catalyst::Plugin::ConfigLoader \
     && cpanm --notest Catalyst::Plugin::Static::Simple \
     && cpanm --notest Catalyst::Plugin::Unicode
 
-# Install Views and Templates
-RUN cpanm --notest Catalyst::View::Email \
-    && cpanm --notest Catalyst::View::TT \
+RUN echo "Installing View Modules..." && \
+    cpanm --notest Catalyst::View::TT \
     && cpanm --notest Template::Plugin::Number::Format
 
-# Install DateTime modules first (critical dependency)
-RUN echo "Installing DateTime modules..." && \
-    cpanm --notest DateTime && \
-    cpanm --notest DateTime::Format::MySQL || \
-    cpanm --force --notest DateTime::Format::MySQL || \
-    echo "DateTime modules installation completed"
+RUN echo "Installing Database Modules..." && \
+    cpanm --notest DBI \
+    && cpanm --notest Devel::CheckLib \
+    && cpanm --notest --force DBD::mysql@4.050 \
+    && cpanm --notest SQL::Translator
 
-# Install File utilities with aggressive retry
-RUN echo "Installing file utilities..." && \
-    cpanm --notest File::Which && \
-    cpanm --notest File::Slurp || \
-    cpanm --force --notest File::Slurp || \
-    echo "File utilities installation completed"
+RUN echo "Installing Web Server Modules..." && \
+    cpanm --notest Plack \
+    && cpanm --notest Starman \
+    && cpanm --notest Plack::Handler::Starman
 
-# Install XML dependencies with multiple approaches
-RUN echo "Installing XML modules..." && \
-    cpanm --notest XML::Parser && \
-    cpanm --notest XML::SAX && \
-    cpanm --notest XML::LibXML && \
-    cpanm --notest XML::Atom && \
-    cpanm --notest XML::Feed || \
-    echo "First attempt failed, trying with force..." && \
-    cpanm --force --notest XML::LibXML && \
-    cpanm --force --notest XML::Atom && \
-    cpanm --force --notest XML::Feed || \
-    echo "XML modules installation completed with some failures"
-
-# Install GD with all prerequisites
-RUN echo "Installing GD with prerequisites..." && \
-    cpanm --notest ExtUtils::PkgConfig && \
-    cpanm --notest GD || \
-    echo "GD first attempt failed, trying with force..." && \
-    cpanm --force --notest GD || \
-    echo "GD installation completed"
-
-# Install Database modules with compatibility fix
-RUN echo "Installing database modules..." && \
-    apt-get update && \
-    apt-get install -y default-libmysqlclient-dev libmariadb-dev-compat && \
-    cpanm --notest DBI && \
-    cpanm --notest Devel::CheckLib && \
-    echo "Installing older compatible DBD::mysql version..." && \
-    cpanm --notest --force DBD::mysql@4.050 && \
-    cpanm --notest SQL::Translator && \
-    apt-get clean && \
-    echo "Database modules installation completed"
-
-# Verify DBD::mysql is working properly
-RUN perl -e "use DBI; use DBD::mysql; print \"✅ DBD::mysql version: \$DBD::mysql::VERSION\n\";" || \
-    echo "❌ DBD::mysql verification failed - using fallback approach"
-
-# Install core utility modules
-RUN cpanm --notest Config::General \
-    && cpanm --notest Data::Printer \
+RUN echo "Installing Core Utilities..." && \
+    cpanm --notest Config::General \
     && cpanm --notest Data::UUID \
     && cpanm --notest Email::Valid \
-    && cpanm --notest Term::Size::Any
+    && cpanm --notest JSON \
+    && cpanm --notest YAML \
+    && cpanm --notest Search::QueryParser || \
+    cpanm --force --notest Search::QueryParser || \
+    echo "❌ Search::QueryParser installation failed"
 
-# Install web modules with retry logic
-RUN cpanm --retry 3 --notest HTML::FormHandler::Moose || true
-RUN cpanm --retry 3 --notest HTML::Scrubber || true
+RUN echo "Installing Form Handler modules..." && \
+    cpanm --notest HTML::FormHandler::Moose || \
+    cpanm --force --notest HTML::FormHandler::Moose || \
+    echo "❌ HTML::FormHandler::Moose installation failed"
 
-# Install caching modules with retry logic
-RUN cpanm --retry 3 --notest Cache::Memcached || true
-RUN cpanm --retry 3 --notest Cache::Redis || true
+RUN echo "Installing Email modules..." && \
+    cpanm --notest Email::MIME || \
+    cpanm --force --notest Email::MIME || \
+    echo "❌ Email::MIME installation failed"
 
-# Install Plack/Starman with aggressive retry logic
-RUN for i in 1 2 3 4 5; do cpanm --notest Plack && break || sleep 10; done || cpanm --force --notest Plack || true
-RUN for i in 1 2 3 4 5; do cpanm --notest Starman && break || sleep 10; done || cpanm --force --notest Starman || true
-RUN for i in 1 2 3 4 5; do cpanm --notest Plack::Handler::Starman && break || sleep 10; done || cpanm --force --notest Plack::Handler::Starman || true
+RUN echo "Installing Debug/Utility modules..." && \
+    cpanm --notest Data::Printer || \
+    cpanm --force --notest Data::Printer || \
+    echo "❌ Data::Printer installation failed"
 
-# Install logging and search modules with retry logic
-RUN cpanm --retry 3 --notest Log::Log4perl::Catalyst || true
-RUN cpanm --retry 3 --notest Search::QueryParser || true
-RUN cpanm --retry 3 --notest MooseX::ClassAttribute || true
-
-# Install problematic modules with force
-RUN cpanm --force --notest MediaWiki::Bot || true
-RUN cpanm --force --notest DBIx::Class::Result::ColumnData || true
-
-# Try to install optional caching and compression plugins
-RUN cpanm --notest Catalyst::Plugin::PageCache || true
-RUN cpanm --notest Catalyst::Plugin::Cache || true
-RUN cpanm --notest Catalyst::Plugin::Compress || true
-
-# Install additional modules that might be needed
-RUN cpanm --notest JSON || true
-RUN cpanm --notest JSON::XS || true
-RUN cpanm --notest YAML || true
-RUN cpanm --notest YAML::XS || true
+# Verify critical database connectivity
+RUN perl -e "use DBI; use DBD::mysql; print \"✅ DBD::mysql version: \$DBD::mysql::VERSION\n\";" || \
+    echo "❌ DBD::mysql verification failed"
 
 # Set build arguments for flexibility
 ARG REPO_URL=https://github.com/Rfam/rfam-website.git
