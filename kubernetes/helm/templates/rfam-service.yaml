@@ -1,0 +1,18 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: rfam-website-service
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: rfam-website
+spec:
+  selector:
+    app: rfam-website
+  ports:
+  - name: http
+    port: 80
+    targetPort: {{ .Values.rfamPort }}
+    protocol: TCP
+    nodePort: 30080
+  type: NodePort

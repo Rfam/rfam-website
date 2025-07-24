@@ -1,0 +1,134 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rfam-website
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: rfam-website
+spec:
+  replicas: {{ .Values.rfamReplicas }}
+  selector:
+    matchLabels:
+      app: rfam-website
+  template:
+    metadata:
+      labels:
+        app: rfam-website
+    spec:
+      containers:
+      - name: rfam-website
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.rfamPort }}
+          name: http
+        env:
+        # All database parameters now come from secrets
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.existingSecret }}
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.existingSecret }}
+              key: DATABASE_PORT
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.existingSecret }}
+              key: DATABASE_NAME
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.existingSecret }}
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.existingSecret }}
+              key: DATABASE_PASSWORD
+        # Non-sensitive config from ConfigMap
+        - name: EBI_PROXY
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: EBI_PROXY
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: REDIS_PORT
+        - name: PERL5LIB
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: PERL5LIB
+        - name: RFAMWEB_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: RFAMWEB_CONFIG
+        - name: DBIC_TRACE
+          valueFrom:
+            configMapKeyRef:
+              name: rfam-config
+              key: DBIC_TRACE
+        # Performance environment variables
+        - name: CATALYST_DEBUG
+          value: "0"
+        - name: PERL_CARTON_PATH
+          value: "/src/local"
+        # Proxy settings (only for external connections)
+        - name: http_proxy
+          value: {{ .Values.EBI_PROXY | quote }}
+        - name: HTTP_PROXY
+          value: {{ .Values.EBI_PROXY | quote }}
+        - name: https_proxy
+          value: {{ .Values.EBI_PROXY | quote }}
+        - name: HTTPS_PROXY
+          value: {{ .Values.EBI_PROXY | quote }}
+        - name: no_proxy
+          value: "localhost,127.0.0.1,redis-service,rfam-website-service,10.252.0.0/16"
+        - name: NO_PROXY
+          value: "localhost,127.0.0.1,redis-service,rfam-website-service,10.252.0.0/16"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        # OPTIMIZED PROBES
+        startupProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 12
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.rfamPort }}
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 10
+          failureThreshold: 3
+      restartPolicy: Always
