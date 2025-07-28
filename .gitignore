@@ -3,3 +3,4 @@
 *.swp
 rfamweb_local.conf
 RfamWeb/root/shared/*
+.env

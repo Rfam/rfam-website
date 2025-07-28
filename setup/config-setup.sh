@@ -22,20 +22,6 @@ cat > /src/RfamWeb/config/rfamweb_local.conf <<EOF
   </connect_info>
 </Model>
 
-<Plugin Cache>
-  <backend>
-    class Cache::Redis
-    server ${REDIS_HOST:-redis-service}:${REDIS_PORT:-6379}
-    debug 0
-    reconnect 10
-    every 500
-    <data>
-      namespace rfam_cache
-      default_expire 3600
-    </data>
-  </backend>
-</Plugin>
-
 <Plugin Static::Simple>
   expires 86400
   include_path /src/RfamWeb/root

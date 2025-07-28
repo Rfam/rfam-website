@@ -147,20 +147,6 @@ else
 fi
 
 # -------------------------------------------------
-# Wait for Redis
-# -------------------------------------------------
-if [ -n "${REDIS_HOST:-}" ]; then
-  echo "=== Waiting for Redis ==="
-  if [ -f "/setup/redis-setup.sh" ]; then
-    source "/setup/redis-setup.sh"
-  else
-    echo "⚠️  Redis setup script not found"
-  fi
-else
-  echo "REDIS_HOST not set; skipping Redis wait."
-fi
-
-# -------------------------------------------------
 # Test critical modules
 # -------------------------------------------------
 echo "=== Testing critical Perl modules ==="
