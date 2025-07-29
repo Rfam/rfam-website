@@ -1,24 +1,22 @@
-version: '2'
+version: '3.8'
 
 services:
   # Rfam website
   web:
-    # build: .
-    image: rfam/rfam-website:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - CACHE_BUST=1
     volumes:
-      - .:/src
       - ./config:/src/RfamWeb/config
     ports:
       - "3000:3000"
-    links:
-      - db
-  # local WebUser database
-  db:
-    image: mysql:latest
-    volumes:
-      # create database and tables on startup
-      - ./sql:/docker-entrypoint-initdb.d
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    ports:
-      - "4406:3306"
+    env_file:
+      - .env
+    networks:
+      - rfam-network
+
+networks:
+  rfam-network:
+    driver: bridge
