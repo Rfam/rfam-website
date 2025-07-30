@@ -17,7 +17,7 @@ CREATE TABLE `alignment_das_sources` (
 CREATE TABLE `article_mapping` (
   `accession` VARCHAR(7) COLLATE utf8_bin NOT NULL,
   `title` TINYTEXT COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`accession`,`title`(128))
+  PRIMARY KEY (`accession`,`title`(85))
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `feature_das_sources` (
