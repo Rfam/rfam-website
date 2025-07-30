@@ -474,7 +474,8 @@ class LinksTrack extends BaseTrack {
         </div>
         <div style="position: relative; flex: 1; overflow: hidden;">
           <nightingale-links
-            id="secondary-structure-links-track">
+            id="secondary-structure-links-track"
+            style="width: 100%; height: 100%;">
           </nightingale-links>
         </div>
       </div>
@@ -629,7 +630,7 @@ class MSATrack extends BaseTrack {
         return `
       <nightingale-msa
         id="msa-track"
-        style="display: block;"
+        style="width: 100%; display: block;"
         height="${this.config.height}"
         color-scheme="conservation"
         length="${this.config.sequenceLength}"
