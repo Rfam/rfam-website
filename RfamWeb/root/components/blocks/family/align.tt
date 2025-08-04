@@ -9,7 +9,7 @@
 USE Number.Format( THOUSANDS_SEP = "," );
 
 alignmentUri = c.uri_for( '/family', acc, 'alignment' );
-msaApiEndpoint = 'http://hh-rke-wp-webadmin-63-worker-5.caas.ebi.ac.uk:30080/family';
+msaApiEndpoint = 'http://hh-rke-wp-webadmin-63-worker-5.caas.ebi.ac.uk:30080';
 %]
 
 <!-- start align block -->
@@ -22,7 +22,7 @@ msaApiEndpoint = 'http://hh-rke-wp-webadmin-63-worker-5.caas.ebi.ac.uk:30080/fam
     
     <div id="alignmentActiveContent">
       
-      <h3>Viewing</h3>
+      <h3>Seed alignment view</h3>
       
       <!-- MSA Viewer Component with CSS Isolation -->
       <div class="msa-viewer-isolation" style="margin: 20px 0;">
@@ -30,7 +30,7 @@ msaApiEndpoint = 'http://hh-rke-wp-webadmin-63-worker-5.caas.ebi.ac.uk:30080/fam
           api-endpoint="[% msaApiEndpoint %]"
           identifier="[% acc %]"
           height="200"
-          width="1000"
+          width="1200"
           label-width="300"
           overlay-conservation="true"
           display-start="10"

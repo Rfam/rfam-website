@@ -4,6 +4,6 @@ export declare class DataLoader {
      * Load MSA data from API URL
      */
     static loadMSAData(apiUrl: string): Promise<MSAData & {
-        secondaryStructure?: SecondaryStructure;
+        notation?: SecondaryStructure;
     }>;
 }

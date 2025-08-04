@@ -4,13 +4,11 @@ export interface MSASequence {
 }
 export interface MSAData {
     sequences: MSASequence[];
-    reference?: string;
+    consensus?: string;
 }
 export interface BasePair {
     x: number;
     y: number;
-    a: number;
-    b: number;
     score: number;
 }
 export interface SecondaryStructure {

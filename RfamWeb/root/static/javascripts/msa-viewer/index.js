@@ -21,8 +21,8 @@ class DataLoader {
             // Return the MSA data in the expected format
             const msaData = {
                 sequences: data.sequences || [],
-                reference: data.reference || undefined,
-                secondaryStructure: data.secondaryStructure || undefined
+                consensus: data.consensus || undefined,
+                notation: data.notation || undefined
             };
             return msaData;
         }
@@ -319,11 +319,11 @@ class LinksDataProcessor {
     /**
      * Generate base pair links from secondary structure consensus
      */
-    static generateBasePairLinks(consensus, addBuffer = true) {
+    static generateBasePairLinks(consensus) {
         const basePairs = [];
         const openBrackets = [];
-        // If adding buffer, start positions from 2 instead of 1 to leave position 1 as buffer
-        const positionOffset = addBuffer ? 1 : 0;
+        // Start positions from 2 instead of 1 to leave position 1 as buffer
+        const positionOffset = 1;
         for (let i = 0; i < consensus.length; i++) {
             const char = consensus[i];
             const position = i + 1 + positionOffset; // Convert to 1-based position + buffer offset
@@ -336,21 +336,17 @@ class LinksDataProcessor {
                     const basePair = {
                         x: openPos,
                         y: position,
-                        a: 0,
-                        b: 8,
-                        score: 0.99
+                        score: 1
                     };
                     basePairs.push(basePair);
                 }
             }
         }
-        // Add buffer base pair at position 1 if requested
-        if (addBuffer && basePairs.length > 0) {
+        // Always add buffer base pair at position 1
+        if (basePairs.length > 0) {
             const bufferPair = {
                 x: 1,
                 y: 2,
-                a: 0,
-                b: 8,
                 score: 0.9999824 // High score like in the example
             };
             basePairs.unshift(bufferPair); // Add at the beginning
@@ -358,55 +354,30 @@ class LinksDataProcessor {
         return basePairs;
     }
     /**
-     * Format base pairs for nightingale-links component in TSV format
-     */
-    static formatForNightingaleTSV(basePairs) {
-        // Add buffer if needed
-        const basePairsWithBuffer = this.addBufferIfNeeded(basePairs);
-        // TSV format with header: x y a b score
-        const header = 'x\ty\ta\tb\tscore';
-        const rows = basePairsWithBuffer.map(bp => `${bp.x}\t${bp.y}\t${bp.a}\t${bp.b}\t${bp.score}`);
-        const tsvContent = [header, ...rows].join('\n');
-        return tsvContent;
-    }
-    /**
-     * Add buffer base pair to existing array if not present
-     */
-    static addBufferIfNeeded(basePairs) {
-        // Check if buffer pair already exists (position 1)
-        const hasBuffer = basePairs.some(bp => bp.x === 1 || bp.y === 1);
-        if (!hasBuffer && basePairs.length > 0) {
-            const bufferPair = {
-                x: 1,
-                y: 2,
-                a: 0,
-                b: 8,
-                score: 0.9999824
-            };
-            return [bufferPair, ...basePairs];
-        }
-        return basePairs;
-    }
-    /**
      * Format base pairs for nightingale-links component based on the source code
      */
     static formatForNightingale(basePairs) {
-        // Add buffer if needed
-        const basePairsWithBuffer = this.addBufferIfNeeded(basePairs);
+        // Always add base pair at position 1 if we have base pairs
+        const initialPair = {
+            x: 1,
+            y: 2,
+            score: 1
+        };
+        basePairs = [initialPair, ...basePairs];
         // Format 1: String format (what nightingale-links expects)
         // Each line should be: "position1 position2 probability"
-        const stringFormat = basePairsWithBuffer
+        const stringFormat = basePairs
             .map(bp => `${bp.x} ${bp.y} ${bp.score}`)
             .join('\n');
         // Format 2: Array format (alternative)
-        const arrayFormat = basePairsWithBuffer.map(bp => [bp.x, bp.y, bp.score]);
+        const arrayFormat = basePairs.map(bp => [bp.x, bp.y, bp.score]);
         // Format 3: Direct contact object (if we want to bypass the parser)
         const contactObject = {
             contacts: {},
             maxNumberOfContacts: 1
         };
         // Build contacts object
-        basePairsWithBuffer.forEach(bp => {
+        basePairs.forEach(bp => {
             if (!contactObject.contacts[bp.x]) {
                 contactObject.contacts[bp.x] = new Set();
             }
@@ -422,41 +393,6 @@ class LinksDataProcessor {
             contactObject
         ];
     }
-    /**
-     * Convert from API features format to base pairs
-     */
-    static convertFeaturesBasePairs(features) {
-        const basePairs = [];
-        // Add buffer pair first
-        const bufferPair = {
-            x: 1,
-            y: 2,
-            a: 0,
-            b: 8,
-            score: 0.9999824
-        };
-        basePairs.push(bufferPair);
-        // Process stem features to create base pairs
-        const stemFeatures = features.filter(f => f.type === 'stem');
-        stemFeatures.forEach(stem => {
-            const stemLength = stem.end - stem.start + 1;
-            // For each position in the stem, create a base pair
-            // This is a simplified approach - you may need to adjust based on your actual stem pairing logic
-            for (let i = 0; i < Math.floor(stemLength / 2); i++) {
-                const leftPos = stem.start + i + 1; // +1 for buffer offset
-                const rightPos = stem.end - i + 1; // +1 for buffer offset
-                const basePair = {
-                    x: leftPos,
-                    y: rightPos,
-                    a: 0,
-                    b: 8,
-                    score: 0.99
-                };
-                basePairs.push(basePair);
-            }
-        });
-        return basePairs;
-    }
 }
 
 class LinksTrack extends BaseTrack {
@@ -464,7 +400,7 @@ class LinksTrack extends BaseTrack {
         super('links', { ...config, height: 80 }, data);
     }
     createHTML() {
-        if (!this.hasRequiredData() || !this.data.secondaryStructure?.basePairs?.length) {
+        if (!this.hasRequiredData() || !this.data.notation?.basePairs?.length) {
             return '';
         }
         return `
@@ -504,11 +440,11 @@ class LinksTrack extends BaseTrack {
         this.element = undefined;
     }
     setupNightingaleLinks() {
-        if (!this.element || !this.data.secondaryStructure?.basePairs?.length) {
+        if (!this.element || !this.data.notation?.basePairs?.length) {
             console.log('No base pairs data available for links track');
             return;
         }
-        const basePairs = this.data.secondaryStructure.basePairs;
+        const basePairs = this.data.notation.basePairs;
         const nightingaleAttributes = this.getNightingaleAttributes();
         this.applyAttributes(this.element, {
             ...nightingaleAttributes,
@@ -590,10 +526,10 @@ class SequenceTrack extends BaseTrack {
     }
     getSequenceData() {
         switch (this.dataSource) {
-            case 'secondaryStructure':
-                return this.data.secondaryStructure?.consensus;
-            case 'reference':
-                return this.data.msaData?.reference;
+            case 'notation':
+                return this.data.notation?.consensus;
+            case 'consensus':
+                return this.data.msaData?.consensus;
             default:
                 return undefined;
         }
@@ -752,8 +688,8 @@ class MSAViewer extends HTMLElement {
         this._height = 400;
         this._width = 800; // NEW: Added width property
         this._labelWidth = 200;
-        this._displayStart = 1;
-        this._displayEnd = 50;
+        this._displayStart = 0;
+        this._displayEnd = 100;
         this.handleLabelClick = (event) => {
             handleLabelClick(event, this, (url) => {
                 window.open(url, '_blank', 'noopener,noreferrer');
@@ -920,35 +856,35 @@ class MSAViewer extends HTMLElement {
         };
         const trackData = {
             msaData: this._data,
-            secondaryStructure: this._data.secondaryStructure
+            notation: this._data.notation
         };
         // Create track instances
         this._navigationTrack = new NavigationTrack(trackConfig, trackData);
         this._msaTrack = new MSATrack(trackConfig, trackData);
         // Create secondary structure track if secondary structure data exists
-        if (this._data.secondaryStructure) {
+        if (this._data.notation) {
             this._linksTrack = new LinksTrack(trackConfig, trackData);
             this._secondaryStructureTrack = new SequenceTrack({
                 ...trackConfig,
-                label: 'Sequence',
-                dataSource: 'secondaryStructure',
-                sequenceName: 'Secondary Structure Consensus'
+                label: 'Notation',
+                dataSource: 'notation',
+                sequenceName: 'Notation'
             }, trackData);
         }
-        // Create reference track if reference data exists
-        if (this._data.reference) {
-            this._referenceTrack = new SequenceTrack({
+        // Create consensus track if consensus data exists
+        if (this._data.consensus) {
+            this._consensusTrack = new SequenceTrack({
                 ...trackConfig,
-                label: 'Reference',
-                dataSource: 'reference',
-                sequenceName: 'Reference'
+                label: 'Consensus',
+                dataSource: 'consensus',
+                sequenceName: 'Consensus'
             }, trackData);
         }
         // Generate HTML using track classes
         const navigationHTML = this._navigationTrack.createHTML();
         const linksHTML = this._linksTrack ? this._linksTrack.createHTML() : '';
         const secondaryStructureHTML = this._secondaryStructureTrack ? this._secondaryStructureTrack.createHTML() : '';
-        const referenceHTML = this._referenceTrack ? this._referenceTrack.createHTML() : '';
+        const consensusHTML = this._consensusTrack ? this._consensusTrack.createHTML() : '';
         const msaHTML = this._msaTrack.createHTML();
         // Create single MSA track with all sequences in scrollbox
         const allSequences = this._data.sequences;
@@ -970,7 +906,7 @@ class MSAViewer extends HTMLElement {
         ${navigationHTML}
         ${linksHTML}
         ${secondaryStructureHTML}
-        ${referenceHTML}
+        ${consensusHTML}
         ${msaWithScrollbox}
       </nightingale-manager>
     `;
@@ -981,7 +917,7 @@ class MSAViewer extends HTMLElement {
                 this._navigationTrack?.setup(container);
                 this._linksTrack?.setup(container);
                 this._secondaryStructureTrack?.setup(container);
-                this._referenceTrack?.setup(container);
+                this._consensusTrack?.setup(container);
                 this._msaTrack?.setup(container);
                 // Set up MSA data for the single scrollbox item
                 const scrollboxElement = container.querySelector('#msa-scrollbox');

@@ -1,7 +1,7 @@
 import { MSAData, SecondaryStructure } from './types';
 export declare class MSAViewer extends HTMLElement {
     _data?: MSAData & {
-        secondaryStructure?: SecondaryStructure;
+        notation?: SecondaryStructure;
     };
     _apiEndpoint?: string;
     _identifier?: string;
@@ -18,7 +18,7 @@ export declare class MSAViewer extends HTMLElement {
     private _navigationTrack?;
     private _linksTrack?;
     private _secondaryStructureTrack?;
-    private _referenceTrack?;
+    private _consensusTrack?;
     private _msaTrack?;
     private _scrollboxObserver?;
     constructor();

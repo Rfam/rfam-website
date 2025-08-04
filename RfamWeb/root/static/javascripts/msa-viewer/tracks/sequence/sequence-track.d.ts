@@ -1,7 +1,7 @@
 import { BaseTrack, TrackConfig, TrackData } from '../base/base-track';
 interface SequenceTrackConfig extends TrackConfig {
     label: string;
-    dataSource: 'secondaryStructure' | 'reference';
+    dataSource: 'notation' | 'consensus';
     sequenceName?: string;
 }
 export declare class SequenceTrack extends BaseTrack {

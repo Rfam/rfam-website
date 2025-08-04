@@ -8,7 +8,7 @@ export interface TrackConfig {
 }
 export interface TrackData {
     msaData: MSAData;
-    secondaryStructure?: SecondaryStructure;
+    notation?: SecondaryStructure;
 }
 export declare abstract class BaseTrack {
     protected config: TrackConfig;
