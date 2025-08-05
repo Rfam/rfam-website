@@ -1,0 +1,18 @@
+# Catalyst Application Service (Internal) - Fixed for port 80
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalyst-service
+  namespace: dev
+  labels:
+    app: rfam-website
+    component: catalyst-app
+spec:
+  selector:
+    app: rfam-website
+  ports:
+  - name: catalyst
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+  type: ClusterIP

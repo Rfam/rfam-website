@@ -1,4 +1,4 @@
-# Ingress for external access
+# Ingress for external access (Updated for Apache)
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -6,6 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: rfam-website
+    component: web-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
@@ -15,6 +16,9 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
+    # Additional annotations for Apache backend
+    nginx.ingress.kubernetes.io/upstream-vhost: "rfam-website"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
   - host: rfam-{{ .Release.Namespace }}.local
@@ -24,6 +28,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: rfam-website-service
+            name: apache-service
             port:
               number: 80

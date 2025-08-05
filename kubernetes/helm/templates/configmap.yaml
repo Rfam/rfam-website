@@ -9,3 +9,6 @@ data:
   PERL5LIB: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
   RFAMWEB_CONFIG: "/src/RfamWeb/config/rfamweb.conf"
   DBIC_TRACE: "1"
+  # Force Apache mode
+  USE_APACHE: "1"
+  WEB_SERVER: "apache"

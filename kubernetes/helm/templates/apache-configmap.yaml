@@ -1,0 +1,194 @@
+# Apache configuration ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apache-configmap
+  namespace: dev
+  labels:
+    app: rfam-website
+    component: apache-config
+data:
+  httpd.conf: |
+    # Main Apache configuration based on original setup
+    ServerTokens OS
+    ServerRoot "/etc/httpd"
+    TraceEnable off
+    PidFile run/httpd.pid
+    Timeout 120
+    KeepAlive Off
+    MaxKeepAliveRequests 100
+    KeepAliveTimeout 15
+    
+    # MPM Prefork configuration (matching original)
+    <IfModule prefork.c>
+    StartServers        8
+    MinSpareServers     5
+    MaxSpareServers     256
+    ServerLimit         256
+    MaxClients          256
+    MaxRequestsPerChild 4000
+    </IfModule>
+    
+    Listen 80
+    
+    # Load essential modules (matching original)
+    LoadModule auth_basic_module modules/mod_auth_basic.so
+    LoadModule authn_file_module modules/mod_authn_file.so
+    LoadModule authn_default_module modules/mod_authn_default.so
+    LoadModule authz_host_module modules/mod_authz_host.so
+    LoadModule authz_user_module modules/mod_authz_user.so
+    LoadModule authz_groupfile_module modules/mod_authz_groupfile.so
+    LoadModule authz_default_module modules/mod_authz_default.so
+    LoadModule log_config_module modules/mod_log_config.so
+    LoadModule logio_module modules/mod_logio.so
+    LoadModule actions_module modules/mod_actions.so
+    LoadModule alias_module modules/mod_alias.so
+    LoadModule deflate_module modules/mod_deflate.so
+    LoadModule dir_module modules/mod_dir.so
+    LoadModule env_module modules/mod_env.so
+    LoadModule expires_module modules/mod_expires.so
+    LoadModule headers_module modules/mod_headers.so
+    LoadModule mime_module modules/mod_mime.so
+    LoadModule negotiation_module modules/mod_negotiation.so
+    LoadModule rewrite_module modules/mod_rewrite.so
+    LoadModule proxy_module modules/mod_proxy.so
+    LoadModule proxy_http_module modules/mod_proxy_http.so
+    LoadModule setenvif_module modules/mod_setenvif.so
+    LoadModule vhost_alias_module modules/mod_vhost_alias.so
+    LoadModule cgi_module modules/mod_cgi.so
+    LoadModule status_module modules/mod_status.so
+    LoadModule info_module modules/mod_info.so
+    LoadModule autoindex_module modules/mod_autoindex.so
+    
+    ExtendedStatus On
+    
+    # User and Group (will be overridden by container)
+    User apache
+    Group apache
+    
+    # Include virtual hosts
+    Include conf.d/rfam-vhost.conf
+    
+    # Basic MIME types
+    TypesConfig /etc/mime.types
+    DefaultType text/plain
+    
+    # Basic directory permissions
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Deny from all
+    </Directory>
+    
+    # Document root permissions
+    <Directory "/var/www/html">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+    
+    # Log format
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %b" common
+    
+    # Error and access logs
+    ErrorLog logs/error_log
+    CustomLog logs/access_log combined
+  
+  rfam-vhost.conf: |
+    # Rfam Virtual Host Configuration
+    <VirtualHost *:80>
+        ServerName rfam-website
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+        
+        # Enable rewrite engine
+        RewriteEngine On
+        
+        # Static content aliases (matching original structure)
+        Alias /static /src/RfamWeb/root/static
+        Alias /css /src/RfamWeb/root/css  
+        Alias /js /src/RfamWeb/root/js
+        Alias /images /src/RfamWeb/root/images
+        
+        # Static directory permissions
+        <Directory "/src/RfamWeb/root/static">
+            Options -Indexes
+            AllowOverride None
+            Order allow,deny
+            Allow from all
+            ExpiresActive On
+            ExpiresDefault "access plus 1 month"
+            Header set Cache-Control "public, max-age=2592000"
+        </Directory>
+        
+        <Directory "/src/RfamWeb/root">
+            Options -Indexes
+            AllowOverride None
+            Order allow,deny
+            Allow from all
+        </Directory>
+        
+        # Proxy configuration for dynamic content
+        # Don't proxy static content
+        ProxyPass /static !
+        ProxyPass /css !
+        ProxyPass /js !
+        ProxyPass /images !
+        
+        # Proxy everything else to the Catalyst application
+        ProxyPreserveHost On
+        ProxyPass / http://127.0.0.1:3000/
+        ProxyPassReverse / http://127.0.0.1:3000/
+        
+        # Set proxy timeout
+        ProxyTimeout 300
+        
+        # Status page (for monitoring)
+        <Location "/server-status">
+            SetHandler server-status
+            Order deny,allow
+            Deny from all
+            Allow from 127.0.0.1
+            Allow from localhost
+        </Location>
+        
+        <Location "/server-info">
+            SetHandler server-info
+            Order deny,allow
+            Deny from all
+            Allow from 127.0.0.1
+            Allow from localhost
+        </Location>
+        
+        # Security headers
+        Header always set X-Content-Type-Options nosniff
+        Header always set X-Frame-Options SAMEORIGIN
+        Header always set X-XSS-Protection "1; mode=block"
+        
+        # CORS headers for API endpoints
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
+        Header always set Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
+        
+        # Compression (matching original deflate module)
+        <IfModule mod_deflate.c>
+            AddOutputFilterByType DEFLATE text/plain
+            AddOutputFilterByType DEFLATE text/html
+            AddOutputFilterByType DEFLATE text/xml
+            AddOutputFilterByType DEFLATE text/css
+            AddOutputFilterByType DEFLATE application/xml
+            AddOutputFilterByType DEFLATE application/xhtml+xml
+            AddOutputFilterByType DEFLATE application/rss+xml
+            AddOutputFilterByType DEFLATE application/javascript
+            AddOutputFilterByType DEFLATE application/x-javascript
+        </IfModule>
+        
+        # Logging
+        ErrorLog logs/rfam_error.log
+        CustomLog logs/rfam_access.log combined
+        LogLevel info
+        
+    </VirtualHost>
