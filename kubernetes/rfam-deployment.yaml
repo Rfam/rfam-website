@@ -1,0 +1,91 @@
+# Catalyst Application Deployment - Clean Original Version
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rfam-website
+  namespace: dev
+  labels:
+    app: rfam-website
+    component: catalyst-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rfam-website
+  template:
+    metadata:
+      labels:
+        app: rfam-website
+        component: catalyst-app
+    spec:
+      containers:
+      # Catalyst application container
+      - name: rfam-catalyst
+        image: ghcr.io/rfam/rfam-website:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: catalyst
+        env:
+        # Database configuration from secrets
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: rfam-database-secret
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            secretKeyRef:
+              name: rfam-database-secret
+              key: DATABASE_PORT
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: rfam-database-secret
+              key: DATABASE_NAME
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: rfam-database-secret
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rfam-database-secret
+              key: DATABASE_PASSWORD
+        
+        # Application configuration
+        - name: EBI_PROXY
+          value: "http://wwwcache.ebi.ac.uk:3128"
+        - name: PERL5LIB
+          value: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
+        - name: RFAMWEB_CONFIG
+          value: "/src/RfamWeb/config/rfamweb.conf"
+        - name: DBIC_TRACE
+          value: "1"
+        
+        # Proxy settings
+        - name: http_proxy
+          value: "http://wwwcache.ebi.ac.uk:3128"
+        - name: HTTP_PROXY
+          value: "http://wwwcache.ebi.ac.uk:3128"
+        - name: https_proxy
+          value: "http://wwwcache.ebi.ac.uk:3128"
+        - name: HTTPS_PROXY
+          value: "http://wwwcache.ebi.ac.uk:3128"
+        - name: no_proxy
+          value: "localhost,127.0.0.1,10.252.0.0/16"
+        - name: NO_PROXY
+          value: "localhost,127.0.0.1,10.252.0.0/16"
+        
+        # NO COMMAND OVERRIDE - Use Docker's original ENTRYPOINT
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+      
+      restartPolicy: Always
