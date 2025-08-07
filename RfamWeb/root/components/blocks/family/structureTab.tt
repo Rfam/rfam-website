@@ -35,10 +35,10 @@ sharedRequirements.css.push( "lightbox2.css" );
       <td>[% pdb.pdb_start %] - [% pdb.pdb_end %]</td>
       <td>[% pdb.bit_score %]</td>
       <td>
-        <a href="http://www.ebi.ac.uk/pdbe/entry/pdb/[% pdb.pdb_id %]" class="ext">PDBe</a> |
-        <a class="ext" href="http://www.rcsb.org/pdb/explore.do?structureId=[% pdb.pdb_id %]">RCSB PDB</a> |
-        <a class="ext" href="http://pdbj.org/mine/summary/[% pdb.pdb_id %]">PDBj</a> |
-        <a class="ext" href="https://nakb.org/atlas=[% pdb.pdb_id %]">NAKB</a>
+        <a href="http://www.ebi.ac.uk/pdbe/entry/pdb/[% pdb.pdb_id %]" class="ext" target="_blank">PDBe</a> |
+        <a class="ext" href="http://www.rcsb.org/pdb/explore.do?structureId=[% pdb.pdb_id %]" target="_blank">RCSB PDB</a> |
+        <a class="ext" href="http://pdbj.org/mine/summary/[% pdb.pdb_id %]" target="_blank">PDBj</a> |
+        <a class="ext" href="https://nakb.org/atlas=[% pdb.pdb_id %]" target="_blank">NAKB</a>
       </td>
     </tr>
   [% END %]
