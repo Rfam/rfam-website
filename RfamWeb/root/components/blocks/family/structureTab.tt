@@ -38,7 +38,7 @@ sharedRequirements.css.push( "lightbox2.css" );
         <a href="http://www.ebi.ac.uk/pdbe/entry/pdb/[% pdb.pdb_id %]" class="ext">PDBe</a> |
         <a class="ext" href="http://www.rcsb.org/pdb/explore.do?structureId=[% pdb.pdb_id %]">RCSB PDB</a> |
         <a class="ext" href="http://pdbj.org/mine/summary/[% pdb.pdb_id %]">PDBj</a> |
-        <a class="ext" href="http://ndbserver.rutgers.edu/service/ndb/atlas/summary?searchTarget=[% pdb.pdb_id %]">NDB</a>
+        <a class="ext" href="https://nakb.org/atlas=[% pdb.pdb_id %]">NAKB</a>
       </td>
     </tr>
   [% END %]
