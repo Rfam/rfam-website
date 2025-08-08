@@ -1,0 +1,32 @@
+# Application configuration
+rfam:
+  replicas: 1
+  image:
+    repository: ghcr.io/rfam/rfam-website
+    tag: latest
+    pullPolicy: Always
+
+# Apache proxy configuration  
+apache:
+  replicas: 1
+  image:
+    repository: httpd
+    tag: "2.4"
+
+# URL configuration
+url:
+  hostname: preview.rfam.org
+  baseUri: https://preview.rfam.org
+
+# Database secret (must exist in cluster)
+database:
+  secretName: rfam-database-secret
+
+# Proxy settings
+proxy:
+  http: http://wwwcache.ebi.ac.uk:3128
+  https: http://wwwcache.ebi.ac.uk:3128
+  noProxy: localhost,127.0.0.1,catalyst-service
+
+# Namespace
+namespace: dev

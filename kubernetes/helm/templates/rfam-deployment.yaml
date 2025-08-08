@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rfam-website
-  namespace: dev
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.rfam.replicas }}
   selector:
     matchLabels:
       app: rfam-website
@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: catalyst
-        image: ghcr.io/rfam/rfam-website:latest
+        image: {{ .Values.rfam.image.repository }}:{{ .Values.rfam.image.tag }}
+        imagePullPolicy: {{ .Values.rfam.image.pullPolicy }}
         ports:
         - containerPort: 3000
         env:
@@ -23,27 +24,27 @@ spec:
         - name: DATABASE_HOST
           valueFrom:
             secretKeyRef:
-              name: rfam-database-secret
+              name: {{ .Values.database.secretName }}
               key: DATABASE_HOST
         - name: DATABASE_PORT
           valueFrom:
             secretKeyRef:
-              name: rfam-database-secret
+              name: {{ .Values.database.secretName }}
               key: DATABASE_PORT
         - name: DATABASE_NAME
           valueFrom:
             secretKeyRef:
-              name: rfam-database-secret
+              name: {{ .Values.database.secretName }}
               key: DATABASE_NAME
         - name: DATABASE_USER
           valueFrom:
             secretKeyRef:
-              name: rfam-database-secret
+              name: {{ .Values.database.secretName }}
               key: DATABASE_USER
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: rfam-database-secret
+              name: {{ .Values.database.secretName }}
               key: DATABASE_PASSWORD
         
         # App config
@@ -54,14 +55,14 @@ spec:
         
         # URL fixing
         - name: CATALYST_BASE_URI
-          value: "https://preview.rfam.org"
+          value: {{ .Values.url.baseUri | quote }}
         - name: CATALYST_BEHIND_PROXY
           value: "1"
         
-        # EBI proxy (if needed)
+        # Proxy settings
         - name: http_proxy
-          value: "http://wwwcache.ebi.ac.uk:3128"
+          value: {{ .Values.proxy.http | quote }}
         - name: https_proxy
-          value: "http://wwwcache.ebi.ac.uk:3128"
+          value: {{ .Values.proxy.https | quote }}
         - name: no_proxy
-          value: "localhost,127.0.0.1,catalyst-service"
+          value: {{ .Values.proxy.noProxy | quote }}

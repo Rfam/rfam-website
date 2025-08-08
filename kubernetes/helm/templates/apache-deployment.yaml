@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apache-proxy
-  namespace: dev
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.apache.replicas }}
   selector:
     matchLabels:
       app: apache-proxy
@@ -15,12 +15,13 @@ spec:
     spec:
       containers:
       - name: apache
-        image: httpd:2.4
+        image: {{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}
         ports:
         - containerPort: 80
         command: ['sh', '-c']
         args:
         - |
+
           cat > /usr/local/apache2/conf/httpd.conf << 'EOF'
           ServerRoot "/usr/local/apache2"
           Listen 80
@@ -41,24 +42,10 @@ spec:
           ProxyPreserveHost On
           
           RequestHeader set X-Forwarded-Proto "https"
-          RequestHeader set X-Forwarded-Host "preview.rfam.org"
+          RequestHeader set X-Forwarded-Host "{{ .Values.url.hostname }}"
           EOF
           
           echo "Apache config created. Testing..."
           /usr/local/apache2/bin/httpd -t
           echo "Starting proxy..."
           exec /usr/local/apache2/bin/httpd -D FOREGROUND
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: apache-service
-  namespace: dev
-spec:
-  selector:
-    app: apache-proxy
-  ports:
-  - port: 80
-    targetPort: 80
-  type: NodePort
