@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rfam-ingress
+  namespace: dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    # Let Apache handle the URL rewriting
+spec:
+  rules:
+  - host: preview.rfam.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: apache-service
+            port:
+              number: 80

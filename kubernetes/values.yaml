@@ -2,6 +2,10 @@
 rfamReplicas: 2
 rfamPort: 3000
 
+# URL configuration
+baseUrl: "https://preview.rfam.org"
+hostname: "preview.rfam.org"
+
 # Proxy configuration (can remain in ConfigMap)
 EBI_PROXY: "http://proxy.ebi.ac.uk:3128"
 
