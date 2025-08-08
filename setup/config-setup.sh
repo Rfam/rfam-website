@@ -22,7 +22,8 @@ cat > /src/RfamWeb/config/rfamweb_local.conf <<EOF
   </connect_info>
 </Model>
 
-<Plugin Static::Simple>
+# Configure the application to know its external URL
+<Plugin::Static::Simple>
   expires 86400
   include_path /src/RfamWeb/root
   include_path /src/PfamBase/root
@@ -34,6 +35,20 @@ cat > /src/RfamWeb/config/rfamweb_local.conf <<EOF
     gif image/gif
   </mime>
 </Plugin>
+
+# Set the base URI for URL generation
+base_uri https://preview.rfam.org
+
+# Configure proxy awareness
+using_frontend_proxy 1
+
+# Trust proxy headers
+<Engine>
+  <Plack>
+    # Trust X-Forwarded headers from proxy
+    enable_reverse_proxy 1
+  </Plack>
+</Engine>
 
 <Plugin Compress>
   content_type text/html
