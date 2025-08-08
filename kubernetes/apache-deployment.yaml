@@ -21,9 +21,6 @@ spec:
         command: ['sh', '-c']
         args:
         - |
-          echo "=== CREATING NUCLEAR SIMPLE APACHE PROXY ==="
-          
-          # One config file to rule them all
           cat > /usr/local/apache2/conf/httpd.conf << 'EOF'
           ServerRoot "/usr/local/apache2"
           Listen 80
@@ -39,12 +36,10 @@ spec:
           Group daemon
           ServerName apache-proxy
           
-          # Kill everything, proxy everything
           ProxyPass / http://catalyst-service:80/
           ProxyPassReverse / http://catalyst-service:80/
           ProxyPreserveHost On
           
-          # Fix the URLs
           RequestHeader set X-Forwarded-Proto "https"
           RequestHeader set X-Forwarded-Host "preview.rfam.org"
           EOF
