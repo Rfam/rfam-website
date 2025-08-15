@@ -2,7 +2,7 @@
 rfam:
   replicas: 1
   image:
-    repository: ghcr.io/rfam/rfam-website
+    repository: ghcr.io/rfam/rfam-website-without-gd-module
     tag: latest
     pullPolicy: Always
 
@@ -16,7 +16,7 @@ apache:
 # URL configuration
 url:
   hostname: preview.rfam.org
-  baseUri: https://preview.rfam.org
+  # Removed hardcoded baseUri - let the application determine protocol dynamically
 
 # Database secret (must exist in cluster)
 database:

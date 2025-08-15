@@ -53,10 +53,12 @@ spec:
         - name: RFAMWEB_CONFIG
           value: "/src/RfamWeb/config/rfamweb.conf"
         
-        # URL fixing
-        - name: CATALYST_BASE_URI
-          value: {{ .Values.url.baseUri | quote }}
+        # URL fixing - Remove hardcoded HTTPS base URI
         - name: CATALYST_BEHIND_PROXY
+          value: "1"
+        
+        # Allow the application to determine protocol from headers
+        - name: CATALYST_ENABLE_MIDDLEWARE_REVERSEPROXY
           value: "1"
         
         # Proxy settings

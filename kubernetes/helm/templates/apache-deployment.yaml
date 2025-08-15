@@ -32,17 +32,36 @@ spec:
           LoadModule proxy_http_module modules/mod_proxy_http.so
           LoadModule headers_module modules/mod_headers.so
           LoadModule unixd_module modules/mod_unixd.so
+          LoadModule rewrite_module modules/mod_rewrite.so
           
           User daemon
           Group daemon
           ServerName apache-proxy
           
+          # Enable rewrite engine for conditional headers
+          RewriteEngine On
+          
+          # Set protocol based on the incoming request
+          # For preview.rfam.org (via ingress), set HTTPS headers
+          RewriteCond %{HTTP_HOST} ^{{ .Values.url.hostname }}$
+          RewriteRule .* - [E=PROTO:https]
+          
+          # For direct NodePort access, set HTTP headers
+          RewriteCond %{HTTP_HOST} !^{{ .Values.url.hostname }}$
+          RewriteRule .* - [E=PROTO:http]
+          
           ProxyPass / http://catalyst-service:80/
           ProxyPassReverse / http://catalyst-service:80/
           ProxyPreserveHost On
           
-          RequestHeader set X-Forwarded-Proto "https"
-          RequestHeader set X-Forwarded-Host "{{ .Values.url.hostname }}"
+          # Set headers conditionally based on the host
+          RequestHeader set X-Forwarded-Proto "%{PROTO}e"
+          RequestHeader set X-Forwarded-Host "%{HTTP_HOST}e"
+          
+          # Additional headers for proper asset serving
+          Header always set X-Content-Type-Options nosniff
+          Header always set X-Frame-Options DENY
+          Header always set X-XSS-Protection "1; mode=block"
           EOF
           
           echo "Apache config created. Testing..."
