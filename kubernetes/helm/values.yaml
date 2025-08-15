@@ -2,7 +2,7 @@
 rfam:
   replicas: 1
   image:
-    repository: ghcr.io/rfam/rfam-website-without-gd-module
+    repository: ghcr.io/rfam/rfam-website
     tag: latest
     pullPolicy: Always
 
