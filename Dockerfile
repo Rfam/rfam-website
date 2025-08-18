@@ -1,7 +1,7 @@
 # Base image https://hub.docker.com/_/perl/
 FROM perl:latest
 
-# Install system dependencies (remove XML system packages since cpanm worked)
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libgd-dev \
     libgd3 \
@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y \
 # Install cpanm
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
 
-# Install all working modules in logical groups (based on audit results)
+# Install all working modules in logical groups
 # Core Catalyst Framework
 RUN cpanm --notest \
     Catalyst::Runtime \
@@ -50,7 +50,7 @@ RUN cpanm --notest \
     Catalyst::View::JSON \
     Template::Plugin::Number::Format
 
-# Database Modules (all confirmed working)
+# Database Modules
 RUN cpanm --notest \
     DBI \
     Devel::CheckLib \
@@ -66,25 +66,21 @@ RUN cpanm --notest \
     Starman \
     Plack::Handler::Starman
 
-# XML Processing Modules (use the exact force strategy that worked in original)
+# XML Processing Modules
 RUN echo "Installing XML::Parser..." && \
     cpanm --notest XML::Parser
 
-# Force install critical modules that cannot be stubbed (exact from original working section)
-RUN echo "=== CRITICAL MODULE INSTALLATION - MUST SUCCEED ===" && \
-    echo "Installing XML::Feed with all possible strategies..." && \
-    (cpanm --force --verbose XML::Feed || \
+# Force install critical modules
+RUN (cpanm --force --verbose XML::Feed || \
      cpanm --force --verbose --reinstall XML::Feed || \
      cpanm --force --verbose --mirror http://cpan.metacpan.org/ XML::Feed || \
      cpanm --force --verbose --mirror https://www.cpan.org/ XML::Feed) && \
-    echo "=== VERIFYING CRITICAL MODULES ===" && \
-    perl -e "use XML::Feed; print 'XML::Feed successfully loaded\n';" && \
-    echo "✅ All critical modules verified"
+    perl -e "use XML::Feed; print 'XML::Feed successfully loaded\n';"
 
-# Graphics Module (only install GD since it works, skip Image::Magick)
+# Graphics Module
 RUN cpanm --notest GD
 
-# Core Utilities (add missing modules from original)
+# Core Utilities
 RUN cpanm --notest \
     Config::General \
     Data::UUID \
@@ -131,7 +127,7 @@ RUN cpanm --notest \
     MIME::Base64 \
     Encode
 
-# Optional Catalyst Plugins (install only if they work reliably)
+# Optional Catalyst Plugins
 RUN cpanm --notest \
     Catalyst::Plugin::Session \
     Catalyst::Plugin::Session::State::Cookie \
@@ -144,13 +140,13 @@ RUN cpanm --notest \
 RUN cpanm --notest Catalyst::Plugin::PageCache && \
     cpanm --notest Catalyst::View::Email
 
-# Email Modules (add missing modules from original)
+# Email Modules
 RUN cpanm --notest \
     Email::MIME \
     Email::Sender::Simple \
     Email::Valid
 
-# Cache Modules (add the missing Cache::Memcached)
+# Cache Modules
 RUN cpanm --notest \
     CHI \
     Cache::Cache \

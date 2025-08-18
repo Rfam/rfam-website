@@ -18,12 +18,12 @@ critical_modules=(
     "DateTime::Format::MySQL"
     "File::Slurp"
     "Search::QueryParser"
+    "GD"
 )
 
 optional_modules=(
     "XML::Feed"
     "Log::Log4perl::Catalyst"
-    "GD"
 )
 
 missing_modules=()
@@ -54,45 +54,13 @@ for module in "${optional_modules[@]}"; do
 done
 
 # -------------------------------------------------
-# Generate config
+# Configuration setup
 # -------------------------------------------------
 echo "=== Running config setup ==="
-if [ -f "/setup/config-setup.sh" ]; then
-    echo "Found config setup script, executing..."
-    source "/setup/config-setup.sh"
-else
-    echo "⚠️  Config setup script not found at /setup/config-setup.sh"
-    echo "Available files in /setup/:"
-    ls -la /setup/ 2>/dev/null || echo "No /setup directory found"
-fi
+source "/setup/config-setup.sh"
 
 # -------------------------------------------------
-# Configuration check
-# -------------------------------------------------
-echo "=== Configuration check ==="
-if [ -f "/src/RfamWeb/config/rfamweb.conf" ]; then
-    echo "✅ Main config file found"
-else
-    echo "⚠️  Main config file not found - application may have issues"
-fi
-
-# -------------------------------------------------
-# Test basic database connectivity (non-fatal)
-# -------------------------------------------------
-echo "=== BASIC DATABASE CONNECTIVITY CHECK ==="
-if [ -n "${DATABASE_HOST:-}" ]; then
-    if nc -z "${DATABASE_HOST}" "${DATABASE_PORT:-3306}" 2>/dev/null; then
-        echo "✅ Database host ${DATABASE_HOST}:${DATABASE_PORT:-3306} is reachable"
-    else
-        echo "⚠️  Database host ${DATABASE_HOST}:${DATABASE_PORT:-3306} is not reachable"
-        echo "   Application will attempt to connect anyway"
-    fi
-else
-    echo "⚠️  DATABASE_HOST not set"
-fi
-
-# -------------------------------------------------
-# Final module verification with better error handling
+# Final module verification
 # -------------------------------------------------
 echo "=== Final module check ==="
 perl_verification_result=0
@@ -108,6 +76,7 @@ my @required = qw(
     DateTime::Format::MySQL
     File::Slurp
     Search::QueryParser
+    GD
 );
 
 my $all_good = 1;
@@ -132,12 +101,12 @@ else
 fi
 
 # -------------------------------------------------
-# Test the Catalyst application startup
+# Application and database test
 # -------------------------------------------------
 echo "=== Testing Catalyst Application ==="
 cd /src
 
-# Test if the application can be loaded at all
+# Test if the application can be loaded
 echo "Testing basic Catalyst app loading..."
 if perl -I/src/RfamWeb -I/src/Rfam/Schemata -I/src/PfamBase/lib -I/src/PfamLib -I/src/PfamSchemata -e "use RfamWeb; print 'Catalyst app loaded successfully\n';" 2>/dev/null; then
     echo "✅ Catalyst application loads successfully"
@@ -146,43 +115,48 @@ else
     perl -I/src/RfamWeb -I/src/Rfam/Schemata -I/src/PfamBase/lib -I/src/PfamLib -I/src/PfamSchemata -e "use RfamWeb;" 2>&1 || true
 fi
 
-# Test database connection
-echo "Testing database connection..."
+# Test database connectivity and connection
+echo "Testing database connectivity and connection..."
 if [ -n "${DATABASE_HOST:-}" ]; then
-    perl -I/src/RfamWeb -I/src/Rfam/Schemata -I/src/PfamBase/lib -I/src/PfamLib -I/src/PfamSchemata -e "
-    use DBI;
-    my \$dbh = DBI->connect(
-        'dbi:mysql:database=${DATABASE_NAME:-rfam_live};host=${DATABASE_HOST:-localhost};port=${DATABASE_PORT:-3306}',
-        '${DATABASE_USER:-rfam}',
-        '${DATABASE_PASSWORD:-}',
-        { PrintError => 0, RaiseError => 1 }
-    );
-    if (\$dbh) {
-        print 'Database connection successful\n';
-        \$dbh->disconnect;
-    }
-    " 2>/dev/null && echo "✅ Database connection working" || echo "⚠️ Database connection failed"
+    if nc -z "${DATABASE_HOST}" "${DATABASE_PORT:-3306}" 2>/dev/null; then
+        echo "✅ Database host ${DATABASE_HOST}:${DATABASE_PORT:-3306} is reachable"
+        
+        # Test actual database connection
+        perl -I/src/RfamWeb -I/src/Rfam/Schemata -I/src/PfamBase/lib -I/src/PfamLib -I/src/PfamSchemata -e "
+        use DBI;
+        my \$dbh = DBI->connect(
+            'dbi:mysql:database=${DATABASE_NAME:-rfam_live};host=${DATABASE_HOST:-localhost};port=${DATABASE_PORT:-3306}',
+            '${DATABASE_USER:-rfam}',
+            '${DATABASE_PASSWORD:-}',
+            { PrintError => 0, RaiseError => 1 }
+        );
+        if (\$dbh) {
+            print 'Database connection successful\n';
+            \$dbh->disconnect;
+        }
+        " 2>/dev/null && echo "✅ Database connection working" || echo "⚠️ Database connection failed"
+    else
+        echo "⚠️  Database host ${DATABASE_HOST}:${DATABASE_PORT:-3306} is not reachable"
+    fi
+else
+    echo "⚠️  DATABASE_HOST not set"
 fi
+
+# -------------------------------------------------
+# Start application
+# -------------------------------------------------
 echo "=== Starting Rfam Web application ==="
 echo "Application will be available at http://localhost:3000"
 
-# Check if we have the application script
-if [ ! -f "/src/RfamWeb/script/rfamweb_server.pl" ]; then
-    echo "❌ Application server script not found at /src/RfamWeb/script/rfamweb_server.pl"
-    exit 1
-fi
+# Set Perl library path
+export PERL5LIB="/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
+cd /src
 
 # Start with starman if available, otherwise use the built-in server
 if command -v starman >/dev/null 2>&1; then
     echo "🚀 Starting with Starman server"
-    export PERL5LIB="/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
-    cd /src
-    
-    echo "Starting server in production mode..."
     exec /src/RfamWeb/script/rfamweb_server.pl -p 3000 --fork --keepalive
 else
     echo "🚀 Starting with built-in server"
-    export PERL5LIB="/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
-    cd /src
     exec /src/RfamWeb/script/rfamweb_server.pl -p 3000
 fi
