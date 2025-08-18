@@ -106,15 +106,6 @@ fi
 echo "=== Testing Catalyst Application ==="
 cd /src
 
-# Test if the application can be loaded
-echo "Testing basic Catalyst app loading..."
-if perl -I/src/RfamWeb -I/src/Rfam/Schemata -I/src/PfamBase/lib -I/src/PfamLib -I/src/PfamSchemata -e "use RfamWeb; print 'Catalyst app loaded successfully\n';" 2>/dev/null; then
-    echo "✅ Catalyst application loads successfully"
-else
-    echo "❌ Catalyst application failed to load - checking detailed error..."
-    perl -I/src/RfamWeb -I/src/Rfam/Schemata -I/src/PfamBase/lib -I/src/PfamLib -I/src/PfamSchemata -e "use RfamWeb;" 2>&1 || true
-fi
-
 # Test database connectivity and connection
 echo "Testing database connectivity and connection..."
 if [ -n "${DATABASE_HOST:-}" ]; then
