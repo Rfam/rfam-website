@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     pkg-config \
     dos2unix \
+    libdbd-mysql-perl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -50,11 +51,10 @@ RUN cpanm --notest \
     Catalyst::View::JSON \
     Template::Plugin::Number::Format
 
-# Database Modules
+# Database Modules - use system DBD::mysql, install others via CPAN
 RUN cpanm --notest \
     DBI \
     Devel::CheckLib \
-    DBD::mysql@4.050 \
     DBIx::Class \
     DBIx::Class::Schema::Loader \
     SQL::Abstract \
@@ -169,9 +169,9 @@ RUN if [ "$USE_LOCAL_SOURCE" = "true" ]; then \
         mkdir -p /src; \
     else \
         echo "Cloning source code from git..."; \
-        git clone --depth 1 ${REPO_URL} /tmp/rfam-source || \
+        git clone --depth 1 --branch ${BRANCH} ${REPO_URL} /tmp/rfam-source || \
         git clone --depth 1 --branch master ${REPO_URL} /tmp/rfam-source || \
-        git clone --depth 1 --branch ${BRANCH} ${REPO_URL} /tmp/rfam-source; \
+        git clone --depth 1 ${REPO_URL} /tmp/rfam-source; \
         mkdir -p /src && cp -r /tmp/rfam-source/* /src/ && rm -rf /tmp/rfam-source; \
     fi
 
