@@ -161,15 +161,26 @@ RUN cpanm --notest \
 # Set build arguments for flexibility
 ARG REPO_URL=https://github.com/Rfam/rfam-website.git
 ARG BRANCH=main
+ARG USE_LOCAL_SOURCE=false
 
-# Clone the source code
-WORKDIR /tmp
-RUN git clone --depth 1 ${REPO_URL} rfam-source || \
-    git clone --depth 1 --branch master ${REPO_URL} rfam-source || \
-    git clone --depth 1 --branch ${BRANCH} ${REPO_URL} rfam-source
+# Copy source code - either from local context or git clone
+RUN if [ "$USE_LOCAL_SOURCE" = "true" ]; then \
+        echo "Using local source code..."; \
+        mkdir -p /src; \
+    else \
+        echo "Cloning source code from git..."; \
+        git clone --depth 1 ${REPO_URL} /tmp/rfam-source || \
+        git clone --depth 1 --branch master ${REPO_URL} /tmp/rfam-source || \
+        git clone --depth 1 --branch ${BRANCH} ${REPO_URL} /tmp/rfam-source; \
+        mkdir -p /src && cp -r /tmp/rfam-source/* /src/ && rm -rf /tmp/rfam-source; \
+    fi
 
-# Copy source code to final location and verify structure
-RUN mkdir -p /src && cp -r /tmp/rfam-source/* /src/
+# Copy local source if using local mode (this will be a no-op if using git)
+COPY . /tmp/local-source/
+RUN if [ "$USE_LOCAL_SOURCE" = "true" ]; then \
+        cp -r /tmp/local-source/* /src/; \
+    fi && \
+    rm -rf /tmp/local-source
 
 # Verify critical application files exist
 RUN echo "Checking application structure..." && \
@@ -210,7 +221,7 @@ RUN dos2unix /usr/local/bin/startup.sh /setup/config-setup.sh && \
 RUN chmod +x /src/RfamWeb/script/rfamweb_server.pl
 
 # Clean up
-RUN rm -rf /tmp/rfam-source /var/lib/apt/lists/* /root/.cpanm
+RUN rm -rf /var/lib/apt/lists/* /root/.cpanm
 
 # Setup environment variables
 ENV PERL5LIB=/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata

@@ -61,40 +61,22 @@ before 'auto' => sub {
     return 0;
   }
 
-  # Database connectivity check with timeout and fallback
+  # see if we can get a DB ResultSet from the VERSION table, which is 
+  # effectively a test of whether we can connect to the DB. If we can't, 
+  # set the template to point to a page that will apologise and let the "end"
+  # action do its stuff
   my $releaseData;
-  
   eval {
-    # Try to get version data from database with timeout
-    local $SIG{ALRM} = sub { die "Database timeout\n" };
-    alarm(5); # 5 second timeout
-    
-    # Use first() instead of find({}) for better compatibility
-    $releaseData = $c->model('RfamDB::Version')->first();
-    
-    alarm(0); # Cancel alarm
+    # stash some details of the Pfam release
+    $releaseData = $c->model('RfamDB::Version')
+                     ->find( {} );
   };
-  
-  # If database fails, create mock data so site can still function
-  if ( $@ || !$releaseData ) {
-    $c->log->warn( "Database check failed, using fallback data: $@" ) if $c->debug;
-    
-    # Create mock release data using known values from the database
-    $releaseData = bless({
-      rfam_release => 14.8,
-      rfam_release_date => "2022-05-27", 
-      number_families => 4094,
-      embl_release => "132"
-    }, "MockReleaseData");
-    
-    # Add accessor methods for the mock object
-    {
-      no strict 'refs';
-      *{"MockReleaseData::rfam_release"} = sub { shift->{rfam_release} };
-      *{"MockReleaseData::rfam_release_date"} = sub { shift->{rfam_release_date} };
-      *{"MockReleaseData::number_families"} = sub { shift->{number_families} };
-      *{"MockReleaseData::embl_release"} = sub { shift->{embl_release} };
-    }
+  if ( $@ ) {
+    $c->log->error( "DBIC error on database check: $@" ) if $c->debug;
+    $c->stash->{template} = 'pages/db_down.tt';
+
+    # break out of the processing chain now and go straight to the "end" action
+    return 0;
   }
   
   $c->stash->{relData} = $releaseData if $releaseData;
