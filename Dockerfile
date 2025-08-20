@@ -62,10 +62,7 @@ RUN echo "Installing XML::Parser..." && \
     cpanm --notest XML::Parser
 
 # Force install critical modules
-RUN (cpanm --force --verbose XML::Feed || \
-     cpanm --force --verbose --reinstall XML::Feed || \
-     cpanm --force --verbose --mirror http://cpan.metacpan.org/ XML::Feed || \
-     cpanm --force --verbose --mirror https://www.cpan.org/ XML::Feed) && \
+RUN (cpanm --force --verbose --mirror https://www.cpan.org/ XML::Feed) && \
     perl -e "use XML::Feed; print 'XML::Feed successfully loaded\n';"
 
 # Graphics Module
