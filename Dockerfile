@@ -4,9 +4,6 @@ FROM perl:latest
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libgd-dev \
-    libgd3 \
-    libmariadb-dev \
-    libmariadb-dev-compat \
     libssl-dev \
     libxml2-dev \
     libxml2-utils \
@@ -14,17 +11,11 @@ RUN apt-get update && apt-get install -y \
     libexpat1-dev \
     expat \
     zlib1g-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libfontconfig1-dev \
     build-essential \
     git \
     curl \
-    netcat-openbsd \
     default-libmysqlclient-dev \
     pkg-config \
-    dos2unix \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -203,9 +194,8 @@ RUN if [ -d "/src/RfamWeb/config.dist" ]; then \
 COPY startup.sh /usr/local/bin/startup.sh
 COPY setup/config-setup.sh /setup/config-setup.sh
 
-# Fix line endings and make executable
-RUN dos2unix /usr/local/bin/startup.sh /setup/config-setup.sh && \
-    chmod +x /usr/local/bin/startup.sh /setup/config-setup.sh
+# Make executable
+RUN chmod +x /usr/local/bin/startup.sh /setup/config-setup.sh
 
 # Set proper permissions
 RUN chmod +x /src/RfamWeb/script/rfamweb_server.pl
