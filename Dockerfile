@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     pkg-config \
     dos2unix \
-    libdbd-mysql-perl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -53,6 +52,7 @@ RUN cpanm --notest \
 
 # Database Modules - use system DBD::mysql, install others via CPAN
 RUN cpanm --notest \
+    --force DBD::mysql@4.051 \
     DBI \
     Devel::CheckLib \
     DBIx::Class \
@@ -160,7 +160,7 @@ RUN cpanm --notest \
 
 # Set build arguments for flexibility
 ARG REPO_URL=https://github.com/Rfam/rfam-website.git
-ARG BRANCH=main
+ARG BRANCH=create-k8s-deployment-for-preview-site-using-docker
 ARG USE_LOCAL_SOURCE=false
 
 # Copy source code - either from local context or git clone
@@ -181,16 +181,6 @@ RUN if [ "$USE_LOCAL_SOURCE" = "true" ]; then \
         cp -r /tmp/local-source/* /src/; \
     fi && \
     rm -rf /tmp/local-source
-
-# Verify critical application files exist
-RUN echo "Checking application structure..." && \
-    ls -la /src/ && \
-    echo "Checking for RfamWeb directory..." && \
-    ls -la /src/RfamWeb/ && \
-    echo "Checking for main application files..." && \
-    find /src -name "*.pm" -path "*/RfamWeb*" | head -10 && \
-    echo "Checking for RfamWeb.pm specifically..." && \
-    find /src -name "RfamWeb.pm" -o -name "rfamweb.pm" | head -5
 
 # Set up configuration directories
 RUN mkdir -p /src/RfamWeb/config
