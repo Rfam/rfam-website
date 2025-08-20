@@ -27,10 +27,10 @@ msaApiEndpoint = c.uri_for( '/alignments' );
       <!-- MSA Viewer Component with CSS Isolation -->
       <div class="msa-viewer-isolation" style="margin: 20px 0;">
         <msa-viewer 
-          api-endpoint="[% msaApiEndpoint %]/[% acc %]"
+          api-endpoint="[% msaApiEndpoint %]"
           identifier="[% acc %]"
           height="200"
-          width="1200"
+          width="1500"
           label-width="300"
           overlay-conservation="true"
           display-start="10"
