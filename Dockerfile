@@ -38,17 +38,11 @@ RUN cpanm --notest \
 # View Modules
 RUN cpanm --notest \
     Catalyst::View::TT \
-    Catalyst::View::JSON \
     Template::Plugin::Number::Format
 
-# Database Modules - use system DBD::mysql, install others via CPAN
+# Database Modules
 RUN cpanm --notest \
     --force DBD::mysql@4.051 \
-    DBI \
-    Devel::CheckLib \
-    DBIx::Class \
-    DBIx::Class::Schema::Loader \
-    SQL::Abstract \
     SQL::Translator
 
 # Web Server Modules
@@ -57,9 +51,6 @@ RUN cpanm --notest \
     Starman \
     Plack::Handler::Starman
 
-# XML Processing Modules
-RUN echo "Installing XML::Parser..." && \
-    cpanm --notest XML::Parser
 
 # Force install critical modules
 RUN (cpanm --force --verbose --mirror https://www.cpan.org/ XML::Feed) && \
@@ -74,28 +65,21 @@ RUN cpanm --notest \
     Data::UUID \
     Email::Valid \
     JSON \
-    YAML \
     Search::QueryParser \
     HTML::FormHandler::Moose \
     Data::Printer
 
 # Logging Modules
 RUN cpanm --notest \
-    Log::Log4perl \
-    Log::Dispatch
+    Log::Log4perl 
 
 # DateTime Modules
 RUN cpanm --notest \
-    DateTime \
-    DateTime::Format::MySQL \
-    DateTime::Format::ISO8601 \
-    DateTime::TimeZone
+    DateTime::Format::MySQL 
 
 # File Handling Modules
 RUN cpanm --notest \
-    File::Slurp \
-    Path::Tiny \
-    File::Copy::Recursive
+    File::Slurp
 
 # Web Modules
 RUN cpanm --notest \
@@ -103,48 +87,14 @@ RUN cpanm --notest \
     HTTP::Request \
     URI
 
-# Core Perl Utility Modules
-RUN cpanm --notest \
-    Moose \
-    Try::Tiny \
-    List::Util \
-    Scalar::Util \
-    Data::Dumper \
-    Digest::MD5 \
-    Digest::SHA \
-    MIME::Base64 \
-    Encode
-
-# Optional Catalyst Plugins
-RUN cpanm --notest \
-    Catalyst::Plugin::Session \
-    Catalyst::Plugin::Session::State::Cookie \
-    Catalyst::Plugin::Session::Store::File \
-    Catalyst::Plugin::Authentication \
-    Catalyst::Plugin::Authorization::Roles \
-    Catalyst::Plugin::Cache
-
 # Install PageCache plugin and additional modules from original
 RUN cpanm --notest Catalyst::Plugin::PageCache && \
     cpanm --notest Catalyst::View::Email
 
-# Email Modules
-RUN cpanm --notest \
-    Email::MIME \
-    Email::Sender::Simple \
-    Email::Valid
 
 # Cache Modules
 RUN cpanm --notest \
-    CHI \
-    Cache::Cache \
     Cache::Memcached
-
-# Testing Modules
-RUN cpanm --notest \
-    Test::More \
-    Test::Deep \
-    Test::WWW::Mechanize::Catalyst
 
 # Set build arguments for flexibility
 ARG REPO_URL=https://github.com/Rfam/rfam-website.git
