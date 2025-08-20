@@ -5,13 +5,8 @@ FROM perl:latest
 RUN apt-get update && apt-get install -y \
     libgd-dev \
     libssl-dev \
-    libxml2-dev \
-    libxml2-utils \
     libxslt1-dev \
-    libexpat1-dev \
-    expat \
     zlib1g-dev \
-    build-essential \
     git \
     curl \
     default-libmysqlclient-dev \
