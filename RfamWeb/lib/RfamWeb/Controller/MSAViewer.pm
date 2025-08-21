@@ -47,9 +47,10 @@ sub standalone : Path('/msa_viewer_standalone') : Args(0) {
     # Set content type
     $c->response->content_type('text/html; charset=utf-8');
     
-    # Generate the standalone HTML page
+    # Generate the standalone HTML page DIRECTLY (no template)
     my $html = $self->_generate_standalone_html($c, $endpoint, $identifier);
     
+    # Set response body directly - bypasses all template processing
     $c->response->body($html);
 }
 
@@ -79,11 +80,15 @@ sub _generate_standalone_html {
             font-family: Arial, sans-serif;
             background: white;
             font-size: 14px;
+            overflow: hidden;
+            width: 1380px;
+            height: 580px;
         }
         
         msa-viewer {
             display: block;
-            width: 100%;
+            width: 1350px;
+            height: 550px;
         }
         
         .loading {
@@ -102,13 +107,6 @@ sub _generate_standalone_html {
             margin: 10px 0;
         }
         
-        .info {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        /* Ensure proper sizing for the component */
         .msa-container {
             width: 100%;
             min-height: 300px;
@@ -116,7 +114,6 @@ sub _generate_standalone_html {
     </style>
 </head>
 <body>
-    <div class="info">Loading alignment for family: $identifier</div>
     <div id="loading" class="loading">Loading MSA viewer...</div>
     <div id="error" class="error" style="display: none;"></div>
     
@@ -125,7 +122,6 @@ sub _generate_standalone_html {
     </div>
 
     <script type="module">
-        // Configuration
         const endpoint = '$endpoint';
         const identifier = '$identifier';
         
@@ -133,99 +129,44 @@ sub _generate_standalone_html {
         const errorDiv = document.getElementById('error');
         const msaViewer = document.getElementById('msaViewer');
         
-        console.log('MSA Viewer Standalone - Starting load for:', identifier);
-        
         try {
-            // Wait for component to be defined
             await customElements.whenDefined('msa-viewer');
-            console.log('✓ MSA Viewer component loaded in iframe');
             
-            // Set attributes for the component
             msaViewer.setAttribute('api-endpoint', endpoint);
             msaViewer.setAttribute('identifier', identifier);
-            msaViewer.setAttribute('height', '300');
-            msaViewer.setAttribute('width', '100%');
+            msaViewer.setAttribute('height', '550');
+            msaViewer.setAttribute('width', '1350');
             msaViewer.setAttribute('label-width', '300');
             
-            // Wait for data to load with timeout
             let attempts = 0;
-            const maxAttempts = 30; // 15 seconds timeout
+            const maxAttempts = 30;
             
             const checkLoaded = setInterval(() => {
                 attempts++;
                 
                 if (msaViewer._error) {
-                    // Component reported an error
                     clearInterval(checkLoaded);
                     loadingDiv.style.display = 'none';
                     errorDiv.style.display = 'block';
-                    errorDiv.innerHTML = `Failed to load alignment data: \${msaViewer._error}`;
-                    console.error('MSA Viewer error:', msaViewer._error);
+                    errorDiv.innerHTML = \`Failed to load alignment data: \${msaViewer._error}\`;
                     
                 } else if (msaViewer._data && msaViewer._data.sequences) {
-                    // Data loaded successfully
                     clearInterval(checkLoaded);
                     loadingDiv.style.display = 'none';
                     msaViewer.style.display = 'block';
                     
-                    const sequenceCount = msaViewer._data.sequences.length;
-                    console.log(`✓ Iframe MSA viewer loaded: \${sequenceCount} sequences`);
-                    
-                    // Set up event logging to verify drag functionality
-                    setTimeout(() => {
-                        const manager = msaViewer.querySelector('nightingale-manager');
-                        const navTrack = msaViewer.querySelector('nightingale-navigation');
-                        
-                        if (manager && navTrack) {
-                            let changeCount = 0;
-                            
-                            // Listen for navigation changes
-                            navTrack.addEventListener('change', (e) => {
-                                changeCount++;
-                                console.log(`Iframe navigation change \${changeCount}:`, e.detail);
-                            });
-                            
-                            // Listen for manager changes
-                            manager.addEventListener('change', (e) => {
-                                console.log('Iframe manager change:', e.detail);
-                            });
-                            
-                            console.log('✓ Iframe MSA viewer ready - drag functionality should work!');
-                            console.log('Sequences:', sequenceCount, 'Length:', msaViewer._sequenceLength);
-                            
-                            // Log initial state for comparison
-                            console.log('Initial state:', {
-                                navStart: navTrack.getAttribute('display-start'),
-                                navEnd: navTrack.getAttribute('display-end'),
-                                managerStart: manager.getAttribute('display-start'),
-                                managerEnd: manager.getAttribute('display-end')
-                            });
-                        } else {
-                            console.warn('Navigation track or manager not found');
-                        }
-                    }, 1000);
-                    
                 } else if (attempts > maxAttempts) {
-                    // Timeout
                     clearInterval(checkLoaded);
                     loadingDiv.style.display = 'none';
                     errorDiv.style.display = 'block';
-                    errorDiv.innerHTML = `
-                        <div>Failed to load MSA data within timeout period.</div>
-                        <div style="font-size: 12px; margin-top: 10px;">
-                            Endpoint: \${endpoint}<br>
-                            Identifier: \${identifier}
-                        </div>
-                    `;
-                    console.error('MSA Viewer timeout after', attempts, 'attempts');
+                    errorDiv.innerHTML = \`Failed to load MSA data within timeout period.\`;
                 }
             }, 500);
             
         } catch (error) {
             loadingDiv.style.display = 'none';
             errorDiv.style.display = 'block';
-            errorDiv.innerHTML = `<div>Error initializing MSA viewer</div><div style="font-size: 12px; margin-top: 10px;">\${error.message}</div>`;
-            console.error('Iframe MSA viewer initialization error:', error);
+            errorDiv.innerHTML = \`Error initializing MSA viewer: \${error.message}\`;
         }
     </script>
 </body>
