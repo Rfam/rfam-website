@@ -1,113 +1,23 @@
-# Root.pm
-# jt 20080306 WTSI
-#
-# $Id: Root.pm,v 1.3 2008-07-25 13:25:40 jt6 Exp $
-
-=head1 NAME
-
-RfamWeb::Controller::Root - main class for the RfamWeb application
-
-=cut
-
-package RfamWeb::Controller::Root;
-
-=head1 DESCRIPTION
-
-This is the root class for the Rfam website catalyst application. It
-installs global actions for the main site index page and other top-level
-functions.
-
-$Id: Root.pm,v 1.3 2008-07-25 13:25:40 jt6 Exp $
-
-=cut
+package RfamWeb::Controller::MSAViewer;
 
 use Moose;
 use namespace::autoclean;
 
-BEGIN {
-  extends 'Catalyst::Controller';
-}
+BEGIN { extends 'Catalyst::Controller'; }
 
-with 'PfamBase::Roles::Root';
+=head1 NAME
 
-__PACKAGE__->config( namespace => '' );
+RfamWeb::Controller::MSAViewer - Controller for standalone MSA viewer
 
-#-------------------------------------------------------------------------------
+=head1 DESCRIPTION
 
-=head1 METHODS
-
-=head2 auto : Private
-
-Adds the version data to the stash, so that it's accessible throughout the
-site. Runs before the "auto" from the Root role from PfamBase.
+Provides a standalone MSA viewer page for iframe embedding.
+This controller serves a clean HTML page with the MSA viewer component
+isolated from the main site's CSS and JavaScript.
 
 =cut
 
-before 'auto' => sub {
-  my $this = shift;
-  my ( $c ) = @_;
-
-  # see if there's a maintenance message in the configuration file
-  if ( $c->config->{maintenance} ) { 
-    $c->log->debug( 'Root::auto: found a maintenance message' )
-      if $c->debug;
-
-    $c->stash->{title}   = $c->config->{maintenance}->{title};
-    $c->stash->{message} = $c->config->{maintenance}->{message};
-
-    $c->stash->{template} = 'pages/maintenance.tt';
-
-    # break out of the processing chain now and go straight to the "end" action
-    return 0;
-  }
-
-  # see if we can get a DB ResultSet from the VERSION table, which is 
-  # effectively a test of whether we can connect to the DB. If we can't, 
-  # set the template to point to a page that will apologise and let the "end"
-  # action do its stuff
-  my $releaseData;
-  eval {
-    # stash some details of the Pfam release
-    $releaseData = $c->model('RfamDB::Version')
-                     ->find( {} );
-  };
-  if ( $@ ) {
-    $c->log->error( "DBIC error on database check: $@" ) if $c->debug;
-    $c->stash->{template} = 'pages/db_down.tt';
-
-    # break out of the processing chain now and go straight to the "end" action
-    return 0;
-  }
-  
-  $c->stash->{relData} = $releaseData if $releaseData;
-
-  # runs before the "auto" action from the role, which will return a true value
-  # so that we don't need to do that here
-};
-
-#-------------------------------------------------------------------------------
-
-=head2 index : Private
-
-Generates the main site index page.
-
-=cut
-
-sub index : Private {
-  my( $this, $c ) = @_;
-
-  # cache the page output for one week
-  $c->cache_page( 604800 );
-  
-  # tell the navbar where we are
-  $c->stash->{nav} = 'home';
-
-  $c->log->debug('RfamWeb::Root::index: generating site index') if $c->debug;
-}
-
-#-------------------------------------------------------------------------------
-
-=head2 msa_viewer_standalone
+=head2 standalone
 
 Serves the standalone MSA viewer page for iframe embedding.
 Parameters:
@@ -116,7 +26,7 @@ Parameters:
 
 =cut
 
-sub msa_viewer_standalone : Path('/msa_viewer_standalone') : Args(0) {
+sub standalone : Path('/msa_viewer_standalone') : Args(0) {
     my ( $self, $c ) = @_;
     
     # Get parameters from query string
@@ -169,15 +79,11 @@ sub _generate_standalone_html {
             font-family: Arial, sans-serif;
             background: white;
             font-size: 14px;
-            overflow: hidden;
-            width: 1380px;
-            height: 580px;
         }
         
         msa-viewer {
             display: block;
-            width: 1350px;
-            height: 550px;
+            width: 100%;
         }
         
         .loading {
@@ -202,6 +108,7 @@ sub _generate_standalone_html {
             margin-bottom: 10px;
         }
         
+        /* Ensure proper sizing for the component */
         .msa-container {
             width: 100%;
             min-height: 300px;
@@ -218,6 +125,7 @@ sub _generate_standalone_html {
     </div>
 
     <script type="module">
+        // Configuration
         const endpoint = '$endpoint';
         const identifier = '$identifier';
         
@@ -228,28 +136,34 @@ sub _generate_standalone_html {
         console.log('MSA Viewer Standalone - Starting load for:', identifier);
         
         try {
+            // Wait for component to be defined
             await customElements.whenDefined('msa-viewer');
             console.log('✓ MSA Viewer component loaded in iframe');
             
+            // Set attributes for the component
             msaViewer.setAttribute('api-endpoint', endpoint);
             msaViewer.setAttribute('identifier', identifier);
-            msaViewer.setAttribute('height', '550');
-            msaViewer.setAttribute('width', '1350');
+            msaViewer.setAttribute('height', '300');
+            msaViewer.setAttribute('width', '100%');
             msaViewer.setAttribute('label-width', '300');
             
+            // Wait for data to load with timeout
             let attempts = 0;
-            const maxAttempts = 30;
+            const maxAttempts = 30; // 15 seconds timeout
             
             const checkLoaded = setInterval(() => {
                 attempts++;
                 
                 if (msaViewer._error) {
+                    // Component reported an error
                     clearInterval(checkLoaded);
                     loadingDiv.style.display = 'none';
                     errorDiv.style.display = 'block';
                     errorDiv.innerHTML = `Failed to load alignment data: \${msaViewer._error}`;
+                    console.error('MSA Viewer error:', msaViewer._error);
                     
                 } else if (msaViewer._data && msaViewer._data.sequences) {
+                    // Data loaded successfully
                     clearInterval(checkLoaded);
                     loadingDiv.style.display = 'none';
                     msaViewer.style.display = 'block';
@@ -257,89 +171,78 @@ sub _generate_standalone_html {
                     const sequenceCount = msaViewer._data.sequences.length;
                     console.log(`✓ Iframe MSA viewer loaded: \${sequenceCount} sequences`);
                     
+                    // Set up event logging to verify drag functionality
                     setTimeout(() => {
                         const manager = msaViewer.querySelector('nightingale-manager');
                         const navTrack = msaViewer.querySelector('nightingale-navigation');
                         
                         if (manager && navTrack) {
+                            let changeCount = 0;
+                            
+                            // Listen for navigation changes
                             navTrack.addEventListener('change', (e) => {
-                                console.log('Iframe navigation change:', e.detail);
+                                changeCount++;
+                                console.log(`Iframe navigation change \${changeCount}:`, e.detail);
                             });
                             
+                            // Listen for manager changes
                             manager.addEventListener('change', (e) => {
                                 console.log('Iframe manager change:', e.detail);
                             });
                             
                             console.log('✓ Iframe MSA viewer ready - drag functionality should work!');
+                            console.log('Sequences:', sequenceCount, 'Length:', msaViewer._sequenceLength);
+                            
+                            // Log initial state for comparison
+                            console.log('Initial state:', {
+                                navStart: navTrack.getAttribute('display-start'),
+                                navEnd: navTrack.getAttribute('display-end'),
+                                managerStart: manager.getAttribute('display-start'),
+                                managerEnd: manager.getAttribute('display-end')
+                            });
+                        } else {
+                            console.warn('Navigation track or manager not found');
                         }
                     }, 1000);
                     
                 } else if (attempts > maxAttempts) {
+                    // Timeout
                     clearInterval(checkLoaded);
                     loadingDiv.style.display = 'none';
                     errorDiv.style.display = 'block';
-                    errorDiv.innerHTML = `Failed to load MSA data within timeout period.`;
+                    errorDiv.innerHTML = `
+                        <div>Failed to load MSA data within timeout period.</div>
+                        <div style="font-size: 12px; margin-top: 10px;">
+                            Endpoint: \${endpoint}<br>
+                            Identifier: \${identifier}
+                        </div>
+                    `;
+                    console.error('MSA Viewer timeout after', attempts, 'attempts');
                 }
             }, 500);
             
         } catch (error) {
             loadingDiv.style.display = 'none';
             errorDiv.style.display = 'block';
-            errorDiv.innerHTML = `Error initializing MSA viewer: \${error.message}`;
-            console.error('Iframe MSA viewer error:', error);
+            errorDiv.innerHTML = `<div>Error initializing MSA viewer</div><div style="font-size: 12px; margin-top: 10px;">\${error.message}</div>`;
+            console.error('Iframe MSA viewer initialization error:', error);
         }
     </script>
 </body>
 </html>};
 }
 
-#-------------------------------------------------------------------------------
-
-=head2 is_cache_enabled
-
-Returns true if the configuration parameter C<enable_cache> is defined and is
-set to a true value. Used by the PageCache plugin to decide if it should step
-in to cache a page/serve a page from cache.
-
-If C<enable_cache> is true, page caching will be enabled.
-
-=cut
-
-sub is_cache_enabled {
-  my ( $c ) = @_; 
-  return ( exists $c->config->{enable_cache} and $c->config->{enable_cache} );
-}
-
-#-------------------------------------------------------------------------------
-
 =head1 AUTHOR
 
-John Tate, C<jt6@sanger.ac.uk>
+Generated for RfamWeb MSA viewer iframe integration
 
-Paul Gardner, C<pg5@sanger.ac.uk>
+=head1 LICENSE
 
-Jennifer Daub, C<jd7@sanger.ac.uk>
-
-=head1 COPYRIGHT
-
-Copyright (c) 2007: Genome Research Ltd.
-
-Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk), 
-         Jennifer Daub (jd7@sanger.ac.uk)
-
-This is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-details.
-
-You should have received a copy of the GNU General Public License along with
-this program. If not, see <http://www.gnu.org/licenses/>.
+This library is free software. You can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
+
+__PACKAGE__->meta->make_immutable;
 
 1;

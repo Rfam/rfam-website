@@ -24,16 +24,18 @@ msaApiEndpoint = c.uri_for( '/alignments' );
       
       <h3>Seed alignment view</h3>
       
-      <!-- MSA Viewer Component with CSS Isolation -->
-      <div class="msa-viewer-isolation" style="margin: 20px 0;">
-        <msa-viewer 
-          api-endpoint="[% msaApiEndpoint %]"
-          identifier="[% acc %]"
-          height="200"
-          width="1200"
-          label-width="300"
-          >
-        </msa-viewer>
+      <!-- MSA Viewer in iframe for complete isolation -->
+      <div style="margin: 20px 0;">
+        <iframe 
+          id="msaViewerFrame"
+          src="[% c.uri_for('/msa_viewer_standalone') %]?endpoint=[% msaApiEndpoint | uri %]&identifier=[% acc | uri %]"
+          width="1400" 
+          height="600"
+          style="border: none; display: block; background: white; overflow: hidden;"
+          scrolling="no"
+          title="MSA Alignment Viewer for [% acc %]">
+          <p>Your browser does not support iframes. Please <a href="[% c.uri_for('/msa_viewer_standalone') %]?endpoint=[% msaApiEndpoint | uri %]&identifier=[% acc | uri %]" target="_blank">view the alignment in a new window</a>.</p>
+        </iframe>
       </div>
       
       <h2>Download</h2>
@@ -55,35 +57,6 @@ msaApiEndpoint = c.uri_for( '/alignments' );
       </p>
       
     </div>[%# end of "alignmentActiveContent" %]
-
-    <!-- MSA Viewer CSS Isolation Styles -->
-    <style>
-
-      /* Reset SVG constraints that might be inherited from website */
-      .msa-viewer-isolation svg {
-        width: auto !important;
-      }
-
-      /* Ensure the nightingale-sequence element itself is properly sized */
-      .msa-viewer-isolation nightingale-sequence {
-        overflow: hidden !important;
-      }
-
-      /* Ensure sequence tracks match the width of MSA tracks below */
-      .msa-viewer-isolation div[style*="display: flex"] nightingale-sequence {
-        flex: 1 !important;
-      }
-
-    </style>
-
-    <!-- Load MSA Viewer Component -->
-    <script type="module">
-      // Import the MSA viewer component
-      import '[% c.uri_for('/static/javascripts/msa-viewer/index.js') %]';
-      
-      // Component is now self-contained with built-in controls
-      console.log('MSA Viewer component loaded');
-    </script>
 
     <script type="text/javascript">
       // <![CDATA[
@@ -132,15 +105,15 @@ Authors: John Tate (jt6@sanger.ac.uk), Paul Gardner (pg5@sanger.ac.uk),
          Jennifer Daub (jd7@sanger.ac.uk)
 
 This is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free
-Software Foundation; either version 2 of the License, or (at your
-option) any later version.
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version.
 
 This program is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-General Public License for more details.
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+details.
 
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
 -%]
