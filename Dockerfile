@@ -1,15 +1,10 @@
 # Base image https://hub.docker.com/_/perl/
-FROM perl:latest
+FROM perl:5.38
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libgd-dev \
-    libssl-dev \
-    libxslt1-dev \
-    zlib1g-dev \
     git \
-    curl \
-    default-libmysqlclient-dev \
     pkg-config \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -75,12 +70,6 @@ RUN cpanm --notest \
 # File Handling Modules
 RUN cpanm --notest \
     File::Slurp
-
-# Web Modules
-RUN cpanm --notest \
-    LWP::UserAgent \
-    HTTP::Request \
-    URI
 
 # Install PageCache plugin and additional modules from original
 RUN cpanm --notest Catalyst::Plugin::PageCache && \
