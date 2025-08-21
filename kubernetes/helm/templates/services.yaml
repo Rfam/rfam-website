@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalyst-service
+  name: rfam-website-service
   namespace: {{ .Values.namespace }}
 spec:
   selector:

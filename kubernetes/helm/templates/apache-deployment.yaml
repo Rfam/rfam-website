@@ -50,8 +50,8 @@ spec:
           RewriteCond %{HTTP_HOST} !^{{ .Values.url.hostname }}$
           RewriteRule .* - [E=PROTO:http]
           
-          ProxyPass / http://catalyst-service:80/
-          ProxyPassReverse / http://catalyst-service:80/
+          ProxyPass / http://rfam-website-service:80/
+          ProxyPassReverse / http://rfam-website-service:80/
           ProxyPreserveHost On
           
           # Set headers conditionally based on the host

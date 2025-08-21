@@ -26,7 +26,7 @@ database:
 proxy:
   http: http://wwwcache.ebi.ac.uk:3128
   https: http://wwwcache.ebi.ac.uk:3128
-  noProxy: localhost,127.0.0.1,catalyst-service
+  noProxy: localhost,127.0.0.1,rfam-website-service
 
 # Namespace
 namespace: dev
