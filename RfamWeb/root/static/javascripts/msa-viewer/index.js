@@ -675,7 +675,7 @@ class MSAViewer extends HTMLElement {
         this._width = 800;
         this._labelWidth = 200;
         this._displayStart = 1;
-        this._displayEnd = 100;
+        this._displayEnd = 80;
         this.handleLabelClick = (event) => {
             handleLabelClick(event, this, (url) => {
                 window.open(url, '_blank', 'noopener,noreferrer');
@@ -796,7 +796,7 @@ class MSAViewer extends HTMLElement {
             this.render();
         }
     }
-    getDefaultDisplayEnd(sequenceLength, defaultValue = 100) {
+    getDefaultDisplayEnd(sequenceLength, defaultValue = 80) {
         return Math.min(sequenceLength, defaultValue);
     }
     render() {

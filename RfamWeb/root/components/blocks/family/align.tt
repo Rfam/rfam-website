@@ -30,11 +30,9 @@ msaApiEndpoint = c.uri_for( '/alignments' );
           api-endpoint="[% msaApiEndpoint %]"
           identifier="[% acc %]"
           height="200"
-          width="1500"
+          width="1200"
           label-width="300"
-          overlay-conservation="true"
-          display-start="10"
-          display-end="80">
+          >
         </msa-viewer>
       </div>
       
