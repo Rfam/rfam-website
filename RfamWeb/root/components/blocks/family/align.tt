@@ -29,7 +29,7 @@ msaApiEndpoint = c.uri_for( '/alignments' );
         <iframe 
           id="msaViewerFrame"
           src="[% c.uri_for('/msa_viewer_standalone') %]?endpoint=[% msaApiEndpoint | uri %]&identifier=[% acc | uri %]"
-          width="1400" 
+          width="1200" 
           height="600"
           style="border: none; display: block; background: white; overflow: hidden;"
           scrolling="no"

@@ -60,7 +60,7 @@ spec:
           
           # Additional headers for proper asset serving
           Header always set X-Content-Type-Options nosniff
-          Header always set X-Frame-Options DENY
+          Header always set X-Frame-Options ALLOW
           Header always set X-XSS-Protection "1; mode=block"
           EOF
           

@@ -135,7 +135,7 @@ sub _generate_standalone_html {
             msaViewer.setAttribute('api-endpoint', endpoint);
             msaViewer.setAttribute('identifier', identifier);
             msaViewer.setAttribute('height', '550');
-            msaViewer.setAttribute('width', '1350');
+            msaViewer.setAttribute('width', '1200');
             msaViewer.setAttribute('label-width', '300');
             
             let attempts = 0;
