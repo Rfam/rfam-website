@@ -237,6 +237,27 @@ class NavigationTrack extends BaseTrack {
               </svg>
             </button>
           </div>
+          <div class="conservation-legend" style="margin-top: 8px;">
+            <div style="margin-bottom: 8px; text-align: center;">Conservation</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3px;">
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <div style="width: 14px; height: 12px; background-color: #6464ff; border: 1px solid #ccc;"></div>
+                <span>> 0.8</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <div style="width: 14px; height: 12px; background-color: #9da5ff; border: 1px solid #ccc;"></div>
+                <span>> 0.6</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <div style="width: 14px; height: 12px; background-color: #cccccc; border: 1px solid #ccc;"></div>
+                <span>> 0.4</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <div style="width: 14px; height: 12px; background-color: #ffffff; border: 1px solid #ccc;"></div>
+                <span>< 0.4</span>
+              </div>
+            </div>
+          </div>
         </div>
         <nightingale-navigation
           id="navigation-track"
