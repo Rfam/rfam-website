@@ -15,11 +15,11 @@ apache:
 
 # URL configuration
 url:
-  hostname: rfam.org
+  hostname: preview.rfam.org
 
 # Database secret
 database:
-  secretName: db-pro
+  secretName: db-dev
 
 # Proxy settings
 proxy:
@@ -28,4 +28,4 @@ proxy:
   noProxy: localhost,127.0.0.1,rfam-website-service
 
 # Namespace
-namespace: prod
+namespace: dev

@@ -67,16 +67,30 @@ sub family :Path :Args(1) {
     
     # Wrap everything in eval to catch errors
     eval {
-        # Build API URL
-        my $api_url = 'http://hh-rke-wp-webadmin-63-worker-5.caas.ebi.ac.uk:30080/' . $family_id;
+        # Determine API URL based on deployment
+        my $api_url;
+        my $host = $c->request->header('Host') || '';
+        my $server_name = $c->engine->env->{SERVER_NAME} || '';
+        
+        if ($host =~ /preview\.rfam\.org/) {
+            # Preview site (always on prod cluster but different port)
+            $api_url = 'http://hh-rke-wp-webadmin-82-worker-2.caas.ebi.ac.uk:30081/' . $family_id;
+        } elsif ($server_name =~ /hx-rke-wp-webadmin-91-/) {
+            # Fallback cluster
+            $api_url = 'http://hx-rke-wp-webadmin-91-worker-3.caas.ebi.ac.uk:30082/' . $family_id;
+        } else {
+            # Default for prod cluster (hh-rke-wp-webadmin-82-worker-*)
+            $api_url = 'http://hh-rke-wp-webadmin-82-worker-2.caas.ebi.ac.uk:30082/' . $family_id;
+        }
         
         # Add query parameters if present
         if (my $query = $c->request->uri->query) {
             $api_url .= "?$query";
         }
         
-        # Add debug header
+        # Add debug headers
         $c->response->header('X-API-URL' => $api_url);
+        $c->response->header('X-Server-Name' => $server_name);
         
         # Make API request
         my $ua = LWP::UserAgent->new(timeout => 30);

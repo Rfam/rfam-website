@@ -19,7 +19,7 @@ url:
 
 # Database secret
 database:
-  secretName: db-pro
+  secretName: db-fb
 
 # Proxy settings
 proxy:
