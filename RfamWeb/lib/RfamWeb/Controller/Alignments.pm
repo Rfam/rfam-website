@@ -74,13 +74,13 @@ sub family :Path :Args(1) {
         
         if ($host =~ /preview\.rfam\.org/) {
             # Preview site (always on prod cluster but different port)
-            $api_url = 'http://hh-rke-wp-webadmin-82-worker-2.caas.ebi.ac.uk:30081/' . $family_id;
+            $api_url = 'http://hh-rke-wp-webadmin-82-worker-2.caas.ebi.ac.uk:30082/' . $family_id;
         } elsif ($server_name =~ /hx-rke-wp-webadmin-91-/) {
             # Fallback cluster
-            $api_url = 'http://hx-rke-wp-webadmin-91-worker-3.caas.ebi.ac.uk:30082/' . $family_id;
+            $api_url = 'http://hx-rke-wp-webadmin-91-worker-3.caas.ebi.ac.uk:30081/' . $family_id;
         } else {
             # Default for prod cluster (hh-rke-wp-webadmin-82-worker-*)
-            $api_url = 'http://hh-rke-wp-webadmin-82-worker-2.caas.ebi.ac.uk:30082/' . $family_id;
+            $api_url = 'http://hh-rke-wp-webadmin-82-worker-3.caas.ebi.ac.uk:30081/' . $family_id;
         }
         
         # Add query parameters if present
