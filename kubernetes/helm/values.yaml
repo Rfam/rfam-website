@@ -29,3 +29,6 @@ proxy:
 
 # Namespace
 namespace: prod
+
+# Node port
+nodePort: 30083

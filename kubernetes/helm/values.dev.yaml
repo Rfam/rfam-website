@@ -29,3 +29,6 @@ proxy:
 
 # Namespace
 namespace: dev
+
+# Node port
+nodePort: 30080
