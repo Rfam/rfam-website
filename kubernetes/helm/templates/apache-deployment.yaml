@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-proxy
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.apache.replicas }}
+  selector:
+    matchLabels:
+      app: apache-proxy
+  template:
+    metadata:
+      labels:
+        app: apache-proxy
+    spec:
+      containers:
+      - name: apache
+        image: {{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}
+        ports:
+        - containerPort: 80
+        command: ['sh', '-c']
+        args:
+        - |
+
+          cat > /usr/local/apache2/conf/httpd.conf << 'EOF'
+          ServerRoot "/usr/local/apache2"
+          Listen 80
+          
+          LoadModule mpm_event_module modules/mod_mpm_event.so
+          LoadModule authz_core_module modules/mod_authz_core.so
+          LoadModule proxy_module modules/mod_proxy.so
+          LoadModule proxy_http_module modules/mod_proxy_http.so
+          LoadModule headers_module modules/mod_headers.so
+          LoadModule unixd_module modules/mod_unixd.so
+          LoadModule rewrite_module modules/mod_rewrite.so
+          
+          User daemon
+          Group daemon
+          ServerName apache-proxy
+          
+          # Enable rewrite engine for conditional headers
+          RewriteEngine On
+          
+          # Set protocol based on the incoming request
+          # For preview.rfam.org (via ingress), set HTTPS headers
+          RewriteCond %{HTTP_HOST} ^{{ .Values.url.hostname }}$
+          RewriteRule .* - [E=PROTO:https]
+          
+          # For direct NodePort access, set HTTP headers
+          RewriteCond %{HTTP_HOST} !^{{ .Values.url.hostname }}$
+          RewriteRule .* - [E=PROTO:http]
+          
+          ProxyPass / http://rfam-website-service:80/
+          ProxyPassReverse / http://rfam-website-service:80/
+          ProxyPreserveHost On
+          
+          # Set headers conditionally based on the host
+          RequestHeader set X-Forwarded-Proto "%{PROTO}e"
+          RequestHeader set X-Forwarded-Host "%{HTTP_HOST}e"
+          
+          # Additional headers for proper asset serving
+          Header always set X-Content-Type-Options nosniff
+          Header always set X-Frame-Options ALLOW
+          Header always set X-XSS-Protection "1; mode=block"
+          EOF
+          
+          echo "Apache config created. Testing..."
+          /usr/local/apache2/bin/httpd -t
+          echo "Starting proxy..."
+          exec /usr/local/apache2/bin/httpd -D FOREGROUND

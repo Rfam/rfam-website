@@ -1,0 +1,6 @@
+apiVersion: v2
+name: rfam-website
+description: A simple Helm chart for Rfam website with Apache proxy
+type: application
+version: 0.1.0
+appVersion: "latest"

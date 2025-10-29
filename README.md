@@ -7,7 +7,7 @@ and the public Rfam MySQL database.
 
 ## Development
 
-Clone this repository, then start docker:
+Clone this repository, create an .env file with Rfam DB credentials (refer to example.env) then start docker:
 
 ```
 docker-compose up

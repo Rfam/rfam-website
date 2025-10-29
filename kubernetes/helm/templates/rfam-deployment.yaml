@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rfam-website
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.rfam.replicas }}
+  selector:
+    matchLabels:
+      app: rfam-website
+  template:
+    metadata:
+      labels:
+        app: rfam-website
+    spec:
+      containers:
+      - name: catalyst
+        image: {{ .Values.rfam.image.repository }}:{{ .Values.rfam.image.tag }}
+        imagePullPolicy: {{ .Values.rfam.image.pullPolicy }}
+        ports:
+        - containerPort: 3000
+        env:
+        # Database
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.secretName }}
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.secretName }}
+              key: DATABASE_PORT
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.secretName }}
+              key: DATABASE_NAME
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.secretName }}
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.secretName }}
+              key: DATABASE_PASSWORD
+        
+        # App config
+        - name: PERL5LIB
+          value: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
+        - name: RFAMWEB_CONFIG
+          value: "/src/RfamWeb/config/rfamweb.conf"
+        
+        # URL fixing - Remove hardcoded HTTPS base URI
+        - name: CATALYST_BEHIND_PROXY
+          value: "1"
+        
+        # Allow the application to determine protocol from headers
+        - name: CATALYST_ENABLE_MIDDLEWARE_REVERSEPROXY
+          value: "1"
+        
+        # Proxy settings
+        - name: http_proxy
+          value: {{ .Values.proxy.http | quote }}
+        - name: https_proxy
+          value: {{ .Values.proxy.https | quote }}
+        - name: no_proxy
+          value: {{ .Values.proxy.noProxy | quote }}

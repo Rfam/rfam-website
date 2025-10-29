@@ -2,11 +2,12 @@ version: '3.8'
 services:
   web:
     build:
-      context: ./rfam-website
+      context: .
       dockerfile: Dockerfile
       args:
         - CACHE_BUST=1
-        # Uses git clone by default (USE_LOCAL_SOURCE=false)
+        # Uses local source code for development
+        - USE_LOCAL_SOURCE=true
     volumes:
       - ./config:/src/RfamWeb/config
     ports:
