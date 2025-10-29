@@ -82,7 +82,7 @@ RUN cpanm --notest \
 
 # Set build arguments for flexibility
 ARG REPO_URL=https://github.com/Rfam/rfam-website.git
-ARG BRANCH=create-k8s-deployment-for-preview-site-using-docker
+ARG BRANCH=master
 ARG USE_LOCAL_SOURCE=false
 
 # Copy source code - either from local context or git clone
