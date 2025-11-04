@@ -10,7 +10,7 @@ and the public Rfam MySQL database.
 Clone this repository, create an .env file with Rfam DB credentials (refer to example.env) then start docker:
 
 ```
-docker-compose up
+docker-compose -f docker-compose.dev.yml up --build
 ```
 
 The Rfam site should be available at *http://0.0.0.0:3000*.
