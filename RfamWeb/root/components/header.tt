@@ -58,7 +58,6 @@ sharedUri = c.uri_for( "/shared" );
             PROJECTS
         </div>
         <div id="actions_menu" class="file_menu">
-
             <div><a href="/3d">3D FAMILIES</a></div>
             <div><a href="/viruses">VIRUSES</a></div>
             <div><a href="/microrna">MICRORNAs</a></div>
@@ -122,34 +121,24 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hoverElement && actionsMenu) {
         // Mouse enter event
         hoverElement.addEventListener('mouseenter', function() {
-            // Stop any ongoing animation and slide down
-            actionsMenu.style.transition = 'height 0.2s ease-out';
-            actionsMenu.style.overflow = 'hidden';
-            actionsMenu.style.display = 'block';
-            
-            // Get the natural height
-            const naturalHeight = actionsMenu.scrollHeight;
-            actionsMenu.style.height = '0px';
+            actionsMenu.style.transition = 'opacity 0.2s ease-out';
+            actionsMenu.style.display = 'flex';
+            actionsMenu.style.opacity = '0';
             
             // Trigger the animation
             requestAnimationFrame(function() {
-                actionsMenu.style.height = naturalHeight + 'px';
+                actionsMenu.style.opacity = '1';
             });
         });
         
         // Mouse leave event
         hoverElement.addEventListener('mouseleave', function() {
-            // Stop any ongoing animation and slide up
-            actionsMenu.style.transition = 'height 0.2s ease-out';
-            actionsMenu.style.height = actionsMenu.scrollHeight + 'px';
-            
-            requestAnimationFrame(function() {
-                actionsMenu.style.height = '0px';
-            });
+            actionsMenu.style.transition = 'opacity 0.2s ease-out';
+            actionsMenu.style.opacity = '0';
             
             // Hide completely after animation
             setTimeout(function() {
-                if (actionsMenu.style.height === '0px') {
+                if (actionsMenu.style.opacity === '0') {
                     actionsMenu.style.display = 'none';
                 }
             }, 200);
@@ -185,28 +174,47 @@ document.addEventListener('DOMContentLoaded', function() {
 .divMenuWrapper1
 {
     height: 25px;
-    width: 130px;
+    min-width: 130px;
 }
 
 .file_menu 
 {
-    display:none;
-    width:130px;
-    position:relative;
-    z-index:100000;
+    display: none;
+    position: absolute;
+    z-index: 100000;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 0;
+    margin-top: 5px;
+    /* Horizontal layout */
+    flex-direction: row;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.file_menu div 
+{
+    display: inline-block;
+    margin: 0;
 }
 
 .file_menu div a 
 {
-    text-decoration:none; 
-    padding:5px; 
-    display:block;
+    text-decoration: none; 
+    padding: 8px 20px; 
+    display: block;
+    color: #734639;
+    font-size: 12px;
+    transition: background-color 0.2s ease;
 }
 
 .file_menu div a:hover 
 {
-    text-decoration:underline;
+    background-color: #f5f5f5;
+    text-decoration: none;
 }
+
 </style>
 
 <style>
