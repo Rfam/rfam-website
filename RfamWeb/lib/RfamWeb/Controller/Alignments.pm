@@ -72,7 +72,8 @@ sub family :Path :Args(1) {
         my $host = $c->request->header('Host') || '';
         my $server_name = $c->engine->env->{SERVER_NAME} || '';
         
-        if ($host =~ /preview\.rfam\.org/) {
+        #TODO: revert to  if ($host =~ /preview\.rfam\.org/) 
+        if ($host =~ /rfam\.org/) {
             # Preview site (always on prod cluster but different port)
             $api_url = 'http://hh-rke-wp-webadmin-82-worker-2.caas.ebi.ac.uk:30082/' . $family_id;
         } elsif ($server_name =~ /hx-rke-wp-webadmin-91-/) {
