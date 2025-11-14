@@ -1,4 +1,3 @@
-
 # Search.pm
 # jt6 20061108 WTSI
 #
@@ -66,6 +65,11 @@ Sets up the stash for all types of search.
 after 'begin' => sub {
   my( $this, $c ) = @_;
 
+  # LOGGING: Force warn-level logging
+  $c->log->warn("SEARCH CONTROLLER: begin action called");
+  $c->log->warn("SEARCH CONTROLLER: Request URI: " . $c->request->uri);
+  $c->log->warn("SEARCH CONTROLLER: Host header: " . ($c->request->header('Host') || 'NONE'));
+
   # tell the navbar where we are
   $c->stash->{nav} = 'search';
   
@@ -86,6 +90,7 @@ sub search : Chained( '/' )
              CaptureArgs( 0 ) {
   my ( $this, $c ) = @_;
 
+  $c->log->warn( 'SEARCH CONTROLLER: search chain action called' );
   $c->log->debug( 'Search::search: start of chain' )
     if $c->debug;
 }
@@ -103,6 +108,7 @@ sub search_page : Chained( 'search' )
                   Args( 0 ) {
   my ( $this, $c ) = @_;
 
+  $c->log->warn( 'SEARCH CONTROLLER: search_page action called - showing search page' );
   $c->log->debug( 'Search::search_page: end of chain; showing search page' )
     if $c->debug;
 
