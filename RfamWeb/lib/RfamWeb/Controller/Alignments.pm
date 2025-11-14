@@ -37,6 +37,8 @@ Proxy requests to the alignments API for a specific family
 
 sub family :Path :Args(1) {
     my ( $self, $c, $family_id ) = @_;
+
+    $c->log->debug("FAMILY ACTION CALLED WITH ID: $family_id");  # ADD THIS
     
     # Only support GET requests
     unless ( $c->request->method eq 'GET' ) {
