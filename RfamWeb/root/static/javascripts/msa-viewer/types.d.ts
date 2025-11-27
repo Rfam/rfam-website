@@ -5,6 +5,7 @@ export interface MSASequence {
 export interface MSAData {
     sequences: MSASequence[];
     consensus?: string;
+    sequenceCount?: number;
 }
 export interface BasePair {
     x: number;
