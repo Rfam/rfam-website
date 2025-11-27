@@ -222,10 +222,10 @@ class NavigationTrack extends BaseTrack {
       <div style="display: flex; align-items: center;">
         <div style="width: ${this.config.labelWidth}px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px;">
           <div class="sequence-info">
-            ${this.config.sequenceLength.toLocaleString()} positions
+            ${this.data.msaData.sequenceCount ? this.data.msaData.sequenceCount.toLocaleString() : 0} sequences
           </div>
           <div class="sequence-info" style="margin-top: 8px; margin-bottom: 4px;">
-            ${this.data.msaData.sequenceCount ? this.data.msaData.sequenceCount.toLocaleString() : 0} sequences
+          ${this.config.sequenceLength.toLocaleString()} positions            
           </div>
           <div class="zoom-controls">
             <button class="zoom-btn zoom-out-btn" title="Zoom out (Ctrl + mouse wheel down)">
