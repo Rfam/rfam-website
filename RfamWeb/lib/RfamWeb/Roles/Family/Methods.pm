@@ -175,6 +175,17 @@ sub image : Chained( 'family' )
             PathPart( 'image' )
             Args( 1 ) {
   my ( $this, $c, $type ) = @_;
+  
+  
+  $c->res->header('Access-Control-Allow-Origin' => '*');
+  $c->res->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
+  $c->res->header('Access-Control-Allow-Headers' => 'Content-Type');
+
+  if ( $c->req->method eq 'OPTIONS' ) {
+    $c->res->status(200);
+    $c->res->body('');
+    return;
+  }
 
   my ( $image_type ) = $type || '' =~ m/^(\w+)$/;
   $c->log->debug( "Family::Methods::image: image_type: |$image_type|" )
@@ -235,6 +246,17 @@ sub thumbnail : Chained( 'family' )
             PathPart( 'thumbnail' )
             Args( 0 ) {
   my ( $this, $c ) = @_;
+
+  $c->res->header('Access-Control-Allow-Origin' => '*');
+  $c->res->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
+  $c->res->header('Access-Control-Allow-Headers' => 'Content-Type');
+
+  if ( $c->req->method eq 'OPTIONS' ) {
+    $c->res->status(200);
+    $c->res->body('');
+    return;
+  }
+
 
   my $image_type = 'rscape';
   my $cache_key = 'family_image' . $c->stash->{acc} . $image_type;
