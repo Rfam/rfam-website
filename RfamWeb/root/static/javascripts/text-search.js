@@ -496,6 +496,7 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
     $scope.show_error = results.get_show_error();
 
     $scope.ordering = [
+        // search_type = 'family'
         { type: 'family', sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences \u2193'},
         { type: 'family', sort_field: 'num_seed', label: 'Number of seed alignment sequences \u2191'},
         { type: 'family', sort_field: 'num_full:descending', label: 'Number of full alignment sequences \u2193' },
@@ -503,23 +504,51 @@ angular.module('rfamApp').controller('ResultsListCtrl', ['$scope', '$location', 
         { type: 'family', sort_field: 'num_species:descending', label: 'Number of species \u2193'},
         { type: 'family', sort_field: 'num_species', label: 'Number of species \u2191'},
         { type: 'family', sort_field: 'id:descending', label: 'Rfam accession  \u2193'},
-        { type: 'family', sort_field: 'id', label: 'Rfam accession  \u2191'},
+        { type: 'family', sort_field: 'id', label: 'Rfam accession  \u2191' },
+        
+        // search_type = 'genome'
         { type: 'genome', sort_field: 'num_families:descending', label: 'Number of families in genome  \u2193'},
         { type: 'genome', sort_field: 'num_families', label: 'Number of families in genome  \u2191'},
         { type: 'genome', sort_field: 'num_rfam_hits:descending', label: 'Number of RNAs in genome  \u2193'},
         { type: 'genome', sort_field: 'num_rfam_hits', label: 'Number of RNAs in genome  \u2191'},
         { type: 'genome', sort_field: 'length:descending', label: 'Genome length  \u2193'},
-        { type: 'genome', sort_field: 'length', label: 'Genome length  \u2191'},
+        { type: 'genome', sort_field: 'length', label: 'Genome length  \u2191' },
+        
+        // search_type = 'clan'
         { type: 'clan', sort_field: 'num_families:descending', label: 'Number of families in clan  \u2193'},
-        { type: 'clan', sort_field: 'num_families', label: 'Number of families in clan  \u2191'},
+        { type: 'clan', sort_field: 'num_families', label: 'Number of families in clan  \u2191' },
+        
+        // search_type = 'motif'
         { type: 'motif', sort_field: 'num_families:descending', label: 'Number of families in motif  \u2193'},
-        { type: 'motif', sort_field: 'num_families', label: 'Number of families in motif  \u2191'},
+        { type: 'motif', sort_field: 'num_families', label: 'Number of families in motif  \u2191' },
+        
+        // search_type = 'sequence'
         { type: 'sequence', sort_field: 'bit_score:descending', label: 'Bit score  \u2193'},
         { type: 'sequence', sort_field: 'bit_score', label: 'Bit score  \u2191'},
         { type: 'sequence', sort_field: 'evalue_score:descending', label: 'E-value score  \u2193'},
-        { type: 'sequence', sort_field: 'evalue_score', label: 'E-value score  \u2191'},
+        { type: 'sequence', sort_field: 'evalue_score', label: 'E-value score  \u2191' },
+        
+        // search_type = 'all'
         { type: 'all', sort_field: 'id:descending', label: 'Accession  \u2193'},
-        { type: 'all', sort_field: 'id', label: 'Accession  \u2191'},
+        { type: 'all', sort_field: 'id', label: 'Accession  \u2191' },
+        { type: 'all', sort_field: 'num_seed:descending', label: 'Number of seed alignment sequences  \u2193'},
+        { type: 'all', sort_field: 'num_seed', label: 'Number of seed alignment sequences  \u2191' },
+        { type: 'all', sort_field: 'num_rfam_hits:descending', label: 'Number of families in genome  \u2193'},
+        { type: 'all', sort_field: 'num_rfam_hits', label: 'Number of families in genome  \u2191' },
+        { type: 'all', sort_field: 'length:descending', label: 'Genome length  \u2193'},
+        { type: 'all', sort_field: 'length', label: 'Genome length  \u2191' },
+        { type: 'all', sort_field: 'num_3d_structures:descending', label: 'Number of 3d structures  \u2193'},
+        { type: 'all', sort_field: 'num_3d_structures', label: 'Number of 3d structures  \u2191'},
+        { type: 'all', sort_field: 'num_species:descending', label: 'Number of species  \u2193'},
+        { type: 'all', sort_field: 'num_species', label: 'Number of species  \u2191'},
+        { type: 'all', sort_field: 'num_full:descending', label: 'Number of full alignment sequences  \u2193'},
+        { type: 'all', sort_field: 'num_full', label: 'Number of full alignment sequences  \u2191'},
+        { type: 'all', sort_field: 'num_families:descending', label: 'Number of families in genome  \u2193'},
+        { type: 'all', sort_field: 'num_families', label: 'Number of families in genome  \u2191'},
+        { type: 'all', sort_field: 'bit_score:descending', label: 'Bit score  \u2193'},
+        { type: 'all', sort_field: 'bit_score', label: 'Bit score  \u2191'},
+        { type: 'all', sort_field: 'evalue_score:descending', label: 'E-value score  \u2193'},
+        { type: 'all', sort_field: 'evalue_score', label: 'E-value score  \u2191'},
     ];
     $scope.params = {
         selectedOrdering: $scope.ordering[0],
