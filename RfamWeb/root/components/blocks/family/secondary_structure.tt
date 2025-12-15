@@ -206,14 +206,14 @@ labels = [
           </div>
           <p id="rscape-msg"></p>
         </div>
-        <div id="rscape-svg-cyk" class="rscape-svg-container">
+        <div id="rscape-svg-cacofold" class="rscape-svg-container">
           <h3>R-scape optimised structure</h3>
           <div class="rscape-loading">
               <img alt="Loading..."
                    src="[% c.uri_for( "/static/images/zoomloader.gif" ) %]"/>
               Loading...
           </div>
-          <p id="rscape-msg-cyk"></p>
+          <p id="rscape-msg-cacofold"></p>
         </div>
 
         <div id="rchieKey" class="rscape-key">
@@ -289,9 +289,9 @@ labels = [
     <script>
       jQuery(document).ready(function(){
           var rscape_url = "[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]",
-              rscape_url_cyk = "[% c.uri_for( '/family', acc, 'image', 'rscape-cyk' ) | html -%]";
+              rscape_url_cacofold = "[% c.uri_for( '/family', acc, 'image', 'rscape-cacofold' ) | html -%]";
           load_rscape(rscape_url, '#rscape-svg', '#rscape-msg');
-          load_rscape(rscape_url_cyk, '#rscape-svg-cyk', '#rscape-msg-cyk');
+          load_rscape(rscape_url_cacofold, '#rscape-svg-cacofold', '#rscape-msg-cacofold');
       });
     </script>
 
