@@ -1,11 +1,12 @@
 # Base image https://hub.docker.com/_/perl/
 FROM perl:5.38
 
-# Install system dependencies
+# Install system dependencies INCLUDING INFERNAL (contains esl-reformat)
 RUN apt-get update && apt-get install -y \
     libgd-dev \
     git \
     pkg-config \
+    infernal \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
