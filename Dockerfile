@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     git \
     pkg-config \
     infernal \
+    && ln -s /usr/lib/aarch64-linux-gnu/infernal/examples/easel/miniapps/esl-reformat /usr/bin/esl-reformat \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
