@@ -1,13 +1,16 @@
 # Base image https://hub.docker.com/_/perl/
 FROM perl:5.38
 
-# Install system dependencies
+# Install system dependencies INCLUDING INFERNAL (contains esl-reformat)
 RUN apt-get update && apt-get install -y \
     libgd-dev \
     git \
     pkg-config \
+    infernal \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && ARCH=$(dpkg --print-architecture | sed 's/amd64/x86_64/') \
+    && ln -s /usr/lib/${ARCH}-linux-gnu/infernal/examples/easel/miniapps/esl-reformat /usr/bin/esl-reformat
 
 # Install cpanm
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
