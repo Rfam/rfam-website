@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     infernal \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && ARCH=$(dpkg --print-architecture) \
+    && ARCH=$(dpkg --print-architecture | sed 's/amd64/x86_64/') \
     && ln -s /usr/lib/${ARCH}-linux-gnu/infernal/examples/easel/miniapps/esl-reformat /usr/bin/esl-reformat
 
 # Install cpanm
