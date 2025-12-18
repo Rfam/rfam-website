@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y \
     libexpat1-dev \
     libxml2-dev \
     libxslt1-dev \
-    libmysqlclient-dev \
-    default-libmysqlclient-dev \
+    libmariadb-dev \
+    libmariadb-dev-compat \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
