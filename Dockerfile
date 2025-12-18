@@ -46,6 +46,9 @@ RUN cpanm --notest \
     SQL::Translator
 
 # Web Server Modules
+# Force install HTTP::Parser::XS first
+RUN cpanm --force HTTP::Parser::XS
+
 RUN cpanm --notest \
     Plack \
     Starman \
