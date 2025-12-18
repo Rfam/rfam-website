@@ -3,9 +3,17 @@ FROM perl:5.38
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    build-essential \
     libgd-dev \
     git \
     pkg-config \
+    libssl-dev \
+    zlib1g-dev \
+    uuid-dev \
+    libuuid1 \
+    libexpat1-dev \
+    libxml2-dev \
+    libxslt1-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
