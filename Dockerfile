@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     libexpat1-dev \
     libxml2-dev \
     libxslt1-dev \
+    libmysqlclient-dev \
+    default-libmysqlclient-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -22,7 +24,7 @@ RUN curl -L http://cpanmin.us | perl - App::cpanminus
 
 # Install all working modules in logical groups
 # Core Catalyst Framework
-RUN cpanm --notest \
+RUN cpanm --verbose --notest \
     Catalyst::Runtime \
     Catalyst::Devel \
     Catalyst::ScriptRunner \
