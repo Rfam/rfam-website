@@ -22,7 +22,8 @@ class DataLoader {
             const msaData = {
                 sequences: data.sequences || [],
                 consensus: data.consensus || undefined,
-                notation: data.notation || undefined
+                notation: data.notation || undefined,
+                sequenceCount: data.sequenceCount || (data.sequences || []).length
             };
             return msaData;
         }
@@ -221,7 +222,10 @@ class NavigationTrack extends BaseTrack {
       <div style="display: flex; align-items: center;">
         <div style="width: ${this.config.labelWidth}px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px;">
           <div class="sequence-info">
-            ${this.config.sequenceLength.toLocaleString()} positions
+            ${this.data.msaData.sequenceCount ? this.data.msaData.sequenceCount.toLocaleString() : 0} sequences
+          </div>
+          <div class="sequence-info" style="margin-top: 8px; margin-bottom: 4px;">
+          ${this.config.sequenceLength.toLocaleString()} positions            
           </div>
           <div class="zoom-controls">
             <button class="zoom-btn zoom-out-btn" title="Zoom out (Ctrl + mouse wheel down)">
@@ -427,7 +431,7 @@ class LinksTrack extends BaseTrack {
         return `
       <div style="display: flex; align-items: center;">
         <div style="width: ${this.config.labelWidth}px; flex-shrink: 0;">
-          Secondary Structure
+          Interactive secondary structure
         </div>
         <div style="position: relative; flex: 1; overflow: hidden;">
           <nightingale-links
@@ -863,7 +867,7 @@ class MSAViewer extends HTMLElement {
             this._linksTrack = new LinksTrack(trackConfig, trackData);
             this._secondaryStructureTrack = new SequenceTrack({
                 ...trackConfig,
-                label: 'Notation',
+                label: 'Secondary structure consensus',
                 dataSource: 'notation',
                 sequenceName: 'Notation'
             }, trackData);
@@ -872,7 +876,7 @@ class MSAViewer extends HTMLElement {
         if (this._data.consensus) {
             this._consensusTrack = new SequenceTrack({
                 ...trackConfig,
-                label: 'Consensus',
+                label: 'Consensus sequence',
                 dataSource: 'consensus',
                 sequenceName: 'Consensus'
             }, trackData);
