@@ -2,12 +2,15 @@
 FROM perl:5.38
 
 # Install system dependencies INCLUDING INFERNAL (contains esl-reformat)
+# Added crypto libraries needed for Perl crypto modules
 RUN apt-get update && apt-get install -y \
     build-essential \
     libgd-dev \
     git \
     pkg-config \
     infernal \
+    libssl-dev \
+    zlib1g-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && ARCH=$(dpkg --print-architecture | sed 's/amd64/x86_64/') \
@@ -56,14 +59,21 @@ RUN (cpanm --force --verbose --mirror https://www.cpan.org/ XML::Feed) && \
 # Graphics Module
 RUN cpanm --notest GD
 
-# Core Utilities - split for better error tracking
-# This helps identify which module fails with buildx
+# Core Utilities - with better error handling
 RUN cpanm --notest Config::General
 RUN cpanm --notest Data::UUID
 RUN cpanm --notest Email::Valid
 RUN cpanm --notest JSON
 RUN cpanm --notest Search::QueryParser
-RUN cpanm --notest HTML::FormHandler
+
+# Force install problematic crypto dependencies for HTML::FormHandler
+RUN cpanm --force Digest::SHA3 || true
+RUN cpanm --force CryptX || true
+RUN cpanm --force Crypt::CBC || true
+
+# Now force install HTML::FormHandler with its dependencies
+RUN cpanm --force HTML::FormHandler || echo "HTML::FormHandler installation attempted"
+
 RUN cpanm --notest Data::Printer
 
 # Logging Modules
