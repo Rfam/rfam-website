@@ -56,15 +56,15 @@ RUN (cpanm --force --verbose --mirror https://www.cpan.org/ XML::Feed) && \
 # Graphics Module
 RUN cpanm --notest GD
 
-# Core Utilities
-RUN cpanm --notest \
-    Config::General \
-    Data::UUID \
-    Email::Valid \
-    JSON \
-    Search::QueryParser \
-    HTML::FormHandler::Moose \
-    Data::Printer
+# Core Utilities - split for better error tracking
+# This helps identify which module fails with buildx
+RUN cpanm --notest Config::General
+RUN cpanm --notest Data::UUID
+RUN cpanm --notest Email::Valid
+RUN cpanm --notest JSON
+RUN cpanm --notest Search::QueryParser
+RUN cpanm --notest HTML::FormHandler
+RUN cpanm --notest Data::Printer
 
 # Logging Modules
 RUN cpanm --notest \
