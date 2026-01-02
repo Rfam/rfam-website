@@ -45,37 +45,36 @@ IF refreshUri != "";
      for tree viewing directly from yahoo
 -->
 
-<!-- Critical: YUI core for tabs (load first, synchronously) -->
-<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
-<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/tabview/tabview-min.js"></script>
-<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/history/history-min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://yui-s.yahooapis.com/2.8.0r4/build/tabview/assets/skins/sam/tabview.css"/>
-
-<!-- prototype (required for sharedFunctions.js TabPage class) -->
+<!-- prototype / scriptaculous / jQuery -->
 <script type='text/javascript' src='[% staticUri %]/javascripts/prototype-1.7.3.js'></script>
-
-<!-- Non-critical: defer loading -->
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/scriptaculous-1.8.3/src/scriptaculous.js'></script>
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/jquery-1.8.3.min.js'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/scriptaculous-1.8.3/src/scriptaculous.js'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/jquery-1.8.3.min.js'></script>
 
 <script type="text/javascript">
-  if (typeof jQuery !== 'undefined') { jQuery.noConflict(); }
+  jQuery.noConflict();
 </script>
 
-<!-- YUI TreeView (defer - not needed for initial tab display) -->
-<script defer type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/treeview/treeview-min.js"></script>
+<!-- YUI -->
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
+
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/tabview/tabview-min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://yui-s.yahooapis.com/2.8.0r4/build/tabview/assets/skins/sam/tabview.css"/>
+
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/treeview/treeview-min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://yui-s.yahooapis.com/2.8.0r4/build/treeview/assets/skins/sam/treeview.css" />
 
-<!-- prototip (defer - for tooltips, not critical for initial display) -->
-<script defer type='text/javascript' src='[% sharedUri %]/javascripts/prototip.js'></script>
+<script type="text/javascript" src="https://yui-s.yahooapis.com/2.8.0r4/build/history/history-min.js"></script>
+
+<!-- prototip -->
+<script type='text/javascript' src='[% sharedUri %]/javascripts/prototip.js'></script>
 <link rel='stylesheet' href='[% sharedUri %]/css/prototip.css' type='text/css' />
 
-<!-- d3 (defer - for visualizations) -->
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/d3.min.js'></script>
+<!-- d3 -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/d3.min.js'></script>
 
-<!-- svg-pan-zoom (defer - for interactive SVGs) -->
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/svg-pan-zoom.min.js'></script>
+<!-- svg-pan-zoom -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/svg-pan-zoom.min.js'></script>
 
 <!-- ====================================================================== -->
 <!-- local javascript files -->
@@ -84,24 +83,24 @@ IF refreshUri != "";
 <script type="text/javascript" src="[% sharedUri %]/javascripts/sharedFunctions.js?20210208000000"></script>
 <script type="text/javascript" src="[% staticUri %]/javascripts/get_fasta.js?20210208000000"></script>
 
-<!-- humanize (defer) -->
-<script defer type="text/javascript" src="[% staticUri %]/javascripts/humanize.js"></script>
+<!-- humanize -->
+<script type="text/javascript" src="[% staticUri %]/javascripts/humanize.js"></script>
 
-<!-- Angular text search (defer - only used for search functionality) -->
+<!-- Angular text search -->
 <base href="/"/>
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/angular/angular.min.js?20210208000000'></script>
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.js?20210208000000'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/angular/angular.min.js?20210208000000'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.js?20210208000000'></script>
 <link rel='stylesheet' href='[% staticUri %]/javascripts/angular/loading-bar/loading-bar.css?20210208000000' type='text/css' />
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/angular/json3/json3.min.js'></script>
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/underscore-min.js'></script>
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20210208000000'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/angular/json3/json3.min.js'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/underscore-min.js'></script>
+<script type='text/javascript' src='[% staticUri %]/javascripts/text-search.js?20210208000000'></script>
 <link rel="stylesheet" href="[% staticUri %]/css/font-awesome/css/font-awesome.min.css" type="text/css" />
 
-<!-- GDPR (defer) -->
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/ebiFrameworkNotificationBanner.js'></script>
+<!-- GDPR -->
+<script type='text/javascript' src='[% staticUri %]/javascripts/ebiFrameworkNotificationBanner.js'></script>
 
-<!-- Wikipedia widget (defer) -->
-<script defer type='text/javascript' src='[% staticUri %]/javascripts/jquery.wikiblurb.js'></script>
+
+<script type='text/javascript' src='[% staticUri %]/javascripts/jquery.wikiblurb.js'></script>
 
 <!-- ====================================================================== -->
 <!-- local stylesheets -->
