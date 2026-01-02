@@ -50,7 +50,11 @@ spec:
           RewriteCond %{HTTP_HOST} !^{{ .Values.url.hostname }}$
           RewriteRule .* - [E=PROTO:http]
           
-          ProxyPass / http://rfam-website-service:80/
+          # Proxy timeout and buffer settings to prevent "Error reading from remote server"
+          ProxyTimeout 300
+          ProxyBadHeader Ignore
+
+          ProxyPass / http://rfam-website-service:80/ timeout=300 connectiontimeout=30
           ProxyPassReverse / http://rfam-website-service:80/
           ProxyPreserveHost On
           

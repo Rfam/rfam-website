@@ -25,10 +25,13 @@ requirements.cssIe.push( "tab_layout_ie.css" );
 #--------------------------------------
 # a BLOCK that will generate a sidebar tab
 
-BLOCK generateTab; -%]
+BLOCK generateTab;
+  # Calculate tab index (0-based for YUI History manager)
+  tabIndex = index - 1;
+-%]
   <li id="[% blockName %]Selector"
       class="[% IF index == 1; 'selected'; END; IF NOT active; ' disabled'; END %]">
-    <a href="#[% blockName %]">[% blockTitle %]</a>
+    <a href="#tabview=tab[% tabIndex %]">[% blockTitle %]</a>
   </li>
 [% END; # of BLOCK
 
