@@ -28,9 +28,20 @@ ELSE;
       <title>[% c.config.title %]: [% PROCESS $titleFile titleType="page" %]</title>
     [% ELSE -%]
       <title>[% c.config.title %]</title>
-    [% END;
+    [% END -%]
 
-    # import javascripts, stylesheets, etc.
+    [%# Critical inline CSS to hide tabs before external CSS/JS loads %]
+    <style>
+      /* Hide all tab panels except first - applied immediately before JS loads */
+      #content.yui-content > div.block { display: none !important; visibility: hidden !important; }
+      #content.yui-content > div.block:first-of-type { display: block !important; visibility: visible !important; }
+      /* YUI TabView uses yui-hidden class for non-active tabs */
+      .yui-hidden { display: none !important; visibility: hidden !important; }
+      /* When JS runs and sets inline style, respect it */
+      #content.yui-content > div.block[style*="display: block"] { display: block !important; visibility: visible !important; }
+    </style>
+
+    [%# import javascripts, stylesheets, etc.
     PROCESS components/head.tt -%]
   </head>
 

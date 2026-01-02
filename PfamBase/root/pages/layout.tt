@@ -137,6 +137,68 @@ END;
   var section    = "[% pageType # the site section, e.g. family, protein, etc. %]";
   var showTab    = "[% showTab  # the tab, specified by a parameter %]";
 
+  // Immediate tab switching before YUI loads - handles hash-based navigation
+  (function() {
+    function showTabByIndex(index) {
+      var content = document.getElementById('content');
+      var sidebar = document.getElementById('sidebar');
+      if (!content || !sidebar) return;
+
+      var panels = content.querySelectorAll(':scope > div.block');
+      var tabs = sidebar.querySelectorAll('li');
+
+      panels.forEach(function(panel, i) {
+        if (i === index) {
+          panel.style.display = 'block';
+          panel.style.visibility = 'visible';
+        } else {
+          panel.style.display = 'none';
+          panel.style.visibility = 'hidden';
+        }
+      });
+
+      tabs.forEach(function(tab, i) {
+        if (i === index) {
+          tab.className = tab.className.replace(/\bselected\b/g, '').trim() + ' selected';
+        } else {
+          tab.className = tab.className.replace(/\bselected\b/g, '').trim();
+        }
+      });
+    }
+
+    function handleHash() {
+      var hash = window.location.hash;
+      var match = hash.match(/tabview=tab(\d+)/);
+      if (match) {
+        showTabByIndex(parseInt(match[1], 10));
+      }
+    }
+
+    // Handle initial hash on page load
+    if (window.location.hash) {
+      // Run immediately if DOM is ready, otherwise wait
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', handleHash);
+      } else {
+        handleHash();
+      }
+    }
+
+    // Handle hash changes (back/forward navigation)
+    window.addEventListener('hashchange', handleHash);
+
+    // Handle sidebar clicks immediately
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('#sidebar a[href^="#tabview=tab"]');
+      if (link) {
+        var match = link.getAttribute('href').match(/tabview=tab(\d+)/);
+        if (match) {
+          showTabByIndex(parseInt(match[1], 10));
+        }
+      }
+    });
+  })();
+
   var tabPage;
   document.observe( "dom:loaded", function() {
 

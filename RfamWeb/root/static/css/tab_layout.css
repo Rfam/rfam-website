@@ -159,31 +159,6 @@ div.disabled #specIcon   { background-image: url(/static/images/logos/tree_disab
   border-top: 1px solid #621700;
 }
 
-/* Hide all tab content by default until JS initializes */
-#content > div {
-  display: none;
-}
-
-/* Show first tab by default (before JS loads) */
-#content > div:first-child {
-  display: block;
-}
-
-/* Once YUI TabView initializes, it controls visibility via yui-hidden class */
-#content > div.yui-hidden {
-  display: none !important;
-}
-
-/* Ensure active tab is shown when YUI is ready */
-.yui-navset .yui-content > div {
-  display: none;
-}
-
-.yui-navset .yui-content > .selected,
-.yui-navset .yui-content > div[style*="display: block"] {
-  display: block !important;
-}
-
 #sidebar {
   width: 15%;
   float: left;
