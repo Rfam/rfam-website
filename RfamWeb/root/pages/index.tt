@@ -165,7 +165,7 @@ sharedUri = c.uri_for( "/shared" );
                   </p>
                   <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
                      <li><a href="https://xfam.wordpress.com/tag/rfam/" target="_blank"><i class="fa fa-bookmark-o"></i> Subscribe to Rfam Blog</a></li>
-                     <li><span class="label label-success">New</span> <a href="https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaa1047/5992291" target="_blank">Read new Rfam NAR paper</a>
+                     <li><span class="label label-success">New</span> <a href="https://academic.oup.com/nar/article/53/D1/D258/7889252" target="_blank">Read new Rfam NAR paper</a>
                      <li>
                   </ul>
                </div>
