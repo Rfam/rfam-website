@@ -160,12 +160,12 @@ sharedUri = c.uri_for( "/shared" );
                <div class="panel-body">
                   <p class="margin-top-5px">
                      <a href="https://xfam.wordpress.com/tag/rfam/" class="thumbnail">
-                     <img class="hvr-grow" src="[% staticUri %]/images/release-images/release-15-0.jpg" alt="Release announcement">
+                     <img class="hvr-grow" src="[% staticUri %]/images/release-images/release-15-1.jpg" alt="Release announcement">
                      </a>
                   </p>
                   <ul class="list-inline margin-top-5px" style="margin-left: 5px;">
                      <li><a href="https://xfam.wordpress.com/tag/rfam/" target="_blank"><i class="fa fa-bookmark-o"></i> Subscribe to Rfam Blog</a></li>
-                     <li><span class="label label-success">New</span> <a href="https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaa1047/5992291" target="_blank">Read new Rfam NAR paper</a>
+                     <li><span class="label label-success">New</span> <a href="https://academic.oup.com/nar/article/53/D1/D258/7889252" target="_blank">Read new Rfam NAR paper</a>
                      <li>
                   </ul>
                </div>
@@ -222,7 +222,7 @@ sharedUri = c.uri_for( "/shared" );
             <div class="panel-body">
                <p class="margin-top-5px">
                   <a href="/3d" class="thumbnail">
-                  <img class="hvr-grow" src="[% staticUri %]/images/3d-families.png" alt="Rfam 3D families graph" style="width: 80%">
+                  <img class="hvr-grow" src="[% staticUri %]/images/3d-families.jpg" alt="Rfam 3D families graph" style="width: 80%">
                   </a>
                </p>
                <p class="lead text-center">

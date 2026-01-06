@@ -133,6 +133,7 @@ sharedUri = c.uri_for( "/shared" );
                   <td>Sarbecovirus-3UTR </td>
                   <td>Sarbecovirus 3'UTR</td>
                 </tr>
+                <tr>                 
               </table>
             </div>
           </div> <!-- row -->
@@ -294,6 +295,30 @@ sharedUri = c.uri_for( "/shared" );
                   <td><a href="/family/RF03536">RF03536</a></td>
                   <td>Flavi_TBFV_xrRNA</td>
                   <td>Tick-borne Flavivirus exoribonuclease-resistant RNA element</td>
+                </tr>
+                <td><a href="/family/RF00209">RF00209</a></td>
+                <td>IRES_Pesti</td>
+                <td>Pestivirus internal ribosome entry site (IRES) including 5'UTR SLI</td>
+                </tr>
+                 <tr>
+                 <td><a href="/family/RF04322">RF04322</a></td>
+                <td>Pestivirus-3UTR-SLI</td>
+                <td>Pestivirus 3' UTR SLI</td>
+                </tr>
+                 <tr>
+                 <td><a href="/family/RF04323">RF04323</a></td>
+                <td>Pestivirus-3UTR-SLIV-SLII-BVDV-1</td>
+                <td>Pestivirus 3' UTR SLIV, SLIII and SLII classical swine fever virus</td>
+                </tr>
+                 <tr>
+                 <td><a href="/family/RF04324">RF04324</a></td>
+                <td>Pestivirus-3UTR-SLIV-SLIII-SLII-CSFV</td>
+                <td>Pestivirus 3' UTR SLIV, SLIII and SLII classical swine fever virus</td>
+                </tr>
+                 <tr>
+                <td><a href="/family/RF04325">RF04325</a></td>
+                <td>Pestivirus-3UTR-SLIII-scrofae</td>
+                <td>Pestivirus 3' UTR SLIII P. scrofae Atypical porcine pestivirus</td>
                 </tr>
               </table>
             </div>
