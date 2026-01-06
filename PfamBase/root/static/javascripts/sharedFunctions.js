@@ -426,7 +426,8 @@ var TabPage = Class.create( {
       // don't capture events that originate on an input or textarea
       var targetNodeType = e.findElement().nodeName;
       if ( targetNodeType == 'INPUT' ||
-           targetNodeType == 'TEXTAREA' ) {
+           targetNodeType == 'TEXTAREA' ||
+           targetNodeType == 'RNACENTRAL-SEQUENCE-SEARCH' ) {
         return;
       }
 
