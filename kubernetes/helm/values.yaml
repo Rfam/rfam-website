@@ -17,10 +17,6 @@ apache:
 url:
   hostname: rfam.org
 
-# EBI Search configuration
-ebiSearch:
-  url: "http://www.ebi.ac.uk"
-
 # Database secret
 database:
   secretName: db-pro
