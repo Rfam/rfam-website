@@ -222,7 +222,7 @@ sharedUri = c.uri_for( "/shared" );
             <div class="panel-body">
                <p class="margin-top-5px">
                   <a href="/3d" class="thumbnail">
-                  <img class="hvr-grow" src="[% staticUri %]/images/3d-families.png" alt="Rfam 3D families graph" style="width: 80%">
+                  <img class="hvr-grow" src="[% staticUri %]/images/3d-families.jpg" alt="Rfam 3D families graph" style="width: 80%">
                   </a>
                </p>
                <p class="lead text-center">
