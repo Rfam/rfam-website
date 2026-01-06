@@ -52,6 +52,10 @@ spec:
           value: "/src/RfamWeb:/src/Rfam/Schemata:/src/PfamBase/lib:/src/PfamLib:/src/PfamSchemata"
         - name: RFAMWEB_CONFIG
           value: "/src/RfamWeb/config/rfamweb.conf"
+
+        # EBI Search URL (wwwdev for preview, www for production)
+        - name: EBI_SEARCH_URL
+          value: {{ .Values.ebiSearch.url | quote }}
         
         # URL fixing - Remove hardcoded HTTPS base URI
         - name: CATALYST_BEHIND_PROXY
