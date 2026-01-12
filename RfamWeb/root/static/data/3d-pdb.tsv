@@ -8,10 +8,13 @@ RF00032	Histone 3' UTR stem-loop	"1JU7,1JWC,4L8R,4QOZ,4TUW,4TUX,4TV0"
 RF00037	Iron response element I	3SNP
 RF00044	3WJ core of Phi29 Bacteriophage pRNA	"1FOQ,6QYZ,7JQQ"
 RF00050	FMN riboswitch aptamer (RFN element)	"3F2Q,3F2T,3F2W,3F2X,3F2Y,3F30,6WJR,6WJS"
+RF00051	Mir-17	9OBM
 RF00059	TPP riboswitch aptamer (THI element)	"2CKY,2GDI,2HOJ,2HOK,2HOL,2HOM,2HOO,2HOP,3D2G,3D2V,3D2X,3K0J,4NYA,4NYB,4NYC,4NYD,4NYG,7TD7,7TDA,7TDB,7TDC,7TZR,7TZS,7TZT,7TZU"
+RF00083	GlmZ_SraJ	"8B0I,8B0J"
 RF00102	VA RNA	6OL3
 RF00162	SAM riboswitch aptamer (S box leader)	"2GIS,2YDH,2YGH,3GX2,3GX3,3GX5,3GX6,3GX7,3IQN,3IQP,3IQR,3V7E,4AOB,4B5R,4KQY,5FJC,5FK1,5FK2,5FK3,5FK4,5FK5,5FK6,5FKD,5FKE,5FKF,5FKG,5FKH,7EAF"
 RF00164	Coronavirus 3' stem-loop II-like motif (s2m)	1XJR
+RF00166	rsmZ	"2MF0,2MF1,7YR6,7YR7"
 RF00174	Cobalamin riboswitch aptamer	"4GMA,4GXY,6VMY,8FW4,8SA2,8SA3,8SA4,8SA5,8SA6"
 RF00207	K10 transport/localisation element (TLS)	"2KE6,2KUR,2KUU,2KUV,2KUW"
 RF00233	Tymovirus/Pomovirus/Furovirus tRNA-like 3' UTR element	"4P5J,6MJ0"
@@ -19,7 +22,9 @@ RF00254	mir-16 microRNA precursor family	"6LXD,6V5B,6V5C"
 RF00374	Gammaretrovirus core encapsidation signal	"1S9S,1U6P,2L1F"
 RF00375	HIV primer binding site (PBS)	"6WB0,6WB1,6WB2,7LVA"
 RF00380	M-box riboswitch aptamer (ykoK leader)	"2QBZ,3PDR"
+RF00390	UPSK RNA	6MJ0
 RF00442	Guanidine-I riboswitch aptamer	"5T83,5U3G,7MLW"
+RF00458	IRES Cripavirus	"2IL9,2NOQ,4D5N,4D61,4V92,4XEJ,5IT9,7JQC,6D90,6D9J,7ZJW,7ZJX,5IT7"
 RF00480	HIV Ribosomal frameshift signal	"1Z2J,2L94,6VWL,6VWM,6VWN"
 RF00505	RydC RNA	4V2S
 RF00507	Coronavirus frameshifting stimulation element	6XRZ
@@ -32,6 +37,7 @@ RF01073	Gag/pol translational readthrough site	2LC8
 RF01084	Pseudoknot of tRNA-like structure	"7SAM,7SC6,7SCQ"
 RF01415	Flavivirus 3'UTR stem loop IV	4PQV
 RF01510	2dG-I riboswitch aptamer (M. florum)	"3SKI,3SKZ,3SLM,3SLQ"
+RF01684	MALAT	8V1
 RF01689	AdoCbl-II (Cobalamin/B12) riboswitch aptamer	"4FRG,4FRN"
 RF01704	Glutamine-II riboswitch aptamer	6QN3
 RF01725	SAM-I/IV (S-adenosyl methionine) riboswitch aptamer	"4L81,4OQU"
@@ -48,6 +54,7 @@ RF01857	Archaeal signal recognition particle RNA	3NDB
 RF02095	mir-2985-2 microRNA precursor	2L3J
 RF02253	Iron response element II	3SN2
 RF02340	Dengue virus SLA	"7LYF,7LYG,7UMC,8GZP,8GZQ"
+RF02348	Trans-acting crRNA	"6MCB,6MCC,7V59"
 RF02519	ToxI antitoxin	4ATO
 RF02521	Panicum mosaic virus cap-independent translation enhancer RNA (PTE)	8SH5
 RF02553	Y RNA-like	6CU1
@@ -57,18 +64,11 @@ RF02680	PreQ1-III (pre queuosine) riboswitch aptamer	"4RZD,6XKN,6XKO"
 RF02681	Twister_sister_ribozyme	5T5A
 RF02683	NiCo (Nickel/Cobalt) riboswitch aptamer	4RUM
 RF02796	Pab160 RNA	"3HJW,3LWO,3LWP,3LWQ,3LWR,3LWV"
+RF02926	DUF2693-FD	9G4R
 RF02977	THF-II riboswitch (folE RNA)	"7WI9,7WIB,7WIE,7WIF,7WII"
 RF03013	nadA riboswitch	"6TB7,6TF0,6TF1,6TF2,6TF3,6TFE,6TFF,6TFG,6TFH,7D7V,7D7W,7D7X,7D7Y,7D7Z,7D81,7D82"
+RF03022	Phage_DGR	"8UBA,8UBB,8UBC,8UBD,8UBE,8UBF,8UB7,8UB8,8UB9"
+RF03030	salivarius-1	9G4Q
 RF03054	Xanthine riboswitch aptamer (NMT1 RNA)	"7ELP,7ELQ,7ELR,7ELS"
 RF03167	c-di-GMP-I-GGC riboswitch aptamer	"3IRW,3IWN,3MXH,3UCU,3UCZ"
-RF04222	Flavivirus Potato leading responsible virus exoribonuclease-resistant RNA	7JJU
-RF02348	Trans-acting crRNA	"6MCB,6MCC,7V59"
-RF01684	MALAT	8V1I
-RF00458	IRES Cripavirus	"2IL9,2NOQ,4D5N,4D61,4V92,4XEJ,5IT9,7JQC,6D90,6D9J,7ZJW,7ZJX,5IT7"
-RF00083	GlmZ_SraJ	"8B0I,8B0J"
-RF00390	UPSK RNA	6MJ0
-RF00051	Mir-17	9OBM
-RF02926	DUF2693-FD	9G4R
-RF03030	salivarius-1	9G4Q
-RF00166	rsmZ	"2MF0,2MF1,7YR6,7YR7"
-RF03022	Phage_DGR	"8UBA,8UBB,8UBC,8UBD,8UBE,8UBF,8UB7,8UB8,8UB9"
+RF04326	Flavivirus Potato leading responsible virus exoribonuclease-resistant RNA	7JJU
