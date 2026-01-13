@@ -289,9 +289,9 @@ labels = [
     <script>
       jQuery(document).ready(function(){
           var rscape_url = "[% c.uri_for( '/family', acc, 'image', 'rscape' ) | html -%]",
-              rscape_url_cyk = "[% c.uri_for( '/family', acc, 'image', 'rscape-cyk' ) | html -%]";
+              rscape_url_cacofold = "[% c.uri_for( '/family', acc, 'image', 'rscape-cacofold' ) | html -%]";
           load_rscape(rscape_url, '#rscape-svg', '#rscape-msg');
-          load_rscape(rscape_url_cyk, '#rscape-svg-cyk', '#rscape-msg-cyk');
+          load_rscape(rscape_url_cacofold, '#rscape-svg-cyk', '#rscape-msg-cyk');
       });
     </script>
 
