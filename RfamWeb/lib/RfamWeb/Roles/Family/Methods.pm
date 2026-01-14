@@ -175,8 +175,8 @@ sub image : Chained( 'family' )
             PathPart( 'image' )
             Args( 1 ) {
   my ( $this, $c, $type ) = @_;
-  
-  
+
+
   $c->res->header('Access-Control-Allow-Origin' => '*');
   $c->res->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
   $c->res->header('Access-Control-Allow-Headers' => 'Content-Type');
@@ -184,6 +184,14 @@ sub image : Chained( 'family' )
   if ( $c->req->method eq 'OPTIONS' ) {
     $c->res->status(200);
     $c->res->body('');
+    return;
+  }
+
+  # Handle deprecated rscape-cyk endpoint
+  if ( defined $type and $type eq 'rscape-cyk' ) {
+    $c->res->status(410); # Gone
+    $c->res->content_type( 'application/json' );
+    $c->res->body( '{"error": "The image/rscape-cyk API has been renamed to image/rscape-cacofold. Please update your requests to use the new endpoint."}' );
     return;
   }
 
