@@ -73,8 +73,20 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
         show_error: false, // display error message
     };
 
+    /**
+     * Determine the EBI search endpoint based on environment.
+     * Use wwwdev.ebi.ac.uk for dev/preview environments, www.ebi.ac.uk for production.
+     */
+    function get_ebi_search_endpoint() {
+        var hostname = $location.host();
+        if (hostname.indexOf('preview') !== -1 || hostname.indexOf('localhost') !== -1) {
+            return 'http://wwwdev.ebi.ac.uk';
+        }
+        return global_settings.EBI_SEARCH_ENDPOINT;
+    }
+
     var search_config = {
-        ebeye_base_url: global_settings.EBI_SEARCH_ENDPOINT + '/ebisearch/ws/rest/rfam',
+        ebeye_base_url: get_ebi_search_endpoint() + '/ebisearch/ws/rest/rfam',
         fields: [
             'assembly_name',
             'common_name',
