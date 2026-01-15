@@ -28,7 +28,13 @@ IF refreshUri != "";
 
 <script>
   var global_settings = {
-    EBI_SEARCH_ENDPOINT: '[% c.config.ebi_search %]',
+    EBI_SEARCH_ENDPOINT: (function() {
+      var hostname = window.location.hostname;
+      if (hostname.indexOf('preview') !== -1 || hostname.indexOf('localhost') !== -1) {
+        return 'http://wwwdev.ebi.ac.uk';
+      }
+      return '[% c.config.ebi_search %]';
+    })(),
   };
 </script>
 
