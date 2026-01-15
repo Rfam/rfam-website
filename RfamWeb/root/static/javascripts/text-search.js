@@ -76,9 +76,10 @@ angular.module('rfamApp').service('results', ['_', '$http', '$location', '$windo
     /**
      * Determine the EBI search endpoint based on environment.
      * Use wwwdev.ebi.ac.uk for dev/preview environments, www.ebi.ac.uk for production.
+     * Uses window.location.hostname directly to ensure correct value during bootstrap.
      */
     function get_ebi_search_endpoint() {
-        var hostname = $location.host();
+        var hostname = window.location.hostname;
         if (hostname.indexOf('preview') !== -1 || hostname.indexOf('localhost') !== -1) {
             return 'http://wwwdev.ebi.ac.uk';
         }
